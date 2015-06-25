@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Nixzen\Http\Controllers\Auth;
 
-use App\User;
+use Nixzen\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use Nixzen\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller

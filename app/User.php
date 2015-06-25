@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Nixzen;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
