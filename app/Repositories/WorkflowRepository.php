@@ -1,7 +1,6 @@
 <?php namespace Nixzen\Repositories;
 
-use Bosnadev\Repositories\Contracts\RepositoryInterface;
-use Bosnadev\Repositories\Eloquent\Repository;
+use Nixzen\Repositories\Repository;
 
 class WorkflowRepository extends Repository{
 	
