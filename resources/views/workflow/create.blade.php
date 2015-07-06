@@ -28,7 +28,7 @@
 	</div>
 	<div class="form-group">
 		{!! Form::label('description', 'DESCRIPTION') !!}
-		{!! Form::textarea('description',null, ['class'=>'form-control input-sm']) !!}	
+		{!! Form::textarea('description',null, ['class'=>'form-control', 'rows'=>'4']) !!}	
 	</div>	
 </div>
 
@@ -40,7 +40,7 @@
 	</div>
 	<div class="form-group">
 		{!! Form::label('condition', 'CONDITION') !!}
-		{!! Form::textarea('condition',null, ['class'=>'form-control input-sm']) !!}	
+		{!! Form::textarea('condition',null, ['class'=>'form-control', 'rows'=>'4']) !!}	
 	</div>	
 </div>
 

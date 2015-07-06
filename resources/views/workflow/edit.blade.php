@@ -28,8 +28,8 @@
 		{!! Form::text('name', $workflow->name, ['class'=>'form-control input-sm']) !!}		
 	</div>
 	<div class="form-group">
-		{!! Form::label('description', 'descriptionTION') !!}
-		{!! Form::textarea('description',$workflow->description, ['class'=>'form-control input-sm']) !!}	
+		{!! Form::label('description', 'DESCRIPTION') !!}
+		{!! Form::textarea('description',$workflow->description, ['class'=>'form-control', 'rows'=>'3']) !!}	
 	</div>	
 </div>
 
@@ -41,7 +41,7 @@
 	</div>
 	<div class="form-group">
 		{!! Form::label('condition', 'CONDITION') !!}
-		{!! Form::textarea('condition',$workflow->condition, ['class'=>'form-control input-sm']) !!}	
+		{!! Form::textarea('condition',$workflow->condition, ['class'=>'form-control', 'rows'=>'3']) !!}	
 	</div>	
 </div>
 

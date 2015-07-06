@@ -18,14 +18,18 @@
 					<td>{!! Form::checkbox("inactive") !!}</td>
 				</tr>
 				<tr>
-					<td>
+					<td colspan="3">
 						<table>
 						<tbody>
 							<tr>
-								<td>{!! Form::button("Add", ["class"=>"btn btn-primary"]) !!}</td>
-								<td>{!! Form::button("Edit", ["class"=>"btn btn-default"]) !!}</td>
-								<td>{!! Form::button("Delete", ["class"=>"btn btn-default"]) !!}</td>
-								<td>{!! Form::button("Remove", ["class"=>"btn btn-default"]) !!}</td>
+								<td>
+									<div class="form-group">
+										{!! Form::button("Add", ["class"=>"btn btn-primary"]) !!}
+										{!! Form::button("Edit", ["class"=>"btn btn-default"]) !!}
+										{!! Form::button("Delete", ["class"=>"btn btn-default"]) !!}
+										{!! Form::button("Remove", ["class"=>"btn btn-default"]) !!}
+									</div>									
+								</td>
 							</tr>						
 						</tbody>
 						</table>
