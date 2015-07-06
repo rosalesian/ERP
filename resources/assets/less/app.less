@@ -1,1 +1,40 @@
+@import "bootstrap/bootstrap";
 
+@btn-font-weight: 300;
+@font-family-sans-serif: Open Sans,"Roboto", Helvetica, Arial, sans-serif;
+
+body, label, .checkbox label {
+	font-weight: 300;
+}
+
+@red-base: #96281B;
+
+@red: lighten(@red-base, 33.5%);
+
+@red-light:lighten(@red, 10.5%);
+
+@red-dark: darken(@red-base, 6.5%);
+
+@navbar-inverse-bg: @red-dark;
+
+@nav-link-hover-bg: @red;
+
+@nav-default-color: @red;
+
+@nav-tabs-border-color: @red;
+
+.nav-tabs{
+	background-color: @red;
+}
+
+.nav-tabs > li > a{
+	font-weight: bold;
+	color: #fff;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus  {
+	background-color: @red-light;
+	color: #fff;
+}

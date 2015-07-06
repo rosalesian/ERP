@@ -11,8 +11,8 @@ class WorkflowController extends Controller {
 
 	protected $workflow;
 
-	public function __construct(Workflow $workflow)
-	{
+		public function __construct(Workflow $workflow)
+		{
 		$this->workflow = $workflow;
 	}
 
@@ -24,7 +24,8 @@ class WorkflowController extends Controller {
 	public function index()
 	{
 		$workflows = $this->workflow->all();
-		return view('workflow.index')->with('workflows', $workflows);
+		dd($workflows);
+		return view('workflow.index');
 	}
 
 	/**
@@ -34,7 +35,7 @@ class WorkflowController extends Controller {
 	 */
 	public function create(RecordType $recordtype)
 	{
-		return view('workflow.create')->with('recordtypes', $recordtype->all()->lists('name', 'id'));
+		return view('workflow.create')->with('recordtypes', $recordtype->lists('name', 'id'));
 	}
 
 	/**
@@ -44,6 +45,7 @@ class WorkflowController extends Controller {
 	 */
 	public function store(Request $request)
 	{
+		dd($request->all());
 		$workflow = $this->workflow->create($request->all());
 		return redirect()->route('workflow.show', $workflow->id);
 	}
@@ -57,7 +59,6 @@ class WorkflowController extends Controller {
 	public function show($id, RecordType $recordtype)
 	{
 		$workflow = $this->workflow->find($id);
-		
 		return view('workflow.show')
 				->with('workflow', $workflow)
 				->with('recordtypes', $recordtype->all()->lists('name', 'id'));
@@ -69,10 +70,12 @@ class WorkflowController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($id, RecordType $recordtype)
 	{
 		$workflow = $this->workflow->find($id);
-		return view('workflow.edit')->with('workflow', $workflow);
+		return view('workflow.edit')
+				->with('workflow', $workflow)
+				->with('recordtypes', $recordtype->lists('name', 'id'));
 	}
 
 	/**
@@ -81,9 +84,12 @@ class WorkflowController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update($id, Request $request)
 	{
-		$workflow = $this->workflow->update($request, $id);
+		$input = $request->only(['name', 'description', 'condition', 'recordtype_id']);
+		
+		$this->workflow->update($input, $id);
+
 		return redirect()->route('workflow.show', $id);
 	}
 

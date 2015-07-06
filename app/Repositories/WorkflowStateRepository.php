@@ -3,10 +3,10 @@
 use Bosnadev\Repositories\Contracts\RepositoryInterface;
 use Bosnadev\Repositories\Eloquent\Repository;
 
-class WorkflowRepository extends Repository{
+class WorkflowStateRepository extends Repository{
 
 	public function model()
 	{
-		return 'Nixzen\Models\Workflow\Workflow';
+		return 'Nixzen\Models\Workflow\WorkflowState';
 	}
 }

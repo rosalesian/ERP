@@ -42,6 +42,7 @@ Route::group(['namespace' => 'Transaction'], function(){
 
 Route::group(['namespace' => 'Admin'], function(){
 	Route::resource('workflow', 'WorkflowController');
+	Route::resource('workflow/state', 'WorkflowStateController');
 });
 Route::get('dashboard', function(){
 	
@@ -56,5 +57,5 @@ Route::get('test', function(){
 });
 
 Route::get('testwf', function(){
-	return view('layouts.main');
+	return view('layouts.dashboard');
 });

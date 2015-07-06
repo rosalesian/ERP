@@ -8,8 +8,11 @@ class Repository extends BaseRepository {
 
 	public function __construct(/*Context $context*/){
 
-		parent::__construct();
+		$this->model->setConnection($context->getConnection);
+	}
 
-		//$this->model->setConnection($context->getConnection);
+	public function model()
+	{
+		return $this->$model_param;
 	}
 }
