@@ -57,5 +57,5 @@ Route::get('test', function(){
 });
 
 Route::get('testwf', function(){
-	return view('layouts.dashboard');
+	return view('layouts.default');
 });

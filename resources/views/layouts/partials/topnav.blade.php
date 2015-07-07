@@ -1,222 +1,111 @@
-{{-- nav bar --}}
-<nav class="navbar navbar-default top-navbar" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.html"><b>Nix</b>zen</a>
-    </div>
-
-    <ul class="nav navbar-top-links navbar-right">
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-messages">
-                <li>
-                    <a href="#">
-                        <div>
-                            <strong>John Doe</strong>
-                            <span class="pull-right text-muted">
-                                <em>Today</em>
-                            </span>
-                        </div>
-                        <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <strong>John Smith</strong>
-                            <span class="pull-right text-muted">
-                                <em>Yesterday</em>
-                            </span>
-                        </div>
-                        <div>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <strong>John Smith</strong>
-                            <span class="pull-right text-muted">
-                                <em>Yesterday</em>
-                            </span>
-                        </div>
-                        <div>Lorem Ipsum has been the industry's standard dummy text ever since the...</div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a class="text-center" href="#">
-                        <strong>Read All Messages</strong>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-            <!-- /.dropdown-messages -->
-        </li>
-        <!-- /.dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-tasks">
-                <li>
-                    <a href="#">
-                        <div>
-                            <p>
-                                <strong>Task 1</strong>
-                                <span class="pull-right text-muted">60% Complete</span>
-                            </p>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                    <span class="sr-only">60% Complete (success)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <p>
-                                <strong>Task 2</strong>
-                                <span class="pull-right text-muted">28% Complete</span>
-                            </p>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%">
-                                    <span class="sr-only">28% Complete</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <p>
-                                <strong>Task 3</strong>
-                                <span class="pull-right text-muted">60% Complete</span>
-                            </p>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                    <span class="sr-only">60% Complete (warning)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <p>
-                                <strong>Task 4</strong>
-                                <span class="pull-right text-muted">85% Complete</span>
-                            </p>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
-                                    <span class="sr-only">85% Complete (danger)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a class="text-center" href="#">
-                        <strong>See All Tasks</strong>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-            <!-- /.dropdown-tasks -->
-        </li>
-        <!-- /.dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-alerts">
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-comment fa-fw"></i> New Comment
-                            <span class="pull-right text-muted small">4 min</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                            <span class="pull-right text-muted small">12 min</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-envelope fa-fw"></i> Message Sent
-                            <span class="pull-right text-muted small">4 min</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-tasks fa-fw"></i> New Task
-                            <span class="pull-right text-muted small">4 min</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                            <span class="pull-right text-muted small">4 min</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a class="text-center" href="#">
-                        <strong>See All Alerts</strong>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-            <!-- /.dropdown-alerts -->
-        </li>
-        <!-- /.dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                </li>
-                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                </li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                </li>
-            </ul>
-            <!-- /.dropdown-user -->
-        </li>
-        <!-- /.dropdown -->
-    </ul>
-</nav>
-<!--/. NAV TOP  -->
+<!-- START X-NAVIGATION VERTICAL -->
+<ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+    <!-- TOGGLE NAVIGATION -->
+    <li class="xn-icon-button">
+        <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+    </li>
+    <!-- END TOGGLE NAVIGATION -->
+    <!-- SEARCH -->
+    <li class="xn-search">
+        <form role="form">
+            <input type="text" name="search" placeholder="Search..."/>
+        </form>
+    </li>   
+    <!-- END SEARCH -->
+    <!-- SIGN OUT -->
+    <li class="xn-icon-button pull-right">
+        <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
+    </li> 
+    <!-- END SIGN OUT -->
+    <!-- MESSAGES -->
+    <li class="xn-icon-button pull-right">
+        <a href="#"><span class="fa fa-comments"></span></a>
+        <div class="informer informer-danger">4</div>
+        <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="fa fa-comments"></span> Messages</h3>                                
+                <div class="pull-right">
+                    <span class="label label-danger">4 new</span>
+                </div>
+            </div>
+            <div class="panel-body list-group list-group-contacts scroll" style="height: 200px;">
+                <a href="#" class="list-group-item">
+                    <div class="list-group-status status-online"></div>
+                    <img src="assets/images/users/user2.jpg" class="pull-left" alt="John Doe"/>
+                    <span class="contacts-title">John Doe</span>
+                    <p>Praesent placerat tellus id augue condimentum</p>
+                </a>
+                <a href="#" class="list-group-item">
+                    <div class="list-group-status status-away"></div>
+                    <img src="assets/images/users/user.jpg" class="pull-left" alt="Dmitry Ivaniuk"/>
+                    <span class="contacts-title">Dmitry Ivaniuk</span>
+                    <p>Donec risus sapien, sagittis et magna quis</p>
+                </a>
+                <a href="#" class="list-group-item">
+                    <div class="list-group-status status-away"></div>
+                    <img src="assets/images/users/user3.jpg" class="pull-left" alt="Nadia Ali"/>
+                    <span class="contacts-title">Nadia Ali</span>
+                    <p>Mauris vel eros ut nunc rhoncus cursus sed</p>
+                </a>
+                <a href="#" class="list-group-item">
+                    <div class="list-group-status status-offline"></div>
+                    <img src="assets/images/users/user6.jpg" class="pull-left" alt="Darth Vader"/>
+                    <span class="contacts-title">Darth Vader</span>
+                    <p>I want my money back!</p>
+                </a>
+            </div>     
+            <div class="panel-footer text-center">
+                <a href="pages-messages.html">Show all messages</a>
+            </div>                            
+        </div>                        
+    </li>
+    <!-- END MESSAGES -->
+    <!-- TASKS -->
+    <li class="xn-icon-button pull-right">
+        <a href="#"><span class="fa fa-tasks"></span></a>
+        <div class="informer informer-warning">3</div>
+        <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="fa fa-tasks"></span> Tasks</h3>                                
+                <div class="pull-right">
+                    <span class="label label-warning">3 active</span>
+                </div>
+            </div>
+            <div class="panel-body list-group scroll" style="height: 200px;">                                
+                <a class="list-group-item" href="#">
+                    <strong>Phasellus augue arcu, elementum</strong>
+                    <div class="progress progress-small progress-striped active">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
+                    </div>
+                    <small class="text-muted">John Doe, 25 Sep 2014 / 50%</small>
+                </a>
+                <a class="list-group-item" href="#">
+                    <strong>Aenean ac cursus</strong>
+                    <div class="progress progress-small progress-striped active">
+                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">80%</div>
+                    </div>
+                    <small class="text-muted">Dmitry Ivaniuk, 24 Sep 2014 / 80%</small>
+                </a>
+                <a class="list-group-item" href="#">
+                    <strong>Lorem ipsum dolor</strong>
+                    <div class="progress progress-small progress-striped active">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%;">95%</div>
+                    </div>
+                    <small class="text-muted">John Doe, 23 Sep 2014 / 95%</small>
+                </a>
+                <a class="list-group-item" href="#">
+                    <strong>Cras suscipit ac quam at tincidunt.</strong>
+                    <div class="progress progress-small">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
+                    </div>
+                    <small class="text-muted">John Doe, 21 Sep 2014 /</small><small class="text-success"> Done</small>
+                </a>                                
+            </div>     
+            <div class="panel-footer text-center">
+                <a href="pages-tasks.html">Show all tasks</a>
+            </div>                            
+        </div>                        
+    </li>
+    <!-- END TASKS -->
+</ul>
+<!-- END X-NAVIGATION VERTICAL -->  
