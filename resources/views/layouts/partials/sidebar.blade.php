@@ -8,11 +8,12 @@
         </li>
         <li class="xn-profile">
             <a href="#" class="profile-mini">
-                <img src="assets/images/users/redem.jpg" alt="Redem Choi"/>
+                <img src={{ asset("assets/images/users/redem.jpg")}} alt="Redem Choi"/>
+                
             </a>
             <div class="profile">
                 <div class="profile-image">
-                    <img src="assets/images/users/redem.jpg" alt="Redem Choi"/>
+                    <img src={{ asset("assets/images/users/redem.jpg")}} alt="Redem Choi"/>
                 </div>
                 <div class="profile-data">
                     <div class="profile-data-name">Redem Choi</div>
@@ -31,10 +32,10 @@
         <li class="xn-openable">
             <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Purchasing</span></a>
             <ul>
-                <li><a href="pages-gallery.html"><span class="fa fa-image"></span> Job Order</a></li>
-                <li><a href="pages-profile.html"><span class="fa fa-user"></span> Purchase Request</a></li>
-                <li><a href="pages-address-book.html"><span class="fa fa-users"></span> Purchase Order</a></li>
-                <li><a href="pages-messages.html"><span class="fa fa-comments"></span> Canvass</a></li>                                   
+                <li><a href="{{route('joborder.create')}}"><span class="fa fa-image"></span> Job Order</a></li>
+                <li><a href="{{route('purchaserequest.create')}}"><span class="fa fa-user"></span> Purchase Request</a></li>
+                <li><a href="{{route('purchaseorder.create')}}"><span class="fa fa-users"></span> Purchase Order</a></li>
+                <li><a href="{{route('canvass.create')}}"><span class="fa fa-comments"></span> Canvass</a></li>                                   
             </ul>
         </li>
         <li class="xn-openable">
@@ -46,7 +47,7 @@
                 <li><a href="layout-nav-right.html">Inventory Count</a></li>
             </ul>
         </li>
-        <li class="xn-title">Administrator</li>
+        <li class="xn-title">Setup</li>
         <li class="xn-openable">
             <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">Company Setup</span></a>                        
             <ul>

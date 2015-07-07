@@ -31,44 +31,45 @@
 {{-- main line content --}}
 @section('main')
 {{-- 1st column --}}
-<div class="col-xs-4">
+<div class="col-xs-6">
 	<div class="form-group">
-		{!! Form::label('name', 'NAME') !!} <br>
-		{!! Form::label('name', $workflow->name) !!}
+		{!! Form::label('name', 'NAME', ['class'=>'col-xs-3 text-right']) !!}
+		{!! Form::label('name', $workflow->name, ['class'=>'col-xs-9']) !!}
 	</div>
 	<div class="form-group">
-		{!! Form::label('description', 'DESCRIPTION') !!} <br>
-		{!! Form::label('name', $workflow->description) !!}
+		{!! Form::label('description', 'DESCRIPTION', ['class'=>'col-xs-3 text-right']) !!}
+		{!! Form::label('name', $workflow->description, ['class'=>'col-xs-9']) !!}
 	</div>	
 </div>
 
 {{-- 2nd column --}}
-<div class="col-xs-4">
+<div class="col-xs-6">
 	<div class="form-group">
-		{!! Form::label('recordtype', 'RECORD TYPE') !!} <br>
-		{!! Form::label('name', $workflow->recordType->name) !!}	
+		{!! Form::label('recordtype', 'RECORD TYPE', ['class'=>'col-xs-3 text-right']) !!}
+		{!! Form::label('name', $workflow->recordType->name, ['class'=>'col-xs-9']) !!}	
 	</div>
 	<div class="form-group">
-		{!! Form::label('condition', 'CONDITION') !!} <br>
-		{!! Form::label('name', $workflow->condition) !!}
+		{!! Form::label('condition', 'CONDITION', ['class'=>'col-xs-3 text-right']) !!}
+		{!! Form::label('name', $workflow->condition, ['class'=>'col-xs-9']) !!}
 	</div>	
 </div>
-
-{{-- 3rd column --}}
-<div class="col-xs-4">
-</div>
-
 @stop
 
 {{-- line item tabs --}}
-@section('tabs')
-	@include('workflow.tabs.state.create')
+@section('line-item')
+<div>
+	<h4 style="margin-bottom: 0px; padding-bottom: 0px;">Workspace</h4>
+	<hr>	
+</div>
+<div style="border: 1px solid black; height: 600px; padding: 10px 10px;">
+	<span><button type="button" class="btn btn-default"><li class="fa fa-plus"></li>New State</button></span>
+</div>
 @stop
 
 {{-- attached javascript files here --}}
 @section('script-list')
 	{{-- jsPlumb core --}}
-	{!! HTML::script('js/jsplumb/jquery.jsPlumb-1.7.5-min.js') !!}
+	{!! HTML::script('js/plugins/jsplumb/jquery.jsPlumb-1.7.5-min.js') !!}
 
 	<script type="text/javascript">
 
