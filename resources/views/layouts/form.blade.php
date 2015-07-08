@@ -21,9 +21,9 @@
 
     <div class="row">
         <div class="col-md-12">            
-            <form class="form-horizontal">
-            <div class="panel panel-default">
-            {!! Form::open( null !== $form-params) !!}
+            {!! Form::open( isset($parameter) ? array_add($parameter,"class","form-horizontal") : ['class'=>'form-horizontal']) !!}
+            <div class="panel panel-default">           
+            
                 <div class="panel-heading">
                     <h3 class="panel-title">@yield('form-title')</h3>
                     <ul class="panel-controls">
@@ -45,9 +45,9 @@
                 <div class="panel-footer">
                 	@yield('buttons')                	
                 </div>
-            {!! Form::close() !!}
+            
             </div>
-            </form>
+        {!! Form::close() !!}
             
         </div>
     </div>                    

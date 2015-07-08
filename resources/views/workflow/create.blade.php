@@ -1,6 +1,6 @@
 {{-- extend form layout --}}
 @extends('layouts.form', [
-	'form_params' => ['route'=> 'workflow.store', 'method'=>'POST']
+	'parameter' => ['route'=> 'workflow.store', 'method'=>'POST']
 ])
 
 {{-- additional styles --}}	
