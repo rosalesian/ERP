@@ -12,10 +12,10 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>{!! Form::select("state") !!}</td>
-					<td>{!! Form::text("trigger") !!}</td>
-					<td>{!! Form::textarea("description") !!}</td>
-					<td>{!! Form::checkbox("inactive") !!}</td>
+					<td>{!! Form::select("state", [], null, ['class'=>'form-control select']) !!}</td>
+					<td>{!! Form::text("trigger", null, ['class'=>'form-control']) !!}</td>
+					<td>{!! Form::textarea("description", null, ['class'=>'form-control', 'rows'=>'4']) !!}</td>
+					<td>{!! Form::checkbox("inactive", false, false, ['class'=>'icheckbox']) !!}</td>
 				</tr>
 				<tr>
 					<td colspan="3">

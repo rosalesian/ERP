@@ -29,7 +29,6 @@
 			{!! Form::text('name', null, ['class'=>'form-control']) !!}
 			<span class="help-block">Type the workflow name</span>	
 		</div>
-
 	</div>
 	<div class="form-group">
 		{!! Form::label('description', 'DESCRIPTION', ['class'=>'col-xs-3 control-label']) !!}

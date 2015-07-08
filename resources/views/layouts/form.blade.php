@@ -23,7 +23,7 @@
         <div class="col-md-12">            
             <form class="form-horizontal">
             <div class="panel panel-default">
-            {!! Form::open() !!}
+            {!! Form::open( null !== $form-params) !!}
                 <div class="panel-heading">
                     <h3 class="panel-title">@yield('form-title')</h3>
                     <ul class="panel-controls">
