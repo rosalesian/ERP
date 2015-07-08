@@ -45,7 +45,6 @@ class WorkflowController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		dd($request->all());
 		$workflow = $this->workflow->create($request->all());
 		return redirect()->route('workflow.show', $workflow->id);
 	}

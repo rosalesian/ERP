@@ -58,7 +58,7 @@
 	<div class="form-group">
 		{!! Form::label('condition', 'CONDITION', ['class'=>'col-xs-3 control-label']) !!}
 		<div class="col-xs-9">
-			{!! Form::text('condition',"First,Second,Third", ['class'=>'tagsinput', 'disabled']) !!}
+			{!! Form::text('condition',$workflow->condition, ['class'=>'tagsinput']) !!}
 		</div>
 	</div>
 	<div class="form-group">
