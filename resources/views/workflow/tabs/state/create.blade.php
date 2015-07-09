@@ -1,5 +1,5 @@
 {{-- state/show --}}
-<div role="tabpanel" class="tab-pane active" id="states">
+<div class="tab-pane active" id="states">
 	{{-- content here --}}
 
 	<div style="width:100%; top:100px">

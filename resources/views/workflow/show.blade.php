@@ -15,6 +15,12 @@
 .modal-dialog{
 	width: 900px;
 }
+.selected {
+    background-color: #B0BED9;
+}
+#transition td.highlight {
+    background-color: whitesmoke !important;
+}
 </style>
 @stop
 
@@ -65,7 +71,7 @@
 		{!! Form::label('inactive', 'INACTIVE', ['class'=>'col-xs-3 control-label']) !!}
 		<div class="col-xs-9">
 			<label class="check">
-				{!! Form::checkbox('inactive', false, true, ['class'=>'icheckbox', 'disabled']) !!}
+				{!! Form::checkbox('inactive', false, $workflow->inactive, ['class'=>'icheckbox', 'disabled']) !!}
 			</label>
 		</div>
 	</div>
@@ -120,7 +126,7 @@
 						<div class="form-group">
 							{!! Form::label("description","DESCRIPTION", ['class'=>'col-xs-3 control-label'])!!}
 							<div class="col-xs-9">
-								{!! Form::textarea("description", null, array('class'=>'form-control', 'rows'=>'3')) !!}
+								{!! Form::textarea("description", null, array('class'=>'form-control', 'rows'=>'2')) !!}
 								<span class="help-block">Type the description of the state</span>
 							</div>
 							
@@ -133,17 +139,17 @@
 			<div class="modal-body">
 				{{-- tabs --}}
 				<div class="row">
-					<div class="form-group">
-						<div role="tab-panel">
+					<div class="panel panel-default tabs">
 							<ul class="nav nav-tabs" role="tablist">
-								<li role="presentation" class="active">
-									<a href="#state" aria-controls="state" role="tab" data-toggle="tab">Transition</a>
+								<li class="active">
+									<a href="#state" role="tab" data-toggle="tab">Action</a>
+								</li>
+								<li>
+									<a href="#state" role="tab" data-toggle="tab">Transition</a>
 								</li>
 							</ul>
-
-							<div class="tab-content">
-								@include('workflow.tabs.state.transition.create')
-							</div>
+						<div class="panel-body tab-content table">
+								@include('workflow.tabs.state.transition.create')					
 						</div>
 					</div>
 				</div>			
@@ -164,6 +170,7 @@
 
 {{-- attached javascript files here --}}
 @section('script-list')
+	{!! HTML::script("js/plugins/datatables/jquery.dataTables.min.js") !!}
 	{{-- jsPlumb core --}}
 	{!! HTML::script('js/plugins/jsplumb/jquery.jsPlumb-1.7.5-min.js') !!}
 
@@ -237,9 +244,59 @@
 			}
 		};
 	})(jQuery);
-	
+
+	$.extend( $.fn.dataTable.defaults, {
+	    "searching": false,
+	    "ordering": false,
+	    "paging": false
+	} );
+
 	$("#state-form").draggable({
 		handle: ".modal-header"
 	});
+
+	var dt = $("#transition-table").DataTable({
+		columnDefs: [{
+			data: null,
+			defaultContent: "<button id='edit-row' class='btn btn-info fa fa-pencil' type='button'></button><button id='del-row' class='btn btn-danger fa fa-times' type='button'></button>",
+			targets: -1
+		},
+		{
+			data: null,
+			defaultContent: "<input class='form-control' id='row-1-age' name='row-1-age' type='text'>",
+			targets: 0
+		},
+		{
+			data: null,
+			createdCell : function (td, cellData, rowData, row, col) {
+		        $(td).html();
+		      },
+			targets: 1
+		}]		
+	});
+
+	$("#add-row").on('click', function(){
+		dt.row.add([
+			"col 1",
+			"col 2",
+			"col 3",
+			"col 4"
+		]).draw();
+	});
+	$("#transition-table tbody").on('click', 'tr', function(){
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            dt.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+	});
+
+	 $('#add-row').click();
+	 $("#del-row").click( function(){
+	 	dt.row(".selected").remove().draw();
+	 });
+
 	</script>
 @stop
