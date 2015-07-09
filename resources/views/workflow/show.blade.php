@@ -169,134 +169,38 @@
 @stop
 
 {{-- attached javascript files here --}}
-@section('script-list')
-	{!! HTML::script("js/plugins/datatables/jquery.dataTables.min.js") !!}
+@section('script-list')	
 	{{-- jsPlumb core --}}
 	{!! HTML::script('js/plugins/jsplumb/jquery.jsPlumb-1.7.5-min.js') !!}
 
-	<script type="text/javascript">
+<script type="text/javascript">
+	(function(jq, win, doc){
+	jq("#add-row").bind("click", addRow);
+	jq("#del-row2").bind("click", delRow);
+	jq("#edit-row").bind("click", editRow);
+	
+	function addRow(){
+		jq("#line-table tbody").append(
+			'<tr>'+
+			'<td>{!! Form::text('text', null, ['class'=>'form-control']) !!}</td>'+
+			'<td>Condition 1</td>'+
+			'<td>Active</td>'+
+			'<td>{!! Form::button('Remove', ['class'=>'btn btn-danger']) !!}</td'+
+			'</tr>'
+		);
 
-	jsPlumb.ready(function () {
-		    var instance = jsPlumb.getInstance({
-		        // default drag options
-		        DragOptions: { cursor: 'pointer', zIndex: 2000 },
-		        // the overlays to decorate each connection with.  note that the label overlay uses a function to generate the label text; in this
-		        // case it returns the 'labelText' member that we set on each connection in the 'init' method below.
-		        ConnectionOverlays: [
-		            [ "Arrow", { location: 1 } ],
-		            [ "Label", {
-		                location: 0.1,
-		                id: "label",
-		                cssClass: "aLabel"
-		            }]
-		        ],
-		        Container: "workflow-container"
-		    });
+		jq("#del-row2").bind("click", delRow);
+	}
+	
+	function delRow(){
+			var par = $(this).parent().parent(); //tr
+			par.remove();
+	}
 
-		    instance.draggable(jsPlumb.getSelector("#workflow-container .state"), { grid: [20, 20] });
-	});
+	function editRow(){
+		alert("edit button has been clicked");
+	}
 
-	var State = (function(jq){
-		var form = jq(this);
-		jq.ajaxSetup({
-			headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
-		});
-
-		return {
-			create: function(data){
-				var state = document.createElement("div");
-				state.id = "state" + data.id;
-				state.className = "state";
-				state.innerHTML = data.name;				
-				jq("#workflow-container").appendChild(state);
-			},
-
-			post : function(payload){
-				var method = form.find('input[name="_method"]').val() || 'POST';
-				
-				jq.ajax({
-					url: 'state',
-					type: method,
-					data: jq(this).serialize()
-				})
-				.done(function(response){
-					console.log(response);
-
-					if(response.status == "failed"){
-						alert("error");
-					}
-					else{
-						alert("success");
-					}
-				})
-				.error(function(response){
-					var errors = response.responseJSON;
-					console.log("server errors", errors);
-				});
-			},
-
-			get: function(id){
-
-			},
-
-			update: function(id){
-
-			}
-		};
-	})(jQuery);
-
-	$.extend( $.fn.dataTable.defaults, {
-	    "searching": false,
-	    "ordering": false,
-	    "paging": false
-	} );
-
-	$("#state-form").draggable({
-		handle: ".modal-header"
-	});
-
-	var dt = $("#transition-table").DataTable({
-		columnDefs: [{
-			data: null,
-			defaultContent: "<button id='edit-row' class='btn btn-info fa fa-pencil' type='button'></button><button id='del-row' class='btn btn-danger fa fa-times' type='button'></button>",
-			targets: -1
-		},
-		{
-			data: null,
-			defaultContent: "<input class='form-control' id='row-1-age' name='row-1-age' type='text'>",
-			targets: 0
-		},
-		{
-			data: null,
-			createdCell : function (td, cellData, rowData, row, col) {
-		        $(td).html();
-		      },
-			targets: 1
-		}]		
-	});
-
-	$("#add-row").on('click', function(){
-		dt.row.add([
-			"col 1",
-			"col 2",
-			"col 3",
-			"col 4"
-		]).draw();
-	});
-	$("#transition-table tbody").on('click', 'tr', function(){
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        }
-        else {
-            dt.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-	});
-
-	 $('#add-row').click();
-	 $("#del-row").click( function(){
-	 	dt.row(".selected").remove().draw();
-	 });
-
-	</script>
+}(jQuery, window, document))
+</script>
 @stop
