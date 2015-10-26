@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf_token" ="{{ $encrypted_csrf_token }}" /> 
 
     <title>Simple Sidebar - Start Bootstrap Template</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">

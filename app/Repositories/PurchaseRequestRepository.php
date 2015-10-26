@@ -2,10 +2,11 @@
 
 use Bosnadev\Repositories\Contracts\RepositoryInterface;
 use Bosnadev\Repositories\Eloquent\Repository;
+//use Nixzen\Repositories\Base\Repository;
 
 class PurchaseRequestRepository extends Repository {
 
-    public function model() {
-        return 'Nixzen\PurchaseRequest';
-    }
+	function model(){
+		return 'Nixzen\Models\PurchaseRequest';
+	}
 }

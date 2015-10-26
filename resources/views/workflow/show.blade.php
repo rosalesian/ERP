@@ -1,5 +1,5 @@
 {{-- extend form layout --}}
-@extends('layouts.form', [
+@extends('layouts.formstatic', [
 	'form_params' => ['route'=> 'workflow.store', 'method'=>'POST']
 ])
 
@@ -10,16 +10,19 @@
 .state {
 	width: 100px;
 	height: 50px;
+	border: 2px solid #89AD4D;
+	margin: 2px 2px 2px 2px;
+	text-align: center;
+	position: absolute;
 }
-
 .modal-dialog{
 	width: 900px;
 }
 .selected {
     background-color: #B0BED9;
 }
-#transition td.highlight {
-    background-color: whitesmoke !important;
+#workflow {
+	postion: relative;
 }
 </style>
 @stop
@@ -84,12 +87,13 @@
 	<h4 style="margin-bottom: 0px; padding-bottom: 0px;">Workspace</h4>
 	<hr>	
 </div>
-<div id="workflow-container" style="border: 1px solid black; height: 600px; padding: 10px 10px;">
-	<span><button id="state-button" type="button" class="btn btn-success" data-toggle="modal" data-target="#state-form"><li class="fa fa-plus"></li>New State</button></span>
+<div id="workflow" class="dropTarget" style="border: 1px solid black; height: 600px; padding: 10px 10px;">
+	<span><button id="new-state" type="button" class="btn btn-success"><li class="fa fa-plus"></li>New State</button></span>
+
 </div>
 
 {{-- modal dialog --}}
-<div id="state-form" class = "modal" data-keyboard="false" data-backdrop="static">
+<div id="workflow-state" class = "modal" data-keyboard="false" data-backdrop="static">
 	<div class = "modal-dialog modal-lg">
 		<div class = "modal-content">
 			{{-- head --}}
@@ -98,11 +102,11 @@
 				<h4 class="modal-title">New State</h4>					
 			</div>
 			{{-- form-open --}}
-			{!! Form::open(['workflow-state', 'method' => 'POST', 'route'=> 'workflow.state.store']) !!}
+			{!! Form::open(['state-form', 'method' => 'POST', 'route'=> 'workflow.state.store']) !!}
 
 			{{-- body --}}
 			<div class="modal-body">
-				<div class="row">						
+				<div class="row">									
 					<div class="col-xs-6">
 						<div class="form-group">
 							{!! Form::hidden("workflow_id", $workflow->id) !!}
@@ -119,7 +123,7 @@
 									{!! Form::checkbox('exitworkflow', false, false, ['class'=>'icheckbox']) !!}
 								</label>
 								<span class="help-block">Set if you want the workflow to exit this state</span>
-							</div>														
+							</div>													
 						</div>
 					</div>
 					<div class="col-xs-6">
@@ -157,8 +161,8 @@
 
 			{{-- footer --}}
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="return State.post()">Save</button>
+				<button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button id="save-btn" type="button" class="btn btn-primary save-btn">Save</button>
 			</div>
 
 			{!! Form::close() !!}
@@ -171,36 +175,122 @@
 {{-- attached javascript files here --}}
 @section('script-list')	
 	{{-- jsPlumb core --}}
-	{!! HTML::script('js/plugins/jsplumb/jquery.jsPlumb-1.7.5-min.js') !!}
+{!! HTML::script('js/plugins/jsplumb/jquery.jsPlumb-1.7.5-min.js') !!}
+{!! HTML::script('js/plugins/custom/plugin.js') !!}
+{!! HTML::script('js/workflow.js') !!}
+{!! HTML::script('js/cust-table.js') !!}
 
-<script type="text/javascript">
-	(function(jq, win, doc){
-	jq("#add-row").bind("click", addRow);
-	jq("#del-row2").bind("click", delRow);
-	jq("#edit-row").bind("click", editRow);
-	
-	function addRow(){
-		jq("#line-table tbody").append(
-			'<tr>'+
-			'<td>{!! Form::text('text', null, ['class'=>'form-control']) !!}</td>'+
-			'<td>Condition 1</td>'+
-			'<td>Active</td>'+
-			'<td>{!! Form::button('Remove', ['class'=>'btn btn-danger']) !!}</td'+
-			'</tr>'
-		);
+<script>
+workflow.data({!! $workflow->states !!})
 
-		jq("#del-row2").bind("click", delRow);
-	}
-	
-	function delRow(){
-			var par = $(this).parent().parent(); //tr
-			par.remove();
-	}
+// $(document).ready(function(){
+// 	$.ajax({
+// 		url: "1/state",
+// 		type: "get",
+// 		success: function(states){
+// 			for(var i in states){
+// 				//console.log(states[i]);
+// 				addNode(states[i].name, states[i].name);
+// 			}
+// 		}
+// 	});
 
-	function editRow(){
-		alert("edit button has been clicked");
-	}
+// 	$(".save-btn").click( function(){
+// 		$.ajax({
+// 			url: "1/state",
+// 			type: "post",
+// 			data: {
+// 				"name": $("input[name=name]").val(),
+// 				"_token": $("input[name=_token]").val(),
+// 				"description": $("#description").val(),
+// 				"workflow_id": 1,
+// 				"exitworkflow": $("#exitworkflow").prop("checked") ? 1 : 0
+// 			},
+// 			success: function(data){
+// 				console.log(data)
+// 				addNode(data.name, data.name);
+// 			}
+// 		});
+// 	});
 
-}(jQuery, window, document))
+
+// 	//table initialization	
+// 	$("#line-item").itemTable({
+// 		columns:[
+// 			{
+// 				name: "Name",
+// 				field : {
+// 					name: "action-name",
+// 					type: "select",
+// 					value: [
+// 								{value:'addButton',display:'Add Approval Button'},
+// 								{value:'setFieldValue',display:'Set Field Value'}
+// 						   ],
+
+// 					attr: {
+// 						class: "form-control select"
+// 					}
+// 				}
+// 			},
+// 			{
+// 				name: "Description",
+// 				field : {
+// 					name: "action-desc",
+// 					type: "textarea",
+// 					attr: {
+// 						class: "form-control",
+// 						rows: 2,
+// 						cols:2
+// 					}
+// 				}
+// 			}
+// 		]
+// 	});	
+
+// 	$('#state-form').on('show.bs.modal', function (e) {
+//   		console.log("modal shown");
+// 	});	
+// });
+
+// function addNode(id, name){
+// 	var workflowContainer = document.getElementById("workflow");
+// 	var nodeDiv = document.createElement('div');
+// 	nodeDiv.id = id;
+// 	nodeDiv.innerHTML = name;
+// 	nodeDiv.className = "state";
+// 	nodeDiv.setAttribute("data-toggle","modal") 
+// 	nodeDiv.setAttribute("data-target","#state-form")
+// 	var strong = document.createElement('strong')
+// 	strong.appendChild(nodeDiv);
+// 	workflowContainer.appendChild(strong);
+
+// 	var plumb = jsPlumb.getInstance({
+// 		  PaintStyle : {
+// 		    lineWidth:13,
+// 		    strokeStyle: 'rgba(200,0,0,100)'
+// 		  },
+// 		  DragOptions : { cursor: "crosshair" },
+// 		  Endpoints : [ [ "Dot", { radius:7 } ], [ "Dot", { radius:11 } ] ],
+// 		  EndpointStyles : [
+// 		    { fillStyle:"#225588" }, 
+// 		    { fillStyle:"#558822" }
+// 		  ],
+// 		  Connector: "Straight",
+// 		  Container: "workflow"
+// 	});
+
+// 	plumb.draggable(id);
+// }
+
+// function postState(data){
+// 	$.ajax({
+// 		method: "POST",
+// 		url: "workflow/state",
+// 		data: data
+// 	})
+// 	.done(function(msg){
+// 		console.log("posting success " + msg);
+// 	});
+// }
 </script>
 @stop

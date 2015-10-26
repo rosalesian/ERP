@@ -21,10 +21,10 @@ class WorkflowStateController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index($workflowId)
     {
-        $states = $this->state->all();
-        return response()->json($states, 200);     
+        $states = $this->state->findAllBy('workflow_id', $workflowId);
+        return response()->json($states, 200);  
     }
 
     /**
@@ -45,8 +45,7 @@ class WorkflowStateController extends Controller
     public function store(Request $request)
     {
         $state = $this->state->create($request->all());
-        return response()->json($state, 200);
-        
+        return response()->json($state, 200);        
     }
 
     /**
@@ -55,10 +54,18 @@ class WorkflowStateController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($workflowId, $stateid)
     {
-        $state = $this->state->find($id);
-        return response()->json($state, 200);
+        $state = $this
+                ->state
+                ->findWhere([
+                    'workflow_id'=>$workflowId, 
+                    'id'=>$stateid])->first();
+        
+        return response()->json([
+            'state'=>$state,
+            'position'=>$state->position
+        ], 200);
     }
 
     /**

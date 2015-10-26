@@ -2,6 +2,7 @@
 
 use Bosnadev\Repositories\Contracts\RepositoryInterface;
 use Bosnadev\Repositories\Eloquent\Repository;
+//use Nixzen\Repositories\Repository;
 
 class WorkflowStateRepository extends Repository{
 

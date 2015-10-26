@@ -1,7 +1,7 @@
 {{-- extend form layout --}}
 @extends('layouts.form', [
 	'form_params' => ['route'=> ['workflow.update', 
-	$workflow->id], 'method'=>'PUT']
+	$workflow->id], 'method'=>'PATCH']
 ])
 
 {{-- additional styles --}}	

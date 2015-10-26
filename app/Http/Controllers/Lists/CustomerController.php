@@ -14,7 +14,10 @@ class CustomerController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return response()->json([
+			'say'=> 'Hello World',
+			'test'=> 'this is a test'
+		]);
 	}
 
 	/**

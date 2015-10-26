@@ -144,6 +144,7 @@ return [
         Nixzen\Providers\EventServiceProvider::class,
         Nixzen\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*

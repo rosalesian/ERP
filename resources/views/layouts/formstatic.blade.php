@@ -20,15 +20,15 @@
 <div class="page-content-wrap">
 
     <div class="row">
-        <div class="col-md-12">            
-            {!! Form::open( isset($parameter) ? array_add($parameter,"class","form-horizontal") : ['class'=>'form-horizontal']) !!}
+        <div class="col-md-12">     
+                    
             <div class="panel panel-default">           
             
                 <div class="panel-heading">
-                    <h3 class="panel-title">
-                        @yield('form-title') 
-                        <span><a href={{ URL::route("workflow.create")}} class="btn btn-primary">New</a></span>
-                    </h3>
+                    <h3 class="panel-title">@yield('form-title')</h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+                    </ul>
                 </div>
                 <div class="panel-body">                                                                       
                     
@@ -42,11 +42,11 @@
                 		@yield('line-item')      
                 	</div>
                 </div>
-                <div class="panel-footer">           	
+                <div class="panel-footer">
+                	@yield('buttons')                	
                 </div>
             
-            </div>
-        {!! Form::close() !!}
+            </div>       
             
         </div>
     </div>                    
