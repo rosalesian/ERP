@@ -15,10 +15,11 @@ class CreateBranchesTable extends Migration {
 		Schema::create('branches', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
+			$table->string('name', 100)->unique();
+			$table->text('description')->nullable();
+			$table->integer('company_id')->unsigned();
 			$table->integer('user_id')->unsigned();
-			$table->text('description');
-			$table->boolean('inactive');
+			$table->boolean('inactive')->default(false);
 			$table->integer('created_by')->unsigned();
 			$table->integer('updated_by')->unsigned();
 			$table->timestamps();

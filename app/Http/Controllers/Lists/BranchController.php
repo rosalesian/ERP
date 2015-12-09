@@ -22,7 +22,8 @@ class BranchController extends Controller {
 	public function index()
 	{
 		$branches = $this->branch->all();
-		//return view('', $branches);
+
+		//return view('branch.index', $branches);
 	}
 
 	/**
@@ -32,7 +33,7 @@ class BranchController extends Controller {
 	 */
 	public function create()
 	{
-		//return view('');
+		//return view('branch.create');
 	}
 
 	/**
@@ -40,10 +41,11 @@ class BranchController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		$this->branch->create(Input::all());
-		//return view('');
+		$branch = $this->branch->create($request->all());
+		
+		//return redirect('branch.show', $branch);
 	}
 
 	/**
@@ -55,7 +57,8 @@ class BranchController extends Controller {
 	public function show($id)
 	{
 		$branch = $this->branch->find($id);
-		//return view('',$branch);
+
+		//return view('branch.show', $branch);
 	}
 
 	/**
@@ -67,7 +70,8 @@ class BranchController extends Controller {
 	public function edit($id)
 	{
 		$branch = $this->branch->find($id);
-		//return view('', $branch);
+
+		//return view('branch.edit', $branch);
 	}
 
 	/**
@@ -76,10 +80,11 @@ class BranchController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		$this->branch->update(Input::all(), $id);
-		//return view('');
+		$branch = $this->branch->update($request->all(), $id);
+
+		//return redirect('branch.show', $branch);
 	}
 
 	/**
@@ -91,7 +96,8 @@ class BranchController extends Controller {
 	public function destroy($id)
 	{
 		$this->branch->delete($id);
-		//return view('');
+
+		//return redirect('branch.index');
 	}
 
 }

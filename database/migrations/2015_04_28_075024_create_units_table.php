@@ -15,14 +15,14 @@ class CreateUnitsTable extends Migration {
 		Schema::create('units', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
-			$table->string('pluralname');
-			$table->string('abbreviation');
-			$table->string('plural_abbreviation');
+			$table->string('name', 100);
+			$table->string('pluralname', 100);
+			$table->string('abbreviation', 10);
+			$table->string('plural_abbreviation', 10);
 			$table->integer('conversion_rate')->unsigned();
-			$table->boolean('base_unit');
+			$table->boolean('base_unit')->default(false);
 			$table->integer('unittype_id')->unsigned();
-			$table->boolean('inactive');
+			$table->boolean('inactive')->default(false);
 			$table->integer('created_by')->unsigned();
 			$table->integer('updated_by')->unsigned();
 			$table->timestamps();

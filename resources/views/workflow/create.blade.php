@@ -73,4 +73,6 @@
 {{-- attached javascript files here --}}
 @section('script-list')
 	{{--additional javascripts --}}
+
+
 @stop

@@ -22,7 +22,8 @@ class DepartmentController extends Controller {
 	public function index()
 	{
 		$departments = $this->department->all();
-		//return view('', $departments);
+
+		//return view('department.index', $departments);
 	}
 
 	/**
@@ -32,7 +33,7 @@ class DepartmentController extends Controller {
 	 */
 	public function create()
 	{
-		//return view('');
+		//return view('department.create');
 	}
 
 	/**
@@ -40,10 +41,11 @@ class DepartmentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		$this->department->create(Input::all());
-		//return view('');
+		$department = $this->department->create($request->all());
+
+		//return redirect('deparment.show', $department);
 	}
 
 	/**
@@ -55,7 +57,8 @@ class DepartmentController extends Controller {
 	public function show($id)
 	{
 		$branch = $this->department->find($id);
-		//return view('',$branch);
+
+		//return view('department.show', $branch);
 	}
 
 	/**
@@ -66,8 +69,9 @@ class DepartmentController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$branch = $this->department->find($id);
-		//return view('',$branch);
+		$department = $this->department->find($id);
+
+		//return view('department.edit', $department);
 	}
 
 	/**
@@ -76,10 +80,11 @@ class DepartmentController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		$this->department->update(Input::all(), $id);
-		//return view('');
+		$department = $this->department->update($request->all(), $id);
+
+		//return redirect('department.show', $department);
 	}
 
 	/**
@@ -91,7 +96,8 @@ class DepartmentController extends Controller {
 	public function destroy($id)
 	{
 		$this->department->delete($id);
-		//return view('');
+
+		//return redirect('department.index');
 	}
 
 }

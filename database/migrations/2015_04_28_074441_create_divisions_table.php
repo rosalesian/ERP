@@ -15,10 +15,10 @@ class CreateDivisionsTable extends Migration {
 		Schema::create('divisions', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
-			$table->integer('branch_id');
+			$table->string('name', 100);
+			$table->integer('company_id')->unsigned();
 			$table->text('description')->nullable();
-			$table->boolean('inactive');
+			$table->boolean('inactive')->default(false);
 			$table->integer('created_by')->unsigned();
 			$table->integer('updated_by')->unsigned();
 			$table->timestamps();

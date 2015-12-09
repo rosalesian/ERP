@@ -10,8 +10,15 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/', function(){
+	return view('default');
+});
 
-Route::get('/','LoginController@login');
+Route::get('trade-item', function(){
+	return view('layout.sublist.trade-item');
+});
+
+//Route::get('/','LoginController@login');
 Route::post('login','LoginController@post');
 
 Route::group(['namespace' => 'Lists'], function(){

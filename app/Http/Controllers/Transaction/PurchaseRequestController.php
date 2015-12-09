@@ -25,7 +25,6 @@ class PurchaseRequestController extends Controller {
 		$purchaserequests = $this->purchaserequest->all();
 
 		return view('purchaserequest.index')->with('purchaserequests',$purchaserequests);
-		
 	}
 
 	/**
@@ -33,11 +32,8 @@ class PurchaseRequestController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(Request $request)
+	public function create()
 	{	
-		//before submit
-		$purchaserequest = $this->purchaserequest->create($request->all());
-		//after submit
 		return view('purchaserequest.create');
 	}
 
@@ -46,8 +42,8 @@ class PurchaseRequestController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
-	{
+	public function store(Request $request)	
+	{		
 		$purchaserequest = new PurchaseRequestService;
 
 		$purchaserequest = $purchaserequest->create($request->all());

@@ -10,7 +10,8 @@ class DivisionController extends Controller {
 
 	private $division;
 
-	public function __construct(Division $division){
+	public function __construct(Division $division)
+	{
 		$this->division = $division;
 	}
 
@@ -22,7 +23,8 @@ class DivisionController extends Controller {
 	public function index()
 	{
 		$divisions = $this->division->all();
-		//return view('', $divisions);	
+
+		//return view('division.index', $divisions);	
 	}
 
 	/**
@@ -32,7 +34,7 @@ class DivisionController extends Controller {
 	 */
 	public function create()
 	{
-		//return view('');
+		//return view('division.create');
 	}
 
 	/**
@@ -40,10 +42,11 @@ class DivisionController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		$this->division->create(Input::all());
-		//return view('');
+		$division = $this->division->create($request->all());
+
+		//return redirect('division.show', $division);
 	}
 
 	/**
@@ -55,7 +58,8 @@ class DivisionController extends Controller {
 	public function show($id)
 	{
 		$division = $this->division->find($id);
-		//return view('',$division);
+
+		//return view('division.show', $division);
 	}
 
 	/**
@@ -67,7 +71,8 @@ class DivisionController extends Controller {
 	public function edit($id)
 	{
 		$division = $this->division->find($id);
-		//return view('',$division);
+
+		//return view('division.edit', $division);
 	}
 
 	/**
@@ -76,10 +81,11 @@ class DivisionController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		$this->division->update(Input::all(), $id);
-		//return view('');
+		$division = $this->division->update($request->all(), $id);
+
+		//return redirect('division.show', $division);
 	}
 
 	/**
@@ -91,7 +97,8 @@ class DivisionController extends Controller {
 	public function destroy($id)
 	{
 		$this->branch->delete($id);
-		//return view('');
+
+		//return redirect('division.index');
 	}
 
 }
