@@ -10,9 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', function(){
-	return view('default');
-});
 
 Route::get('trade-item', function(){
 	return view('layout.sublist.trade-item');
@@ -53,9 +50,7 @@ Route::group(['namespace' => 'Admin'], function(){
 	Route::resource('workflow.state', 'WorkflowStateController');
 });
 
-Route::get('dashboard', function(){
-	
-	return view('dashboard');
-
+Route::get('/', function(){	
+	return view('default');
 });
 

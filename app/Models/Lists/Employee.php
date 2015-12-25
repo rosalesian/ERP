@@ -23,7 +23,7 @@ class Employee extends Model {
 	];
 
 	public function company(){
-		return $this->belongsTo('Nixzen\Modles\List\Company', 'company_id')
+		return $this->belongsTo('Nixzen\Modles\List\Company', 'company_id');
 	}
 	
 	public function branch(){

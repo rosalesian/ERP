@@ -1,47 +1,37 @@
-{{-- extend form layout --}}
-@extends('layouts.list')
+@extends('layout.list',[
+	'page_header'=>'List of Purchase Requests'
+])
 
-{{-- additional styles --}}	
-@section('style-list')
-@stop
-
-{{-- form title --}}
-@section('form-title')
-	<strong>Purchase Requests</strong>
-	<span>list</span>
-	
-@stop
-
-{{-- main line content --}}
-@section('main')
-<table class="table">
-	<thead>
-		<tr>
-			<th></th>
-			<th>Id</th>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Inactive</th>
-		</tr>
-	</thead>
-	<tbody>	
-	@foreach( $purchaserequests as $purchaserequest)
-		<tr>
-			<td width="80px">
-				<a href={{URL::route("purchaserequest.edit", $purchaserequest->id)}}>Edit</a> |
-				<a href={{URL::route("purchaserequest.show", $purchaserequest->id)}}>View</a>
-			</td>
-			<td>{{{$purchaserequest->id}}}</td>
-			<td>{{{$purchaserequest->name}}}</td>
-			<td>{{{$purchaserequest->description}}}</td>
-			<td>{{{$purchaserequest->inactive}}}</td>
-		</tr>	
-	@endforeach
-	</tbody>
-</table>
-@stop
-
-{{-- attached javascript files here --}}
-@section('script-list')
-	{{--additional javascripts --}}
+@section('list')
+<div>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Name</th>
+				<th>Date</th>
+				<th>Branch</th>
+				<th>Department</th>
+				<th>Principal</th>
+			</tr>
+		</thead>
+		<tbody>
+		@if( isset($purchaserequests))
+			<tr>
+				<td colspan=6 align="center">No data</td>
+			</tr>
+		@else
+			@foreach( $purchaserequests as $pr)
+				<tr>
+					<td>{{ $pr->requestedby }}</td>
+					<td>{{ $pr->requesteddate }}</td>
+					<td>{{ $pr->branch }}</td>
+					<td>{{ $pr->department }}</td>
+					<td>{{ $pr->principal }}</td>
+				</tr>
+			@endforeach
+		@endif
+		</tbody>
+	</table>
+</div>
 @stop

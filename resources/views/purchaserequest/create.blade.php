@@ -1,95 +1,94 @@
-{{-- extend form layout --}}
-@extends('layouts.form', [
-	'parameter' => ['route'=> 'purchaserequest.store', 'method'=>'POST']
+@extends('layout.create',[
+	'page_header'=>'New Purchase Request',
+	'route_name'=>'purchaserequest.create'
 ])
 
-{{-- additional styles --}}	
-@section('style-list')
-@stop
+@section('form-content')
 
-{{-- buttons --}}
-@section('buttons')
-	{!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
-	{!! Form::button('Cancel', ['class'=>'btn btn-default']) !!}
-@stop
-
-{{-- form title --}}
-@section('form-title')
-	<strong>Purchase Request</strong>
-	<span>New</span>
-@stop
-
-{{-- main line content --}}
-@section('main')
-{{-- 1st column --}}
-<div class="col-xs-6">
-	<div class="form-group">
-		{!! Form::label('name', 'REQUESTING BRANCH', ['class'=>'col-xs-3 control-label']) !!}
-		<div class="col-xs-9">
-			{!! Form::select('branch_id', [], null, ['class'=>'form-control select']) !!}
-			<span class="help-block">Select the requester's name</span>	
+{{-- 1st row --}}
+<div class="row">
+	<div class="col-xs-4">
+		<div class="form-group">
+		{!! Form::label('requestedby', 'REQUESTED BY') !!}
+		{!! Form::select('requestedby', [], null, ['class'=>'form-control']) !!}
 		</div>
 	</div>
-	<div class="form-group">
-		{!! Form::label('description', 'REQUESTING DIVISION', ['class'=>'col-xs-3 control-label']) !!}
-		<div class="col-xs-9">
-			{!! Form::select('division_id', [], null, ['class'=>'form-control select']) !!}
-			<span class="help-block">Select the requester's division</span>
-		</div>			
+
+	<div class="col-xs-4">
+		<div class="form-group">
+		{!! Form::label('date', 'DATE') !!}
+		{!! Form::text('date', null, ['class'=>'form-control']) !!}
+		</div>
 	</div>
-	<div class="form-group">
-		{!! Form::label('description', 'REQUESTING DEPARTMENT', ['class'=>'col-xs-3 control-label']) !!}
-		<div class="col-xs-9">
-			{!! Form::select('department_id', [], null, ['class'=>'form-control select']) !!}
-			<span class="help-block">Select the requester's </span>
-		</div>			
+
+	<div class="col-xs-4">
+		<div>
+		{!! Form::label('branch', 'BRANCH') !!}
+		{!! Form::select('branch', [], null, ['class'=>'form-control']) !!}
+		</div>
 	</div>	
 </div>
 
-{{-- 2nd column --}}
-<div class="col-xs-6">
-	<div class="form-group">
-		{!! Form::label('recordtype', 'RECORD TYPE', ['class'=>'col-xs-3 control-label']) !!}
-		<div class="col-xs-9">
-			{!! Form::select('recordtype_id', [], null, ['class'=>'form-control select']) !!}
-			<span class="help-block">Select the workflow type</span>
+{{-- 2nd row --}}
+<div class="row">
+	<div class="col-xs-4">
+		<div class="form-group">
+		{!! Form::label('department', 'DEPARTMENT') !!}
+		{!! Form::select('department', [], null, ['class'=>'form-control']) !!}
 		</div>
+	</div>
 
+	<div class="col-xs-4">
+		<div class="form-group">
+		{!! Form::label('principal', 'PRINCIPAL') !!}
+		{!! Form::select('principal', [], null, ['class'=>'form-control']) !!}
+		</div>
 	</div>
-	<div class="form-group">
-		{!! Form::label('condition', 'CONDITION', ['class'=>'col-xs-3 control-label']) !!}
-		<div class="col-xs-9">
-			{!! Form::text('condition',"First,Second,Third", ['class'=>'tagsinput']) !!}
-			<span class="help-block">Set the workflow condition</span>
-		</div>	
-	</div>
-	<div class="form-group">
-		{!! Form::label('inactive', 'INACTIVE', ['class'=>'col-xs-3 control-label']) !!}
-		<div class="col-xs-9">
-			<label class="check">
-				{!! Form::checkbox('inactive', false, false, ['class'=>'icheckbox']) !!}
-			</label>
-			
-			<span class="help-block">Set if workflow is inactive or not</span>
-		</div>	
-	</div>	
 </div>
+
 @stop
 
-@section('line-item')
-	<table id="test" class="table table-striped"></table>
+@section('line-items')
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#items">Items</a></li>
+</ul>
+
+<div class="tab-content">
+	<div class="tab-pane active" id="items">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Description</th>
+					<th>Quantity</th>
+					<th>Units</th>
+					<th>Rate</th>
+					<th>Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td width="200">
+						{!! Form::text('item', null, ['class'=>'form-control']) !!}
+					</td>
+					<td></td>
+					<td width="100">
+						{!! Form::text('quantity', null, ['class'=>'form-control']) !!}
+					</td>
+					<td width="100">
+						{!! Form::select('units', [], null, ['class'=>'form-control']) !!}
+					</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="line-items"></div>
 @stop
-{{-- attached javascript files here --}}
-@section('script-list')
- {!! HTML::script("js/plugins/custom/itemgrid.js") !!}   
-	{{--additional javascripts --}}
-<script type="text/javascript">
-ItemGrid.create("test", {
-	columns: [
-		{name: "Item", type: "select", data: [], attr: {}},
-		{name: "Vendor", type: "select", data: [], attr: {}},
-		{name: "Description", type: "text", data: [], attr: {}}
-	]
-});
-</script>
+
+@section("scripts")
+<script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 @stop
