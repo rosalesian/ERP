@@ -1,4 +1,4 @@
-<?php namespace Nixzen;
+<?php namespace Nixzen\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -54,6 +54,10 @@ class PurchaseRequest extends Model {
 
 	public function recordType(){
 		return $this->belongsTo('Nixzen\RecordType', 'recordtype_id');
+	}
+
+	public function items(){
+		return $this->belongsTo('Nixzen\PurchaseRequestItem', 'purchaserequisition_id');
 	}
 
 	public function activeWorkflow(){

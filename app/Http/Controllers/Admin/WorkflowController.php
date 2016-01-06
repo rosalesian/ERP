@@ -1,18 +1,17 @@
 <?php namespace Nixzen\Http\Controllers\Admin;
 
-use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\WorkflowRepository as Workflow;
 
 use Illuminate\Http\Request;
 use Nixzen\RecordType;
 
-class WorkflowController extends Controller {
+class WorkflowController extends Controller {	
 
 	protected $workflow;
 
-		public function __construct(Workflow $workflow)
-		{
+	public function __construct(Workflow $workflow)
+	{
 		$this->workflow = $workflow;
 	}
 
@@ -23,9 +22,8 @@ class WorkflowController extends Controller {
 	 */
 	public function index()
 	{
-		$workflows = $this->workflow->all();
-		dd($workflows);
-		return view('workflow.index');
+		$workflows = $this->workflow->all();		
+		return view('workflow.index')->with('workflows', $workflows);
 	}
 
 	/**
@@ -45,7 +43,6 @@ class WorkflowController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		dd($request->all());
 		$workflow = $this->workflow->create($request->all());
 		return redirect()->route('workflow.show', $workflow->id);
 	}
@@ -59,6 +56,7 @@ class WorkflowController extends Controller {
 	public function show($id, RecordType $recordtype)
 	{
 		$workflow = $this->workflow->find($id);
+
 		return view('workflow.show')
 				->with('workflow', $workflow)
 				->with('recordtypes', $recordtype->all()->lists('name', 'id'));
@@ -70,7 +68,7 @@ class WorkflowController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id, RecordType $recordtype)
+	public function edit(RecordType $recordtype, $id)
 	{
 		$workflow = $this->workflow->find($id);
 		return view('workflow.edit')
@@ -84,8 +82,9 @@ class WorkflowController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $request)
+	public function update(Request $request, $id)
 	{
+		dd("hello world");
 		$input = $request->only(['name', 'description', 'condition', 'recordtype_id']);
 		
 		$this->workflow->update($input, $id);

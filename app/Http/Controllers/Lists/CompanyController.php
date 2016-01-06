@@ -2,11 +2,17 @@
 
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
+use Nixzen\Models\List\Company;
 
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller {
 
+	protected $company;
+
+	public function __construct(Company $company){
+		$this->company = $company;
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -14,7 +20,9 @@ class CompanyController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$companies = $this->company->all();
+
+		//return view('company.index', $companies);
 	}
 
 	/**
@@ -24,7 +32,7 @@ class CompanyController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		//return view('company.create');
 	}
 
 	/**
@@ -32,9 +40,11 @@ class CompanyController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$company = $this->company->create($request->all());
+
+		//return company view in here
 	}
 
 	/**
@@ -45,7 +55,9 @@ class CompanyController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$company = $this->company->find($id);
+
+		//return redirect('company.show', $company);
 	}
 
 	/**
@@ -56,7 +68,9 @@ class CompanyController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$company = $this->company->find($id);
+		
+		//return redirect('company.show', $company);
 	}
 
 	/**
@@ -65,9 +79,11 @@ class CompanyController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		//
+		$company = $this->company->update($request->all(), $id);
+
+		//return redirect('company.show', $company);
 	}
 
 	/**
@@ -78,7 +94,9 @@ class CompanyController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->company->delete($id);
+
+		//return redirect('company.index');
 	}
 
 }

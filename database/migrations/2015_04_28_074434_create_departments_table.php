@@ -15,10 +15,11 @@ class CreateDepartmentsTable extends Migration {
 		Schema::create('departments', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
+			$table->string('name', 100);
+			$table->integer('company_id')->unsigned();
 			$table->text('description')->nullable();
 			$table->string('code')->nullable();
-			$table->boolean('inactive');
+			$table->boolean('inactive')->default(false);
 			$table->integer('created_by')->unsigned();
 			$table->integer('updated_by')->unsigned();
 			$table->timestamps();

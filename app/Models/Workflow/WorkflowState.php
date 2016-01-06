@@ -15,15 +15,19 @@ class WorkflowState extends Model {
 	protected $fillable = ['name', 'description','workflow_id', 'exitworkflow'];
 
 	public function workflow(){
-		return $this->belongsTo('Nixzen\Workflow', 'workflow_id');
+		return $this->belongsTo('Nixzen\Models\Workflow\Workflow', 'workflow_id');
 	}
 
 	public function actions(){
-		return $this->hasMany('Nixzen\WorkflowStateAction', 'state_id');
+		return $this->hasMany('Nixzen\Models\Workflow\WorkflowStateAction', 'state_id');
 	}
 
 	public function transitions(){
-		return $this->hasMany('Nixzen\WorkflowStateTransition', 'state_id');
+		return $this->hasMany('Nixzen\Models\Workflow\WorkflowStateTransition', 'state_id');
+	}
+
+	public function position(){
+		return $this->hasOne('Nixzen\Models\StatePosition', 'state_id');
 	}
 
 }

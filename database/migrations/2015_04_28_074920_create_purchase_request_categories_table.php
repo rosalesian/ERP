@@ -15,9 +15,9 @@ class CreatePurchaseRequestCategoriesTable extends Migration {
 		Schema::create('purchase_request_categories', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name')->unique();
+			$table->string('name', 100);
 			$table->text('description')->nullable();
-			$table->boolean('inactive');
+			$table->boolean('inactive')->default(false);
 			$table->integer('created_by')->unsigned();
 			$table->integer('updated_by')->unsigned();
 			$table->timestamps();

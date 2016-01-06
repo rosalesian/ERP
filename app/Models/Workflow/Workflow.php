@@ -11,7 +11,7 @@ class Workflow extends Model {
 	protected $fillable = ['name', 'description', 'recordtype_id', 'condition'];
 
 	public function states(){
-		return $this->hasMany('Nixzen\WorkflowState', 'workflow_id');
+		return $this->hasMany('Nixzen\Models\Workflow\WorkflowState', 'workflow_id');
 	}
 
 	public function recordType(){

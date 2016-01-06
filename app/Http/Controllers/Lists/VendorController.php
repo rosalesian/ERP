@@ -52,10 +52,11 @@ class VendorController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Request $request)
 	{
-		$vendor = $this->vendor->find($id);
-		//return view('',$vendor);
+		$vendor = $this->vendor->find($request->id);
+
+		return response()->json($vendor);
 	}
 
 	/**

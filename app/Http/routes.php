@@ -11,7 +11,11 @@
 |
 */
 
-Route::get('/','LoginController@login');
+Route::get('trade-item', function(){
+	return view('layout.sublist.trade-item');
+});
+
+//Route::get('/','LoginController@login');
 Route::post('login','LoginController@post');
 
 Route::group(['namespace' => 'Lists'], function(){
@@ -31,6 +35,7 @@ Route::group(['namespace' => 'Lists'], function(){
 	Route::resource('unittype', 'UnitTypeController');
 	Route::resource('vendor', 'VendorController');
 	Route::resource('vendorcategory', 'VendorCategoryController');
+	Route::resource('customer', 'CustomerController');
 });
 
 Route::group(['namespace' => 'Transaction'], function(){
@@ -42,20 +47,10 @@ Route::group(['namespace' => 'Transaction'], function(){
 
 Route::group(['namespace' => 'Admin'], function(){
 	Route::resource('workflow', 'WorkflowController');
-	Route::resource('workflow/state', 'WorkflowStateController');
-});
-Route::get('dashboard', function(){
-	
-	return view('dashboard');
-
+	Route::resource('workflow.state', 'WorkflowStateController');
 });
 
-Route::get('test', function(){
-	
-	$purchaserequest = Nixzen\PurchaseRequest::find(1);
-	Event::fire(new Nixzen\Events\PurchaseRequestWasCreated($purchaserequest));
+Route::get('/', function(){	
+	return view('default');
 });
 
-Route::get('testwf', function(){
-	return view('layouts.dashboard');
-});
