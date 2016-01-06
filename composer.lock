@@ -4,8 +4,12 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "hash": "9dcdf112299e372e518dfb6fefbf6e67",
     "content-hash": "27b4842068c4f9f255c9217e05efb5ff",
+=======
+    "hash": "333047c8d635ba01a4dd5905d1909c09",
+>>>>>>> cf37e996ed42481c3abba5d50a810dc4535a48dd
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -728,6 +732,7 @@
                 "storage"
             ],
             "time": "2015-12-19 20:16:43"
+<<<<<<< HEAD
         },
         {
             "name": "maximebf/debugbar",
@@ -789,6 +794,8 @@
                 "debugbar"
             ],
             "time": "2015-12-10 09:50:24"
+=======
+>>>>>>> cf37e996ed42481c3abba5d50a810dc4535a48dd
         },
         {
             "name": "monolog/monolog",
@@ -1025,10 +1032,17 @@
             "require": {
                 "ext-tokenizer": "*",
                 "php": ">=5.4"
+<<<<<<< HEAD
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0"
             },
+=======
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+>>>>>>> cf37e996ed42481c3abba5d50a810dc4535a48dd
             "bin": [
                 "bin/php-parse"
             ],
@@ -1106,6 +1120,7 @@
                 "random"
             ],
             "time": "2015-12-10 14:48:13"
+<<<<<<< HEAD
         },
         {
             "name": "phpseclib/phpseclib",
@@ -1204,6 +1219,8 @@
                 "x509"
             ],
             "time": "2015-01-28 21:50:33"
+=======
+>>>>>>> cf37e996ed42481c3abba5d50a810dc4535a48dd
         },
         {
             "name": "psr/log",
@@ -2189,6 +2206,7 @@
                 "dump"
             ],
             "time": "2015-12-05 10:02:55"
+<<<<<<< HEAD
         },
         {
             "name": "tymon/jwt-auth",
@@ -2252,6 +2270,8 @@
                 "tymon"
             ],
             "time": "2015-11-24 20:02:19"
+=======
+>>>>>>> cf37e996ed42481c3abba5d50a810dc4535a48dd
         },
         {
             "name": "vlucas/phpdotenv",
@@ -2491,7 +2511,7 @@
             ],
             "authors": [
                 {
-                    "name": "Padraic Brady",
+                    "name": "Pádraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },
