@@ -22,7 +22,7 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function index()
 	{
-		$purchaserequests = $this->purchaserequest->all();
+		$purchaserequests = $this->purchaserequest->with('role', 'division')->all();
 
 		return view('purchaserequest.index')->with('purchaserequests',$purchaserequests);
 	}

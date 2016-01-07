@@ -31,6 +31,8 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface {
      */
     protected $skipCriteria = false;
 
+    protected $with;
+
     /**
      * @param App $app
      * @param Collection $collection
@@ -56,6 +58,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface {
      */
     public function all($columns = array('*')) {
         $this->applyCriteria();
+        $this->newQuery()->eagerLoadRelations();
         return $this->model->get($columns);
     }
 
@@ -208,6 +211,38 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface {
         return $this->model = $model;
     }
 
+    /**
+     * @return $this
+     */
+    public function with($relations){
+        if(is_string($relations)) $relations = func_get_args();
+
+        $this->with = $relations;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function eagerLoadRelations(){
+        if(!is_null($this->with)){
+            foreach($this->with as $relation){
+                $this->model->with($relation);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function newQuery(){
+        $this->model = $this->model->newQuery();
+
+        return $this;
+    }
     /**
      * @return $this
      */
