@@ -51,6 +51,6 @@ Route::group(['namespace' => 'Admin'], function(){
 });
 
 Route::get('/', function(){	
-	return view('default');
+	return view('app');
 });
 
