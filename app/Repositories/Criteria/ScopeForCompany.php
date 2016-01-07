@@ -2,7 +2,8 @@
 
 use Bosnadev\Repositories\Criteria\Criteria;
 use Bosnadev\Repositories\Contracts\RepositoryInterface as Repository;
-use Bosnadev\Repositories\Contracts\RepositoryInterface;
+
+use Nixzen\Repositories\Base\RepositoryInterface;
 
 class ScopeForCompany extends Criteria {
 
