@@ -37,8 +37,15 @@
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('dist/js/demo.js') }}"></script>
+
+
+    <script src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
     <!-- page script -->
+
+
     <script>
+     //Initialize Select2 Elements
+    $(".select2").select2();
       $(function () {
         $("#example1").DataTable();
         $('#example2').DataTable({

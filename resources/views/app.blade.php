@@ -27,6 +27,11 @@
                         <li class="active">Dashboard</li>
                     </ol>
                 </section>
+
+                <section class="content">
+                    @yield('joborder')
+                </section>
+
             </div><!-- /.content -->
             </div><!-- /.content-wrapper -->
            
