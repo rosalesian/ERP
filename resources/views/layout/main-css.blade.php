@@ -4,6 +4,8 @@
 <!-- Custom styles for this template -->
 <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet"> --}}
 
+<!-- CUSTOM CSS -->
+<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <!-- Bootstrap 3.3.5 -->
@@ -31,5 +33,5 @@
 <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css') }}">
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
-
- <link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">
+<!-- select2 CSS -->
+<link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">

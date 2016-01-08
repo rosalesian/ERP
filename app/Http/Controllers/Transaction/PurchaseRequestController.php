@@ -34,7 +34,7 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function create()
 	{	
-		return view('purchaserequest.create');
+		return view('purchaserequest.create_pr');
 	}
 
 	/**
