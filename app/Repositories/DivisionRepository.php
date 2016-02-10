@@ -8,6 +8,6 @@ class DivisionRepository extends Repository{
 	
 	public function model()
 	{
-		return 'Nixzen\Divisions';
+		return 'Nixzen\Models\Lists\Division';
 	}
 }

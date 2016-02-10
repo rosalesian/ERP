@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class ProvinceRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\Province';
+        return 'Nixzen\Models\Province';
     }
 }

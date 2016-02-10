@@ -8,6 +8,6 @@ class InventoryRepository extends Repository{
 	
 	public function model()
 	{
-		return 'Nixzen\Inventory';
+		return 'Nixzen\Models\Inventory';
 	}
 }

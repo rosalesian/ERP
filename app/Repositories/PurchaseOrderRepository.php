@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class PurchaseOrderRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\PurchaseOrder';
+        return 'Nixzen\Models\PurchaseOrder\PurchaseOrder';
     }
 }

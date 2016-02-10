@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class UserRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\User';
+        return 'Nixzen\Models\User';
     }
 }

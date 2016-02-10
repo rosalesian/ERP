@@ -8,6 +8,6 @@ class ExpenseCategoryRepository extends Repository{
 	
 	public function model()
 	{
-		return 'Nixzen\ExpenseCategory';
+		return 'Nixzen\Models\ExpenseCategory';
 	}
 }

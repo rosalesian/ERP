@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class UnitRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\Unit';
+        return 'Nixzen\Models\Unit';
     }
 }

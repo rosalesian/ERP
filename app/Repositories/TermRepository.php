@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class TermRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\Terms';
+        return 'Nixzen\Models\Terms';
     }
 }

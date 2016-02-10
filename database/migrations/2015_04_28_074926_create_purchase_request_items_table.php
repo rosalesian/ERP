@@ -16,7 +16,7 @@ class CreatePurchaseRequestItemsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('purchaserequisition_id')->unsigned();
-			$table->integer('name')->unsigned();
+			$table->integer('item')->unsigned();
 			$table->decimal('quantity', 8, 2);
 			$table->integer('unit_id')->unsigned();
 			$table->double('unit_cost', 9 , 5);

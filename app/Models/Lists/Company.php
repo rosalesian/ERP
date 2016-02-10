@@ -9,7 +9,14 @@ class Company extends Model {
 	
 	protected $primary_key = 'id';
 
-	protected $fillable = ['name', 'description', 'tin', 'inactive', 'created_by', 'updated_by'];
+	protected $fillable = [
+		'name', 
+		'description', 
+		'tin', 
+		'inactive', 
+		'created_by', 
+		'updated_by'
+	];
 
 	public function branches()
 	{

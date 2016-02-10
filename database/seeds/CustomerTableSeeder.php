@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Nixzen\Models\Lists\Customer
 
 class CustomerTableSeeder extends Seeder
 {
@@ -11,6 +12,8 @@ class CustomerTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+    	//clear table
+        Customer::truncate();
+
     }
 }

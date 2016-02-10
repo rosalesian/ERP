@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Nixzen\Models\Item\ItemTypes;
 
 class ItemTypeTableSeeder extends Seeder
 {
@@ -11,6 +12,22 @@ class ItemTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+    	//clear table
+        ItemTypes::truncate();
+
+        //1
+        ItemTypes::create([
+        	'name' => 'Services'
+        ]);
+
+        //2
+        ItemTypes::create([
+        	'name' => 'Inventory'
+        ]);
+
+        //3
+        ItemTypes::create([
+        	'name' => 'Non-Inventory'
+        ]);
     }
 }

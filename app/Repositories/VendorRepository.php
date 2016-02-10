@@ -8,6 +8,6 @@ class VendorRepository extends Repository{
 	
 	public function model()
 	{
-		return 'Nixzen\Vendor';
+		return 'Nixzen\Models\Vendor';
 	}
 }

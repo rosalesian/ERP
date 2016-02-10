@@ -9,7 +9,13 @@ class Department extends Model {
 	
 	protected $primary_key = 'id';
 
-	protected $fillable = ['name', 'company_id', 'description', 'code', 'inactive'];
+	protected $fillable = [
+		'name', 
+		'company_id', 
+		'description', 
+		'code', 
+		'inactive'
+	];
 
 	public function created_by()
 	{

@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class VendorCategoryRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\VendorCategory';
+        return 'Nixzen\Models\VendorCategory';
     }
 }

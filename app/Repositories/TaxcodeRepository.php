@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class TaxcodeRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\Taxcode';
+        return 'Nixzen\Models\Taxcode';
     }
 }

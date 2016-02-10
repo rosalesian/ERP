@@ -16,7 +16,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		@if( isset($purchaserequests))
+		@if( is_null($purchaserequests))
 			<tr>
 				<td colspan=6 align="center">No data</td>
 			</tr>
@@ -26,7 +26,7 @@
 					<td>{{ $pr->requestedby }}</td>
 					<td>{{ $pr->requesteddate }}</td>
 					<td>{{ $pr->branch }}</td>
-					<td>{{ $pr->department }}</td>
+					<td>{{null}}</td>
 					<td>{{ $pr->principal }}</td>
 				</tr>
 			@endforeach
