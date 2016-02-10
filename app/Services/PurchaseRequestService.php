@@ -43,6 +43,7 @@ class PurchaseRequestService {
 			return $purchaserequest;
 		});
 
+
 		event(new Nixzen\Events\PurchaseRequestWasCreated($purchaserequest));
 	}
 
@@ -68,6 +69,5 @@ class PurchaseRequestService {
 		});
 
 		return $purchaserequest;
-		//after submit	
 	}
 }
