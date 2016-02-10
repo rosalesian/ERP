@@ -18,7 +18,7 @@ Route::get('trade-item', function(){
 //Route::get('/','LoginController@login');
 Route::post('login','LoginController@post');
 
-Route::group(['namespace' => 'Lists'], function(){
+Route::group(['namespace' => 'Lists','prefix'=>'lists'], function(){
 	Route::resource('branch', 'BranchController');
 	Route::resource('department', 'DepartmentController');
 	Route::resource('division', 'DivisionController');
@@ -38,7 +38,7 @@ Route::group(['namespace' => 'Lists'], function(){
 	Route::resource('customer', 'CustomerController');
 });
 
-Route::group(['namespace' => 'Transaction'], function(){
+Route::group(['namespace' => 'Transaction','prefix'=>'transactions'], function(){
 	Route::resource('canvass', 'CanvassController');
 	Route::resource('joborder', 'JobOrderController');
 	Route::resource('purchaseorder', 'PurchaseOrderController');

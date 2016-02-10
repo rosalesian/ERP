@@ -1,3 +1,64 @@
 /*div .box {
 	border-top: 3px solid #3c8dbc;
 }*/
+div #navbar-collapse {
+	width: 50%;
+	margin-left:5px; 
+	margin-top:8px;
+	margin-bottom: -8px;
+}
+.transaction-buttons-container {
+	margin-bottom: 10px;
+	width: auto;
+}
+.transaction-buttons-container .trans-button {
+	margin-right: 5px;
+	display: inline-block;	
+}
+.approvaltransition .breadcrumb>.active {
+	color:red;
+}
+
+.summary-container {
+	margin:3% 0% 0% 10%;
+	width:80%;
+	background-color: #e0f1fb;
+}
+.summary-header {
+	padding:2px;
+	background-color: #3c8dbc;
+	color:#ffffff;
+	padding:1% 0% 1% 6%;
+}
+.summary-content {
+	margin:2% 6% 0% 6%;
+	padding-bottom:2%; 
+}
+.summary-content .row {
+	padding-top:4px;
+}
+
+input[type='checkbox'] {
+	width:20px;
+	height:20px;
+}
+
+.react-select-input-mainline {
+	width: auto;
+}
+.react-select-input-lineitem {
+	width: 250px;
+}
+#sublist-items {
+	position: relative;
+}
+#sublist-items div.tableWrapper {
+	overflow: auto;
+	width: 100%;
+}
+#sublist-items div .react-table {
+	width: 100%;
+}
+#sublist-items div .react-table thead tr th{
+	min-width: 80px;
+}

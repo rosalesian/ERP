@@ -31,10 +31,10 @@
         </div><!-- ./wrapper -->
         @include('layout.main-footer')
         @include('layout.main-js')
-
+        @yield('scripts')
 
      <!-- page script -->
-    <script>
+    <!--<script>
       $(function () {
         $("#example1").DataTable();
         $('#example2').DataTable({
@@ -46,7 +46,7 @@
           "autoWidth": false
         });
       });
-    </script>
+    </script>-->
 
     </body>
 </html>

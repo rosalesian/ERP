@@ -21,8 +21,8 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function index()
 	{
-		$purchaseorders = $this->purchaseorder->all();
-		return view('purchaseorder.index')->with('purchaseorders',$purchaseorders);
+		//$purchaseorders = $this->purchaseorder->all();
+		return view('purchaseorder.index');//->with('purchaseorders',$purchaseorders);
 	}
 
 	/**

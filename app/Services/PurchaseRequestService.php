@@ -1,5 +1,5 @@
 <?php
-namespace Nixzen\Services\;
+namespace Nixzen\Services;
 
 use Nixzen\Repositories\PurchaseRequestRepository;
 use Nixzen\Repositories\PurchaseRequestItemRepository;
@@ -8,8 +8,8 @@ class PurchaseRequestService {
 
 	protected $puchaserequest;
 
-	protected $items
-	public function __construct(PurchaseRequest $purchaserequest, PurchaseRequestItems $items){
+	protected $items;
+	public function __construct(PurchaseRequest $purchaserequest, PurchaseRequestItems $items) {
 
 		$this->purchaserequest = $purchaserequest;
 
@@ -28,7 +28,7 @@ class PurchaseRequestService {
 				$this->purchaserequest->items->create($data->input('items'));
 
 			}
-		})
+		});
 		//after submit	
 	}
 
@@ -43,7 +43,7 @@ class PurchaseRequestService {
 				$this->purchaserequest->items->update($data->input('items'), $id);
 
 			}
-		})
+		});
 		//after submit			
 	}
 }

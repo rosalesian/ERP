@@ -24,7 +24,7 @@ class PurchaseRequestController extends Controller {
 	{
 		$purchaserequests = $this->purchaserequest->all();
 
-		return view('purchaserequest.index')->with('purchaserequests',$purchaserequests);
+		return view('purchaserequest.index');//->with('purchaserequests',$purchaserequests);
 	}
 
 	/**
@@ -34,7 +34,7 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function create()
 	{	
-		return view('purchaserequest.create_pr');
+		return view('purchaserequest.create');
 	}
 
 	/**
@@ -44,11 +44,12 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function store(Request $request)	
 	{		
-		$purchaserequest = new PurchaseRequestService;
+		dd($request->all());
+		// $purchaserequest = new PurchaseRequestService;
 
-		$purchaserequest = $purchaserequest->create($request->all());
+		// $purchaserequest = $purchaserequest->create($request->all());
 		
-		return redirect()->route('purchaserequest.show', $purchaserequest->id);
+		// return redirect()->route('purchaserequest.show', $purchaserequest->id);
 	}
 
 	/**
@@ -61,7 +62,7 @@ class PurchaseRequestController extends Controller {
 	{
 		$purchaserequest = $this->purchaserequest->find($id);
 		
-		return view('purchaserequest.show')->with('purchaserequest',$purchaserequest);
+		return view('purchaserequest.show');//->with('purchaserequest',$purchaserequest);
 	}
 
 	/**
@@ -72,9 +73,9 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$purchaserequest = $this->purchaserequest->find($id);
+		// $purchaserequest = $this->purchaserequest->find($id);
 
-		return view('purchaserequest.edit')->with('purchaserequest',$purchaserequest);
+		return view('purchaserequest.edit');//->with('purchaserequest',$purchaserequest);
 	}
 
 	/**
