@@ -8,6 +8,6 @@ class JobOrderTypeRepository extends Repository{
 	
 	public function model()
 	{
-		return 'Nixzen\JobOrderType';
+		return 'Nixzen\Models\Item\JobOrderType';
 	}
 }

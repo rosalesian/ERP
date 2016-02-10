@@ -9,16 +9,22 @@ class Customer extends Model {
 	
 	protected $primary_key = 'id';
 
-	protected $fillable = ['name', 'company_id', 'description', 'code', 'inactive'];
+	protected $fillable = [
+		'name', 
+		'company_id', 
+		'description', 
+		'code', 
+		'inactive'
+	];
 
 	public function branch()
 	{
-		return $this->belongsTo('Branch');
+		return $this->belongsTo('Nixzen\Modles\List\Branch', 'branch_id');
 	}
 	
 	public function company()
 	{
-		return $this->belongsTo('Company');	
+		return $this->belongsTo('Nixzen\Modles\List\Company', 'company_id');	
 	}
 
 }

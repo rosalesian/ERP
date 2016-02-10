@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class PaymentTypeRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\PaymentType';
+        return 'Nixzen\Models\PaymentType';
     }
 }

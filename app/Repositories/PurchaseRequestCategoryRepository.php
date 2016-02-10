@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class PurchaseRequestCategoryRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\PurchaseRequestCategory';
+        return 'Nixzen\Models\PurchaseRequestCategory';
     }
 }

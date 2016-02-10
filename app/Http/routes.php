@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('trade-item', function(){
-	return view('layout.sublist.trade-item');
-});
-
 //Route::get('/','LoginController@login');
-Route::post('login','LoginController@post');
-
+//Route::post('login','LoginController@post');
+Route::get('test', function(){
+	return 'hello world';
+});
 Route::group(['namespace' => 'Lists'], function(){
 	Route::resource('branch', 'BranchController');
 	Route::resource('department', 'DepartmentController');

@@ -4,7 +4,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class PurchaseRequest extends Model {
 
-	protected $table = 'purchase_requests';	
+	protected $table = 'purchase_requests';
+
+	protected $fillable = [
+		'requested_by', 
+		'joborder_id', 
+		'delivered_to', 
+		'division_id',
+		'purchaserequestcategory_id',
+		'approvalstatus_id',
+		'total_amount',
+	];
 
 	public function purchaserequestcategory()
 	{
@@ -19,50 +29,50 @@ class PurchaseRequest extends Model {
 
 	public function division()
 	{
-		return $this->belongsTo('Nixzen\Divisions', 'division_id');
+		return $this->belongsTo('Nixzen\Models\Lists\Division', 'division_id');
 	}
 
 	public function department()
 	{
-		return $this->belongsTo('Nixzen\Department', 'department_id');
+		return $this->belongsTo('Nixzen\Models\Department', 'department_id');
 	}
 
 	public function joborder()
 	{
-		return $this->belongsTo('Nixzen\JobOrder', 'joborder_id');
+		return $this->belongsTo('Nixzen\Models\JobOrder', 'joborder_id');
 	}
 
 	public function requestedby()
 	{
-		return $this->belongsTo('Nixzen\Employee', 'requested_by');
+		return $this->belongsTo('Nixzen\Models\Lists\Employee', 'requested_by');
 	}
 
 	public function approvalstatus()
 	{
-		return $this->belongsTo('Nixzen\ApprovalStatus', 'approvalstatus_id');
+		return $this->belongsTo('Nixzen\Models\ApprovalStatus', 'approvalstatus_id');
 	}
 
 	public function createby()
 	{
-		return $this->belongsTo('Nixzen\Employee', 'created_by');
+		return $this->belongsTo('Nixzen\Models\Employee', 'created_by');
 	}
 
 	public function updatedby()
 	{
-		return $this->belongsTo('Nixzen\Employee', 'updated_by');
+		return $this->belongsTo('Nixzen\Models\Employee', 'updated_by');
 	}
 
 	public function recordType(){
-		return $this->belongsTo('Nixzen\RecordType', 'recordtype_id');
+		return $this->belongsTo('Nixzen\Models\RecordType', 'recordtype_id');
 	}
 
 	public function items(){
-		return $this->belongsTo('Nixzen\PurchaseRequestItem', 'purchaserequisition_id');
+		return $this->hasMany('Nixzen\Models\PurchaseRequestItem', 'purchaserequisition_id');
 	}
 
 	public function activeWorkflow(){
 		
-		return $this->hasMany('Nixzen\ActiveWorkflow', 'record_id')
+		return $this->hasMany('Nixzen\Models\ActiveWorkflow', 'record_id')
 					->where('recordtype_id', $this->recordtype);
 	}
 }

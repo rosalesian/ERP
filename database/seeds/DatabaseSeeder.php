@@ -7,7 +7,7 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
+     *f
      * @return void
      */
     public function run()
@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call('CompanyTableSeeder');
         $this->call('DepartmentTableSeeder');
         $this->call('EmployeeTableSeeder');
-
+        $this->call('UnitsTypeTableSeeder');
+        $this->call('UnitsTableSeeder');
+        $this->call('ItemTypeTableSeeder');
         Model::reguard();
     }
 }

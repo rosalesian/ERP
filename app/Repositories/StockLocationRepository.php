@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class StockLocationRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\StocksLocation';
+        return 'Nixzen\Models\StocksLocation';
     }
 }

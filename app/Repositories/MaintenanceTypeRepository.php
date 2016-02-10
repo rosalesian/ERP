@@ -8,6 +8,6 @@ class MaintenanceTypeRepository extends Repository{
 	
 	public function model()
 	{
-		return 'Nixzen\MaintenanceType';
+		return 'Nixzen\Models\MaintenanceType';
 	}
 }

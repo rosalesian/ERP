@@ -7,6 +7,6 @@ use Nixzen\Repositories\Base\Repository;
 class MaterialCostRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\MaterialCost';
+        return 'Nixzen\Models\MaterialCost';
     }
 }

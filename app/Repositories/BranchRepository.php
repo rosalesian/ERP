@@ -8,6 +8,6 @@ class BranchRepository extends Repository{
 	
 	public function model()
 	{
-		return 'Nixzen\Branch';
+		return 'Nixzen\Models\Lists\Branch';
 	}
 }

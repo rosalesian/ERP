@@ -8,6 +8,6 @@ class EmployeeRepository extends Repository{
 	
 	public function model()
 	{
-		return 'Nixzen\Employee';
+		return 'Nixzen\Models\Lists\Employee';
 	}
 }

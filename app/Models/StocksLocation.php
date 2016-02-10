@@ -1,4 +1,4 @@
-<?php namespace Nixzen;
+<?php namespace Nixzen\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,22 +8,22 @@ class StocksLocation extends Model {
 
 	public function branch()
 	{
-		return $this->belongsTo('Nixzen\Branch', 'branch_id');
+		return $this->belongsTo('Nixzen\Models\Lists\Branch', 'branch_id');
 	}
 
 	public function division()
 	{
-		return $this->belongsTo('Nixzen\Divisions', 'division_id');
+		return $this->belongsTo('Nixzen\Models\Lists\Divisions', 'division_id');
 	}
 
 	public function createby()
 	{
-		return $this->belongsTo('Nixzen\Employee', 'created_by');
+		return $this->belongsTo('Nixzen\Models\Lists\Employee', 'created_by');
 	}
 
 	public function updatedby()
 	{
-		return $this->belongsTo('Nixzen\Employee', 'updated_by');
+		return $this->belongsTo('Nixzen\Models\Lists\Employee', 'updated_by');
 	}
 
 }
