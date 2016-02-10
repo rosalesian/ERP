@@ -14,7 +14,6 @@
 Route::get('test', function(){
 	return 'hello world';
 });
-Route::group(['namespace' => 'Lists'], function(){
 
 Route::group(['namespace' => 'Lists','prefix'=>'lists'], function(){
 	Route::resource('branch', 'BranchController');
@@ -51,4 +50,3 @@ Route::group(['namespace' => 'Admin'], function(){
 Route::get('/', function(){	
 	return view('app');
 });
-
