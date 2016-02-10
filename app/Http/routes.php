@@ -11,12 +11,12 @@
 |
 */
 
-//Route::get('/','LoginController@login');
-//Route::post('login','LoginController@post');
 Route::get('test', function(){
 	return 'hello world';
 });
 Route::group(['namespace' => 'Lists'], function(){
+
+Route::group(['namespace' => 'Lists','prefix'=>'lists'], function(){
 	Route::resource('branch', 'BranchController');
 	Route::resource('department', 'DepartmentController');
 	Route::resource('division', 'DivisionController');
@@ -36,7 +36,7 @@ Route::group(['namespace' => 'Lists'], function(){
 	Route::resource('customer', 'CustomerController');
 });
 
-Route::group(['namespace' => 'Transaction'], function(){
+Route::group(['namespace' => 'Transaction','prefix'=>'transactions'], function(){
 	Route::resource('canvass', 'CanvassController');
 	Route::resource('joborder', 'JobOrderController');
 	Route::resource('purchaseorder', 'PurchaseOrderController');
@@ -49,6 +49,6 @@ Route::group(['namespace' => 'Admin'], function(){
 });
 
 Route::get('/', function(){	
-	return view('default');
+	return view('app');
 });
 

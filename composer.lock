@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9dcdf112299e372e518dfb6fefbf6e67",
-    "content-hash": "27b4842068c4f9f255c9217e05efb5ff",
+    "hash": "0dd20943cf936b57ab52b8231449a765",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2491,7 +2490,7 @@
             ],
             "authors": [
                 {
-                    "name": "Padraic Brady",
+                    "name": "Pádraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },

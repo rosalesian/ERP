@@ -25,7 +25,7 @@ class PurchaseRequestController extends Controller {
 	{
 		$purchaserequests = $this->purchaserequest->with('requestedby', 'division')->all();
 
-		return view('purchaserequest.index')->with('purchaserequests',$purchaserequests);
+		return view('purchaserequest.index');//->with('purchaserequests',$purchaserequests);
 	}
 
 	/**
@@ -44,7 +44,7 @@ class PurchaseRequestController extends Controller {
 	 * @return Response
 	 */
 	public function store(CreatePurchaseRequestRequest $request)
-	{		
+	{
 		$input = $request->only('requestedby', 'type', 'date', 'remarks', 'items');
 
 		$createPurchaseRequest = new CreatePurchaseRequestCommand(
@@ -69,7 +69,7 @@ class PurchaseRequestController extends Controller {
 	public function show($id)
 	{
 		$purchaserequest = $this->purchaserequest->find($id);
-		
+
 		return view('purchaserequest.show')-> with('purchaserequest',$purchaserequest);
 	}
 
@@ -81,9 +81,9 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$purchaserequest = $this->purchaserequest->find($id);
+		// $purchaserequest = $this->purchaserequest->find($id);
 
-		return view('purchaserequest.edit')->with('purchaserequest',$purchaserequest);
+		return view('purchaserequest.edit');//->with('purchaserequest',$purchaserequest);
 	}
 
 	/**
