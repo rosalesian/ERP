@@ -10,9 +10,13 @@ class CreatePurchaseOrderCommand extends Command
 
 	public $type;
 
+    public $terms
+
 	public $date;
 
 	public $remarks;
+
+    public $paymentType;
 
 	public $items;
     /**
@@ -20,12 +24,14 @@ class CreatePurchaseOrderCommand extends Command
      *
      * @return void
      */
-    public function __construct($vendor, $type, $date, $remarks, $items)
+    public function __construct($vendor, $type, $terms, $date, $remarks, $paymentType, $items)
     {
-        $this->vendor 	= $vendor;
-        $this->type 	= $type;
-        $this->date 	= $date;
-        $this->remarks	= $remarks;
-        $this->items 	= $items;
+        $this->vendor 	    = $vendor;
+        $this->type 	    = $type;
+        $this->terms        = $terms;
+        $this->date 	    = $date;
+        $this->remarks	    = $remarks;
+        $this->paymentType  = $paymentType;
+        $this->items 	    = $items;
     }
 }

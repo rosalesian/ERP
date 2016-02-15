@@ -47,7 +47,7 @@ class PurchaseRequest extends Model {
 		return $this->belongsTo('Nixzen\Models\Lists\Employee', 'requested_by');
 	}
 
-	public function approvalstatus()
+	public function approval()
 	{
 		return $this->belongsTo('Nixzen\Models\ApprovalStatus', 'approvalstatus_id');
 	}

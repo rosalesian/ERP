@@ -14,8 +14,8 @@
 Route::get('test', function(){
 	return 'hello world';
 });
-
-Route::group(['namespace' => 'Lists','prefix'=>'lists'], function(){
+	
+Route::group(['namespace' => 'Lists'], function(){
 	Route::resource('branch', 'BranchController');
 	Route::resource('department', 'DepartmentController');
 	Route::resource('division', 'DivisionController');
@@ -35,10 +35,11 @@ Route::group(['namespace' => 'Lists','prefix'=>'lists'], function(){
 	Route::resource('customer', 'CustomerController');
 });
 
-Route::group(['namespace' => 'Transaction','prefix'=>'transactions'], function(){
+Route::group(['namespace' => 'Transaction'], function(){
 	Route::resource('canvass', 'CanvassController');
 	Route::resource('joborder', 'JobOrderController');
 	Route::resource('purchaseorder', 'PurchaseOrderController');
+	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
 	Route::resource('purchaserequest', 'PurchaseRequestController');
 });
 

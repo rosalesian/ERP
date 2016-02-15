@@ -22,7 +22,7 @@ class PurchaseOrderController extends Controller {
 	public function index()
 	{
 		$purchaseorders = $this->purchaseorder->all();
-
+		
 		return view('purchaseorder.index')->with('purchaseorders',$purchaseorders);
 	}
 
@@ -32,7 +32,7 @@ class PurchaseOrderController extends Controller {
 	 * @return Response
 	 */
 	public function create()
-	{
+	{		
 		return view('purchaseorder.create');
 	}
 
@@ -43,11 +43,22 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function store(CreatePurchaseOrderRequest $request)
 	{
-		$inputs = $request->only('vendor', 'type', 'date', 'remarks', 'items');
+		$inputs = $request->only(
+			'vendor', 
+			'terms', 
+			'type', 
+			'date', 
+			'paymenttype', 
+			'remarks', 
+			'items'
+		);
+		
 		$createPurchaseOrder = new CreatePurchaseOrderCommand(
 			$input['vendor'],
+			$input['terms'],
 			$input['type'],
 			$input['date'],
+			$input['paymenttype'],
 			$input['remarks'],
 			$input['items']
 		);

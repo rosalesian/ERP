@@ -3,7 +3,6 @@
 namespace Nixzen\Http\Requests;
 
 use Nixzen\Http\Requests\Request;
-use Illuminate\Contracts\Validation\Validator;
 
 class CreatePurchaseRequestRequest extends Request
 {
@@ -25,22 +24,20 @@ class CreatePurchaseRequestRequest extends Request
     public function rules()
     {        
         return [
-            'requestedby' => 'required',
-            'date' => 'required',
-            'items' => 'required'
+            'requestedby'   => 'required',
+            'date'          => 'required',
+            'type'          => 'required',
+            'items'         => 'required'
         ];
-    }
-
-    protected function formatErrors(Validator $validator)
-    {
-        return $validator->errors()->all();
-    }
+        }
 
     public function messages()
     {        
         return [
-            'requested_by.required' => 'A requester is required to complete the transaction',
-            'item.required' => 'At least 1 item is required to create this transaction'
+            'requester.required' => 'A requester is required to complete the transaction',
+            'item.required' => 'At least 1 item is required to create this transaction',
+            'type.required' => 'PR type is required',
+            'date.required' => 'Date is required'
         ];
     }
 }

@@ -29,10 +29,12 @@ class CreatePurchaseOrderCommandHandler
     public function handle(CreatePurchaseOrderCommand $command)
     {
         $purchaseorder = $this->purchaseorder->create([
-            'vendor'    => $command->vendor,
-            'date'      => $command->date,
-            'type'      => $command->type,
-            'remarks'   => $command->remarks
+            'vendor'        => $command->vendor,
+            'terms'         => $command->terms,
+            'date'          => $command->date,
+            'type'          => $command->type,
+            'paymenttype'   =>$command->paymentType;
+            'remarks'       => $command->remarks
         ]);
 
         $poItems = [];
