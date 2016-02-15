@@ -1,10 +1,19 @@
-<?php namespace Nixzen;
+<?php namespace Nixzen\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model {
 
 	protected $table = 'units';
+
+	protected $fillable = [
+		'name', 
+		'pluralname', 
+		'abbreviation',
+		'plural_abbreviation',
+		'conversion_rate',
+		'base_unit'
+	];
 
 	public function unittype()
 	{

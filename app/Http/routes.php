@@ -11,13 +11,10 @@
 |
 */
 
-Route::get('trade-item', function(){
-	return view('layout.sublist.trade-item');
+Route::get('test', function(){
+	return 'hello world';
 });
-
-//Route::get('/','LoginController@login');
-Route::post('login','LoginController@post');
-
+	
 Route::group(['namespace' => 'Lists'], function(){
 	Route::resource('branch', 'BranchController');
 	Route::resource('department', 'DepartmentController');
@@ -42,6 +39,7 @@ Route::group(['namespace' => 'Transaction'], function(){
 	Route::resource('canvass', 'CanvassController');
 	Route::resource('joborder', 'JobOrderController');
 	Route::resource('purchaseorder', 'PurchaseOrderController');
+	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
 	Route::resource('purchaserequest', 'PurchaseRequestController');
 });
 
@@ -51,6 +49,5 @@ Route::group(['namespace' => 'Admin'], function(){
 });
 
 Route::get('/', function(){	
-	return view('default');
+	return view('app');
 });
-

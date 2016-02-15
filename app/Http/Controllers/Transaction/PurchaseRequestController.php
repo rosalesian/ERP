@@ -2,14 +2,15 @@
 
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
-//repository
 use Nixzen\Repositories\PurchaseRequestRepository as PurchaseRequest;
-use Nixzen\Services\PurchaseRequestService;
+use Nixzen\Http\Requests\CreatePurchaseRequestRequest;
+use Nixzen\Commands\CreatePurchaseRequestCommand;
+use Nixzen\Commands\UpdatePurchaseRequestCommand;
 use Illuminate\Http\Request;
 
 class PurchaseRequestController extends Controller {
 
-	private $purchaserequest;
+	public $purchaserequest;
 
 	public function __construct(PurchaseRequest $purchaserequest){
 		$this->purchaserequest = $purchaserequest;
@@ -22,9 +23,9 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function index()
 	{
-		$purchaserequests = $this->purchaserequest->all();
+		$purchaserequests = $this->purchaserequest->with('requestedby', 'division')->all();
 
-		return view('purchaserequest.index')->with('purchaserequests',$purchaserequests);
+		return view('purchaserequest.index');//->with('purchaserequests',$purchaserequests);
 	}
 
 	/**
@@ -42,26 +43,34 @@ class PurchaseRequestController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)	
-	{		
-		$purchaserequest = new PurchaseRequestService;
+	public function store(CreatePurchaseRequestRequest $request)
+	{
+		$input = $request->only('requestedby', 'type', 'date', 'remarks', 'items');
 
-		$purchaserequest = $purchaserequest->create($request->all());
+		$createPurchaseRequest = new CreatePurchaseRequestCommand(
+			$input['requestedby'],
+			$input['type'],
+			$input['date'],
+			$input['remarks'],
+			$input['items']
+		);
+
+		$purchaserequest = $this->dispatch($createPurchaseRequest);
 		
 		return redirect()->route('purchaserequest.show', $purchaserequest->id);
 	}
 
 	/**
 	 * Display the specified resource.
-	 *
+	 *	
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function show($id)
 	{
 		$purchaserequest = $this->purchaserequest->find($id);
-		
-		return view('purchaserequest.show')->with('purchaserequest',$purchaserequest);
+
+		return view('purchaserequest.show')-> with('purchaserequest',$purchaserequest);
 	}
 
 	/**
@@ -72,9 +81,9 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$purchaserequest = $this->purchaserequest->find($id);
+		// $purchaserequest = $this->purchaserequest->find($id);
 
-		return view('purchaserequest.edit')->with('purchaserequest',$purchaserequest);
+		return view('purchaserequest.edit');//->with('purchaserequest',$purchaserequest);
 	}
 
 	/**
@@ -83,11 +92,19 @@ class PurchaseRequestController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
-	{
-		$purchaserequest = new PurchaseRequestService;
+	public function update(CreatePurchaseRequestRequest $request, $id)
+	{		
+		$inputs = $request->only('requestedby', 'type', 'date', 'remarks', 'items');
+		$updatePurchaseRequest = new UpdatePurchaseRequestCommand(
+			$id,
+			$inputs['requestedby'],
+			$inputs['type'],
+			$inputs['date'],
+			$inputs['remarks'],
+			$inputs['items']
+		);
 
-		$purchaserequest->update($request->all(), $id);
+		$this->dispatch( $updatePurchaseRequest );
 
 		return redirect()->route('purchaserequest.show', $id);
 	}

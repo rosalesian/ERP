@@ -22,6 +22,7 @@ class PurchaseOrderController extends Controller {
 	public function index()
 	{
 		$purchaseorders = $this->purchaseorder->all();
+		
 		return view('purchaseorder.index')->with('purchaseorders',$purchaseorders);
 	}
 
@@ -31,7 +32,7 @@ class PurchaseOrderController extends Controller {
 	 * @return Response
 	 */
 	public function create()
-	{
+	{		
 		return view('purchaseorder.create');
 	}
 
@@ -40,9 +41,30 @@ class PurchaseOrderController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreatePurchaseOrderRequest $request)
 	{
-		$purchaseorder = $this->purchaseorder->create(Input::all());
+		$inputs = $request->only(
+			'vendor', 
+			'terms', 
+			'type', 
+			'date', 
+			'paymenttype', 
+			'remarks', 
+			'items'
+		);
+		
+		$createPurchaseOrder = new CreatePurchaseOrderCommand(
+			$input['vendor'],
+			$input['terms'],
+			$input['type'],
+			$input['date'],
+			$input['paymenttype'],
+			$input['remarks'],
+			$input['items']
+		);
+
+		$purchaseorder = $this->dispatch($createPurchaseOrder);
+
 		return redirect()->route('purchaseorder.show', $purchaseorder->id);
 	}
 
@@ -78,7 +100,17 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function update($id)
 	{
-		$this->purchaseorder->update(Input::all(), $id);
+		$inputs = $requests->only('vendor', 'date', 'type', 'remarks', 'items');
+		$updatePurchaseOrder = new UpdatePurchaseOrderCommand(
+			$id,
+			$inputs['vendor'],
+			$inputs['type'],
+			$inputs['date'],
+			$inputs['remarks'],
+			$inputs['items']
+		);
+		$this->dispatch($updatePurchaseOrder);
+
 		return redirect()->route('purchaseorder.show', $id);
 	}
 

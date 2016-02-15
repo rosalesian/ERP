@@ -10,7 +10,8 @@
         "bosnadev/repositories": "0.*",
         "laravelcollective/html": "~5.0",
         "tymon/jwt-auth": "0.5.*",
-        "barryvdh/laravel-debugbar": "^2.1@dev"
+        "barryvdh/laravel-debugbar": "^2.1@dev",
+        "guzzlehttp/guzzle": "^6.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

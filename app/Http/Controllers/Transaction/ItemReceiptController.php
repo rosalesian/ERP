@@ -14,7 +14,7 @@ class ItemReceiptController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		//array of IR's
 	}
 
 	/**
@@ -24,7 +24,8 @@ class ItemReceiptController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		//load dependent Purchase Order
+		//pre populated Purchase Order line items to Item Receipt line Items;
 	}
 
 	/**
