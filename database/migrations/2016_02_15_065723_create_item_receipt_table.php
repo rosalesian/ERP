@@ -17,7 +17,7 @@ class CreateItemReceiptTable extends Migration
             $table->integer('purchaseorder_id');
             $table->date('date');
             $table->text('remarks');
-            $table->boolean('inactive')->default(false)
+            $table->boolean('inactive')->default(false);
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();

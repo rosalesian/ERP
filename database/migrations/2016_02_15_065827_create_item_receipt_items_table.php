@@ -15,7 +15,7 @@ class CreateItemReceiptItemsTable extends Migration
         Schema::create('itemreceipt_item', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('itemreceipt_id');
-            $table->integer('purchaseorderitem_id');    
+            $table->integer('purchaseorderitem_id');
             $table->decimal('quantity_received');
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
