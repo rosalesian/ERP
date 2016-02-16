@@ -35,7 +35,9 @@ class ItemReceiptController extends Controller {
 	 */
 	public function store()
 	{
-		//
+		//create IR
+		//update PO
+		//update inventory
 	}
 
 	/**

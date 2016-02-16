@@ -16,8 +16,10 @@ class CreatePurchaseOrderItemsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('purchaseorder_id')->unsigned();
-			$table->integer('name')->unsigned();
+			$table->integer('item_id')->unsigned();
 			$table->decimal('quantity', 8, 2);
+			$table->decimal('quantity_received', 8, 2);
+			$table->decimal('quantity_billed', 8, 2);
 			$table->integer('unit_id')->unsigned();
 			$table->double('unit_cost', 9 , 5);
 			$table->double('amount', 9 , 5);

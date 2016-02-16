@@ -22,7 +22,7 @@ class PurchaseOrderController extends Controller {
 	public function index()
 	{
 		$purchaseorders = $this->purchaseorder->all();
-		
+
 		return view('purchaseorder.index')->with('purchaseorders',$purchaseorders);
 	}
 
@@ -45,8 +45,8 @@ class PurchaseOrderController extends Controller {
 	{
 		$inputs = $request->only(
 			'vendor', 
-			'terms', 
-			'type', 
+			'terms',
+			'type',
 			'date', 
 			'paymenttype', 
 			'remarks', 
