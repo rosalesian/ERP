@@ -2,11 +2,19 @@
 
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
+use Nixzen\Repositories\ItemReceipt;
+use Nixzen\Repositories\PurchaseOrder;
 
 use Illuminate\Http\Request;
 
 class ItemReceiptController extends Controller {
 
+
+	public $itemreceipt;
+
+	public function __construct(ItemReceipt $itemreceipt)	{
+		$this->itemreceipt = $itemreceipt;
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -14,7 +22,8 @@ class ItemReceiptController extends Controller {
 	 */
 	public function index()
 	{
-		//array of IR's
+		$itemreceipts = $this->itemreceipts->all();
+		return view('itemreceipt.index')->with('itemreceipts', $itemreceipts);
 	}
 
 	/**
@@ -22,10 +31,9 @@ class ItemReceiptController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(PurchaseOrder $purchaseorder)
 	{
-		//load dependent Purchase Order
-		//pre populated Purchase Order line items to Item Receipt line Items;
+		return view('itemrecept.create')->with('purchaseorder', $purchaseorder);
 	}
 
 	/**
