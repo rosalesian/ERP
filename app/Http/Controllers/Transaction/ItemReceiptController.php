@@ -2,8 +2,9 @@
 
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
-use Nixzen\Repositories\ItemReceipt;
-use Nixzen\Repositories\PurchaseOrder;
+use Nixzen\Repositories\ItemReceiptRepository;
+use Nixzen\Repositories\PurchaseOrderRepository;
+use Nixzen\Commnads\CreateItemReceiptCommand;
 
 use Illuminate\Http\Request;
 
@@ -12,17 +13,21 @@ class ItemReceiptController extends Controller {
 
 	public $itemreceipt;
 
-	public function __construct(ItemReceipt $itemreceipt)	{
-		$this->itemreceipt = $itemreceipt;
+	public $purchaseorder;
+
+	public function __construct(ItemReceiptRepository $itemreceipt, PurchaseOrderRepository $purchaseorder)	{
+		$this->itemreceipt		= $itemreceipt;
+		$this->purchaseorder	= $purchaseorder;
 	}
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($poId)
 	{
 		$itemreceipts = $this->itemreceipts->all();
+		
 		return view('itemreceipt.index')->with('itemreceipts', $itemreceipts);
 	}
 
@@ -31,8 +36,9 @@ class ItemReceiptController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(PurchaseOrder $purchaseorder)
+	public function create($poId)
 	{
+		$purchaseorder = $this->purchaseorder->find($poId);
 		return view('itemrecept.create')->with('purchaseorder', $purchaseorder);
 	}
 
@@ -41,11 +47,23 @@ class ItemReceiptController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($poId, ItemReceiptRequest $request)
 	{
 		//create IR
 		//update PO
 		//update inventory
+		$remarks= $request->only('remarks');
+		$date		= $request->only('date');
+		$items	= $request->only('items');
+
+		$createItemReceipt = new CreateItemReceiptCommand(
+			$poId,
+			$date,
+			$remarks,
+			$items
+		);
+
+		$this->dispatch($createItemReceipt);
 	}
 
 	/**
@@ -54,9 +72,11 @@ class ItemReceiptController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($poId, $irId)
 	{
-		//
+		$itemreceipt = $this->itemreceipt->find($irId);
+
+		return view('itemreceipt.show')->with('itemreceipt', $itemreceipt);
 	}
 
 	/**
@@ -65,9 +85,11 @@ class ItemReceiptController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($poId, $irId)
 	{
-		//
+		$itemreceipt = $this->itemreceipt->find($irId);
+
+		return view('itemreceipt.edit')->with('itemreceipt', $itemreceipt);
 	}
 
 	/**
@@ -76,7 +98,7 @@ class ItemReceiptController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($poId, $irId)
 	{
 		//
 	}
@@ -87,7 +109,7 @@ class ItemReceiptController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($poId, $irId)
 	{
 		//
 	}

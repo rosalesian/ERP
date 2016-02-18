@@ -32,7 +32,7 @@ class PurchaseOrderController extends Controller {
 	 * @return Response
 	 */
 	public function create()
-	{		
+	{
 		return view('purchaseorder.create');
 	}
 
@@ -44,15 +44,15 @@ class PurchaseOrderController extends Controller {
 	public function store(CreatePurchaseOrderRequest $request)
 	{
 		$inputs = $request->only(
-			'vendor', 
+			'vendor',
 			'terms',
 			'type',
-			'date', 
-			'paymenttype', 
+			'date',
+			'paymenttype',
 			'remarks', 
 			'items'
 		);
-		
+
 		$createPurchaseOrder = new CreatePurchaseOrderCommand(
 			$input['vendor'],
 			$input['terms'],
