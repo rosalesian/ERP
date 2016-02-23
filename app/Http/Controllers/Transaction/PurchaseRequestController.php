@@ -23,9 +23,10 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function index()
 	{
-		$purchaserequests = $this->purchaserequest->with('requestedby', 'division')->all();
+		$purchaserequests = $this->purchaserequest->all();
 
-		return view('purchaserequest.index');//->with('purchaserequests',$purchaserequests);
+		return view('purchaserequest.index')
+						->with('purchaserequests',$purchaserequests);
 	}
 
 	/**
@@ -34,7 +35,7 @@ class PurchaseRequestController extends Controller {
 	 * @return Response
 	 */
 	public function create()
-	{	
+	{
 		return view('purchaserequest.create');
 	}
 
@@ -56,13 +57,13 @@ class PurchaseRequestController extends Controller {
 		);
 
 		$purchaserequest = $this->dispatch($createPurchaseRequest);
-		
+
 		return redirect()->route('purchaserequest.show', $purchaserequest->id);
 	}
 
 	/**
 	 * Display the specified resource.
-	 *	
+	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
@@ -93,7 +94,7 @@ class PurchaseRequestController extends Controller {
 	 * @return Response
 	 */
 	public function update(CreatePurchaseRequestRequest $request, $id)
-	{		
+	{
 		$inputs = $request->only('requestedby', 'type', 'date', 'remarks', 'items');
 		$updatePurchaseRequest = new UpdatePurchaseRequestCommand(
 			$id,
