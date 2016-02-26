@@ -7,12 +7,8 @@ use Nixzen\Http\Requests\CreatePurchaseRequestRequest as Request;
 
 class PurchaseRequestControllerTest extends TestCase
 {
-		//use DatabaseMigrations;
+		use DatabaseMigrations, WithoutMiddleware;
 
-		public function __construct()
-		{
-			$this->mock = Mockery::mock('Nixzen\Repositories\PurchaseRequestRepository');
-		}
     /**
      * A basic test example.
      *
@@ -20,9 +16,6 @@ class PurchaseRequestControllerTest extends TestCase
      */
     public function testIndex()
     {
-			$this->mock->shouldReceive('all')->once()->andReturn('purchaserequest');
-
-			$this->app->instance('Nixzen\Repositories\PurchaseRequestRepository', $this->mock);
 
       $response = $this->call('GET','purchaserequest');
 
@@ -40,31 +33,32 @@ class PurchaseRequestControllerTest extends TestCase
 
 		public function testStore()
 		{
-			$request = new Request;
-			$request->replace([
+			//$request = new Request();
+			$item = [
+				['item_id'=> 1,'quantity'=> 2, 'unit_id'=> 1],
+				['item_id'=> 2,'quantity'=> 2, 'unit_id'=> 1]
+			];
+			$request =[
 				'requestedby' => '1',
 				'type'	=>	'1',
-				'date'	=>	'02/22/2016',
+				'date'	=>	'2016-02-22',
 				'remarks'	=> 'this is a test',
-				'items'	=> [
-					"{'item_id': '1'}"
-				];
-			]);
-			$prMock = Mockery::mock();
+				'items'	=> json_encode($item)
+			];
 
-			$this->call('POST', 'purchaserequest');
+
+			$response = $this->call('POST', 'purchaserequest', $request);
+
+			dd($response->getContent());
 
 			$this->assertResponseOk();
-
-			$this->assertViewHas('purchaserequest');
+			//$this->assertViewHas('errors');
+			// $this->assertViewHas('purchaserequest');
+			$this->assertRedirectedToRoute("purchaserequest.show");
 		}
 
 		public function testShow()
 		{
-
-			$this->mock->shouldReceive('find')->once()->with('1')->andReturn('purchaserequest');
-
-			$this->app->instance('Nixzen\Repositories\PurchaseRequestRepository', $this->mock);
 
 			$this->call('GET', 'purchaserequest/1');
 

@@ -17,10 +17,10 @@ class CreatePurchaseRequestsTable extends Migration {
 			$table->increments('id');
 			$table->integer('type_id')->unsigned();
 			$table->date('date');
-			$table->double('total_amount', 9 , 5);
-			$table->integer('requester');
-			$table->text('remarks');
-			$table->boolean('inactive');
+			$table->double('total_amount', 9 , 5)->default(0);
+			$table->integer('requester')->unsigned();
+			$table->text('remarks')->nullable();
+			$table->boolean('inactive')->default(false);
 			$table->integer('created_by')->unsigned();
 			$table->integer('updated_by')->unsigned();
 			$table->timestamps();

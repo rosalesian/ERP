@@ -22,7 +22,7 @@ class CreatePurchaseRequestRequest extends Request
      * @return array
      */
     public function rules()
-    {        
+    {
         return [
             'requestedby'   => 'required',
             'date'          => 'required',
@@ -32,7 +32,7 @@ class CreatePurchaseRequestRequest extends Request
         }
 
     public function messages()
-    {        
+    {
         return [
             'requester.required' => 'A requester is required to complete the transaction',
             'item.required' => 'At least 1 item is required to create this transaction',
