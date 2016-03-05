@@ -22,6 +22,10 @@ class PurchaseRequestControllerTest extends TestCase
 			$this->assertResponseOk();
 
 			$this->assertViewHas('purchaserequests');
+
+			$purchaserequests = $response->original->getData()['purchaserequests'];
+
+			$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $purchaserequests);
     }
 
 		public function testCreate()
@@ -33,7 +37,6 @@ class PurchaseRequestControllerTest extends TestCase
 
 		public function testStore()
 		{
-			//$request = new Request();
 			$item = [
 				['item_id'=> 1,'quantity'=> 2, 'unit_id'=> 1],
 				['item_id'=> 2,'quantity'=> 2, 'unit_id'=> 1]
@@ -46,21 +49,16 @@ class PurchaseRequestControllerTest extends TestCase
 				'items'	=> json_encode($item)
 			];
 
-
 			$response = $this->call('POST', 'purchaserequest', $request);
 
-			dd($response->getContent());
-
-			$this->assertResponseOk();
-			//$this->assertViewHas('errors');
-			// $this->assertViewHas('purchaserequest');
-			$this->assertRedirectedToRoute("purchaserequest.show");
+			$this->assertResponseStatus(302);
+			$this->assertRedirectedToRoute('purchaserequest.show',[1]);
 		}
 
 		public function testShow()
 		{
 
-			$this->call('GET', 'purchaserequest/1');
+			$response = $this->call('GET', 'purchaserequest/1');
 
 			$this->assertResponseOk();
 

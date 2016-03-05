@@ -21,8 +21,6 @@ class CreatePurchaseRequestsTable extends Migration {
 			$table->integer('requester')->unsigned();
 			$table->text('remarks')->nullable();
 			$table->boolean('inactive')->default(false);
-			$table->integer('created_by')->unsigned();
-			$table->integer('updated_by')->unsigned();
 			$table->timestamps();
 		});
 	}

@@ -10,13 +10,13 @@ class CreatePurchaseOrderCommand extends Command
 
 	public $type;
 
-    public $terms
+  public $terms;
 
 	public $date;
 
 	public $remarks;
 
-    public $paymentType;
+  public $paymentType;
 
 	public $items;
     /**

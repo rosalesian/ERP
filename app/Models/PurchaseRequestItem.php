@@ -7,7 +7,7 @@ class PurchaseRequestItem extends Model {
 	protected $table = 'purchase_request_items';
 
 	protected $fillable = [
-		'name',
+		'item_id',
 		'quantity',
 		'unit_id',
 		'unit_cost',

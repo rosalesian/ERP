@@ -6,6 +6,15 @@ class PurchaseOrder extends Model {
 
 	protected $table = 'purchase_orders';
 
+	protected $fillable = [
+		'vendor_id',
+		'terms_id',
+		'date',
+		'type_id',
+		'paymenttype_id',
+		'memo'
+	];
+
 	public function purchaseorderitems()
 	{
 		return $this->hasMany('Nixzen\PurchaseOrderItem', 'purchaseorder_id');
@@ -65,5 +74,10 @@ class PurchaseOrder extends Model {
 	public function stockloction()
 	{
 		return $this->belongsTo('Nixzen\StocksLocation', 'stocklocation_id');
+	}
+
+	public function items()
+	{
+		return $this->hasMany('Nixzen\Models\PurchaseOrderItem', 'purchaseorder_id');
 	}
 }

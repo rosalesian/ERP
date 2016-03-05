@@ -7,13 +7,15 @@ class PurchaseRequest extends Model {
 	protected $table = 'purchase_requests';
 
 	protected $fillable = [
-		'requested_by', 
-		'joborder_id', 
-		'delivered_to', 
+		'requester',
+		'type_id',
+		'date',
+		'joborder_id',
+		'delivered_to',
 		'division_id',
 		'purchaserequestcategory_id',
 		'approvalstatus_id',
-		'total_amount',
+		'total_amount'
 	];
 
 	public function purchaserequestcategory()
@@ -71,7 +73,7 @@ class PurchaseRequest extends Model {
 	}
 
 	public function activeWorkflow(){
-		
+
 		return $this->hasMany('Nixzen\Models\ActiveWorkflow', 'record_id')
 					->where('recordtype_id', $this->recordtype);
 	}

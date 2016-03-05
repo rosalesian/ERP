@@ -5,6 +5,7 @@ namespace Nixzen\Handlers\Commands;
 use Nixzen\Commands\CreatePurchaseOrderCommand;
 use Nixzen\Repositories\PurchaseOrderRepository;
 use Nixzen\Models\PurchaseOrderItem;
+use Nixzen\Events\PurchaseOrderWasCreated;
 use Illuminate\Queue\InteractsWithQueue;
 
 class CreatePurchaseOrderCommandHandler
@@ -29,12 +30,12 @@ class CreatePurchaseOrderCommandHandler
     public function handle(CreatePurchaseOrderCommand $command)
     {
         $purchaseorder = $this->purchaseorder->create([
-            'vendor'        => $command->vendor,
-            'terms'         => $command->terms,
+            'vendor_id'        => $command->vendor,
+            'terms_id'         => $command->terms,
             'date'          => $command->date,
-            'type'          => $command->type,
-            'paymenttype'   =>$command->paymentType;
-            'remarks'       => $command->remarks
+            'type_id'          => $command->type,
+            'paymenttype_id'   =>$command->paymentType,
+            'memo'       => $command->remarks
         ]);
 
         $poItems = [];
@@ -44,7 +45,7 @@ class CreatePurchaseOrderCommandHandler
 
         $purchaseorder->items()->saveMany($poItems);
 
-        event(new PurchaseOrderWasCreate($purchaseorder));
+        event(new PurchaseOrderWasCreated($purchaseorder));
 
         return $purchaseorder;
     }

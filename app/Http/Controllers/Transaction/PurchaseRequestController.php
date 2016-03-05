@@ -47,13 +47,13 @@ class PurchaseRequestController extends Controller {
 	public function store(CreatePurchaseRequestRequest $request)
 	{
 		$input = $request->only('requestedby', 'type', 'date', 'remarks', 'items');
-
+		$items = json_decode($input['items']);
 		$createPurchaseRequest = new CreatePurchaseRequestCommand(
 			$input['requestedby'],
 			$input['type'],
 			$input['date'],
 			$input['remarks'],
-			$input['items']
+			$items
 		);
 
 		$purchaserequest = $this->dispatch($createPurchaseRequest);

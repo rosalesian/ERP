@@ -51,15 +51,15 @@ class CreateItemReceiptCommandHandler
         $irItems = [];
         foreach($command->items as $item){
 
-			$irItem = $this->irItem->create([
-				'purchaseorderitem_id'	=> $item->purchaseorderitem_id,
-				'quantity_received'	=> $item->quantity_received,
-			]);
+					$irItem = $this->irItem->create([
+						'purchaseorderitem_id'	=> $item->purchaseorderitem_id,
+						'quantity_received'	=> $item->quantity_received,
+					]);
 
-            array_push($irItems, $irItem);
-        }
+		      array_push($irItems, $irItem);
+	      }
 
-		$itemreceipt->saveMany($irItems);
+				$itemreceipt->saveMany($irItems);
 
 		return $itemreceipt;
     }

@@ -26,8 +26,8 @@ class ItemReceiptController extends Controller {
 	 */
 	public function index($poId)
 	{
-		$itemreceipts = $this->itemreceipts->all();
-		
+		$itemreceipts = $this->itemreceipt->all();
+
 		return view('itemreceipt.index')->with('itemreceipts', $itemreceipts);
 	}
 
@@ -39,7 +39,7 @@ class ItemReceiptController extends Controller {
 	public function create($poId)
 	{
 		$purchaseorder = $this->purchaseorder->find($poId);
-		return view('itemrecept.create')->with('purchaseorder', $purchaseorder);
+		return view('itemreceipt.create')->with('purchaseorder', $purchaseorder);
 	}
 
 	/**
@@ -49,12 +49,9 @@ class ItemReceiptController extends Controller {
 	 */
 	public function store($poId, ItemReceiptRequest $request)
 	{
-		//create IR
-		//update PO
-		//update inventory
 		$remarks= $request->only('remarks');
 		$date		= $request->only('date');
-		$items	= $request->only('items');
+		$items	= json_decode($request->only('items'));
 
 		$createItemReceipt = new CreateItemReceiptCommand(
 			$poId,

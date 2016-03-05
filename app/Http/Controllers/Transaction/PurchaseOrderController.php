@@ -3,7 +3,8 @@
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\PurchaseOrderRepository as PurchaseOrder;
-
+use Nixzen\Http\Requests\CreatePurchaseOrderRequest;
+use Nixzen\Commands\CreatePurchaseOrderCommand;
 use Illuminate\Http\Request;
 
 class PurchaseOrderController extends Controller {
@@ -43,15 +44,16 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function store(CreatePurchaseOrderRequest $request)
 	{
-		$inputs = $request->only(
+		$input = $request->only(
 			'vendor',
 			'terms',
 			'type',
 			'date',
 			'paymenttype',
-			'remarks', 
+			'remarks',
 			'items'
 		);
+		$items = json_decode($input['items']);
 
 		$createPurchaseOrder = new CreatePurchaseOrderCommand(
 			$input['vendor'],
@@ -60,7 +62,7 @@ class PurchaseOrderController extends Controller {
 			$input['date'],
 			$input['paymenttype'],
 			$input['remarks'],
-			$input['items']
+			$items
 		);
 
 		$purchaseorder = $this->dispatch($createPurchaseOrder);
