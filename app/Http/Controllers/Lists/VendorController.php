@@ -3,8 +3,9 @@
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\VendorRepository as Vendor;
-
-use Illuminate\Http\Request;
+use Nixzen\Http\Requests\VendorRequest;
+use Nixzen\Commands\CreateVendorCommand;
+use Nixzen\Commands\UpdateVendorCommand;
 
 class VendorController extends Controller {
 
@@ -22,7 +23,7 @@ class VendorController extends Controller {
 	public function index()
 	{
 		$vendors = $this->vendor->all();
-		//return view('', $vendors);
+		return view('vendor.index')->with('vendors', $vendors);
 	}
 
 	/**
@@ -32,7 +33,7 @@ class VendorController extends Controller {
 	 */
 	public function create()
 	{
-		//return view('');
+		return view('vendor.create');
 	}
 
 	/**
@@ -40,10 +41,11 @@ class VendorController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(VendorRequest $request)
 	{
-		$this->vendor->create(Input::all());
-		//return view('');
+		//$vendor = $this->vendor->create($request->all());
+		$vendor = $this->dispatchFrom(CreateVendorCommand::class, $request);
+		return redirect()->route('vendor.show', $vendor->id);
 	}
 
 	/**
@@ -52,11 +54,10 @@ class VendorController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Request $request)
+	public function show($id)
 	{
-		$vendor = $this->vendor->find($request->id);
-
-		return response()->json($vendor);
+		$vendor = $this->vendor->find($id);
+		return view('vendor.show')->with('vendor', $vendor);
 	}
 
 	/**
@@ -68,7 +69,7 @@ class VendorController extends Controller {
 	public function edit($id)
 	{
 		$vendor = $this->vendor->find($id);
-		//return view('',$vendor);
+		return view('vendor.edit')->with('vendor', $vendor);
 	}
 
 	/**
@@ -77,10 +78,12 @@ class VendorController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, VendorRequest $request)
 	{
-		$this->vendor->update(Input::all(), $id);
-		//return view('');
+		//$this->vendor->update(Input::all(), $id);
+		$vendor = $this->vendor->find($id);
+		$this->dispatchFrom(UpdateVendorCommand::class, $request, ['vendor' => $vendor]);
+		return redirect()->route('vendor.show', $id);
 	}
 
 	/**
@@ -92,7 +95,7 @@ class VendorController extends Controller {
 	public function destroy($id)
 	{
 		$this->vendor->delete($id);
-		//return view('');
+		return redirect()->route('vendor.index');
 	}
 
 }

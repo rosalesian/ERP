@@ -6,6 +6,24 @@ class Vendor extends Model {
 
 	protected $table = 'vendors';
 
+	protected $fillable = [
+		'name',
+		'description',
+		'email',
+		'phone',
+		'faxno',
+		'contact_person',
+		'auto_apply_wtax',
+		'vendorcategories_id',
+		'tin',
+		'branch_id',
+		'taxcode_id',
+		'term_id',
+		'inactive',
+		'created_by',
+		'updated_by'
+	];
+
 	public function vendorcategory()
 	{
 		return $this->belongsTo('Nixzen\VendorCategory', 'vendorcategories_id');
