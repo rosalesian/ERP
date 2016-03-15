@@ -4,34 +4,18 @@ namespace Nixzen\Handlers\Commands;
 
 use Nixzen\Commands\CreateItemReceiptCommand;
 use Illuminate\Queue\InteractsWithQueue;
-use Nixzen\Repositories\ItemReceiptRepository;
-use Nixzen\Repositories\PurchasOrderRepository;
-use Nixzen\Repositories\PurchasOrderItemRepository;
-use Nixzen\Repositories\ItemReceiptItemRepository;
+use Nixzen\Events\ItemReceiptWasCreated;
 
 class CreateItemReceiptCommandHandler
 {
-    public $itemreceipt;
-
-    public $purchaseorder;
-
-    public $poItem;
     /**
      * Create the command handler.
      *
      * @return void
      */
-    public function __construct(
-        ItemReceiptRepository $itemreceipt,
-				ItemReceiptItemRepository $irItem,
-        PurchasOrderRepository $purchaseorder,
-        PurchaseOrderItemRepository $poItem
-        )
+    public function __construct()
     {
-        $this->itemreceipt		= $itemreceipt;
-				$this->irItem			= $irItem;
-        $this->purchaseorder  	= $purchaseorder;
-        $this->poItem         	= $poItem;
+
     }
 
     /**
@@ -42,25 +26,17 @@ class CreateItemReceiptCommandHandler
      */
     public function handle(CreateItemReceiptCommand $command)
     {
-        $itemreceipt = $this->itemreceipt->create([
-            'purchaseorder_id'	=> $command->purchaseorder,
-            'date'           	=> $command->date,
-            'remarks'        	=> $command->remarks
-        ]);
+				$itemreceipt = $command->purchaseorder->itemreceipt()->create([
+	          'date'		=> $command->date,
+	          'remarks'	=> $command->remarks
+	      ]);
 
-        $irItems = [];
-        foreach($command->items as $item){
-
-					$irItem = $this->irItem->create([
-						'purchaseorderitem_id'	=> $item->purchaseorderitem_id,
-						'quantity_received'	=> $item->quantity_received,
-					]);
-
-		      array_push($irItems, $irItem);
+	      foreach($command->items as $item){
+					$itemreceipt->items()->create((array) $item);
 	      }
 
-				$itemreceipt->saveMany($irItems);
+				event(new ItemReceiptWasCreated($itemreceipt));
 
-		return $itemreceipt;
+				return $itemreceipt;
     }
 }

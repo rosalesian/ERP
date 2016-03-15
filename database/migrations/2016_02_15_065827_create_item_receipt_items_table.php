@@ -14,11 +14,11 @@ class CreateItemReceiptItemsTable extends Migration
     {
         Schema::create('itemreceipt_item', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('itemreceipt_id');
-            $table->integer('purchaseorderitem_id');
+            $table->integer('itemreceipt_id')->unsigned();
+            $table->integer('purchaseorderitem_id')->unsigned();
             $table->decimal('quantity_received');
-            $table->integer('created_by')->unsigned();
-            $table->integer('updated_by')->unsigned();
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }

@@ -10,15 +10,15 @@ use Nixzen\Events\PurchaseOrderWasUpdated;
 
 class UpdatePurchaseOrderCommandHandler
 {
-    public $purchaseorder
+    public $purchaseorder;
     /**
      * Create the command handler.
      *
      * @return void
      */
-    public function __construct(PurchaseOrderRepository $purchaseorder)
+    public function __construct()
     {
-        $this->purchaseorder    = $purchaseorder;
+
     }
 
     /**
@@ -29,22 +29,17 @@ class UpdatePurchaseOrderCommandHandler
      */
     public function handle(UpdatePurchaseOrderCommand $command)
     {
-        $this->purchaseorder->create([
-            'vendor'        => $command->vendor,
-            'terms'         => $command->terms,
+        $command->purchaseorder->update([
+            'vendor_id'        => $command->vendor_id,
+            'terms_id'         => $command->terms_id,
             'date'          => $command->date,
-            'type'          => $command->type,
-            'paymenttype'   =>$command->paymentType;
-            'remarks'       => $command->remarks
+            'type_id'          => $command->type_id,
+            'paymenttype_id'   =>$command->paymentType_id,
+            'memo'       => $command->memo
         ]);
-
-        $poItems = [];
-
         foreach($command->items as $item){
-            array_push($poItems, new PurchaseOrderItem((array)$item));
+						$command->purchaseorder->items()->update((array)$item);
         }
-        $this->purchaseorder->items()->saveMany($poItems);
-
-        event(new PurchaseOrderWasUpdated($purchaseorder));
+        event(new PurchaseOrderWasUpdated($command->purchaseorder));
     }
 }

@@ -24,7 +24,7 @@ class CreatePurchaseRequestRequest extends Request
     public function rules()
     {
         return [
-            'requestedby'   => 'required',
+            'requester'   => 'required',
             'date'          => 'required',
             'type'          => 'required',
             'items'         => 'required'

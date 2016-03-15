@@ -6,20 +6,18 @@ use Nixzen\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class PurchaseRequestWasUpdated extends Event
+class ItemWasCreated extends Event
 {
     use SerializesModels;
-
-    public $purchaserequest;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($purchaserequest)
+    public function __construct()
     {
-        $this->purchaserequest = $purchaserequest;
+        //
     }
 
     /**

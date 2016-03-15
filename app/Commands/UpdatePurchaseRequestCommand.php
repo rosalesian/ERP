@@ -16,19 +16,25 @@ class UpdatePurchaseRequestCommand extends Command
 
 	public $items;
 
-    public $id
+    public $purchaserequest;
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct($id, $requester, $type, $date, $remarks, $items)
+    public function __construct($purchaserequest, $requester, $type, $date, $remarks, $items)
     {
-        $this->id = $id;
+        $this->purchaserequest = $purchaserequest;
         $this->requester = $requester;
         $this->type = $type;
         $this->date = $date;
         $this->remarks = $remarks;
-        $this->items = $items;        
+				if(gettype($items) == 'string')
+				{
+						$this->items = json_decode($items);
+				}
+				else {
+						$this->items = $items;
+				}
     }
 }

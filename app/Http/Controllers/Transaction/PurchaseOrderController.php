@@ -5,6 +5,7 @@ use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\PurchaseOrderRepository as PurchaseOrder;
 use Nixzen\Http\Requests\CreatePurchaseOrderRequest;
 use Nixzen\Commands\CreatePurchaseOrderCommand;
+use Nixzen\Commands\UpdatePurchaseOrderCommand;
 use Illuminate\Http\Request;
 
 class PurchaseOrderController extends Controller {
@@ -12,7 +13,7 @@ class PurchaseOrderController extends Controller {
 	private $purchaseorder;
 
 	public function __construct(PurchaseOrder $purchaseorder){
-		$this->purchaseorder = $purchaseorder;
+			$this->purchaseorder = $purchaseorder;
 	}
 
 	/**
@@ -22,9 +23,9 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function index()
 	{
-		$purchaseorders = $this->purchaseorder->all();
+			$purchaseorders = $this->purchaseorder->all();
 
-		return view('purchaseorder.index')->with('purchaseorders',$purchaseorders);
+			return view('purchaseorder.index')->with('purchaseorders',$purchaseorders);
 	}
 
 	/**
@@ -34,7 +35,7 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function create()
 	{
-		return view('purchaseorder.create');
+			return view('purchaseorder.create');
 	}
 
 	/**
@@ -44,30 +45,8 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function store(CreatePurchaseOrderRequest $request)
 	{
-		$input = $request->only(
-			'vendor',
-			'terms',
-			'type',
-			'date',
-			'paymenttype',
-			'remarks',
-			'items'
-		);
-		$items = json_decode($input['items']);
-
-		$createPurchaseOrder = new CreatePurchaseOrderCommand(
-			$input['vendor'],
-			$input['terms'],
-			$input['type'],
-			$input['date'],
-			$input['paymenttype'],
-			$input['remarks'],
-			$items
-		);
-
-		$purchaseorder = $this->dispatch($createPurchaseOrder);
-
-		return redirect()->route('purchaseorder.show', $purchaseorder->id);
+			$purchaseorder = $this->dispatchFrom(CreatePurchaseOrderCommand::class, $request);
+			return redirect()->route('purchaseorder.show', $purchaseorder->id);
 	}
 
 	/**
@@ -78,8 +57,8 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function show($id)
 	{
-		$purchaseorder = $this->purchaseorder->find($id);
-		return view('purchaseorder.show')->with('purchaseorder',$purchaseorder);
+			$purchaseorder = $this->purchaseorder->find($id);
+			return view('purchaseorder.show')->with('purchaseorder',$purchaseorder);
 	}
 
 	/**
@@ -90,8 +69,8 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$purchaseorder = $this->purchaseorder->find($id);
-		return view('purchaseorder.edit')->with('purchaseorder',$purchaseorder);
+			$purchaseorder = $this->purchaseorder->find($id);
+			return view('purchaseorder.edit')->with('purchaseorder',$purchaseorder);
 	}
 
 	/**
@@ -100,20 +79,11 @@ class PurchaseOrderController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, CreatePurchaseOrderRequest $request)
 	{
-		$inputs = $requests->only('vendor', 'date', 'type', 'remarks', 'items');
-		$updatePurchaseOrder = new UpdatePurchaseOrderCommand(
-			$id,
-			$inputs['vendor'],
-			$inputs['type'],
-			$inputs['date'],
-			$inputs['remarks'],
-			$inputs['items']
-		);
-		$this->dispatch($updatePurchaseOrder);
-
-		return redirect()->route('purchaseorder.show', $id);
+			$purchaseorder = $this->purchaseorder->find($id);
+			$this->dispatchFrom(UpdatePurchaseOrderCommand::class, $request, ['purchaseorder' => $purchaseorder]);
+			return redirect()->route('purchaseorder.show', $id);
 	}
 
 	/**
@@ -124,8 +94,8 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$this->purchaseorder->delete($id);
-		return redirect()->route('purchaseorder.index');
+			$this->purchaseorder->delete($id);
+			return redirect()->route('purchaseorder.index');
 	}
 
 }

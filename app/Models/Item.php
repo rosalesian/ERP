@@ -1,4 +1,4 @@
-<?php namespace Nixzen\Models\Item;
+<?php namespace Nixzen\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,8 +14,9 @@ class Item extends Model {
 		'unittype_id',
 		'itemtype_id',
 		'default_purchaseunit_id',
-		'default_salesunit_id'
-		'deault_stockunit_id',
+		'default_salesunit_id',
+		'default_stockunit_id',
+		'account_id',
 		'itemcategory_id',
 		'expensecategory_id',
 		'taxcode_id'

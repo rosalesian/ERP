@@ -4,7 +4,9 @@ use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\ItemReceiptRepository;
 use Nixzen\Repositories\PurchaseOrderRepository;
-use Nixzen\Commnads\CreateItemReceiptCommand;
+use Nixzen\Commands\CreateItemReceiptCommand;
+use Nixzen\Commands\UpdateItemReceiptCommand;
+use Nixzen\Http\Requests\ItemReceiptRequest;
 
 use Illuminate\Http\Request;
 
@@ -49,18 +51,9 @@ class ItemReceiptController extends Controller {
 	 */
 	public function store($poId, ItemReceiptRequest $request)
 	{
-		$remarks= $request->only('remarks');
-		$date		= $request->only('date');
-		$items	= json_decode($request->only('items'));
-
-		$createItemReceipt = new CreateItemReceiptCommand(
-			$poId,
-			$date,
-			$remarks,
-			$items
-		);
-
-		$this->dispatch($createItemReceipt);
+		$purchaseorder = $this->purchaseorder->find($poId);
+		$itemreceipt = $this->dispatchFrom(CreateItemReceiptCommand::class, $request, ['purchaseorder' => $purchaseorder]);
+		return redirect()->route('purchaseorder.itemreceipt.show', $itemreceipt->id);
 	}
 
 	/**
@@ -72,7 +65,6 @@ class ItemReceiptController extends Controller {
 	public function show($poId, $irId)
 	{
 		$itemreceipt = $this->itemreceipt->find($irId);
-
 		return view('itemreceipt.show')->with('itemreceipt', $itemreceipt);
 	}
 
@@ -85,7 +77,6 @@ class ItemReceiptController extends Controller {
 	public function edit($poId, $irId)
 	{
 		$itemreceipt = $this->itemreceipt->find($irId);
-
 		return view('itemreceipt.edit')->with('itemreceipt', $itemreceipt);
 	}
 
@@ -95,9 +86,11 @@ class ItemReceiptController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($poId, $irId)
+	public function update($poId, $irId, ItemReceiptRequest $request)
 	{
-		//
+		$itemreceipt = $this->itemreceipt->find($irId);
+		$this->dispatchFrom(UpdateItemReceiptCommand::class, $request, ['itemreceipt' => $itemreceipt]);
+		return redirect()->route('purchaseorder.itemreceipt.show', $irId);
 	}
 
 	/**
@@ -108,7 +101,8 @@ class ItemReceiptController extends Controller {
 	 */
 	public function destroy($poId, $irId)
 	{
-		//
+		$this->itemreceipt->delete($irId);
+		return redirect()->route('purchaseorder.itemreceipt.index');
 	}
 
 }

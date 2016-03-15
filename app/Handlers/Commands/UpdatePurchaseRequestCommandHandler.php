@@ -28,20 +28,15 @@ class UpdatePurchaseRequestCommandHandler
      */
     public function handle(UpdatePurchaseRequestCommand $command)
     {
-        $this->purchaserequest->create([
+        $command->purchaserequest->update([
             'requester' => $command->requester,
             'type' => $command->type,
             'date' => $command->date,
-            'remarks' => $command->remarks 
+            'remarks' => $command->remarks
         ]);
-
-        $prItems = [];
-        
         foreach($command->items as $item){
-            array_push($prItems, new PurchaseRequestItem((array)$item));
+						$command->purchaserequest->update((array)$item);
         }
-        $this->purchaserequest->items()->saveMany($prItems);
-
-        event(new PurchaseRequestWasUpdated($purchaserequest, $items));
+        event(new PurchaseRequestWasUpdated($command->purchaserequest));
     }
 }

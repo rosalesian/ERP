@@ -8,6 +8,6 @@ class ItemReceiptItemRepository extends Repository
 
 	public function model()
 	{
-		return 'Nixzen\ItemReceiptItem';
+		return 'Nixzen\Models\ItemReceiptItem';
 	}
 }

@@ -13,7 +13,7 @@ class ItemReceiptRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class ItemReceiptRequest extends Request
     public function rules()
     {
         return [
-            //
+            'date'	=> 'required',
+						'items'	=> 'required'
         ];
     }
 }

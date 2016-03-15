@@ -30,21 +30,18 @@ class CreatePurchaseOrderCommandHandler
     public function handle(CreatePurchaseOrderCommand $command)
     {
         $purchaseorder = $this->purchaseorder->create([
-            'vendor_id'        => $command->vendor,
-            'terms_id'         => $command->terms,
+            'vendor_id'        => $command->vendor_id,
+            'terms_id'         => $command->terms_id,
             'date'          => $command->date,
-            'type_id'          => $command->type,
-            'paymenttype_id'   =>$command->paymentType,
-            'memo'       => $command->remarks
+            'type_id'          => $command->type_id,
+            'paymenttype_id'   =>$command->paymentType_id,
+            'memo'       => $command->memo
         ]);
 
-        $poItems = [];
         foreach($command->items as $item){
-            array_push($poItems, new PurchaseOrderItem((array)$item));
+					$purchaseorder->items()->create((array)$item);
         }
-
-        $purchaseorder->items()->saveMany($poItems);
-
+				
         event(new PurchaseOrderWasCreated($purchaseorder));
 
         return $purchaseorder;

@@ -30,7 +30,7 @@ class CreatePurchaseRequestCommandHandler
     public function handle(CreatePurchaseRequestCommand $command)
     {
         $purchaserequest = $this->purchaserequest->create([
-            'requester' => $command->requestedby,
+            'requester' => $command->requester,
             'date'      => $command->date,
             'type_id'   => $command->type,
             'remarks'   => $command->remarks

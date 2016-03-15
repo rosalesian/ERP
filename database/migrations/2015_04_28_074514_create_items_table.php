@@ -15,7 +15,6 @@ class CreateItemsTable extends Migration {
 		Schema::create('items', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
 			$table->string('itemcode');
 			$table->text('description')->nullable();
 			$table->integer('unittype_id')->unsigned();
@@ -26,9 +25,10 @@ class CreateItemsTable extends Migration {
 			$table->integer('itemcategory_id')->unsigned();
 			$table->integer('expensecategory_id')->unsigned();
 			$table->integer('taxcode_id')->unsigned();
-			$table->boolean('inactive');
-			$table->integer('created_by')->unsigned();
-			$table->integer('updated_by')->unsigned();
+			$table->integer('account_id')->unsigned();
+			$table->boolean('inactive')->default(false);
+			$table->integer('created_by')->unsigned()->nullable();
+			$table->integer('updated_by')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}
