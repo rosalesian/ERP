@@ -170,5 +170,4 @@ List of Purchase Requisitions
 <!-- Data Tables -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>  
 <script src="{{ asset('js/custom_utilities/customDataTables.js') }}"></script>
-
 @stop

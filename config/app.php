@@ -145,6 +145,7 @@ return [
         Nixzen\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Nixzen\Providers\BusServiceProvider::class,
     ],
 
     /*

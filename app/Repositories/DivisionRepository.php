@@ -1,12 +1,13 @@
 <?php namespace Nixzen\Repositories;
 
-use Bosnadev\Repositories\Contracts\RepositoryInterface;
-use Bosnadev\Repositories\Eloquent\Repository;
+
+use Nixzen\Repositories\Base\RepositoryInterface;
+use Nixzen\Repositories\Base\Repository;
 
 class DivisionRepository extends Repository{
 	
 	public function model()
 	{
-		return 'Nixzen\Divisions';
+		return 'Nixzen\Models\Lists\Division';
 	}
 }

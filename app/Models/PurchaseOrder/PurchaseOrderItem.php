@@ -1,4 +1,4 @@
-<?php namespace Nixzen;
+<?php namespace Nixzen\Models\PurchaseOrder;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,11 +1,12 @@
 <?php namespace Nixzen\Repositories;
 
-use Bosnadev\Repositories\Contracts\RepositoryInterface;
-use Bosnadev\Repositories\Eloquent\Repository;
+
+use Nixzen\Repositories\Base\RepositoryInterface; 
+use Nixzen\Repositories\Base\Repository;
 
 class PurchaseRequestItemRepository extends Repository {
 
     public function model() {
-        return 'Nixzen\PurchaseRequestItem';
+        return 'Nixzen\Models\PurchaseRequestItem';
     }
 }

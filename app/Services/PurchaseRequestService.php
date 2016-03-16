@@ -2,48 +2,72 @@
 namespace Nixzen\Services;
 
 use Nixzen\Repositories\PurchaseRequestRepository;
-use Nixzen\Repositories\PurchaseRequestItemRepository;
+use Nixzen\Repositories\PurchaseRequestItemRepository as Item;
 use DB;
 class PurchaseRequestService {
 
-	protected $puchaserequest;
+	public $puchaserequest;
 
-	protected $items;
-	public function __construct(PurchaseRequest $purchaserequest, PurchaseRequestItems $items) {
+	public $item;
+
+	public function __construct(PurchaseRequestRepository $purchaserequest, Item $item){
 
 		$this->purchaserequest = $purchaserequest;
 
-		$this->items = $items;	
+		$this->item = $item;
 
 	}
 
-	public function create($data){
+	public function create($request){
 		//before submit
-		DB::transaction(function(){
+		
+		//to be refactor
+		return DB::transaction(function() use ($request){
+			$input = $request->all();
+			$purchaserequest = $this->purchaserequest->create($input);
+			$items = [];
 
-			$this->purchaserequest->create($data);
+			$inputItems = json_decode($input['item']);
+			if($inputItems != null){
 
-			if ($data->has('items')){
-
-				$this->purchaserequest->items->create($data->input('items'));
-
+				foreach($inputItems as $i => $item){
+					array_push(
+						$items, 
+						$this->item->create($item)
+					);
+				}				
 			}
+
+			$purchaserequest->items()->saveMany($items);
+
+			return $purchaserequest;
 		});
-		//after submit	
+
+
+		event(new Nixzen\Events\PurchaseRequestWasCreated($purchaserequest));
 	}
 
 	public function update($data, $id){
-		//before submit
-		DB::transaction(function(){
+		//before submit		
+		$purchaserequest;
 
-			$this->purchaserequest->update($data, $id);
+		$purchaserequest = DB::transaction(function() use ($data)
+		{
 
-			if ($data->has('items')){
-
-				$this->purchaserequest->items->update($data->input('items'), $id);
-
+			$purchaserequest = $this->purchaserequest->update($data->all());
+			$items = [];
+			foreach($data['item'] as $i => $item){
+				array_push(
+					$items, 
+					$this->item->update($data)
+				);
 			}
+
+			$purchaserequest->items()->saveMany($items);
+
+			return $purchaserequest;
 		});
-		//after submit			
+
+		return $purchaserequest;
 	}
 }

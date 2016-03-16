@@ -9,14 +9,14 @@ class LaborItem extends Model {
 	protected $primary_key = 'id';
 	
 	public function item(){
-		return $this->belongsTo('Nixzen\Item', 'name');
+		return $this->belongsTo('Nixzen\Models\Item', 'name');
 	}
 	
 	public function jobOrderType(){
-		return $this->belongsTo('Nixzen\JobOrderType', 'jobtype_id');
+		return $this->belongsTo('Nixzen\Models\JobOrderType', 'jobtype_id');
 	}
 	
 	public function jobOrder(){
-		return $this->belongsTo('Nixzen\JobOrder', 'joborder_id');
+		return $this->belongsTo('Nixzen\Models\JobOrder', 'joborder_id');
 	}
 }

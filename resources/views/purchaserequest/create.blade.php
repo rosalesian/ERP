@@ -97,7 +97,6 @@ Create New Purchase Requisition
   <div class="modal" id="myModal"> </div>
 </div>
 
-
 @stop
 
 @section('scripts')

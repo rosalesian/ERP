@@ -1,10 +1,21 @@
-<?php namespace Nixzen;
+<?php namespace Nixzen\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class PurchaseRequestItem extends Model {
 
 	protected $table = 'purchase_request_items';
+
+	protected $fillable = [
+		'item_id',
+		'quantity',
+		'unit_id',
+		'unit_cost',
+		'amount',
+		'taxcode',
+		'taxrate',
+		'gross_amount',
+	];
 
 	public function canvass()
 	{
@@ -18,12 +29,12 @@ class PurchaseRequestItem extends Model {
 
 	public function item()
 	{
-		return $this->belongsTo('Nixzen\Item', 'name');
+		return $this->belongsTo('Nixzen\Models\Item', 'name');
 	}
 
 	public function unit()
 	{
-		return $this->belongsTo('Nixzen\Unit', 'unit_id')
+		return $this->belongsTo('Nixzen\Unit', 'unit_id');
 	}
 
 	public function vendor()

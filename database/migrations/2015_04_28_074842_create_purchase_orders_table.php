@@ -15,26 +15,20 @@ class CreatePurchaseOrdersTable extends Migration {
 		Schema::create('purchase_orders', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('name')->unsigned();
-			$table->date('transdate');
-			$table->integer('transnumber');
-			$table->integer('purchaserequestcategory_id');
+			$table->integer('vendor_id')->unsigned();
+			$table->date('date');
+			$table->integer('ponumber')->nullable();
+			$table->integer('type_id')->unsigned();
 			$table->integer('paymenttype_id')->unsigned();
 			$table->integer('terms_id')->unsigned();
-			$table->integer('approvalstatus_id')->unsigned();
-			$table->integer('purchaserequisition')->unsigned();
-			$table->text('memo');
-			$table->string('delivered_to');
-			$table->double('subtotal', 9 , 5);
-			$table->double('taxtotal', 9 , 5);
-			$table->double('total_amount', 9 , 5);
-			$table->integer('department_id')->unsigned();
-			$table->integer('division_id')->unsigned();
-			$table->integer('requested_by');
-			$table->integer('stocklocation_id')->unsigned();
-			$table->boolean('inactive');
-			$table->integer('created_by')->unsigned();
-			$table->integer('updated_by')->unsigned();
+			$table->integer('approvalstatus_id')->unsigned()->nullable();
+			$table->integer('purchaserequisition')->unsigned()->nullable();
+			$table->text('memo')->nullable();
+			$table->string('delivered_to')->unsigned()->nullable();//branch
+			$table->integer('requested_by')->unsigned()->nullable();
+			$table->boolean('inactive')->default(false);
+			$table->integer('created_by')->unsigned()->nullable();
+			$table->integer('updated_by')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}

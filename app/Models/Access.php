@@ -1,4 +1,4 @@
-<?php namespace Nixzen;
+<?php namespace Nixzen\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -6,7 +6,7 @@ class Access extends Model {
 
 	protected $table = 'accesses';
 	
-	protected $primary_key = 'id'
+	protected $primary_key = 'id';
 	
 	public function access(){
 		
