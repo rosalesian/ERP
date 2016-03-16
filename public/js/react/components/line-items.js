@@ -1,65 +1,180 @@
-window.LineItems = React.createClass({
-	getInitialState: function() {
-		var rows = [];
-		var dataStorage = [];
-		var objectValues= {};
-		if(this.props.initialData) {
-			for(var i=0, counter=this.props.initialData.length; i<counter; i++) {
-				
-				var obj = {}
-				for(var j=0, colcount= this.props.table.columns.length; j<colcount; j++) {
-					obj[this.props.table.columns[j].name] = this.props.initialData[i][this.props.table.columns[j].name]
+window.DataStorage = React.createClass ({
+	render : function () {
+		return( <input type="hidden" name={this.props.name} value={JSON.stringify(this.props.data)}/> )
+	}
+});
+
+window.TableComponent = React.createClass({
+	getInitialState : function () {
+		var columns=[];
+
+		for(var i=0, colcount=this.props.table.columns.length; i<colcount; i++) {
+			columns[this.props.table.columns[i].name] = this.props.table.columns[i];
+		}
+
+		return {
+			columns: columns,
+			inputValues:{},
+			dataStorage:[],
+			rows:[],
+			canvassItems:{},
+			editLineItem : false
+		};
+	},
+	render : function () {
+		var that = this;
+		return(
+			<div className="tableWrapper">
+
+				<DataStorage data={this.state.dataStorage} name={this.props.table.storage} />
+
+				<table className="table table-bordered react-table" style={{overflow:'auto'}}>
+				<thead>
+					<tr>
+						{this.props.table.columns.map(function(column){
+							return ( <th id={column.name} key={column.name}>{column.displayName}</th> );
+						})}
+					</tr>
+				</thead>
+				<tbody>
+					{this.state.rows.map(function(row){
+						return row
+					})}
+
+					{!this.state.editLineItem && (
+					<tr style={{width:'auto'}}>
+						{that.props.table.columns.map(function (column){
+							if(column.fieldType=='link') {
+								return( <LineInputComponent defaultValue={(that.state.inputValues!='') ? that.state.inputValues[column.name] : '' 	} column={that.state.columns[column.name]} key={column.name} callBackDisplay={that.displayModal} edit={true}/> );
+							} else {
+								return( <LineInputComponent defaultValue={(that.state.inputValues!='') ? that.state.inputValues[column.name] : '' 	} column={that.state.columns[column.name]} key={column.name} callBackUpdateOnChange={that.handleInputChangeEvent} edit={true}/> );
+							}
+						})}
+					</tr>	
+					)}		
+
+					<tr>
+						<td colSpan={this.props.table.columns.length}>
+							{!this.state.editLineItem && (<input type={"button"} style={{width:'auto', marginRight:'5px'}}  value={"Add"} className={"btn btn-primary btn-flat"} onClick={that.handleAdd} /> )}
+							{!this.state.editLineItem && (<input type={"button"} style={{width:'auto', marginRight:'5px'}} value={"Cancel"} className={"btn btn-default btn-flat"} onClick={that.handleCancel} /> )}
+							{this.state.editLineItem && (<input type={"button"} style={{width:'auto', marginRight:'5px'}}  value={"Add New"} className={"btn btn-info btn-flat"} onClick={that.handleCancelCallback} /> )}
+						</td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+		);
+	},
+	displayModal : function (id) {
+		var rows=[];
+		console.log(this.state.canvassItems);
+		if(this.state.canvassItems.data!=0) { rows = this.state.canvassItems.data };
+		ReactDOM.render(<CanvassParentComponent rows={rows} handleSaveCanvass={this.handleSaveCanvass}/>, document.getElementById('myModal'))
+	},
+	displayModalEdit : function (id) {
+		var rows = (typeof this.state.dataStorage[id]!='undefined') ? this.state.dataStorage[id].canvass : [];	
+		ReactDOM.render(<CanvassParentComponent rows={rows} handleSaveCanvass={this.handleSaveCanvass}/>, document.getElementById('myModal'))
+	},
+	handleSaveCanvass: function (data) {
+		var canvassItems = this.state.canvassItems;
+		canvassItems = {'data': data};
+		this.setState({canvassItems:canvassItems});
+	},
+	getUnitOfMeasure : function (item) {
+		var data=[];
+		var rateCS, ratePC, rateBX, ratePCK;
+		if(item=='data1') {
+		 data = [{value:"cs", label:"CS", conversionrate:12},{value:"pc", label:"PC", conversionrate:1},{value:"bx", label:"BX", conversionrate:3},{value:"pck", label:"PACK", conversionrate:5}];
+		} else if(item=='data2') {
+		 data = [{value:"cs", label:"CS", conversionrate:24},{value:"pc", label:"PC", conversionrate:1}];
+		} else {
+		 data = [{value:"cs", label:"CS", conversionrate:48},{value:"pc", label:"PC", conversionrate:1},{value:"bx", label:"BX", conversionrate:3}];
+		}
+		return data;
+	},
+	getRate : function (item) {
+		var data={};
+		if(item=='data1') data = {value:"100", conversion_factor:"12"};
+		if(item=='data2') data = {value:"200", conversion_factor:"24"};
+		if(item=='data3') data = {value:"300", conversion_factor:"48"};
+		return data;	
+	},
+	computeGrossAmount : function (inputValues) {
+		var rate = this.getRate(inputValues['item']);	
+		inputValues['rate'] = (typeof inputValues['conversionrate'] !='undefined' && inputValues['uom']!='') ? parseFloat(parseInt(rate.value)/parseInt(rate.conversion_factor)) * inputValues['conversionrate'] : 0;
+		inputValues['amount'] =  (typeof inputValues['quantity'] =='undefined' || inputValues['quantity'] =='' || isNaN(inputValues['quantity'])) ? 0 : parseInt(inputValues['quantity']) * parseFloat(inputValues['rate']);
+		inputValues['vatamount'] = inputValues['amount'] * 0.12;
+		inputValues['grossamount'] = inputValues['amount'] + inputValues['vatamount'];
+		return inputValues;
+	},
+	handleInputChangeEvent : function (column, event){
+		var inputValues = this.state.inputValues;
+		var serverData = this.state.serverData;
+		var columnsUpdate = this.state.columns;
+		var purchaseprice={};
+
+		switch(column.fieldType) {
+			case "select":
+				if(column.name=='item') {
+					this.props.table.columns.map(function (column){
+						if(column.name!='item'){
+							inputValues[column.name]='';
+						}
+					})
+
+					inputValues[column.name] = event.value;
+					columnsUpdate['uom']['data'] = this.getUnitOfMeasure(event.value);
+					inputValues['description'] = event.description;
+					inputValues = this.computeGrossAmount(inputValues);
 				}
 
-				dataStorage.push(obj)
-				rows.push(<LineRow columns={this.props.table.columns} data={obj} id={i} callbackParent={this.lineRowCallBack} />)
-			}
-
-			return {
-				dataStorage : dataStorage,
-				rows : rows,
-				editLineItem : false
-			}
-
-		} else {
-			// this.props.table.columns.map(function (column) {
-   //              if(column.fieldType=="select") {
-   //           	   objectValues[column.name] = column.data[0].value;                	
-   //              } else {
-   //              	objectValues[column.name] = null;
-   //              }
-   //          });
-			return {
-				dataStorage : [],
-				rows : [],
-				objectValues,
-				editLineItem : false
-			};
+				if(column.name=='uom') {
+					inputValues['conversionrate'] = event.conversionrate;
+					inputValues[column.name] = event.value;
+					inputValues = this.computeGrossAmount(inputValues);					
+				}
+				break;	
+			case "text":
+				inputValues[column.name] = event.target.value;
+				if(column.name=='quantity') {
+					inputValues = this.computeGrossAmount(inputValues);
+				}
+				break;	
 		}
-		
+		this.setState({inputValues:inputValues, columns:columnsUpdate});
 	},
-	handleAdd: function(event){
+	handleAdd : function () {
+		var canvassItems = this.state.canvassItems;
+		var inputValues = this.state.inputValues;
 		var obj={};
-		var that = this;
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
 		var rowCounter = rows.length;
-		this.props.table.columns.map(function (column) {
-			// if(column.fieldType=="select" && that.state[column.name]=='' || that.state[column.name]==null) {
-			// 	obj[column.name] = that.state.objectValues[column.name];
-			// }else {
-				obj[column.name] = that.state[column.name];
-			// }
-			that.state[column.name] = null;
-		});
 
-		
-		
+		{this.props.table.columns.map(function (column){
+			obj[column.name] = inputValues[column.name];
+			inputValues[column.name] = '';
+		})}
+
+		obj.canvass = canvassItems.data;
 		dataStorage.push(obj);
-		rows.push(<LineRow columns={this.props.table.columns} data={obj} id={rowCounter} callbackParent={this.lineRowCallBack} />);
-		this.setState({rows: rows, dataStorage:dataStorage});
+		
+		canvassItems.data = 0;
+		rows.push( <LineRow columns={this.props.table.columns} data={obj} id={rowCounter} callbackParent={this.lineRowCallBack} /> );
+		this.setState({rows: rows, dataStorage:dataStorage, inputValues:inputValues, canvassItems:canvassItems});
 	},
-	handleCancel: function(){
+	handleCancel : function () {
+		var inputValues = this.state.inputValues;
+		var canvassItems = this.state.canvassItems;
+		
+		{this.props.table.columns.map(function (column) {
+			inputValues[column.name] = '';
+		})}
+		canvassItems.data = 0;
+
+		this.setState({inputValues:inputValues, editLineItem:false, canvassItems:canvassItems});
+	},
+	handleCancelCallback: function(){
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
 		rows.length=0;
@@ -73,20 +188,28 @@ window.LineItems = React.createClass({
 	},
 	handleUpdate : function (columns,dataIndex) {
 		var dataStorage = this.state.dataStorage;
+		var canvassItems = this.state.canvassItems;
+
 		var rows = this.state.rows;
-		for(var j=0, linecount = columns.length; j<linecount; j++){
-			if(this.state[columns[j].name]!=null) {
-				dataStorage[dataIndex][columns[j].name] = this.state[columns[j].name];
+		var inputValues = this.state.inputValues;
+
+		for(var j in columns) {
+			if(inputValues[columns[j].name]!=null) {
+				dataStorage[dataIndex][columns[j].name] = inputValues[columns[j].name];
 			}
 		}
+
+		dataStorage[dataIndex].canvass = canvassItems;
+
 		rows.length=0;
 		this.setState({rows:rows});
 
-		for(var i=0, counter=dataStorage.length; i<counter; i++) {
+		for(var i in dataStorage) {
 			rows[i] = <LineRow columns={this.props.table.columns} data={dataStorage[i]} id={i} callbackParent={this.lineRowCallBack} />
 		}
 
 		this.setState({rows:rows, dataStorage:dataStorage, editLineItem:false});
+		console.log(this.state);
 	},
 	handleRemove : function (dataIndex) {
 		var dataStorage = this.state.dataStorage;
@@ -105,6 +228,8 @@ window.LineItems = React.createClass({
 		var elemArr = rowElem.split('-');
 		var rowid = parseInt(elemArr[1]-1);
 		
+		var inputValues = this.state.inputValues;
+
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
 		rows.length=0;
@@ -112,65 +237,54 @@ window.LineItems = React.createClass({
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			if(i==rowid) {
-				rows[i] = <LineRow columns={this.props.table.columns} data={dataStorage[i]} id={i} callbackParent={this.lineRowCallBack} anotherCallBack={this.renderFieldCallBack} edit={true} />
+				for(var j=0, colcount=this.props.table.columns.length; j<colcount; j++) {
+					inputValues[this.props.table.columns[j].name] = dataStorage[i][this.props.table.columns[j].name];
+				}
+				rows[i] = <LineRow columns={this.props.table.columns} data={inputValues} id={i} callbackParent={this.lineRowCallBack} anotherCallBack={this.handleUpdateChangeEventTrigger} callBackDisplay={this.displayModalEdit} edit={true} />
 			} else {
 				rows[i] = <LineRow columns={this.props.table.columns} data={dataStorage[i]} id={i} callbackParent={this.lineRowCallBack} edit={false}/>
 			}
 		}
 
-		rows.splice(elemArr[1], 0, (<LineItemButtons columns={this.props.table.columns} dataIndex={rowid} callbackUpdate={this.handleUpdate} callbackCancel={this.handleCancel} callbackRemove={this.handleRemove}/>));
-		this.setState({rows: rows,editLineItem:true, dataStorage:dataStorage});
+		rows.splice(elemArr[1], 0, (<LineItemButtons columns={this.props.table.columns} dataIndex={rowid} callbackUpdate={this.handleUpdate} callbackCancel={this.handleCancelCallback} callbackRemove={this.handleRemove}/>));
+		this.setState({rows: rows,editLineItem:true, dataStorage:dataStorage, inputValues:inputValues});
 	},
-	renderFieldCallBack : function (objdata) {
-		this.setState(objdata);
+	handleEditChange : function (objdata) {
+		var inputValues = this.state.inputValues;
+		inputValues[objdata.key] = objdata.value;
+		this.setState({inputValues: inputValues});
 	},
-	render: function(){
-		var columns = this.props.table.columns;
+	handleUpdateChangeEventTrigger : function(column, event, index) {
+		var inputValues = this.state.inputValues;
+		var columnsUpdate = this.state.columns;
 		var rows = this.state.rows;
-		var field;
-		var that = this;
-		return (
-			<div className="tableWrapper">
-				
-				<DataStorage data={this.state.dataStorage} name={this.props.table.storage}/>
-				
-				<table className="table table-bordered react-table" style={{overflow:'auto'}}>
-				<thead>
-					<tr>
-						{columns.map(function(column){
-							return ( <th id={column.name} key={column.name}>{column.displayName}</th> );
-						})}
-					</tr>
-				</thead>
-				<tbody>
-					{this.state.rows.map(function(row){
-						return row
-					})}
+		switch(column.name) {
+			case "item":
+				inputValues[column.name] = event.value;
+				columnsUpdate['uom']['data'] = this.getUnitOfMeasure(event.value);
+				inputValues['description'] = event.description;
+				for(var j=0, counter=columnsUpdate['uom']['data'].length; j<counter; j++) {
+					if(columnsUpdate['uom']['data'][j].value==inputValues['uom']){
+						inputValues['conversionrate'] = columnsUpdate['uom']['data'][j].conversionrate;
+						break;
+					}
+				}
+				inputValues = this.computeGrossAmount(inputValues);
+				break;
+			case "uom":
+				inputValues['conversionrate'] = event.conversionrate;
+				inputValues[column.name] = event.value;
+				inputValues = this.computeGrossAmount(inputValues);		
+				break;
+			case "quantity":
+				inputValues[column.name] = event.target.value;
+				inputValues = this.computeGrossAmount(inputValues);
+				break;		
+		}
+		rows[index] = <LineRow columns={this.props.table.columns} data={inputValues} id={index} callbackParent={this.lineRowCallBack} anotherCallBack={this.handleUpdateChangeEventTrigger} edit={true} />
+		this.setState({rows:rows, inputValues:inputValues, columns:columnsUpdate});
+	}
 
-					{!this.state.editLineItem && (
-					<tr>
-						{this.props.table.columns.map(function (column){
-							return( <RenderFields column={column} callbackParent={ that.renderFieldCallBack } key={column.name}/> );
-						})}
-					</tr>
-					)}				
-					<tr>
-						<td colSpan={columns.length}>
-							{ !this.state.editLineItem && (<input type={"button"} style={{width:'auto', marginRight:'5px'}} onClick={this.handleAdd} value={"Add"} className={"btn btn-primary btn-flat"}/>)}
-							{ !this.state.editLineItem && (<input type={"button"} style={{width:'auto', marginRight:'5px'}} onClick={this.handleCancel} value={"Cancel"} className={"btn btn-default btn-flat"}/>)}
-							{ this.state.editLineItem && (<input type={"button"} style={{width:'auto', marginRight:'5px'}} onClick={this.handleCancel} value={"Add New"} className={"btn btn-info btn-flat"}/>)}
-						</td>
-					</tr>
-				</tbody>
-				</table>
-			</div>
-		);
-	}
-});
-window.DataStorage = React.createClass ({
-	render : function () {
-		return( <input type="hidden" name={this.props.name} value={JSON.stringify(this.props.data)} /> )
-	}
 });
 
 window.LineItemButtons = React.createClass({
@@ -194,6 +308,64 @@ window.LineItemButtons = React.createClass({
 	}
 });
 
+window.LineInputComponent = React.createClass({
+	getDefaultProps : function () {
+		return {
+			column: {
+				data:[]
+			},
+			edit:false
+		};
+	},
+	getInitialState : function() {
+		return {
+			defaultValue:''
+		};
+	},
+	componentWillReceiveProps : function(nextProps) {
+		this.setState({defaultValue:nextProps.defaultValue});
+	},
+	onChangeHandler : function(column, event) {
+		switch(column.fieldType) {
+			case "select":
+				this.setState({defaultValue:event.value});
+				break;
+			case "text":
+				this.setState({defaultValue:event.target.value});
+				break;	
+		}
+		this.props.callBackUpdateOnChange(column, event);
+	},
+	render : function () {
+		var field;
+		var column = this.props.column;
+		if(this.props.edit) {
+			switch(column.fieldType) {
+				case "select":
+					field = <Select className={column.className} name="form-field-name" value={this.state.defaultValue} options={column.data} onChange={this.onChangeHandler.bind(this,column)} clearable={false} />
+					break;
+				case "text":
+					field = <input name={column.name} value={this.state.defaultValue} type={column.type} className={column.className} id={column.name}  onChange={this.onChangeHandler.bind(this,column)}/>;
+					break;
+				case "disabled":
+					// field = <input name={column.name} value={this.state.defaultValue} type='text' disabled className={column.className} id={column.name} />;//  onChange={this.props.onChangeHandler.bind(this,column)}/>;
+					field = <span>{this.state.defaultValue}</span>;
+					break;
+				case "link":
+					field = <a href="#" data-toggle="modal" data-target="#myModal" onClick={this.displayModal}><i className="fa fa-toggle-up" style={{fontSize:"25px",marginLeft:"30%"}}></i></a>
+					break;	
+			}
+		} else {
+			field = this.props.edit;
+		}
+
+		return( <td> {field} </td> );
+	},
+	displayModal : function () {
+		this.props.callBackDisplay();
+	}
+});
+
 window.LineRow = React.createClass({
 	getDefaultProps : function () {
 		return {
@@ -203,8 +375,11 @@ window.LineRow = React.createClass({
 	handleRowClick : function(event) {
 		this.props.callbackParent(event.currentTarget.id);
 	},
-	handleCallBack : function(objdata) {
-		this.props.anotherCallBack(objdata);
+	handleCallBack : function(column,event) {
+		this.props.anotherCallBack(column,event, this.props.id);
+	},
+	callBackDisplay : function () {
+		this.props.callBackDisplay(this.props.id);
 	},
 	render: function () {
 		var that = this;
@@ -212,7 +387,11 @@ window.LineRow = React.createClass({
 		if(this.props.edit) {
 			return( <tr id={"item-"+parseInt(this.props.id+1)}>
 					{this.props.columns.map(function (column){
-						return( <LineColumn callbackParentRow={that.handleCallBack} defaultValue={that.props.data[column.name]} column={column} data={that.props.data} key={column.name} edit={true} /> );
+						if(column.fieldType=='link') {
+							return( <LineColumn callBackDisplay={that.callBackDisplay} defaultValue={that.props.data[column.name]} column={column} data={that.props.data} key={column.name} edit={true} /> ); 
+						} else {
+							return( <LineColumn callbackParentRow={that.handleCallBack} defaultValue={that.props.data[column.name]} column={column} data={that.props.data} key={column.name} edit={true} /> ); 
+						}
 					})};
 				</tr> );
 		} else {
@@ -239,19 +418,26 @@ window.LineColumn = React.createClass({
 		var obj={};
 		switch(this.props.column.fieldType){
 			case "select":
-				obj[this.props.column.name] = event.value;
+				// obj['key'] = this.props.column.name;
+				// obj['value'] = event.value;
+				// obj[this.props.column.name] = event.value;
 				this.setState({defaultValue:event.value, obj:obj});
-				this.props.callbackParentRow(obj);
+				this.props.callbackParentRow(this.props.column, event);
 				break;
 			case "text":
-				obj[this.props.column.name] = event.target.value;
+				obj['key'] = this.props.column.name;
+				obj['value'] = event.value;
+				// obj[this.props.column.name] = event.target.value;
 				this.setState({defaultValue:event.target.value, obj:obj});
-				this.props.callbackParentRow(obj);
+				this.props.callbackParentRow(this.props.column, event);
 				break;
 		}
 	},
 	componentWillReceiveProps: function(nextProps) {
     	this.setState({defaultValue: nextProps.defaultValue});
+	},
+	displayModal : function () {
+		this.props.callBackDisplay();
 	},
 	render : function () {
 		var field;
@@ -264,6 +450,12 @@ window.LineColumn = React.createClass({
 				case "text":
 						field = <input id={this.props.column.name+'_row'} name={this.props.column.name} value={ this.state.defaultValue } type={this.props.column.type} className={this.props.column.className} id={this.props.column.name}  onChange={this.handleChange}/>;
 						break;
+				case "disabled":
+					field = <span>{this.state.defaultValue}</span>;
+					break;
+				case "link":
+					field = <a href="#" data-toggle="modal" data-target="#myModal" onClick={this.displayModal}><i className="fa fa-toggle-up" style={{fontSize:"25px",marginLeft:"30%"}}></i></a>
+					break;			
 			}
 		} else {
 
@@ -279,171 +471,11 @@ window.LineColumn = React.createClass({
 				case "text":
 					field = this.props.data[this.props.column.name];
 					break;	
+				case "disabled":
+				field = this.props.data[this.props.column.name];
+				break;	
 			}
 		}
 		return(<td> {field} </td>);
 	}
 });
-
-window.RenderFields = React.createClass({
-	getInitialState : function() {
-		return {
-			defaultValue:''
-		};
-	},
-	handleChange : function(event) {
-		var obj={};
-		switch(this.props.column.fieldType){
-			case "select":
-					obj[this.props.column.name] = event.value;
-					this.setState({defaultValue:event.value});
-					this.props.callbackParent(obj);
-					break;
-			case "text":
-					obj[this.props.column.name] = event.target.value;
-					this.setState({defaultValue:event.target.value});
-					this.props.callbackParent(obj);
-					break;		
-		}
-	},
-	render : function () {
-		var column = this.props.column;
-		var field;
-		switch(column.fieldType) {
-			case "select":
-					field = <Select className={column.className} name="form-field-name" value={this.state.defaultValue} options={column.data} onChange={this.handleChange} clearable={false} />
-					break;
-			case "text":
-					field = <input name={column.name} value={this.state.defaultValue} type={column.type} className={column.className} id={column.name}  onChange={this.handleChange}/>;
-					break;
-		}
-		return(<td> {field} </td>);
-	}
-});
-
-/*****************************************************************************************************
-******************************************************************************************************
-******************************************************************************************************
-******************************************************************************************************/
-
-// window.TableComponent = React.createClass({
-// 	getInitialState : function () {
-// 		return {
-// 			inputValues:{},
-// 			rows:[],
-// 			dataStorage:[]
-// 		};
-// 	},
-// 	render : function () {
-// 		var that = this;
-
-// 		return(
-// 			<div className="tableWrapper">
-				
-// 				<table className="table table-bordered react-table" style={{overflow:'auto'}}>
-// 				<thead>
-// 					<tr>
-// 						{this.props.table.columns.map(function(column){
-// 							return ( <th id={column.name} key={column.name}>{column.displayName}</th> );
-// 						})}
-// 					</tr>
-// 				</thead>
-// 				<tbody>
-// 					{this.state.rows.map(function (row) {
-// 							return row
-// 					})}
-
-// 					<tr>
-// 						{this.props.table.columns.map(function (column){
-// 							return( <LineInputComponent defaultValue={(that.state.inputValues!='') ? that.state.inputValues[column.name] : '' 	} column={column} key={column.name} onChangeHandler={that.handleInputChangeEvent}/> );
-// 						})}
-// 					</tr>			
-// 					<tr>
-// 						<td colSpan={this.props.table.columns.length}>
-// 							<input type={"button"} style={{width:'auto', marginRight:'5px'}}  value={"Add"} className={"btn btn-primary btn-flat"} onClick={this.handleAdd}/>
-// 							<input type={"button"} style={{width:'auto', marginRight:'5px'}} value={"Cancel"} className={"btn btn-default btn-flat"} onClick={this.handleCancel}/>
-// 							<input type={"button"} style={{width:'auto', marginRight:'5px'}}  value={"Add New"} className={"btn btn-info btn-flat"}/>
-// 						</td>
-// 					</tr>
-// 				</tbody>
-// 				</table>
-// 			</div>
-// 			);
-// 	},
-// 	handleInputChangeEvent : function (column, event) {
-// 		var inputValues = this.state.inputValues;
-// 		console.log(inputValues);
-// 		var that = this;
-// 		switch(column.fieldType) {
-// 		case "select":
-// 				if(column.name=='item') {
-// 					for(var i=0, counter=that.props.table.columns.length; i<counter; i++) {
-// 						for(var j=0, counts=column.data.length; j<counts; j++) {
-// 							if(column.data[j]['value']==event.value) {
-// 								if(column.data[j][that.props.table.columns[i]['name']]!=null) {
-// 									inputValues[that.props.table.columns[i]['name']] = column.data[j][that.props.table.columns[i]['name']];
-// 									break;
-// 								}
-// 							}
-// 						}
-// 					}
-// 				}
-// 				inputValues[column.name] = event.value;
-// 			break;
-// 		case "text":
-// 			if(column.name='quantity') {
-// 				if(!isNaN(event.target.value)){
-// 					(event.target.value=='') ? inputValues['amount'] = 0  : inputValues['amount'] = parseInt(event.target.value) * parseInt(inputValues.rate);
-// 				}
-// 			}		
-// 			inputValues[column.name] = event.target.value;	
-// 			break;
-// 		}
-// 		this.setState({inputValues:inputValues});
-// 		console.log(this.state.inputValues);
-// 	},
-// 	handleAdd : function () {
-// 		var inputValues = this.state.inputValues;
-// 		var obj={};
-// 		var that = this;
-// 		var dataStorage = this.state.dataStorage;
-// 		var rows = this.state.rows;
-// 		var rowCounter = rows.length;
-
-// 		{this.props.table.columns.map(function (column){
-// 			obj[column.name] = inputValues[column.name];
-// 			inputValues[column.name] = '';
-// 		})}
-// 		console.log(obj);
-// 		this.setState({inputValues:inputValues});
-// 		// dataStorage.push(obj);
-// 		// rows.push(<LineRow columns={this.props.table.columns} data={obj} id={rowCounter} callbackParent={this.lineRowCallBack} />);
-// 		// this.setState({rows: rows, dataStorage:dataStorage, inputValues:inputValues});
-// 	},
-// 	handleCancel : function () {
-// 		var inputValues = this.state.inputValues;
-// 		{this.props.table.columns.map(function (column){
-// 			inputValues[column.name] = '';
-// 		})}
-// 		this.setState({inputValues:inputValues});
-// 	}
-// });
-
-// window.LineInputComponent = React.createClass({
-// 	render : function () {
-// 		var field;
-// 		var column = this.props.column;
-// 		switch(column.fieldType) {
-// 			case "select":
-// 					field = <Select className={column.className} name="form-field-name" value={this.props.defaultValue} options={column.data} onChange={this.props.onChangeHandler.bind(this,column)} clearable={false} />
-// 					break;
-// 			case "text":
-// 					field = <input name={column.name} value={this.props.defaultValue} type={column.type} className={column.className} id={column.name}  onChange={this.props.onChangeHandler.bind(this,column)}/>;
-// 					break;
-// 			case "disabled":
-// 					field = <input name={column.name} value={this.props.defaultValue} type='text' disabled className={column.className} id={column.name} />;//  onChange={this.props.onChangeHandler.bind(this,column)}/>;
-// 					break;		
-// 		}
-// 		return( <td> {field} </td> );
-// 	}
-// });

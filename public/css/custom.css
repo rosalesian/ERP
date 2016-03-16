@@ -47,7 +47,8 @@ input[type='checkbox'] {
 	width: auto;
 }
 .react-select-input-lineitem {
-	width: 250px;
+	min-width: 250px;
+	width:auto;
 }
 #sublist-items {
 	position: relative;
@@ -55,6 +56,7 @@ input[type='checkbox'] {
 #sublist-items div.tableWrapper {
 	overflow: auto;
 	width: 100%;
+	height: auto;
 }
 #sublist-items div .react-table {
 	width: 100%;
