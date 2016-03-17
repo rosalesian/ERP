@@ -66,18 +66,25 @@ window.TableComponent = React.createClass({
 		);
 	},
 	displayModal : function (id) {
-		var rows=[];
+		var rows;
 		console.log(this.state.canvassItems);
-		if(this.state.canvassItems.data!=0) { rows = this.state.canvassItems.data };
+		if(this.state.canvassItems.data==0) { rows=0 } else { rows = this.state.canvassItems.data };
 		ReactDOM.render(<CanvassParentComponent rows={rows} handleSaveCanvass={this.handleSaveCanvass}/>, document.getElementById('myModal'))
 	},
 	displayModalEdit : function (id) {
-		var rows = (typeof this.state.dataStorage[id]!='undefined') ? this.state.dataStorage[id].canvass : [];	
+		var rows; //= (typeof this.state.dataStorage[id]!='undefined' && this.state.canvassItems.data==0) ? this.state.dataStorage[id].canvass : [];	
+		if(typeof this.state.dataStorage[id]!='undefined' && this.state.canvassItems.data==0) {
+			rows = this.state.dataStorage[id].canvass;
+		} else {
+			rows = this.state.canvassItems.data;
+		}
+
 		ReactDOM.render(<CanvassParentComponent rows={rows} handleSaveCanvass={this.handleSaveCanvass}/>, document.getElementById('myModal'))
 	},
 	handleSaveCanvass: function (data) {
 		var canvassItems = this.state.canvassItems;
 		canvassItems = {'data': data};
+		console.log(canvassItems);
 		this.setState({canvassItems:canvassItems});
 	},
 	getUnitOfMeasure : function (item) {
@@ -177,8 +184,11 @@ window.TableComponent = React.createClass({
 	handleCancelCallback: function(){
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
+		var canvassItems = this.state.canvassItems;
+		canvassItems.data = 0;
 		rows.length=0;
-		this.setState({rows:rows});
+		this.setState({rows:rows, canvassItems:canvassItems});
+
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <LineRow columns={this.props.table.columns} data={dataStorage[i]} id={i} callbackParent={this.lineRowCallBack} />
@@ -199,16 +209,17 @@ window.TableComponent = React.createClass({
 			}
 		}
 
-		dataStorage[dataIndex].canvass = canvassItems;
+		dataStorage[dataIndex].canvass = canvassItems.data;
 
 		rows.length=0;
 		this.setState({rows:rows});
+		canvassItems.data = 0;
 
 		for(var i in dataStorage) {
 			rows[i] = <LineRow columns={this.props.table.columns} data={dataStorage[i]} id={i} callbackParent={this.lineRowCallBack} />
 		}
 
-		this.setState({rows:rows, dataStorage:dataStorage, editLineItem:false});
+		this.setState({rows:rows, dataStorage:dataStorage, editLineItem:false, canvassItems:canvassItems});
 		console.log(this.state);
 	},
 	handleRemove : function (dataIndex) {
@@ -222,7 +233,11 @@ window.TableComponent = React.createClass({
 			rows[i] = <LineRow columns={this.props.table.columns} data={dataStorage[i]} id={i} callbackParent={this.lineRowCallBack} />
 		}
 
-		this.setState({rows:rows, dataStorage:dataStorage, editLineItem:false});
+		this.setState({
+			rows:rows, 
+			dataStorage:dataStorage, 
+			editLineItem:false
+		});
 	},
 	lineRowCallBack : function(rowElem) {
 		var elemArr = rowElem.split('-');
@@ -386,7 +401,7 @@ window.LineRow = React.createClass({
 		var row;
 		if(this.props.edit) {
 			return( <tr id={"item-"+parseInt(this.props.id+1)}>
-					{this.props.columns.map(function (column){
+					{this.props.columns.map(function (column) {
 						if(column.fieldType=='link') {
 							return( <LineColumn callBackDisplay={that.callBackDisplay} defaultValue={that.props.data[column.name]} column={column} data={that.props.data} key={column.name} edit={true} /> ); 
 						} else {

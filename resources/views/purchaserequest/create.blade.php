@@ -93,7 +93,7 @@ Create New Purchase Requisition
 </div><!-- /.row -->  
 
 <!-- canvass modal -->
-<div class="example-modal">
+<div class="example-modal" style="width:900px;">
   <div class="modal" id="myModal"> </div>
 </div>
 

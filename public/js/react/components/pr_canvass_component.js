@@ -50,6 +50,8 @@ window.CanvassParentComponent = React.createClass({
 				rows.push(<LineRowCanvass data={obj} index={i+1} callBackClick = {this.handleClickEventEdit}/>)
 			}
 			this.setState({rows:rows, dataStorage:dataStorage});
+		} else {
+			this.setState({rows:[], dataStorage:[]});
 		}
 	},
 	getInitialState : function() {
@@ -77,7 +79,8 @@ window.CanvassParentComponent = React.createClass({
 			vendorValue:'',
 			priceValue:'',
 			approvedValue:'',
-			dayValue:''
+			dayValue:'',
+			edit: false
 		}
 	},
 	onChangeVendor : function (evt) {
@@ -215,7 +218,16 @@ window.CanvassParentComponent = React.createClass({
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <LineRowCanvass data={dataStorage[i]} index={i+1} callBackClick = {this.handleClickEventEdit}/>
 		}
-		this.setState({rows:rows, dataStorage:dataStorage, edit:false});
+
+			this.setState({
+			rows:rows,
+			dataStorage:dataStorage,
+			edit:false,
+			vendorValue:'',
+			priceValue:'',
+			approvedValue:'',
+			dayValue:'',
+		});
 	},
 	handleCancel : function () {
 		if(this.state.edit) {
@@ -228,14 +240,28 @@ window.CanvassParentComponent = React.createClass({
 				rows[i] = <LineRowCanvass data={dataStorage[i]} index={i+1} callBackClick = {this.handleClickEventEdit}/>
 			}
 
-			this.setState({rows:rows, edit:false});
+			this.setState({
+				rows:rows, 
+				edit:false,
+				vendorValue:'',
+				priceValue:'',
+				approvedValue:'',
+				dayValue:'',
+			});
+
 		} else {
 			var vendorValue = this.state.vendorValue;
 			var priceValue = this.state.priceValue;
 			var approvedValue = this.state.approvedValue;
 			var dayValue = this.state.dayValue;
-			
+			// var dataStorage = this.state.dataStorage;
+			// var rows = this.state.rows;
+			// dataStorage.length = 0;
+			// rows.length = 0;
+
 			this.setState({
+//				rows: rows,
+//				dataStorage: dataStorage,
 				vendorValue:'',
 				priceValue:'',
 				approvedValue:'',
@@ -266,7 +292,7 @@ window.CanvassParentComponent = React.createClass({
 	render : function () {
 		return (
 			<div className="modal-dialog">
-            	<div className="modal-content">
+            	<div className="modal-content" style={{width:'900px',marginLeft:'-20%'}}>
 	            <div className="modal-header">
 		                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
 		                  <span aria-hidden="true">×</span></button>
@@ -308,7 +334,7 @@ window.CanvassParentComponent = React.createClass({
 					</table>
 				</div>
 				<div className="modal-footer">
-                <button type="button" className="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-default pull-left" data-dismiss="modal" onClick={this.handleCancel}>Close</button>
                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleSaveCanvass}>Save changes</button>
               </div>
             </div>
