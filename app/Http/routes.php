@@ -14,7 +14,7 @@
 Route::get('test', function(){
 	return 'hello world';
 });
-	
+
 Route::group(['namespace' => 'Lists'], function(){
 	Route::resource('branch', 'BranchController');
 	Route::resource('department', 'DepartmentController');
@@ -41,6 +41,7 @@ Route::group(['namespace' => 'Transaction'], function(){
 	Route::resource('purchaseorder', 'PurchaseOrderController');
 	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
 	Route::resource('purchaserequest', 'PurchaseRequestController');
+	Route::resource('vendorpayment', 'VendorPaymentController');
 });
 
 Route::group(['namespace' => 'Admin'], function(){
@@ -48,6 +49,6 @@ Route::group(['namespace' => 'Admin'], function(){
 	Route::resource('workflow.state', 'WorkflowStateController');
 });
 
-Route::get('/', function(){	
+Route::get('/', function(){
 	return view('app');
 });

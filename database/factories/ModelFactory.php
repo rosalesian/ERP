@@ -20,6 +20,19 @@ $factory->define(Nixzen\User::class, function ($faker) {
     ];
 });
 
+$factory->define(Nixzen\Models\VendorPayment::class, function ($faker) {
+		return [
+				'transno' => $faker->numberBetween(1, 5),
+				'coa_id' => $faker->numberBetween(1, 5),
+				'payee_id' => $faker->numberBetween(1, 5),
+				'date' => $faker->dateTime('now'),
+				'posting_period_id' => $faker->numberBetween(1, 5),
+				'checkno' => $faker->numberBetween(1, 5),
+				'checkdate' => $faker->dateTime('now'),
+				'principal_id' => $faker->numberBetween(1, 5),
+				'branch_id' => $faker->numberBetween(1, 5)
+		];
+});
 $factory->define(Nixzen\Models\Item::class, function ($faker) {
 		return [
 				'itemcode' => $faker->numerify('#######'),
