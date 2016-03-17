@@ -40,6 +40,7 @@ class VendorPaymentControllerTest extends TestCase
 			$response = $this->call('POST', 'vendorpayment', $request);
 			$vendorpayment = $this->vendorpayment->all()->last();
 			$this->assertRedirectedToRoute('vendorpayment.show', [$vendorpayment]);
+			$this->seeInDatabase('vendor_payment', ['id' => 1]);
 		}
 
 		public function testShow()
@@ -66,6 +67,8 @@ class VendorPaymentControllerTest extends TestCase
 		{
 			$this->call('DELETE', 'vendorpayment/1');
 			$this->assertRedirectedToRoute('vendorpayment.index');
+			$vendorpayment = $this->vendorpayment->find(1);
+			$this->assertNull($vendorpayment);
 		}
 
 		public function makeVendorPaymentData()
