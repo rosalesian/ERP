@@ -1,4 +1,7 @@
 window.PrimaryComponent = React.createClass({
+	callBackCustomForm : function (event) {
+		alert(event.value);
+	},
 	render : function () {
 		return(
 			<Wrapper>
@@ -45,31 +48,42 @@ window.ClassificationComponent = React.createClass({
 		);
 	}
 });
+var items = [
+	{value:"data1", label:"4000318 CDM FRUIT & NUT 6X24X65G", description:"This is Data 1"},
+	{value:"data2", label:"4005793 CDM ROAST ALMOND 6X24X65G (CS)", description:"This is Data 2"},
+	{value:"data3", label:"4000304 30G CDM FRUIT & NUT (1X12X24)", description:"This is Data 3"}
+];
+
 var TABLE = {
 	storage:"item_storage",
 	columns: [
-		{name: "item", displayName: "Item", className: "react-select-input-lineitem", fieldType: "select", data:[{value:"data1", label:"4000318 CDM FRUIT & NUT 6X24X65G", description:"this is data1", rate:"100"},{value:"data2", label:"4005793 CDM ROAST ALMOND 6X24X65G (CS)", description:"this is data2", rate:"250"},{value:"data3", label:"4000304 30G CDM FRUIT & NUT (1X12X24) 4000304 30G CDM FRUIT & NUT (1X12X24)", description:"this is data3", rate:"350"}]},
-		{name: "description", displayName: "Description", fieldType: "text", className: "form-control"},
-		{name: "uom", displayName: "Unit", className: "react-select-input-lineitem", fieldType: "select", data:[{value:"data1", label:"Data1"},{value:"data2", label:"Data2"}]},
+		{name: "item", displayName: "Item", className: "react-select-input-lineitem", fieldType: "select", data:items},
+		{name: "description", displayName: "Description", fieldType: "disabled", className: "form-control"},
+		{name: "uom", displayName: "Unit", className: "react-select-input-lineitem", fieldType: "select"},
 		{name: "quantity", displayName: "Quantity", fieldType: "text", className: "form-control"},
-		{name: "rate", displayName: "Rate", fieldType: "text", className: "form-control"},
-		{name: "amount", displayName: "Amount", fieldType: "text", className: "form-control"}
+		{name: "rate", displayName: "Rate", fieldType: "disabled", className: "form-control"},
+		{name: "amount", displayName: "Amount", fieldType: "disabled", className: "form-control"},
+		{name: "vatamount", displayName: "VAT Amount", fieldType: "disabled", className: "form-control"},
+		{name: "grossamount", displayName: "Gross Amount", fieldType: "disabled", className: "form-control"},
+		{name: "canvass", displayName: "Canvass", fieldType: "link"}
 	]
 };
-var initialData = [
-	{item:"data1",description:"sample1",uom:"data1",quantity:"12",rate:"100",amount:"12000"},
-	{item:"data2",description:"sample2",uom:"data1",quantity:"13",rate:"101",amount:"12000"},
-	{item:"data1",description:"sample3",uom:"data1",quantity:"14",rate:"102",amount:"12000"},
-	{item:"data2",description:"sample4",uom:"data1",quantity:"15",rate:"103",amount:"12000"},
-	{item:"data2",description:"sample5",uom:"data1",quantity:"16",rate:"104",amount:"12000"},
-	{item:"data1",description:"sample6",uom:"data1",quantity:"17",rate:"105",amount:"12000"},
-	{item:"data2",description:"sample7",uom:"data1",quantity:"18",rate:"106",amount:"12000"},
-	{item:"data1",description:"sample8",uom:"data1",quantity:"19",rate:"107",amount:"12000"}
-];
+// var TABLE = {
+// 	storage:"item_storage",
+// 	columns: [
+// 		{name: "item", displayName: "Item", className: "react-select-input-lineitem", fieldType: "select", data:items},
+// 		{name: "description", displayName: "Description", fieldType: "text", className: "form-control"},
+// 		{name: "uom", displayName: "Unit", className: "react-select-input-lineitem", fieldType: "select", data:items},
+// 		{name: "quantity", displayName: "Quantity", fieldType: "text", className: "form-control"},
+// 		{name: "rate", displayName: "Rate", fieldType: "text", className: "form-control"},
+// 		{name: "amount", displayName: "Amount", fieldType: "text", className: "form-control"},
+// 		{name: "vatamount", displayName: "VAT Amount", fieldType: "text", className: "form-control"},
+// 		{name: "grossamount", displayName: "Gross Amount", fieldType: "text", className: "form-control"}
+// 	]
+// };
 
-ReactDOM.render(<LineItems table={TABLE}/>, document.getElementById("sublist-items"));
+// ReactDOM.render(<LineItems table={TABLE}/>, document.getElementById("line-items"));
 ReactDOM.render(<PrimaryComponent />, document.getElementById("pr_primary_form"));
 ReactDOM.render(<ClassificationComponent />, document.getElementById("pr_classification_form"));
 
-
-// ReactDOM.render(<TableComponent table={TABLE}/>, document.getElementById("line-items"));
+ReactDOM.render(<TableComponent table={TABLE}/>, document.getElementById("sublist-items"));

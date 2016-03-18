@@ -67,7 +67,7 @@ Create New Purchase Requisition
         </div>
         <!-- /.tab-pane -->
         <div class="tab-pane" id="tab_3">
-          <div id="sublist-items"></div>
+          {{-- <div id="sublist-items"></div> --}}
         </div>
         <!-- /.tab-pane -->
       </div>
@@ -84,9 +84,18 @@ Create New Purchase Requisition
     </div>
 
   {!! Form::close() !!}
-  
+      <!-- Button trigger modal -->
+    {{-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      Launch demo modal
+    </button> --}}
+
   </div><!-- /.col -->
 </div><!-- /.row -->  
+
+<!-- canvass modal -->
+<div class="example-modal" style="width:900px;">
+  <div class="modal" id="myModal"> </div>
+</div>
 
 @stop
 
@@ -103,6 +112,7 @@ Create New Purchase Requisition
 
 <!-- CUSTOM REACT COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script>    
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
 @stop

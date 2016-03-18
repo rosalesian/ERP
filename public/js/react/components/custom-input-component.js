@@ -17,7 +17,7 @@ window.InputTag = React.createClass({
 	handleChange : function (event) {
 		if(this.props.attributes.type=="select") {
 			this.setState({defaultValue:event.value});
-		} else{
+		} else {
 			this.setState({defaultValue:event.target.value});
 		}
 	},
