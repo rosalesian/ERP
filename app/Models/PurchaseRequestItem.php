@@ -17,9 +17,9 @@ class PurchaseRequestItem extends Model {
 		'gross_amount',
 	];
 
-	public function canvass()
+	public function canvasses()
 	{
-		return $this->hasMany('Nixzen\Canvass', 'purchaserequestitem_id');
+		return $this->hasMany('Nixzen\Models\Canvass', 'purchaserequestitem_id');
 	}
 
 	public function purchaserequisition()

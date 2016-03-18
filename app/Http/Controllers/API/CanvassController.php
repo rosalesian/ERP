@@ -1,20 +1,31 @@
-<?php namespace Nixzen\Http\Controllers\Transaction;
+<?php namespace Nixzen\Http\Controllers\API;
 
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
+use Nixzen\Repositories\PurchaseRequestItemRepository;
 
 use Illuminate\Http\Request;
 
 class CanvassController extends Controller {
 
+	protected $prItem;
+
+	public function __construct(PurchaseRequestItemRepository $prItem)
+	{
+		$this->prItem = $prItem;
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($id)
 	{
-		//
+		$prItem = $this->prItem->find($id);
+
+		return response()->json([
+			'canvasses' => $prItem->canvasses()
+		]);
 	}
 
 	/**
@@ -24,7 +35,7 @@ class CanvassController extends Controller {
 	 */
 	public function create()
 	{
-		//
+
 	}
 
 	/**
@@ -32,9 +43,19 @@ class CanvassController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function save($id, Request $request)
 	{
-		//
+		$prItem = $this->prItem->find($id);
+		$canvasses = json_decode($request->input('canvasses'));
+		//dd($canvasses);
+		foreach($canvasses as $canvass){
+			//dd($canvass->vendor_id);
+			$prItem->canvasses()->create((array)$canvass);
+		}
+
+		return response()->json([
+			'message' => 'canvass was created'
+		]);
 	}
 
 	/**

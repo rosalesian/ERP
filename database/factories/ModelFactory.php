@@ -115,7 +115,6 @@ $factory->define(Nixzen\Models\Vendor::class, function ($faker) {
 				'inactive'	=> false,
 				'created_by'	=> $faker->numberBetween(1, 3),
 				'updated_by'	=> $faker->numberBetween(1, 3)
-
 		];
 });
 

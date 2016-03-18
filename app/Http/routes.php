@@ -36,12 +36,17 @@ Route::group(['namespace' => 'Lists'], function(){
 });
 
 Route::group(['namespace' => 'Transaction'], function(){
-	Route::resource('canvass', 'CanvassController');
 	Route::resource('joborder', 'JobOrderController');
 	Route::resource('purchaseorder', 'PurchaseOrderController');
 	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
 	Route::resource('purchaserequest', 'PurchaseRequestController');
 	Route::resource('vendorpayment', 'VendorPaymentController');
+});
+
+Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
+	//canvass api routes
+	Route::get('pritem/{id}/canvass', 'CanvassController@index');
+	Route::post('pritem/{id}/canvass', 'CanvassController@save');
 });
 
 Route::group(['namespace' => 'Admin'], function(){
