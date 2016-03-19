@@ -11,7 +11,7 @@ class PurchaseRequest extends Model {
 		'type_id',
 		'date',
 		'joborder_id',
-		'delivered_to',
+		'deliver_to',
 		'division_id',
 		'purchaserequestcategory_id',
 		'approvalstatus_id',

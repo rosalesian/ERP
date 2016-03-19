@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Nixzen\Models\Item\ItemTypes;
+use Nixzen\Models\ItemTypes;
 
 class ItemTypeTableSeeder extends Seeder
 {

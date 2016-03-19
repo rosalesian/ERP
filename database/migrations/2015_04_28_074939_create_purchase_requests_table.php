@@ -19,6 +19,7 @@ class CreatePurchaseRequestsTable extends Migration {
 			$table->date('date');
 			$table->double('total_amount', 9 , 5)->default(0);
 			$table->integer('requester')->unsigned();
+			$table->string('deliver_to', 100);
 			$table->text('remarks')->nullable();
 			$table->boolean('inactive')->default(false);
 			$table->timestamps();

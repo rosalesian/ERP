@@ -9,11 +9,13 @@ class CreatePurchaseRequestCommand extends Command
 {
 	public $requester;
 
-	public $type;
+	public $type_id;
 
 	public $date;
 
 	public $remarks;
+
+	public $deliver_to;
 
 	public $items;
 
@@ -22,12 +24,14 @@ class CreatePurchaseRequestCommand extends Command
      *
      * @return void
      */
-    public function __construct($requester, $type, $date, $remarks, $items)
+    public function __construct($requester, $type, $date, $deliver_to, $remarks, $items)
     {
 				$this->requester = $requester;
-				$this->type = $type;
+				$this->type_id = $type;
 				$this->date = $date;
 				$this->remarks = $remarks;
+				$this->deliver_to = $deliver_to;
+
 				if(gettype($items) == 'string')
 				{
 						$this->items = json_decode($items);

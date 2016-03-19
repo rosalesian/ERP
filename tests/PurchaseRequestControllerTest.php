@@ -37,7 +37,6 @@ class PurchaseRequestControllerTest extends TestCase
 		{
 			$request = $this->makeInputFactory();
 			$response = $this->call('POST', 'purchaserequest', $request);
-			$this->assertResponseStatus(302);
 			$purchaserequest = $this->purchaserequest->all()->last();
 			$this->assertRedirectedToRoute('purchaserequest.show',[$purchaserequest]);
 		}
@@ -94,6 +93,7 @@ class PurchaseRequestControllerTest extends TestCase
 					'type'	=>	'1',
 					'date'	=>	'2016-02-22',
 					'remarks'	=> 'this is a test',
+					'deliver_to' => '1',
 					'items'	=> json_encode($item)
 				];
 
