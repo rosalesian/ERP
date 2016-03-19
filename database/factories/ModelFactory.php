@@ -87,6 +87,7 @@ $factory->define(Nixzen\Models\PurchaseRequest::class, function ($faker) {
 				'requester' => $faker->numberBetween(1, 5),
 				'type_id' => $faker->numberBetween(1, 5),
 				'date' => $faker->dateTime('now'),
+				'deliver_to'=> $faker->numberBetween(1, 5),
 				'remarks' => $faker->text
 		];
 });

@@ -27,6 +27,7 @@ class CreatePurchaseRequestRequest extends Request
             'requester'   => 'required',
             'date'          => 'required',
             'type'          => 'required',
+						'deliver_to'	=> 'required',
             'items'         => 'required'
         ];
         }

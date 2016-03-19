@@ -24,7 +24,7 @@ class CreatePurchaseOrdersTable extends Migration {
 			$table->integer('approvalstatus_id')->unsigned()->nullable();
 			$table->integer('purchaserequisition')->unsigned()->nullable();
 			$table->text('memo')->nullable();
-			$table->string('delivered_to')->unsigned()->nullable();//branch
+			$table->string('delivered_to')->nullable();
 			$table->integer('requested_by')->unsigned()->nullable();
 			$table->boolean('inactive')->default(false);
 			$table->integer('created_by')->unsigned()->nullable();
