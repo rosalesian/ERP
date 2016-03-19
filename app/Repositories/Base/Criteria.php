@@ -1,6 +1,6 @@
 <?php namespace Nixzen\Repositories\Base;
 
-use Nixzen\Repositories\Base\RepositoryInterface as Repository;
+use Nixzen\Repositories\Base\RepositoryInterface;
 
 abstract class Criteria {
 
@@ -9,5 +9,5 @@ abstract class Criteria {
      * @param RepositoryInterface $repository
      * @return mixed
      */
-    public abstract function apply($model, Repository $repository);
+    public abstract function apply($model, RepositoryInterface $repository);
 }

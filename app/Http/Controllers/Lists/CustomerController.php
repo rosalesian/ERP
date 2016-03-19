@@ -2,11 +2,17 @@
 
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use Nixzen\Repositories\CustomerRepository;
 
 class CustomerController extends Controller {
 
+	public $customer;
+
+	public function __construct(CustomerRepository $customer)
+	{
+		$this->customer = $customer;
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -14,10 +20,8 @@ class CustomerController extends Controller {
 	 */
 	public function index()
 	{
-		return response()->json([
-			'say'=> 'Hello World',
-			'test'=> 'this is a test'
-		]);
+		$customers = $this->customer->all();
+		return view('customer.index')->with('customers', $customers);
 	}
 
 	/**

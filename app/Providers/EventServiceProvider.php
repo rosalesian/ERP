@@ -16,6 +16,8 @@ class EventServiceProvider extends ServiceProvider
         'Nixzen\Events\PurchaseRequestWasCreated' => [
             'Nixzen\Handlers\Events\TransactionApproval',
         ],
+				'Nixzen\Events\ItemReceiptWasCreated' => [],
+				'Nixzen\Events\ItemReceiptWasUpdated' => [],
     ];
 
     /**

@@ -3,6 +3,9 @@
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\ItemRepository as Item;
+use Nixzen\Http\Requests\ItemRequest;
+use Nixzen\Commands\CreateItemCommand;
+use Nixzen\Commands\UpdateItemCommand;
 
 use Illuminate\Http\Request;
 
@@ -22,7 +25,7 @@ class ItemController extends Controller {
 	public function index()
 	{
 		$items = $this->item->all();
-		//return view('', $items);
+		return view('item.index')->with('items', $items);
 	}
 
 	/**
@@ -32,7 +35,7 @@ class ItemController extends Controller {
 	 */
 	public function create()
 	{
-		//return view('');
+		return view('item.create');
 	}
 
 	/**
@@ -40,10 +43,10 @@ class ItemController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(ItemRequest $request)
 	{
-		$this->item->create(Input::all());
-		//return view('');
+		$item = $this->dispatchFrom(CreateItemCommand::class, $request);
+		return redirect()->route('item.show', $item->id);
 	}
 
 	/**
@@ -55,7 +58,7 @@ class ItemController extends Controller {
 	public function show($id)
 	{
 		$item = $this->item->find($id);
-		//return view('',$item);
+		return view('item.show')->with('item', $item);
 	}
 
 	/**
@@ -67,7 +70,7 @@ class ItemController extends Controller {
 	public function edit($id)
 	{
 		$item = $this->item->find($id);
-		//return view('',$item);
+		return view('item.edit')->with('item', $item);
 	}
 
 	/**
@@ -76,10 +79,12 @@ class ItemController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, ItemRequest $request)
 	{
-		$this->item->update(Input::all(), $id);
-		//return view('');
+		$item = $this->item->find($id);
+		$this->dispatchFrom(UpdateItemCommand::class, $request, ['item' => $item]);
+		//$this->item->update($request->all(), $id);
+		return redirect()->route('item.show', $id);
 	}
 
 	/**
@@ -91,7 +96,7 @@ class ItemController extends Controller {
 	public function destroy($id)
 	{
 		$this->item->delete($id);
-		//return view('');
+		return redirect()->route('item.index');
 	}
 
 }

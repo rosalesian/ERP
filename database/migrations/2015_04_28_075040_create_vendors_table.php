@@ -19,17 +19,17 @@ class CreateVendorsTable extends Migration {
 			$table->text('description')->nullable();
 			$table->string('email', 100);
 			$table->string('phone', 15);
-			$table->string('faxno', 15);
-			$table->string('contact_person', 200);
-			$table->boolean('auto_apply_wtax');
+			$table->string('faxno', 15)->nullable();
+			$table->string('contact_person', 200)->nullable();
+			$table->boolean('auto_apply_wtax')->default(false);
 			$table->integer('vendorcategories_id')->unsigned();
 			$table->string('tin', 20);
 			$table->integer('branch_id')->unsigned();
 			$table->integer('taxcode_id')->unsigned();
 			$table->integer('term_id')->unsigned();
 			$table->boolean('inactive')->default(false);
-			$table->integer('created_by')->unsigned();
-			$table->integer('updated_by')->unsigned();
+			$table->integer('created_by')->unsigned()->nullable();
+			$table->integer('updated_by')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}

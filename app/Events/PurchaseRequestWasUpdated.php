@@ -9,19 +9,17 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class PurchaseRequestWasUpdated extends Event
 {
     use SerializesModels;
-    
+
     public $purchaserequest;
 
-    public $items;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($purchaserequest, $items)
+    public function __construct($purchaserequest)
     {
         $this->purchaserequest = $purchaserequest;
-        $this->items = $items;
     }
 
     /**

@@ -7,7 +7,7 @@ class PurchaseRequestItem extends Model {
 	protected $table = 'purchase_request_items';
 
 	protected $fillable = [
-		'name',
+		'item_id',
 		'quantity',
 		'unit_id',
 		'unit_cost',
@@ -17,9 +17,9 @@ class PurchaseRequestItem extends Model {
 		'gross_amount',
 	];
 
-	public function canvass()
+	public function canvasses()
 	{
-		return $this->hasMany('Nixzen\Canvass', 'purchaserequestitem_id');
+		return $this->hasMany('Nixzen\Models\Canvass', 'purchaserequestitem_id');
 	}
 
 	public function purchaserequisition()

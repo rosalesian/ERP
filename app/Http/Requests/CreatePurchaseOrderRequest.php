@@ -24,12 +24,12 @@ class CreatePurchaseOrderRequest extends Request
     public function rules()
     {
         return [
-            'vendor'    => 'required',
+            'vendor_id'    => 'required',
             'date'      => 'required',
             'items'     => 'required',
-            'terms'     => 'required',
-            'type'      =>  'required',
-            'paymenttype'=> 'required'
+            'terms_id'     => 'required',
+            'type_id'      =>  'required',
+            'paymenttype_id'=> 'required'
         ];
     }
 

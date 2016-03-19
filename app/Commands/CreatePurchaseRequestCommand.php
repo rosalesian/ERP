@@ -7,7 +7,7 @@ use Nixzen\Http\Requests;
 
 class CreatePurchaseRequestCommand extends Command
 {
-	public $requestedby;
+	public $requester;
 
 	public $type;
 
@@ -22,12 +22,18 @@ class CreatePurchaseRequestCommand extends Command
      *
      * @return void
      */
-    public function __construct($requestedby, $type, $date, $remarks, $items)
+    public function __construct($requester, $type, $date, $remarks, $items)
     {
-		$this->requestedby = $requestedby;
-		$this->type = $type;
-		$this->date = $date;
-		$this->remarks = $remarks;
-		$this->items = $items;
+				$this->requester = $requester;
+				$this->type = $type;
+				$this->date = $date;
+				$this->remarks = $remarks;
+				if(gettype($items) == 'string')
+				{
+						$this->items = json_decode($items);
+				}
+				else {
+						$this->items = $items;
+				}
     }
 }

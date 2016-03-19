@@ -28,17 +28,18 @@ class CreatePurchaseRequestCommandHandler
      * @return void
      */
     public function handle(CreatePurchaseRequestCommand $command)
-    {   
+    {
         $purchaserequest = $this->purchaserequest->create([
-            'requester' => $command->requestedby,
+            'requester' => $command->requester,
             'date'      => $command->date,
-            'type'      => $command->type,
+            'type_id'   => $command->type,
             'remarks'   => $command->remarks
         ]);
-        
+
         $prItems = [];
+
         foreach($command->items as $item){
-            array_push($prItems, new PurchaseRequestItem((array)$item));
+            array_push($prItems, new PurchaseRequestItem((array) $item));
         }
 
         $purchaserequest->items()->saveMany($prItems);

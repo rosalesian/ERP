@@ -2,11 +2,21 @@
 
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
+use Nixzen\Repositories\VendorPaymentRepository;
+use Nixzen\Http\Requests\VendorPaymentRequest;
+use Nixzen\Commands\CreateVendorPaymentCommand;
+use Nixzen\Commands\UpdateVendorPaymentCommand;
 
 use Illuminate\Http\Request;
 
 class VendorPaymentController extends Controller {
 
+	public $vendorpayment;
+
+	public function __construct(VendorPaymentRepository $vendorpayment)
+	{
+		$this->vendorpayment = $vendorpayment;
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -14,7 +24,9 @@ class VendorPaymentController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$vendorpayments = $this->vendorpayment->all();
+		return view('vendorpayment.index')
+				->with('vendorpayments', $vendorpayments);
 	}
 
 	/**
@@ -24,7 +36,7 @@ class VendorPaymentController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('vendorpayment.create');
 	}
 
 	/**
@@ -32,9 +44,10 @@ class VendorPaymentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(VendorPaymentRequest $request)
 	{
-		//
+		$vendorpayment = $this->dispatchFrom(CreateVendorPaymentCommand::class, $request);
+		return redirect()->route('vendorpayment.show', $vendorpayment);
 	}
 
 	/**
@@ -45,7 +58,9 @@ class VendorPaymentController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$vendorpayment = $this->vendorpayment->find($id);
+		return view('vendorpayment.show')
+					->with('vendorpayment', $vendorpayment);
 	}
 
 	/**
@@ -56,7 +71,9 @@ class VendorPaymentController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$vendorpayment = $this->vendorpayment->find($id);
+		return view('vendorpayment.show')
+					->with('vendorpayment', $vendorpayment);
 	}
 
 	/**
@@ -65,9 +82,11 @@ class VendorPaymentController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, VendorPaymentRequest $request)
 	{
-		//
+		$vendorpayment = $this->vendorpayment->find($id);
+		$this->dispatchFrom(UpdateVendorPaymentCommand::class, $request, ['vendorpayment' => $vendorpayment]);
+		return redirect()->route('vendorpayment.show', $id);
 	}
 
 	/**
@@ -78,7 +97,8 @@ class VendorPaymentController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->vendorpayment->find($id);
+		return redirect()->route('vendorpayment.index');
 	}
 
 }
