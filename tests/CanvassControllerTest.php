@@ -46,12 +46,10 @@ class CanvassControllerTest extends TestCase
 				['vendor_id' => 2, 'cost' => 1100.00, 'terms_id' => 1],
 				['vendor_id' => 3, 'cost' => 1010.00, 'terms_id' => 1],
 			];
-
 			//mock input data
 			$data = ['canvasses' => json_encode($canvasses)];
 			//get first item from pr
 			$prItem = $pr->first()->items()->first();
-
 			//assertion
 			$this->post('api/1.0/pritem/1/canvass', $data)
 					->seeJson([

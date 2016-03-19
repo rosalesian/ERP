@@ -47,10 +47,16 @@ class CanvassController extends Controller {
 	{
 		$prItem = $this->prItem->find($id);
 		$canvasses = json_decode($request->input('canvasses'));
-		//dd($canvasses);
-		foreach($canvasses as $canvass){
-			//dd($canvass->vendor_id);
-			$prItem->canvasses()->create((array)$canvass);
+
+		foreach($canvasses as $data){
+
+			$canvass = $prItem->canvasses()->where('vendor_id', $data->vendor_id)->first();
+			if($canvass == null){
+				$prItem->canvasses()->create((array)$data);
+			}else {
+				$canvass->update((array)$data);
+			}
+
 		}
 
 		return response()->json([
