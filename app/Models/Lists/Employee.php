@@ -45,4 +45,9 @@ class Employee extends Model {
 	public function updated_by(){
 		return $this->belongsTo('Nixzen\Modles\List\Employee', 'updated_by');
 	}
+
+	public function getFullNameAttribute() {
+	  return $this->firstname . ' ' . $this->middlename . ' ' . $this->lastname;
+	}
+
 }

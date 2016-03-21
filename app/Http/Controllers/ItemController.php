@@ -6,14 +6,20 @@ use Illuminate\Http\Request;
 
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
+use Nixzen\Repositories\ItemRepository as Item;
+use Response;
 
 class ItemController extends Controller
 {
+    private $item;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(Item $item) {
+        $this->item = $item;
+    }
     public function index()
     {
         //
@@ -26,8 +32,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
-    }
+        
+    }   
 
     /**
      * Store a newly created resource in storage.
@@ -83,5 +89,12 @@ class ItemController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getItems()
+    {
+        $items = $this->item->lists('description', 'id');
+        return Response::json($items);  
+
     }
 }

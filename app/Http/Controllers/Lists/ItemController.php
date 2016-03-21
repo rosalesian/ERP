@@ -8,6 +8,7 @@ use Nixzen\Commands\CreateItemCommand;
 use Nixzen\Commands\UpdateItemCommand;
 
 use Illuminate\Http\Request;
+use Response;
 
 class ItemController extends Controller {
 
@@ -98,5 +99,12 @@ class ItemController extends Controller {
 		$this->item->delete($id);
 		return redirect()->route('item.index');
 	}
+
+	public function getItems()
+    {
+        $items = $this->item->lists('description', 'id');
+        return Response::json($items);  
+
+    }
 
 }

@@ -3,6 +3,8 @@
 
 use Nixzen\Repositories\Base\RepositoryInterface;
 use Nixzen\Repositories\Base\Repository;
+use Nizen\Repositories\Item;
+
 
 class ItemRepository extends Repository{
 
@@ -10,4 +12,5 @@ class ItemRepository extends Repository{
 	{
 		return 'Nixzen\Models\Item';
 	}
+	
 }
