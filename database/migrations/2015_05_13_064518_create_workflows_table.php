@@ -15,18 +15,10 @@ class CreateWorkflowsTable extends Migration {
 		Schema::create('workflows', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
-			$table->text('description');
-			$table->integer('recordtype_id');
-			$table->text('condition');
-			$table->integer('status')->unsigned();
-			$table->boolean('oncreate');
-			$table->boolean('onupdate');
-			$table->integer('eventtype_id');
-			$table->boolean('inactive');
-			$table->integer('created_by')->unsigned();
-			$table->integer('updated_by')->unsigned();
-			$table->timestamps();
+			$table->integer('recordtype_id')->unsigned();
+			$table->integer('record_id')->unsigned();
+			$table->integer('workflow_setup_id')->unsigned();
+			$table->integer('current_state_id')->unsigned();
 		});
 	}
 

@@ -1,11 +1,11 @@
-<?php namespace Nixzen;
+<?php namespace Nixzen\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ActiveWorkflow extends Model {
+class Workflow extends Model {
 
 
-	protected $table = 'active_workflows';
+	protected $table = 'workflows';
 
 	protected $primary_key = 'id';
 

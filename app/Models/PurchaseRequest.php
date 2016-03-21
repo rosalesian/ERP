@@ -72,9 +72,8 @@ class PurchaseRequest extends Model {
 		return $this->hasMany('Nixzen\Models\PurchaseRequestItem', 'purchaserequisition_id');
 	}
 
-	public function activeWorkflow(){
+	public function workflows(){
 
-		return $this->hasMany('Nixzen\Models\ActiveWorkflow', 'record_id')
-					->where('recordtype_id', $this->recordtype);
+		return $this->hasMany('Nixzen\Models\Workflow', 'record_id');
 	}
 }
