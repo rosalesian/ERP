@@ -5,6 +5,7 @@ use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\PurchaseRequestCategoryRepository as PurchaseRequestCategory;
 
 use Illuminate\Http\Request;
+use Response;
 
 class PurchaseRequestCategoryController extends Controller {
 
@@ -93,5 +94,10 @@ class PurchaseRequestCategoryController extends Controller {
 		$this->purchaserequetcategory->delete($id);
 		//return view('');
 	}
+
+	public function getPurchase() {
+      	$type = $this->purchaserequetcategory->lists('name', 'id');
+        return Response::json($type); 
+    }
 
 }

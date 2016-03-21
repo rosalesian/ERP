@@ -5,6 +5,7 @@ use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\JobOrderRepository as JobOrder;
 
 use Illuminate\Http\Request;
+use Input;
 
 class JobOrderController extends Controller {
 
@@ -22,7 +23,8 @@ class JobOrderController extends Controller {
 	public function index()
 	{
 		$joborders = $this->joborder->all();
-		return view('joborder.index')->with('joborders',$joborders);
+		//return view('joborder.index')->with('joborders',$joborders);
+		return $joborders;
 	}
 
 	/**
@@ -42,8 +44,10 @@ class JobOrderController extends Controller {
 	 */
 	public function store()
 	{
-		$joborder = $this->joborder->create(Input::all());
-		return redirect()->route('joborder.show', $joborder->id);
+		//$joborder = $this->joborder->create(Input::all());
+		//return redirect()->route('joborder.show', $joborder->id);
+		$joborder = Input::all();
+		return $joborder;
 	}
 
 	/**

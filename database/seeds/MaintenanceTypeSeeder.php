@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Nixzen\Models\PurchaseRequestCategory;
+use Nixzen\Models\MaintenanceType;
 
-class PurchaseCategoryTableSeeder extends Seeder
+class MaintenanceTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,12 +12,12 @@ class PurchaseCategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        PurchaseRequestCategory::truncate();
+        MaintenanceType::truncate();
 
         $faker = Faker\Factory::create();
 
         foreach(range(1, 300) as $index) {
-        	PurchaseRequestCategory::create([
+        	MaintenanceType::create([
         		'name' => $faker->company,
         		'description' => $faker->address,
         		'inactive' => 1,

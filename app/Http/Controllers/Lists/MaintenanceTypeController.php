@@ -5,6 +5,7 @@ use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\MaintenanceTypeRepository as MaintenanceType;
 
 use Illuminate\Http\Request;
+use Response;
 
 class MaintenanceTypeController extends Controller {
 
@@ -93,5 +94,9 @@ class MaintenanceTypeController extends Controller {
 		$this->maintenancetype->delete($id);
 		//return view('');
 	}
+	 public function getMaintenance() {
+      	$type = $this->maintenancetype->lists('name', 'id');
+        return Response::json($type); 
+    }
 
 }
