@@ -1,3 +1,8 @@
+    <!-- BASE URL -->
+    <script> 
+        var base_url = "<?php echo URL::to('/'); ?>";
+    </script>
+
     <!--<script src="{{ asset('js/jquery.min.js') }}"></script>-->
     <!--<script src="{{ asset('js/bootstrap.min.js') }}"></script>-->
 	<!-- jQuery 2.1.4 -->
