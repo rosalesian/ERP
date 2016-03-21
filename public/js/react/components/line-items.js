@@ -5,6 +5,11 @@ window.DataStorage = React.createClass ({
 });
 
 window.TableComponent = React.createClass({
+	getDefaultProps : function () {
+		return {
+			customer:''
+		}
+	},
 	getInitialState : function () {
 		var columns=[];
 

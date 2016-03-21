@@ -46,15 +46,15 @@
 		                    <li>
 		                      <a href="#"><i class="fa fa-circle-o"></i> Purchase Order<i class="fa fa-angle-left pull-right"></i></a>
 		                      <ul class="treeview-menu">
-		                        <li><a href="{{ url('transactions/purchaseorder') }}"><i class="fa fa-circle-o"></i> List</a></li>
-		                        <li><a href="{{ url('transactions/purchaseorder/create') }}"><i class="fa fa-circle-o"></i> New</a></li>
+		                        <li><a href="{{ url('purchaseorder') }}"><i class="fa fa-circle-o"></i> List</a></li>
+		                        <li><a href="{{ url('purchaseorder/create') }}"><i class="fa fa-circle-o"></i> New</a></li>
 		                      </ul>
 		                    </li>
 		                    <li>
 		                      <a href="#"><i class="fa fa-circle-o"></i> Purchase Requisition<i class="fa fa-angle-left pull-right"></i></a>
 		                      <ul class="treeview-menu">
-		                        <li><a href="{{ url('transactions/purchaserequest') }}"><i class="fa fa-circle-o"></i> List</a></li>
-		                        <li><a href="{{ url('transactions/purchaserequest/create') }}"><i class="fa fa-circle-o"></i> New</a></li>
+		                        <li><a href="{{ url('purchaserequest') }}"><i class="fa fa-circle-o"></i> List</a></li>
+		                        <li><a href="{{ url('purchaserequest/create') }}"><i class="fa fa-circle-o"></i> New</a></li>
 		                      </ul>
 		                    </li>
 	                  </ul>
