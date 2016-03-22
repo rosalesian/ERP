@@ -60,6 +60,7 @@ Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
 	Route::get('getEmployees','EmployeeController@getEmployees');
 	Route::get('getMaintenance','MaintenanceTypeController@getMaintenance');
 	Route::get('getPurchase','PurchaseRequestCategoryController@getPurchase');
+	Route::get('job/request','UserController@getJObRequest');
 });
 
 Route::get('/', function(){

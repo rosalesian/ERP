@@ -15,7 +15,7 @@ Create New Purchase Requisition
 @section('content')
  <div class="row">
   <div class="col-md-12">
-    {!! Form::open(array('url'=>'purchaserequest','method'=>'post')) !!}
+    {!! Form::open(array('url'=>'joborder','method'=>'post')) !!}
 
     <div class="transaction-buttons-container">
       <div class="trans-button">

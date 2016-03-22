@@ -87,13 +87,18 @@ window.PrimaryComponent = React.createClass({
 		return (
 			<Wrapper>
             	<FieldContainer>
-        			<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.type}
-        				attributes={{name:"type", label:"TYPE",options:this.state.data.typelist}} />
-
         			<Date callBackParent={this.handleChangeCallBack} 
         				defaultValue={this.props.defaultValues.date} 
         				attributes={{name:"date", label:"DATE"}} />
+
+        			<DeliveredTo callBackParent={this.handleChangeCallBack} 
+        				defaultValue={this.props.defaultValues.assetname} 
+        				attributes={{name:"assetname", label:"ASSET NAME"}} />
+
+        			<Requester callBackParent={this.handleChangeCallBack} 
+		          		defaultValue={this.props.defaultValues.requester} 
+		          		attributes={{name:"requester", label:"REQUEST DEPARTMENT",options:this.state.data.requesterlist}} />
+
         		</FieldContainer>
 
 				<FieldContainer> 

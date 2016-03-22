@@ -93,8 +93,13 @@ class ItemController extends Controller
 
     public function getItems()
     {
-        $items = $this->item->lists('description', 'id');
-        return Response::json($items);  
-
+        $data = [];
+       // $items = $this->item->lists('description', 'id');
+        $items = $this->item->all();
+       //for($i = 0; $i<sizeof($item); $i) {
+        foreach($items as $item)
+            echo $tem->description;
+        }
+        //return Response::json($items);  
     }
 }
