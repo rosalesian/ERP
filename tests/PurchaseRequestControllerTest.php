@@ -21,10 +21,7 @@ class PurchaseRequestControllerTest extends TestCase
     public function testIndex()
     {
       $response = $this->call('GET','purchaserequest');
-			$this->assertResponseOk();
 			$this->assertViewHas('purchaserequests');
-			$purchaserequests = $response->original->getData()['purchaserequests'];
-			$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $purchaserequests);
     }
 
 		public function testCreate()

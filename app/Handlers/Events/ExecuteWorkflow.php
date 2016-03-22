@@ -35,7 +35,7 @@ class ExecuteWorkflow
 													->where('recordtype_id', $purchaserequest->recordType_id)
 													->get();
 
-				dd("hello");
+				//dd("hello");
 				$workflow->each(function($workflow){
 					$purchaserequest->workflows()->create([
 						'recordtype_id' => $workflow->recordtype_id,
