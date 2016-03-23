@@ -3,6 +3,7 @@
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\ItemRepository as Item;
+use Nixzen\Repositories\PurchaseRequestCategoryRepository as PurchaseRequestCategory;
 use Nixzen\Http\Requests\ItemRequest;
 use Nixzen\Commands\CreateItemCommand;
 use Nixzen\Commands\UpdateItemCommand;
@@ -13,9 +14,10 @@ use Response;
 class ItemController extends Controller {
 
 	private $item;
-
-	public function __construct(Item $item){
+	private $purchaserequetcategory;
+	public function __construct(Item $item, PurchaseRequestCategory $purchaserequetcategory){
 		$this->item = $item;
+		$this->purchaserequetcategory = $purchaserequetcategory;
 	}
 
 	/**
@@ -102,8 +104,27 @@ class ItemController extends Controller {
 
 	public function getItems()
     {
-        $items = $this->item->lists('description', 'id');
-        return Response::json($items);  
+        // $items = $this->item->lists('description', 'id');
+        $items = $this->item->all();
+        $d = [];
+        foreach ($items as $key) {
+        	$arr = [
+        		"value"=>$key->id,
+        		"label"=>$key->description
+        	];
+        	array_push($d, $arr);
+        }
+
+        // $type = $this->purchaserequetcategory->all();
+        // $r = [];
+        // foreach ($type as $key) {
+        // 	$arrr = [
+        // 		"value"=>$key->id,
+        // 		"label"=>$key->name
+        // 	];
+        // 	array_push($r, $arrr);
+        // }
+        return Response::json($d);  
 
     }
 

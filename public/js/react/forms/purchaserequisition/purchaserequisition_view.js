@@ -1,13 +1,19 @@
 window.PRMainComponent = React.createClass({
+	getDefaultProps : function () {
+		return { 
+			data:[],
+			context:''
+		};
+	},
 	getInitialState : function () {
 		return {
-			data:{},
-			type:'',
-			date:'',
-			deliveredto:'',
-			remarks:'',
-			totalamount:'',
-			nameofrequester:''
+			data : {},
+			type : (typeof this.props.data.type_id=='undefined') ? '' : this.props.data.type_id,
+			date : (typeof this.props.data.date=='undefined') ? '' : this.props.data.date,
+			deliver_to : (typeof this.props.data.deliver_to=='undefined') ? '' : this.props.data.deliver_to,
+			remarks : (typeof this.props.data.remarks=='undefined') ? '' : this.props.data.remarks,
+			totalamount : (typeof this.props.data.total_amount=='undefined') ? '' : this.props.data.total_amount,
+			requester : (typeof this.props.data.requester=='undefined') ? '' : this.props.data.requester
 		};
 	},
 	handleChangeCallBack : function (obj) {
@@ -21,7 +27,7 @@ window.PRMainComponent = React.createClass({
 			            <h3 className="box-title">Primary Information</h3>
 			    	</div>
 			       
-			       <PrimaryComponent defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			       <PrimaryComponent context={this.props.context} defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
 			    </div>
 
 		        <div className="nav-tabs-custom">
@@ -68,52 +74,48 @@ window.PrimaryComponent = React.createClass({
 		this.props.callBackParent(obj);
 	},
 	getDefaultProps : function () {
-		return { defaultValues:{} }
-	},
-	getInitialState : function () {
-		return {
-			data:{}
-		};
-	},
-	componentDidMount : function () {
-		this.request = $.get(base_url+'/pr/request', function (response) {
-			this.setState({data:JSON.parse(response)});
-		}.bind(this));
-	},
-	componentWillUnmount : function () {
-		this.request.abort();
+		return { 
+			defaultValues:{},
+			context:''
+		}
 	},
 	render : function () {
 		return (
 			<Wrapper>
             	<FieldContainer>
         			<Type callBackParent={this.handleChangeCallBack}
+        				context={this.props.context}
         				defaultValue={this.props.defaultValues.type}
-        				attributes={{name:"type", label:"TYPE",options:this.state.data.typelist}} />
+        				attributes={{name:"type", label:"TYPE"}} />
 
-        			<Date callBackParent={this.handleChangeCallBack} 
+        			<Date callBackParent={this.handleChangeCallBack}
+        				context={this.props.context}
         				defaultValue={this.props.defaultValues.date} 
         				attributes={{name:"date", label:"DATE"}} />
         		</FieldContainer>
 
 				<FieldContainer> 
         			<DeliveredTo callBackParent={this.handleChangeCallBack} 
+        				context={this.props.context}
         				defaultValue={this.props.defaultValues.deliver_to} 
         				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
 
         			<Remarks callBackParent={this.handleChangeCallBack} 
-        				defaultValue={this.props.defaultValues.remarks} 
+        				context={this.props.context}
+        				defaultValue={this.props.defaultValues.remarks}
         				attributes={{name:"remarks", label:"REMARKS"}} />
         		</FieldContainer>
 
             	<FieldContainer>
-            		<TotalAmount callBackParent={this.handleChangeCallBack} 
+            		<TotalAmount callBackParent={this.handleChangeCallBack}
+            			context={this.props.context} 
             			defaultValue={this.props.defaultValues.totalamount} 
             			attributes={{name:"totalamount", label:"TOTAL AMOUNT"}} />
             			
 		          	<Requester callBackParent={this.handleChangeCallBack} 
+		          		context={this.props.context}
 		          		defaultValue={this.props.defaultValues.requester} 
-		          		attributes={{name:"requester", label:"NAME OF REQUESTER",options:this.state.data.requesterlist}} />		
+		          		attributes={{name:"requester", label:"NAME OF REQUESTER"}} />		
             	</FieldContainer>
 	        </Wrapper>
 		);
@@ -153,9 +155,8 @@ var TABLE = {
 // 		{name: "grossamount", displayName: "Gross Amount", fieldType: "text", className: "form-control"}
 // 	]
 // };
-
 // ReactDOM.render(<LineItems table={TABLE}/>, document.getElementById("line-items"));
-ReactDOM.render(<PRMainComponent />, document.getElementById("mainPR-container"));
+
 // ReactDOM.render(<PrimaryComponent />, document.getElementById("pr_primary_form"));
 // ReactDOM.render(<ClassificationComponent />, document.getElementById("pr_classification_form"));
 

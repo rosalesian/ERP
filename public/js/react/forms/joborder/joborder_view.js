@@ -26,8 +26,6 @@ window.PrimaryComponent = React.createClass({
 	}
 });
 
-
-
 window.ClassPurchaseRequisition = React.createClass({
 	render : function () {
 		return (

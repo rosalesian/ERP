@@ -362,7 +362,22 @@ window.LineInputComponent = React.createClass({
 		if(this.props.edit) {
 			switch(column.fieldType) {
 				case "select":
-					field = <Select className={column.className} name="form-field-name" value={this.state.defaultValue} options={column.data} onChange={this.onChangeHandler.bind(this,column)} clearable={false} />
+					if(column.name=='item') {
+						field = <Select className={column.className}
+								name="form-field-name"
+								value={this.state.defaultValue}
+								options={column.data}
+								onChange={this.onChangeHandler.bind(this,column)}
+								clearable={false} />
+					} else {
+						field = <Select className={column.className}
+								name="form-field-name"
+								value={this.state.defaultValue}
+								options={column.data}
+								onChange={this.onChangeHandler.bind(this,column)}
+								clearable={false} />
+					}
+					
 					break;
 				case "text":
 					field = <input name={column.name} value={this.state.defaultValue} type={column.type} className={column.className} id={column.name}  onChange={this.onChangeHandler.bind(this,column)}/>;
