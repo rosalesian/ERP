@@ -58,8 +58,9 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function show($id)
 	{
-		$purchaserequest = $this->purchaserequest->find($id);
-		return view('purchaserequest.show')->with('purchaserequest',$purchaserequest);
+
+		$purchaserequest = $this->purchaserequest->with('items')->find($id);
+		return view('purchaserequest.show')-> with('purchaserequest',$purchaserequest);
 	}
 
 	/**
@@ -70,7 +71,7 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$purchaserequest = $this->purchaserequest->find($id);
+		$purchaserequest = $this->purchaserequest->with('items')->find($id);
 		return view('purchaserequest.edit')->with('purchaserequest',$purchaserequest);
 	}
 

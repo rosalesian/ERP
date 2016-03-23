@@ -58,7 +58,7 @@ class VendorPaymentController extends Controller {
 	 */
 	public function show($id)
 	{
-		$vendorpayment = $this->vendorpayment->find($id);
+		$vendorpayment = $this->vendorpayment->with('items')->find($id);
 		return view('vendorpayment.show')
 					->with('vendorpayment', $vendorpayment);
 	}
@@ -71,7 +71,7 @@ class VendorPaymentController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$vendorpayment = $this->vendorpayment->find($id);
+		$vendorpayment = $this->vendorpayment->with('items')->find($id);
 		return view('vendorpayment.show')
 					->with('vendorpayment', $vendorpayment);
 	}

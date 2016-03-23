@@ -19,7 +19,18 @@ $factory->define(Nixzen\User::class, function ($faker) {
         'remember_token' => str_random(10),
     ];
 });
-
+$factory->define(Nixzen\Models\Lists::class, function ($faker) {
+		return [
+				'name' => $faker->word,
+				'description' => $faker->text
+		];
+});
+$factory->define(Nixzen\Models\ListItem::class, function ($faker) {
+		return [
+				'name' => $faker->word,
+				'inactive' => false
+		];
+});
 $factory->define(Nixzen\Models\VendorPayment::class, function ($faker) {
 		return [
 				'transno' => $faker->numberBetween(1, 5),

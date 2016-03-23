@@ -21,10 +21,7 @@ class PurchaseRequestControllerTest extends TestCase
     public function testIndex()
     {
       $response = $this->call('GET','purchaserequest');
-			$this->assertResponseOk();
 			$this->assertViewHas('purchaserequests');
-			$purchaserequests = $response->original->getData()['purchaserequests'];
-			$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $purchaserequests);
     }
 
 		public function testCreate()
@@ -43,9 +40,13 @@ class PurchaseRequestControllerTest extends TestCase
 
 		public function testShow()
 		{
+			$this->makeFactoryPurchaseRequest();
 			$response = $this->call('GET', 'purchaserequest/1');
 			$this->assertResponseOk();
 			$this->assertViewHas('purchaserequest');
+			$purchaserequest = $this->purchaserequest->with('items')->find(1);
+			$vpurchaserequest = $response->original->getData()['purchaserequest'];
+			$this->assertEquals($purchaserequest->items, $vpurchaserequest->items);
 		}
 
 		public function testEdit()
@@ -60,7 +61,6 @@ class PurchaseRequestControllerTest extends TestCase
 			$request = $this->makeInputFactory();
 			$this->makeFactoryPurchaseRequest();
 			$response = $this->call('PATCH', 'purchaserequest/1', $request);
-			$this->assertResponseStatus(302);
 			$this->assertRedirectedToRoute('purchaserequest.show', [1]);
 		}
 

@@ -57,7 +57,7 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function show($id)
 	{
-			$purchaseorder = $this->purchaseorder->find($id);
+			$purchaseorder = $this->purchaseorder->with('items')->find($id);
 			return view('purchaseorder.show')->with('purchaseorder',$purchaseorder);
 	}
 
@@ -69,7 +69,7 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function edit($id)
 	{
-			$purchaseorder = $this->purchaseorder->find($id);
+			$purchaseorder = $this->purchaseorder->with('items')->find($id);
 			return view('purchaseorder.edit')->with('purchaseorder',$purchaseorder);
 	}
 
