@@ -25,10 +25,7 @@ class JobOrderController extends Controller {
 	 */
 	public function index()
 	{
-		/*$joborders = $this->joborder->all();
-		return view('joborder.index')->with('joborders',$joborders);*/
 		return view('joborder.index');
-		//return $joborders;
 	}
 
 	/* public function getIndex()
@@ -38,11 +35,12 @@ class JobOrderController extends Controller {
 
 	public function anyData()
     {
-        return JobOrder::getIndex();
+       return JobOrder::getIndex();
     }
 
 	/**
-	 * Show the form for creating a new resource.
+	 *
+ Show the form for creating a new resource.
 	 *
 	 * @return Response
 	 */
@@ -62,7 +60,6 @@ class JobOrderController extends Controller {
 		$data['transnumber'] = rand();
 		$joborder = $this->joborder->create($data);
 		return  view('joborder.index');
-		return redirect('jobordertable');
 	}
 
 	/**

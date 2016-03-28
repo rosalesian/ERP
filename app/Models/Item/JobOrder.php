@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Datatables;
+use DB;
 
 class JobOrder extends Model {
 
@@ -62,7 +63,8 @@ class JobOrder extends Model {
 
 	public static function getIndex() {
 
-		 $jobs = JobOrder::join('items', 'job_orders.asset', '=', 'items.id')
+        $jobs = DB::table('job_orders')
+        				->leftjoin('items', 'job_orders.asset', '=', 'items.id')
         				->leftjoin('departments', 'job_orders.id', '=', 'departments.id')
         				->leftjoin('employees', 'job_orders.requested_by', '=', 'employees.id')
         				->leftjoin('maintenance_types', 'job_orders.maintenancetype_id', '=', 'maintenance_types.id')
@@ -78,7 +80,9 @@ class JobOrder extends Model {
 	        					'purchase_request_categories.description as prc_description',
 	        					'job_orders.created_at',
 	        					'job_orders.updated_at'
-        					);
+        					)
+        				  ->orderBy('job_orders.created_at', 'desc');
+
         return Datatables::of($jobs)
         					 ->addColumn('action', function ($jobs) {
 					                return 
