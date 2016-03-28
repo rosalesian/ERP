@@ -42,6 +42,7 @@ Route::group(['namespace' => 'Transaction'], function(){
 	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
 	Route::resource('purchaserequest', 'PurchaseRequestController');
 	Route::resource('vendorpayment', 'VendorPaymentController');
+	Route::resource('vendorbill', 'VendorBillController');
 });
 
 Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){

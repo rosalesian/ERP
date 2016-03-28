@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call('UnitsTypeTableSeeder');
         $this->call('UnitsTableSeeder');
         $this->call('ItemTypeTableSeeder');
+        $this->call('BillTypeSeeder');
+        $this->call('BillTypeNonTradeSubTypeSeeder');
         Model::reguard();
     }
 }
