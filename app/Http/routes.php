@@ -41,6 +41,13 @@ Route::group(['namespace' => 'Transaction'], function(){
 	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
 	Route::resource('purchaserequest', 'PurchaseRequestController');
 	Route::resource('vendorpayment', 'VendorPaymentController');
+
+	//Datatables
+	Route::controller('jobordertable', 'JobOrderController', [
+		'anyData'  => 'jobordertable.data',
+		'index' => 'jobordertable',
+	]);
+
 });
 
 Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
@@ -66,3 +73,4 @@ Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
 Route::get('/', function(){
 	return view('app');
 });
+

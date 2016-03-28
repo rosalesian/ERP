@@ -39,8 +39,6 @@
  
         @include('layout.main-js')
 
-    
-
      <!-- page script -->
     <script>
       $(function () {

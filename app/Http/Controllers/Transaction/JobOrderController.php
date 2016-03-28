@@ -2,16 +2,19 @@
 
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
-use Nixzen\Repositories\JobOrderRepository as JobOrder;
+use Nixzen\Repositories\JobOrderRepository as JobOrderRepo;
+
+use Nixzen\Models\Item\JobOrder;
 
 use Illuminate\Http\Request;
 use Input;
+use Datatables;
 
 class JobOrderController extends Controller {
 
 	private $joborder;
 
-	public function __construct(JobOrder $joborder){
+	public function __construct(JobOrderRepo $joborder){
 		$this->joborder = $joborder;
 	}
 
@@ -22,10 +25,21 @@ class JobOrderController extends Controller {
 	 */
 	public function index()
 	{
-		$joborders = $this->joborder->all();
-		//return view('joborder.index')->with('joborders',$joborders);
-		return $joborders;
+		/*$joborders = $this->joborder->all();
+		return view('joborder.index')->with('joborders',$joborders);*/
+		return view('joborder.index');
+		//return $joborders;
 	}
+
+	/* public function getIndex()
+    {
+        return view('joborder.index');
+    }*/
+
+	public function anyData()
+    {
+        return JobOrder::getIndex();
+    }
 
 	/**
 	 * Show the form for creating a new resource.
@@ -44,10 +58,11 @@ class JobOrderController extends Controller {
 	 */
 	public function store()
 	{
-		//$joborder = $this->joborder->create(Input::all());
-		//return redirect()->route('joborder.show', $joborder->id);
-		$joborder = Input::all();
-		return $joborder;
+		$data = Input::all();
+		$data['transnumber'] = rand();
+		$joborder = $this->joborder->create($data);
+		return  view('joborder.index');
+		return redirect('jobordertable');
 	}
 
 	/**

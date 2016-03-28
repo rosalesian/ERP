@@ -3,12 +3,12 @@ window.JOMainComponent = React.createClass({
 		return {
 			data:{},
 			type:'',
-			date:'',
-			remarks:'',
+			transdate:'',
+			memo:'',
 			asset: '',
-			requested: '',
-			maintenance: '',
-			categories: ''
+			requested_by: '',
+			maintenancetype_id: '',
+			prcategory_id: ''
 		};
 	},
 	handleChangeCallBack : function (obj) {
@@ -75,32 +75,32 @@ window.JOrimaryComponent = React.createClass({
             	<FieldContainer>
 
             	<Date callBackParent={this.handleChangeCallBack} 
-        				defaultValue={this.props.defaultValues.date} 
-        				attributes={{name:"date", label:"DATE"}} />
+        				defaultValue={this.props.defaultValues.transdate} 
+        				attributes={{name:"transdate", label:"DATE"}} />
 
         		<Type callBackParent={this.handleChangeCallBack}
         				defaultValue={this.props.defaultValues.asset}
         				attributes={{name:"asset", label:"ASSET NAME",options:this.state.data.typelist}} />
 
         		<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.requested}
-        				attributes={{name:"requested", label:"REQUESTED BY",options:this.state.data.listemployee}} />
+        				defaultValue={this.props.defaultValues.requested_by}
+        				attributes={{name:"requested_by", label:"REQUESTED BY",options:this.state.data.listemployee}} />
 
         		</FieldContainer>
 
 				<FieldContainer> 
 
 					<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.maintenance}
-        				attributes={{name:"maintenance", label:"TYPE OF MAINTENACE",options:this.state.data.listmaintenancetype}} />
+        				defaultValue={this.props.defaultValues.maintenancetype_id}
+        				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE",options:this.state.data.listmaintenancetype}} />
 
         			<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.categories}
-        				attributes={{name:"categories", label:"CATEGORIES",options:this.state.data.listspurchase}} />
+        				defaultValue={this.props.defaultValues.prcategory_id}
+        				attributes={{name:"prcategory_id", label:"CATEGORIES",options:this.state.data.listspurchase}} />
 
         			<Remarks callBackParent={this.handleChangeCallBack} 
-        				defaultValue={this.props.defaultValues.remarks} 
-        				attributes={{name:"remarks", label:"REMARKS"}} />
+        				defaultValue={this.props.defaultValues.memo} 
+        				attributes={{name:"memo", label:"REMARKS"}} />
         		</FieldContainer>
 
             

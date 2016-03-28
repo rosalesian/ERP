@@ -57,6 +57,14 @@
 		                        <li><a href="{{ url('purchaserequest/create') }}"><i class="fa fa-circle-o"></i> New</a></li>
 		                      </ul>
 		                    </li>
+                        <!--JOB ORDER-->
+                         <li>
+                          <a href="#"><i class="fa fa-circle-o"></i> Job Order<i class="fa fa-angle-left pull-right"></i></a>
+                          <ul class="treeview-menu">
+                            <li><a href="{{ url('jobordertable') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                            <li><a href="{{ url('joborder/create') }}"><i class="fa fa-circle-o"></i> New</a></li>
+                          </ul>
+                        </li>
 	                  </ul>
                 </li>
               </ul>
