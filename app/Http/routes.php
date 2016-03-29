@@ -50,6 +50,13 @@ Route::group(['namespace' => 'Transaction'], function(){
 	]);
 	Route::resource('vendorbill', 'VendorBillController');
 
+	//Datatables for Vendorbill
+	//Datatables
+	Route::controller('vendortable', 'VendorBillController', [
+		'anyData'  => 'vendortable.data',
+		'index' => 'vendortable',
+	]);
+
 });
 
 Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){

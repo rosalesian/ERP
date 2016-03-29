@@ -33,9 +33,9 @@ class CreateVendorBillCommand extends Command
 
 	public $memo;
 
-    public $items;
+    //public $items;
 
-    public $expenses;
+    //public $expenses;
 
     /**
      * Create a new command instance.
@@ -54,9 +54,7 @@ class CreateVendorBillCommand extends Command
     		$department_id,
     		$division_id,
     		$branch_id,
-    		$memo,
-            $items,
-            $expenses)
+    		$memo)
     {
 
         $this->vendor_id = $vendor_id;
@@ -85,19 +83,6 @@ class CreateVendorBillCommand extends Command
 
         $this->memo = $memo;
 
-        if(gettype($items) == "string"){
-            $this->items = json_decode($items);
-        }
-        else{
-            $this->items = $items;
-        }
-
-        if(gettype($expenses) == "string"){
-            $this->expenses = json_decode($expenses);
-        }
-        else{
-            $this->expenses = $expenses;
-        }
         
     }
 }

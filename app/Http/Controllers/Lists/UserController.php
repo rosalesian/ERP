@@ -11,6 +11,9 @@ use Nixzen\Repositories\PurchaseRequestCategoryRepository as PurchaseRequestCate
 use Nixzen\Repositories\EmployeeRepository as Employee;
 use Nixzen\Repositories\MaintenanceTypeRepository as MaintenanceType;
 
+use Nixzen\Models\Vendor;
+use Nixzen\Models\Lists\Department;
+
 use Response;
 
 class UserController extends Controller
@@ -147,11 +150,34 @@ class UserController extends Controller
             $data_maintenancetype[] = $result;
         }
 
+        //data for vendor bills
+        $data_vendor_bill = [];
+        $vendor_types = Vendor::all();
+        foreach($vendor_types as $vendor_type) {
+            $result = [];
+            $result['value'] = $vendor_type->id;
+            $result['label'] = $vendor_type->name;
+            $data_vendor_bill[] = $result;
+        }
+
+
+        $data_department = [];
+        $department_types = Department::all();
+        foreach($department_types as $department_type) {
+            $result = [];
+            $result['value'] = $department_type->id;
+            $result['label'] = $department_type->name;
+            $data_department[] = $result;
+        }
+
+
         return Response::json([
             'typelist' => $data_items, 
             'listspurchase' => $data_purchase_request,
             'listemployee' => $data_employee,
-            'listmaintenancetype' => $data_maintenancetype
+            'listmaintenancetype' => $data_maintenancetype,
+            'listvedorbills' => $data_vendor_bill,
+            'listdepartment' => $data_department
         ]);
     }
 }
