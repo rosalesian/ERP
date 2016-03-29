@@ -64,7 +64,7 @@ class ItemReceiptController extends Controller {
 	 */
 	public function show($poId, $irId)
 	{
-		$itemreceipt = $this->itemreceipt->find($irId);
+		$itemreceipt = $this->itemreceipt->with('items')->find($irId);
 		return view('itemreceipt.show')->with('itemreceipt', $itemreceipt);
 	}
 
@@ -76,7 +76,7 @@ class ItemReceiptController extends Controller {
 	 */
 	public function edit($poId, $irId)
 	{
-		$itemreceipt = $this->itemreceipt->find($irId);
+		$itemreceipt = $this->itemreceipt->with('items')->find($irId);
 		return view('itemreceipt.edit')->with('itemreceipt', $itemreceipt);
 	}
 

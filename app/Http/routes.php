@@ -36,6 +36,7 @@ Route::group(['namespace' => 'Lists'], function(){
 });
 
 Route::group(['namespace' => 'Transaction'], function(){
+	Route::resource('lists', 'ListsController');
 	Route::resource('joborder', 'JobOrderController');
 	Route::resource('purchaseorder', 'PurchaseOrderController');
 	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
@@ -47,6 +48,7 @@ Route::group(['namespace' => 'Transaction'], function(){
 		'anyData'  => 'jobordertable.data',
 		'index' => 'jobordertable',
 	]);
+	Route::resource('vendorbill', 'VendorBillController');
 
 });
 
@@ -54,6 +56,8 @@ Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
 	//canvass api routes
 	Route::get('pritem/{id}/canvass', 'CanvassController@index');
 	Route::post('pritem/{id}/canvass', 'CanvassController@save');
+	//lists
+	Route::resource('list', 'ListsController');
 });
 
 Route::group(['namespace' => 'Admin'], function(){
