@@ -32,11 +32,13 @@ class CreateVendorBillCommandHandler
     
         $vendorbill = $this->vendorbill->create((array)$command);
 
+
         if($command->items)
         {
             foreach($command->items as $item){
                 $vendorbill->items()->create((array)$item);
             }
+
         }
 
         if($command->expenses)
@@ -45,7 +47,7 @@ class CreateVendorBillCommandHandler
                 $vendorbill->expenses()->create((array)$expense);
             }
         }
-
         return $vendorbill;
     }
+
 }

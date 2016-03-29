@@ -29,7 +29,7 @@
                 </section>
 
                 <section class="content">
-                    @yield('joborder')
+                    @yield('content')
                 </section>
 
             </div><!-- /.content -->

@@ -8,6 +8,8 @@ use Nixzen\Commands\CreateVendorBillCommand;
 use Nixzen\Commands\UpdateVendorBillCommand;
 
 use Illuminate\Http\Request;
+use Datatables;
+use DB;
 
 class VendorBillController extends Controller {
 
@@ -30,6 +32,32 @@ class VendorBillController extends Controller {
 						->with('vendorbills',$vendorbills);
 	}
 
+	public function anyData()
+	{
+		$vendorbills = DB::table('vendor_bills')
+						->leftjoin('vendors', 'vendor_bills.vendor_id', '=', 'vendors.id')
+						->leftjoin('departments', 'vendor_bills.department_id', '=', 'departments.id')
+						->select(
+								'vendor_bills.id',
+								'vendors.name as vendor_name',
+								'departments.name as department_name',
+								'vendor_bills.created_at',
+								'vendor_bills.transno',
+								'vendor_bills.suppliers_inv_no',
+								'vendor_bills.duedate',
+								'vendor_bills.billtype_id',
+								'vendor_bills.billtype_nontrade_subtype_id'
+							);
+
+		return Datatables::of($vendorbills)
+							 ->addColumn('action', function ($vendorbills) {
+										                return 
+										                '<a href="#edit-'.$vendorbills->id.'"">Edit |</a>
+										                <a href="#edit-'.$vendorbills->id.'"">View</a>';
+										            })
+							->make(true);
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -48,9 +76,8 @@ class VendorBillController extends Controller {
 	public function store(CreateVendorBillRequest $request)
 	{
 		$vendorbill = $this->dispatchFrom(CreateVendorBillCommand::class, $request);
-		
-		return redirect()->route('vendorbill.show', $vendorbill->id);
-
+		//return redirect()->route('vendorbill.show', $vendorbill->id);
+		return view('vendorbill.index');
 	}
 
 	/**

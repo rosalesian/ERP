@@ -104,6 +104,5 @@ class CreateVendorBillCommand extends Command
         else{
             $this->expenses = $expenses;
         }
-        
     }
 }
