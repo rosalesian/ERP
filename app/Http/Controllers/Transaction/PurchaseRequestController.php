@@ -7,6 +7,7 @@ use Nixzen\Http\Requests\CreatePurchaseRequestRequest;
 use Nixzen\Commands\CreatePurchaseRequestCommand;
 use Nixzen\Commands\UpdatePurchaseRequestCommand;
 use Illuminate\Http\Request;
+use Nixzen\Models\PurchaseRequest as PR;
 
 class PurchaseRequestController extends Controller {
 
@@ -24,7 +25,6 @@ class PurchaseRequestController extends Controller {
 	public function index()
 	{
 		$purchaserequests = $this->purchaserequest->all();
-
 		return view('purchaserequest.index')
 						->with('purchaserequests',$purchaserequests);
 	}

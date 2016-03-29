@@ -11,7 +11,8 @@
         "laravelcollective/html": "~5.0",
         "tymon/jwt-auth": "0.5.*",
         "barryvdh/laravel-debugbar": "^2.1@dev",
-        "guzzlehttp/guzzle": "^6.1"
+        "guzzlehttp/guzzle": "^6.1",
+        "yajra/laravel-datatables-oracle": "^6.10"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

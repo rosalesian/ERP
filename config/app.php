@@ -146,6 +146,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Nixzen\Providers\BusServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
     ],
 
     /*
@@ -196,6 +197,7 @@ return [
         /*laravel collective*/
         'Form'      => Collective\Html\FormFacade::class,
         'HTML'      => Collective\Html\HtmlFacade::class,
+        'Datatables' => Yajra\Datatables\Datatables::class,
 
     ],
 

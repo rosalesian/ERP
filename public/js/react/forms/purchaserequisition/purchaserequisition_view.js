@@ -1,53 +1,130 @@
-window.PrimaryComponent = React.createClass({
-	callBackCustomForm : function (event) {
-		alert(event.value);
+window.PRMainComponent = React.createClass({
+	getInitialState : function () {
+		return {
+			data:{},
+			type:'',
+			date:'',
+			deliveredto:'',
+			remarks:'',
+			totalamount:'',
+			nameofrequester:''
+		};
+	},
+	handleChangeCallBack : function (obj) {
+		this.setState(obj);
 	},
 	render : function () {
+		return (
+			<div>
+				<div className="box box-primary">
+			    	<div className="box-header with-border">
+			            <h3 className="box-title">Primary Information</h3>
+			    	</div>
+			       
+			       <PrimaryComponent defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			    </div>
+
+		        <div className="nav-tabs-custom">
+				    <ul className="nav nav-tabs">
+					    <li className="active"><a href="#tab_1" data-toggle="tab">Item</a></li>
+					    <li><a href="#tab_2" data-toggle="tab">File</a></li>
+					    <li><a href="#tab_3" data-toggle="tab">Notes</a></li>
+				    </ul>
+			    	<div className="tab-content">
+				        <div className="tab-pane active" id="tab_1">
+				            <TableComponent table={TABLE} />
+				        </div>
+				        <div className="tab-pane" id="tab_2">
+				        	
+				        </div>
+				        <div className="tab-pane" id="tab_3"></div>
+				    </div>
+	      		</div>
+			</div>    
+		);
+	}
+});
+
+window.Wrapper = React.createClass({
+	render : function () {
 		return(
+			 <div className="row">
+				<div className="col-md-12"> 
+					{ this.props.children }
+				</div>
+			</div>
+		);
+	}
+});
+
+window.FieldContainer = React.createClass({
+	render : function () {
+		return( <div className="col-md-4 col-sm-6 col-xs-12"> {this.props.children} </div> );
+	}
+});
+
+window.PrimaryComponent = React.createClass({
+	handleChangeCallBack : function (obj) {
+		this.props.callBackParent(obj);
+	},
+	getDefaultProps : function () {
+		return { defaultValues:{} }
+	},
+	getInitialState : function () {
+		return {
+			data:{}
+		};
+	},
+	componentDidMount : function () {
+		this.request = $.get(base_url+'/pr/request', function (response) {
+			this.setState({data:JSON.parse(response)});
+		}.bind(this));
+	},
+	componentWillUnmount : function () {
+		this.request.abort();
+	},
+	render : function () {
+		return (
 			<Wrapper>
             	<FieldContainer>
-            		<InputTag attributes={{type:"select",id:"customform",name:"customform", label:"CUSTOM FORM",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-        			<InputTag attributes={{type:"disabled", label:"PR#", placeholder:"To be generated"}}/>
-        			<InputTag attributes={{type:"select",id:"requestingdepartment",name:"requestingdepartment", label:"REQUESTING DEPARTMENT",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-        			<InputTag attributes={{type:"textarea",id:"remarks",name:"remarks", label:"Remarks",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-            	</FieldContainer>
+        			<Date callBackParent={this.handleChangeCallBack} 
+        				defaultValue={this.props.defaultValues.date} 
+        				attributes={{name:"date", label:"DATE"}} />
+
+        			<DeliveredTo callBackParent={this.handleChangeCallBack} 
+        				defaultValue={this.props.defaultValues.assetname} 
+        				attributes={{name:"assetname", label:"ASSET NAME"}} />
+
+        			<Requester callBackParent={this.handleChangeCallBack} 
+		          		defaultValue={this.props.defaultValues.requester} 
+		          		attributes={{name:"requester", label:"REQUEST DEPARTMENT",options:this.state.data.requesterlist}} />
+
+        		</FieldContainer>
+
+				<FieldContainer> 
+        			<DeliveredTo callBackParent={this.handleChangeCallBack} 
+        				defaultValue={this.props.defaultValues.deliver_to} 
+        				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
+
+        			<Remarks callBackParent={this.handleChangeCallBack} 
+        				defaultValue={this.props.defaultValues.remarks} 
+        				attributes={{name:"remarks", label:"REMARKS"}} />
+        		</FieldContainer>
 
             	<FieldContainer>
-        			<InputTag attributes={{type:"select",id:"type",name:"type", label:"TYPE",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-        			<InputTag attributes={{type:"date", id:"date", name:"date", label:"PR#"}}/>
-        			<InputTag attributes={{type:"text",id:"deliveredto",name:"deliveredto", label:"DELIVERED TO"}}/>
-        			<InputTag attributes={{type:"text",id:"totalamount",name:"totalamount", label:"TOTAL AMOUNT"}}/>
-            	</FieldContainer>
-
-            	<FieldContainer>
-        			<InputTag attributes={{type:"select",id:"location",name:"location", label:"LOCATION",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-        			<InputTag attributes={{type:"label", label:"PLATE NO.", id:"plateno"}}/>
-        			<InputTag attributes={{type:"label", label:"NEXT APPROVER ROLE", id:"nextapproverrole"}}/>   
+            		<TotalAmount callBackParent={this.handleChangeCallBack} 
+            			defaultValue={this.props.defaultValues.totalamount} 
+            			attributes={{name:"totalamount", label:"TOTAL AMOUNT"}} />
+            			
+		          	<Requester callBackParent={this.handleChangeCallBack} 
+		          		defaultValue={this.props.defaultValues.requester} 
+		          		attributes={{name:"requester", label:"NAME OF REQUESTER",options:this.state.data.requesterlist}} />		
             	</FieldContainer>
 	        </Wrapper>
 		);
 	}
 });
 
-window.ClassificationComponent = React.createClass({
-	render : function () {
-		return(
-			<Wrapper>
-            	<FieldContainer>
-		          	<InputTag attributes={{type:"select",id:"principal",name:"principal", label:"PRINCIPAL",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-            	</FieldContainer>
-            	
-            	<FieldContainer>
-		          	<InputTag attributes={{type:"disabled", label:"PO DATE"}}/>
-            	</FieldContainer>
-
-            	<FieldContainer>
-		          	<InputTag attributes={{type:"select",id:"nameofrequester",name:"nameofrequester", label:"NAME OF REQUESTER",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-            	</FieldContainer>
-	        </Wrapper> 
-		);
-	}
-});
 var items = [
 	{value:"data1", label:"4000318 CDM FRUIT & NUT 6X24X65G", description:"This is Data 1"},
 	{value:"data2", label:"4005793 CDM ROAST ALMOND 6X24X65G (CS)", description:"This is Data 2"},
@@ -55,7 +132,7 @@ var items = [
 ];
 
 var TABLE = {
-	storage:"item_storage",
+	storage:"items",
 	columns: [
 		{name: "item", displayName: "Item", className: "react-select-input-lineitem", fieldType: "select", data:items},
 		{name: "description", displayName: "Description", fieldType: "disabled", className: "form-control"},
@@ -83,7 +160,8 @@ var TABLE = {
 // };
 
 // ReactDOM.render(<LineItems table={TABLE}/>, document.getElementById("line-items"));
-ReactDOM.render(<PrimaryComponent />, document.getElementById("pr_primary_form"));
-ReactDOM.render(<ClassificationComponent />, document.getElementById("pr_classification_form"));
+ReactDOM.render(<PRMainComponent />, document.getElementById("mainPR-container"));
+// ReactDOM.render(<PrimaryComponent />, document.getElementById("pr_primary_form"));
+// ReactDOM.render(<ClassificationComponent />, document.getElementById("pr_classification_form"));
 
-ReactDOM.render(<TableComponent table={TABLE}/>, document.getElementById("sublist-items"));
+// ReactDOM.render(<TableComponent table={TABLE}/>, document.getElementById("sublist-items"));

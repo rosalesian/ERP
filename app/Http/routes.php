@@ -42,7 +42,14 @@ Route::group(['namespace' => 'Transaction'], function(){
 	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
 	Route::resource('purchaserequest', 'PurchaseRequestController');
 	Route::resource('vendorpayment', 'VendorPaymentController');
+
+	//Datatables
+	Route::controller('jobordertable', 'JobOrderController', [
+		'anyData'  => 'jobordertable.data',
+		'index' => 'jobordertable',
+	]);
 	Route::resource('vendorbill', 'VendorBillController');
+
 });
 
 Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
@@ -58,6 +65,16 @@ Route::group(['namespace' => 'Admin'], function(){
 	Route::resource('workflow.state', 'WorkflowStateController');
 });
 
+//ajax request for select in joborder
+Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
+	Route::get('getItems', 'ItemController@getItems');
+	Route::get('getEmployees','EmployeeController@getEmployees');
+	Route::get('getMaintenance','MaintenanceTypeController@getMaintenance');
+	Route::get('getPurchase','PurchaseRequestCategoryController@getPurchase');
+	Route::get('job/request','UserController@getJObRequest');
+});
+
 Route::get('/', function(){
 	return view('app');
 });
+

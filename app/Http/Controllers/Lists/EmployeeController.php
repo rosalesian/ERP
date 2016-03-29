@@ -6,6 +6,8 @@ use Nixzen\Repositories\EmployeeRepository as Employee;
 
 use Illuminate\Http\Request;
 
+use Response;
+
 class EmployeeController extends Controller {
 
 	private $employee;
@@ -89,6 +91,14 @@ class EmployeeController extends Controller {
 	public function destroy($id)
 	{
 		$this->employee->delete($id);
+	}
+
+	public function getEmployees() {
+		//lists in Eloquent
+		$employees = $this->employee->all()->lists('full_name', 'id');
+		return Response::json($employees);  
+
+
 	}
 
 }

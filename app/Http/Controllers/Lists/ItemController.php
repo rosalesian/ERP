@@ -3,18 +3,22 @@
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\ItemRepository as Item;
+use Nixzen\Repositories\PurchaseRequestCategoryRepository as PurchaseRequestCategory;
 use Nixzen\Http\Requests\ItemRequest;
 use Nixzen\Commands\CreateItemCommand;
 use Nixzen\Commands\UpdateItemCommand;
 
 use Illuminate\Http\Request;
+use Response;
 
 class ItemController extends Controller {
 
 	private $item;
+	private $purchaserequetcategory;
 
-	public function __construct(Item $item){
+	public function __construct(Item $item, PurchaseRequestCategory $purchaserequetcategory){
 		$this->item = $item;
+		$this->purchaserequetcategory = $purchaserequetcategory;
 	}
 
 	/**
@@ -98,5 +102,22 @@ class ItemController extends Controller {
 		$this->item->delete($id);
 		return redirect()->route('item.index');
 	}
+
+	public function getItems()
+    {
+     
+        $data_items = [];
+        $items = $this->item->all();
+        foreach($items as $item) {
+        	$result = [];
+            $result['value'] = $item->id;
+            $result['label'] = $item->description;
+            $data_items[]= $result;
+        }
+        
+        return Response::json(['typelist' => $data_items]);
+
+
+    }
 
 }
