@@ -9,6 +9,8 @@ class CreateVendorBillCommand extends Command
 
 	public $vendor_id;
 
+    public $transno;
+
 	public $suppliers_inv_no;
 
 	public $date;
@@ -33,16 +35,18 @@ class CreateVendorBillCommand extends Command
 
 	public $memo;
 
-    //public $items;
+    public $items;
 
-    //public $expenses;
+    public $expenses;
 
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct($vendor_id, 
+    public function __construct(
+            $vendor_id,
+            $transno,
     		$suppliers_inv_no, 
     		$date, 
     		$duedate, 
@@ -54,11 +58,15 @@ class CreateVendorBillCommand extends Command
     		$department_id,
     		$division_id,
     		$branch_id,
-    		$memo)
+    		$memo,
+            $items,
+            $expenses)
     {
 
         $this->vendor_id = $vendor_id;
 
+        $this->transno = $transno;
+        
         $this->suppliers_inv_no = $suppliers_inv_no;
 
         $this->date = $date;
@@ -83,6 +91,18 @@ class CreateVendorBillCommand extends Command
 
         $this->memo = $memo;
 
-        
+        if(gettype($items) == "string"){
+            $this->items = json_decode($items);
+        }
+        else{
+            $this->items = $items;
+        }
+
+        if(gettype($expenses) == "string"){
+            $this->expenses = json_decode($expenses);
+        }
+        else{
+            $this->expenses = $expenses;
+        }
     }
 }

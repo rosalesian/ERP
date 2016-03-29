@@ -9,7 +9,8 @@ class VendorBill extends Model
     protected $table = 'vendor_bills';
 
     protected $fillable = [
-    	'vendor_id', 
+    	'vendor_id',
+    	'transno', 
 		'suppliers_inv_no', 
 		'date', 
 		'duedate', 
@@ -61,7 +62,7 @@ class VendorBill extends Model
 
 	public function division()
 	{
-		return $this->belongsTo('Nixzen\Models\Lists\Divisions', 'division_id');
+		return $this->belongsTo('Nixzen\Models\Lists\Division', 'division_id');
 	}
 
 	public function branch()
@@ -83,4 +84,26 @@ class VendorBill extends Model
 	{
 		return $this->belongsTo('Nixzen\Models\Lists\Employee', 'updated_by');
 	}
+
+	public function removeitems($ids)
+    {
+        foreach ($this->items as $key => $item) {
+
+             if(!in_array($item->id,$ids))
+             {
+                $item->delete();
+             }
+        }
+    }
+
+    public function removeexpenses($ids)
+    {
+        foreach ($this->expenses as $key => $expense) {
+
+             if(!in_array($expense->id,$ids))
+             {
+                $expense->delete();
+             }
+        }
+    }
 }

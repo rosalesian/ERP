@@ -16,7 +16,8 @@ class VendorBillExpenses extends Model
 		'gross_amount',
 		'department_id',
 		'division_id',
-		'branch_id'
+		'branch_id',
+		'vendor_id'
 	];
 
 	public function vendorbill()

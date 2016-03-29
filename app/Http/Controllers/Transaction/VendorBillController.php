@@ -26,7 +26,6 @@ class VendorBillController extends Controller {
 	 */
 	public function index()
 	{
-
 		$vendorbills = $this->vendorbill->all();
 
 		return view('vendorbill.index')
@@ -113,7 +112,7 @@ class VendorBillController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(CreateVendorBillRequest $request, $id)
 	{
 		$vendorbill = $this->vendorbill->find($id);
 

@@ -24,7 +24,8 @@ window.VendorBillMainComponent = React.createClass({
 			memo: '',
 			posting_period_id: '',
 			items: '',
-			expenses: ''
+			expenses: '',
+			transno: ''
 		};
 	},
 	handleChangeCallBack : function (obj) {
@@ -126,7 +127,7 @@ window.VendorBillPrimaryComponent = React.createClass({
 
         			<Type callBackParent={this.handleChangeCallBack}
         				defaultValue={this.props.defaultValues.division_id}
-        				attributes={{name:"division_id", label:"DEVISION",options:this.state.data.listspurchase}} />
+        				attributes={{name:"division_id", label:"DIVISION",options:this.state.data.listspurchase}} />
 
 					<Type callBackParent={this.handleChangeCallBack}
         				defaultValue={this.props.defaultValues.branch_id}
@@ -140,6 +141,11 @@ window.VendorBillPrimaryComponent = React.createClass({
         			<Remarks callBackParent={this.handleChangeCallBack} 
         				defaultValue={this.props.defaultValues.memo} 
         				attributes={{name:"memo", label:"MEMO"}} />
+
+
+        		<DeliveredTo callBackParent={this.handleChangeCallBack}
+        				defaultValue={this.props.defaultValues.transno}
+        				attributes={{name:"transno", label:"SUPPLIER'S INVOICE NO"}} />
 
 
 
