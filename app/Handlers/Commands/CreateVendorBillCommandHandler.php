@@ -29,15 +29,21 @@ class CreateVendorBillCommandHandler
      */
     public function handle(CreateVendorBillCommand $command)
     {
-
+    
         $vendorbill = $this->vendorbill->create((array)$command);
 
-        foreach($command->items as $item){
-            $vendorbill->items()->create((array)$item);
+        if($command->items)
+        {
+            foreach($command->items as $item){
+                $vendorbill->items()->create((array)$item);
+            }
         }
 
-        foreach($command->expenses as $expense){
-            $vendorbill->expenses()->create((array)$expense);
+        if($command->expenses)
+        {
+            foreach($command->expenses as $expense){
+                $vendorbill->expenses()->create((array)$expense);
+            }
         }
 
         return $vendorbill;

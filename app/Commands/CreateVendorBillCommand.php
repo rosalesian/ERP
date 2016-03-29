@@ -9,6 +9,8 @@ class CreateVendorBillCommand extends Command
 
 	public $vendor_id;
 
+    public $transno;
+
 	public $suppliers_inv_no;
 
 	public $date;
@@ -42,7 +44,9 @@ class CreateVendorBillCommand extends Command
      *
      * @return void
      */
-    public function __construct($vendor_id, 
+    public function __construct(
+            $vendor_id,
+            $transno,
     		$suppliers_inv_no, 
     		$date, 
     		$duedate, 
@@ -61,6 +65,8 @@ class CreateVendorBillCommand extends Command
 
         $this->vendor_id = $vendor_id;
 
+        $this->transno = $transno;
+        
         $this->suppliers_inv_no = $suppliers_inv_no;
 
         $this->date = $date;
