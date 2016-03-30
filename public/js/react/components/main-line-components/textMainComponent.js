@@ -1,36 +1,35 @@
-window.Remarks = React.createClass({
+window.TextMainComponent = React.createClass({
 	getDefaultProps : function () {
 		return {
 			defaultValue : '',
-			class:'',
-			id:'',
 			name:'',
+			label:'',
 			context:''
 		};
 	},
 	handleChange : function (event) {
 		var obj = {};
-			obj[this.props.attributes.name] = event.target.value;
-			this.props.callBackParent(obj);
+		obj[this.props.attributes.name] = event.target.value;
+		this.props.callBackParent(obj);
 	},
 	render : function () {
 			var field;
 			if(this.props.context=='create' || this.props.context=='edit') {
 				field = <div className="form-group">
 							<label for={this.props.attributes.id}>{this.props.attributes.label}</label>
-							<textarea onChange={this.handleChange} 
-							value={this.props.defaultValue} 
-							name={this.props.attributes.name} 
-							id={this.props.attributes.name} 
-							className="form-control" />
+			            	<input onChange={this.handleChange} 
+			            	type="text" 
+			            	value={this.props.defaultValue} 
+			            	name={this.props.attributes.name} 
+			            	id={this.props.attributes.name} 
+			            	className="form-control" />	
 			            </div> 
 			} else {
 				field =  <div className="form-group">
-							<label for={this.props.attributes.id}>{this.props.attributes.label}</label><br />
+							<label for={this.props.attributes.name}>{this.props.attributes.label}</label><br />
 							<span id={this.props.attributes.name}>{ this.props.defaultValue }</span>
 			            </div>
 			}
-
 		return (
 			<div className="row">
 			<div className="box-body">

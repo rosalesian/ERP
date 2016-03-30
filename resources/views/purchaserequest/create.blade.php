@@ -89,12 +89,10 @@ Create New Purchase Requisition
 <script src="{{ asset('js/react/plugin/react-select/dist/react-select.min.js') }}"></script> <!-- select -->
 
 <!-- MAINLINE COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/type.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/date.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/deliveredto.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/remarks.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/totalamount.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/nameofrequester.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/selectMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
 
 <!-- LINEITEM COMPONENTS -->
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
