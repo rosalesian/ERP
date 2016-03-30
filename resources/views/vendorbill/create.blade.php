@@ -14,6 +14,7 @@ Create New Vendor Bill
 
 
 @section('content')
+
 @if($errors->any())
   <ul class="alert alert-danger">
       @foreach($errors->all() as $error)
@@ -34,9 +35,9 @@ Create New Vendor Bill
         {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
-    
+
     <div id="vendorBill-container"></div>
-   
+
     <div class="transaction-buttons-container">
       <div class="trans-button">
          <button class="btn btn-block btn-primary btn-flat">Save</button>
@@ -53,7 +54,7 @@ Create New Vendor Bill
     </button> --}}
 
   </div><!-- /.col -->
-</div><!-- /.row -->  
+</div><!-- /.row -->
 
 <!-- canvass modal -->
 <div class="example-modal" style="width:900px;"> <div class="modal" id="myModal"></div> </div>

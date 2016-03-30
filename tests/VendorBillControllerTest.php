@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class VendorBillControllerTest extends TestCase
 {
@@ -10,6 +11,7 @@ class VendorBillControllerTest extends TestCase
 	use DatabaseMigrations;
 
 	public $vendorbill;
+	public $view;
 
 	function __construct()
 	{
@@ -24,6 +26,7 @@ class VendorBillControllerTest extends TestCase
 		$vendorbills = $response->original->getData()['vendorbills'];
 		$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $vendorbills);
     }
+
 
     public function testCreate()
 	{

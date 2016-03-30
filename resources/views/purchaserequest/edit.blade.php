@@ -26,7 +26,7 @@ Create New Purchase Requisition
         {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
-    
+
     <div id="mainPR-container"></div>
 
     <div class="transaction-buttons-container">
@@ -40,20 +40,20 @@ Create New Purchase Requisition
 
   {!! Form::close() !!}
   </div><!-- /.col -->
-</div><!-- /.row -->  
-    <?php 
+</div><!-- /.row -->
+    <?php
     $items=[];
     foreach ($purchaserequest->items as $key) {
         array_push($items, [
-                "item_id"=>$key->item->id,
+                "item_id"=>$key->item_id,
                 "item_label"=>$key->item->description,
                 "description"=>$key->item->itemcode,
                 "quantity"=>$key->quantity,
                 "unit_id"=>$key->unit_id,
-                "uom_label"=>unittype($key->item->id,$key->unit_id)
+                "uom_label"=>unittypeEdit($key->item->id,$key->unit_id)
           ]);
     }
-function unittype($itemid, $unitid) {
+function unittypeEdit($itemid, $unitid) {
   $data=[];
   if($itemid=='1') {
     $data=[
@@ -83,7 +83,8 @@ function unittype($itemid, $unitid) {
       ['value'=>3, 'label'=>'PACKS']
     ];
   }
-  $f;
+
+  $f='';
   foreach($data as $d) {
     if($d['value']==$unitid) {
       $f = $d['label'];
@@ -124,6 +125,7 @@ function unittype($itemid, $unitid) {
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
 {{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
+
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
 <script type="text/babel">
   var purchaserequests = <?php echo $purchaserequest; ?>;

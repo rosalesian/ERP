@@ -24,7 +24,7 @@ Create New Purchase Requisition
         {!! HTML::link('purchaserequest','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
-    <div class="approvaltransition"> 
+    <div class="approvaltransition">
       <ol class="breadcrumb">
       <li>Encoder</li>
       <li>Branch Finance Supervisor</li>
@@ -35,7 +35,7 @@ Create New Purchase Requisition
       <li>CFO</li>
       <li>CEO</li>
       </ol>
-    </div>    
+    </div>
 
     <div id="mainPR-container"></div>
 
@@ -49,26 +49,26 @@ Create New Purchase Requisition
     </div>
 
   </div><!-- /.col -->
-</div><!-- /.row -->  
+</div><!-- /.row -->
 
 <!-- canvass modal -->
 <div class="example-modal" style="width:900px;"> <div class="modal" id="myModal"></div> </div>
 
-<?php 
+<?php
     $items=[];
     foreach ($purchaserequest->items as $key) {
         array_push($items, [
                 "_token"=> csrf_token(),
                 "id"=>$key->id,
-                "item_id"=>$key->item->id,
+                "item_id"=>$key->item_id,
                 "item_label"=>$key->item->description,
                 "description"=>$key->item->itemcode,
                 "quantity"=>$key->quantity,
                 "unit_id"=>$key->unit_id,
-                "uom_label"=>unittype($key->item->id,$key->unit_id)
+                "uom_label"=>unittypeShow($key->item->id,$key->unit_id)
           ]);
     }
-function unittype($itemid, $unitid) {
+function unittypeShow($itemid, $unitid) {
   $data=[];
   if($itemid=='1') {
     $data=[
@@ -98,7 +98,8 @@ function unittype($itemid, $unitid) {
       ['value'=>3, 'label'=>'PACKS']
     ];
   }
-  $f;
+
+  $f='';
   foreach($data as $d) {
     if($d['value']==$unitid) {
       $f = $d['label'];
