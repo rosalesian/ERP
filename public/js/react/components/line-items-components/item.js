@@ -1,46 +1,78 @@
 window.Item = React.createClass({
 	getDefaultProps : function () {
-		return { defaultValue:'' }
+		return {
+			defaultValue : ''
+		};
 	},
 	getInitialState : function () {
-		return { defaultValue : this.props.defaultValue }
-	},
-	getUnitOfMeasure : function (item) {
-		var data=[];
-		var rateCS, ratePC, rateBX, ratePCK;
-		if(item=='data1') {
-		 data = [{value:"cs", label:"CS", conversionrate:12},{value:"pc", label:"PC", conversionrate:1},{value:"bx", label:"BX", conversionrate:3},{value:"pck", label:"PACK", conversionrate:5}];
-		} else if(item=='data2') {
-		 data = [{value:"cs", label:"CS", conversionrate:24},{value:"pc", label:"PC", conversionrate:1}];
-		} else {
-		 data = [{value:"cs", label:"CS", conversionrate:48},{value:"pc", label:"PC", conversionrate:1},{value:"bx", label:"BX", conversionrate:3}];
-		}
-		return data;
-	},
-	getItems : function() {
-		return [
-			{value:"data1", label:"4000318 CDM FRUIT & NUT 6X24X65G", description:"This is Data 1"},
-			{value:"data2", label:"4005793 CDM ROAST ALMOND 6X24X65G (CS)", description:"This is Data 2"},
-			{value:"data3", label:"4000304 30G CDM FRUIT & NUT (1X12X24)", description:"This is Data 3"}
-		];
-	},
-	handleChange : function (evt) {
-		var units = this.getUnitOfMeasure(evt.value);
-		var obj = {
-			units : units,
-			item : evt
+		return { 
+			data:[],
+			defaultValue:this.props.defaultValue,
+			placeholder:''
 		};
-
+	},
+	componentDidMount : function () {
+		this.request = $.ajax({
+			url:this.props.source,
+			dataType: 'json',
+			type:'GET',
+			beforeSend : function () {
+				this.setState({placeholder:'loading...'});
+			}.bind(this),
+			success : function (response) {
+				var data=this.state.data;
+				data.length=0;
+				for(var i in response) {
+					data.push({value:response[i].value, label:response[i].label, description:response[i].description});
+				}
+				this.setState({data : data, placeholder:'Choose Item'});
+			}.bind(this)
+		});
+	},
+	componentWillUnmount : function () {
+		this.request.abort();
+	},
+	_ajaxRequest : function (source) {
+		$.ajax({
+			url:source,
+			dataType: 'json',
+			type:'GET',
+			beforeSend : function () {
+				this.setState({placeholder:'loading...'});
+			}.bind(this),
+			success : function (response) {
+				var data=this.state.data;
+				data.length=0;
+				for(var i in response) {
+					data.push({value:response[i].value, label:response[i].label, description:response[i].description});
+				}
+				this.setState({data : data, placeholder:'Choose Item'});
+			}.bind(this)
+		});
+	},
+	componentWillReceiveProps : function (nextprops) {
+		return this._ajaxRequest(nextprops.source)
+	},
+	handleChange : function (event) {
+		var obj = {};
+		obj.name = 'item_id';
+		obj['item_id'] = event.value;
+		obj['item_label'] = event.label;
+		obj['description'] = event.description;
+		this.setState({defaultValue:event.value});
 		this.props.callBackParent(obj);
-		this.setState({defaultValue : evt.value});
 	},
 	render : function () {
-		return (
+		return( 
 			<td>
-				<Select className="react-select-input-lineitem"
-				name="form-field-name" value={this.state.defaultValue}
-				options={this.getItems()} onChange={this.handleChange}
-				clearable={false} />
+				<Select onChange={this.handleChange} 
+                id="item_id" 
+                className="react-select-input-mainline" 
+                name="item_id"
+                value={this.state.defaultValue}
+                options={this.state.data} 
+                placeholder={this.state.placeholder} 
+                clearable={false} />
 			</td>
 		);
 	}

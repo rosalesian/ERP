@@ -110,7 +110,8 @@ class ItemController extends Controller {
         foreach ($items as $key) {
         	$arr = [
         		"value"=>$key->id,
-        		"label"=>$key->description
+        		"label"=>$key->description,
+        		"description"=>$key->itemcode,
         	];
         	array_push($d, $arr);
         }
@@ -128,4 +129,7 @@ class ItemController extends Controller {
 
     }
 
+    public function getDescription($id) {
+    	return Response::json($this->item->find($id)->description);
+    }
 }

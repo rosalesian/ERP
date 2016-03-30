@@ -91,6 +91,12 @@ Create New Purchase Requisition
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/totalamount.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/nameofrequester.js') }}"></script>
 
+<!-- LINEITEM COMPONENTS -->
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
+
 <!-- CUSTOM REACT COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>

@@ -1,4 +1,4 @@
-window.PRMainComponent = React.createClass({
+window.POMainComponent = React.createClass({
 	getDefaultProps : function () {
 		return { 
 			data:[],
@@ -47,7 +47,7 @@ window.PRMainComponent = React.createClass({
 			    	<div className="tab-content">
 				        <div className="tab-pane active" id="tab_1">
 				            
-				            <PRTable callBackParent={this.handleCallBackLine}
+				            <POTable callBackParent={this.handleCallBackLine}
 				            data={this.props.items}
 				            pr_id={this.state.pr_id}
 				            context={this.props.context} />
@@ -133,14 +133,54 @@ window.PrimaryComponent = React.createClass({
 	}
 });
 
+// var items = [
+// 	{value:"data1", label:"4000318 CDM FRUIT & NUT 6X24X65G", description:"This is Data 1"},
+// 	{value:"data2", label:"4005793 CDM ROAST ALMOND 6X24X65G (CS)", description:"This is Data 2"},
+// 	{value:"data3", label:"4000304 30G CDM FRUIT & NUT (1X12X24)", description:"This is Data 3"}
+// ];
+
+// var TABLE = {
+// 	storage:"items",
+// 	columns: [
+// 		{name: "item", displayName: "ITEM", className: "react-select-input-lineitem", fieldType: "select"},
+// 		{name: "description", displayName: "DESCRIPTION", fieldType: "disabled", className: "form-control"},
+// 		{name: "uom", displayName: "UNIT", className: "react-select-input-lineitem", fieldType: "select"},
+// 		{name: "quantity", displayName: "QUANTITY", fieldType: "text", className: "form-control"},
+// 		{name: "rate", displayName: "RATE", fieldType: "disabled", className: "form-control"},
+// 		{name: "amount", displayName: "AMOUNT", fieldType: "disabled", className: "form-control"},
+// 		{name: "vatamount", displayName: "VAT AMOUNT", fieldType: "disabled", className: "form-control"},
+// 		{name: "grossamount", displayName: "GROSS AMOUNT", fieldType: "disabled", className: "form-control"},
+// 		{name: "canvass", displayName: "CANVASS", fieldType: "link"}
+// 	]
+// };
+// var TABLE = {
+// 	storage:"item_storage",
+// 	columns: [
+// 		{name: "item", displayName: "Item", className: "react-select-input-lineitem", fieldType: "select", data:items},
+// 		{name: "description", displayName: "Description", fieldType: "text", className: "form-control"},
+// 		{name: "uom", displayName: "Unit", className: "react-select-input-lineitem", fieldType: "select", data:items},
+// 		{name: "quantity", displayName: "Quantity", fieldType: "text", className: "form-control"},
+// 		{name: "rate", displayName: "Rate", fieldType: "text", className: "form-control"},
+// 		{name: "amount", displayName: "Amount", fieldType: "text", className: "form-control"},
+// 		{name: "vatamount", displayName: "VAT Amount", fieldType: "text", className: "form-control"},
+// 		{name: "grossamount", displayName: "Gross Amount", fieldType: "text", className: "form-control"}
+// 	]
+// };
+// ReactDOM.render(<LineItems table={TABLE}/>, document.getElementById("line-items"));
+
+// ReactDOM.render(<PrimaryComponent />, document.getElementById("pr_primary_form"));
+// ReactDOM.render(<ClassificationComponent />, document.getElementById("pr_classification_form"));
+
+// ReactDOM.render(<TableComponent table={TABLE}/>, document.getElementById("sublist-items"));
+
+
+
+
 /*******************************************************************
-********************************************************************
-********************************************************************
-********************************************************************
 ********************************************************************
 *******************************************************************/
 
-window.PRTable = React.createClass({
+window.POTable = React.createClass({
 	getDefaultProps : function () {
 		return {
 			editLineItem:false,
@@ -494,9 +534,9 @@ window.TableRow = React.createClass({
 		}
 	},
 	displayModal : function (defaultValues, evt) {
-		ReactDOM.render(<CanvassComponent callBackParent={this.handleCallBackLine}
-							defaultValues={defaultValues}
-				            context='create' />, document.getElementById('myModal'));
+		ReactDOM.render(<CanvassParentComponent 
+						handleSaveCanvass={this.handleSaveCanvass}
+						params={{item_id:defaultValues.itemid, pr_id:this.props.pr_id}}/>, document.getElementById('myModal'));
 	},
 	handleSaveCanvass : function (data) {
 		console.log(data);
@@ -514,45 +554,3 @@ window.TableRow = React.createClass({
 		this.props.callBackParent(obj);
 	}
 });
-
-
-
-// var items = [
-// 	{value:"data1", label:"4000318 CDM FRUIT & NUT 6X24X65G", description:"This is Data 1"},
-// 	{value:"data2", label:"4005793 CDM ROAST ALMOND 6X24X65G (CS)", description:"This is Data 2"},
-// 	{value:"data3", label:"4000304 30G CDM FRUIT & NUT (1X12X24)", description:"This is Data 3"}
-// ];
-
-// var TABLE = {
-// 	storage:"items",
-// 	columns: [
-// 		{name: "item", displayName: "ITEM", className: "react-select-input-lineitem", fieldType: "select"},
-// 		{name: "description", displayName: "DESCRIPTION", fieldType: "disabled", className: "form-control"},
-// 		{name: "uom", displayName: "UNIT", className: "react-select-input-lineitem", fieldType: "select"},
-// 		{name: "quantity", displayName: "QUANTITY", fieldType: "text", className: "form-control"},
-// 		{name: "rate", displayName: "RATE", fieldType: "disabled", className: "form-control"},
-// 		{name: "amount", displayName: "AMOUNT", fieldType: "disabled", className: "form-control"},
-// 		{name: "vatamount", displayName: "VAT AMOUNT", fieldType: "disabled", className: "form-control"},
-// 		{name: "grossamount", displayName: "GROSS AMOUNT", fieldType: "disabled", className: "form-control"},
-// 		{name: "canvass", displayName: "CANVASS", fieldType: "link"}
-// 	]
-// };
-// var TABLE = {
-// 	storage:"item_storage",
-// 	columns: [
-// 		{name: "item", displayName: "Item", className: "react-select-input-lineitem", fieldType: "select", data:items},
-// 		{name: "description", displayName: "Description", fieldType: "text", className: "form-control"},
-// 		{name: "uom", displayName: "Unit", className: "react-select-input-lineitem", fieldType: "select", data:items},
-// 		{name: "quantity", displayName: "Quantity", fieldType: "text", className: "form-control"},
-// 		{name: "rate", displayName: "Rate", fieldType: "text", className: "form-control"},
-// 		{name: "amount", displayName: "Amount", fieldType: "text", className: "form-control"},
-// 		{name: "vatamount", displayName: "VAT Amount", fieldType: "text", className: "form-control"},
-// 		{name: "grossamount", displayName: "Gross Amount", fieldType: "text", className: "form-control"}
-// 	]
-// };
-// ReactDOM.render(<LineItems table={TABLE}/>, document.getElementById("line-items"));
-
-// ReactDOM.render(<PrimaryComponent />, document.getElementById("pr_primary_form"));
-// ReactDOM.render(<ClassificationComponent />, document.getElementById("pr_classification_form"));
-
-// ReactDOM.render(<TableComponent table={TABLE}/>, document.getElementById("sublist-items"));

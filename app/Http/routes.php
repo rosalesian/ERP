@@ -60,11 +60,44 @@ Route::group(['namespace' => 'Admin'], function(){
 //ajax request for select in joborder
 Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
 	Route::get('getItems', 'ItemController@getItems');
+	Route::get('getDescription/{id}', 'ItemController@getDescription');
 	Route::get('getEmployees','EmployeeController@getEmployees');
 	Route::get('getMaintenance','MaintenanceTypeController@getMaintenance');
 	Route::get('getPurchase','PurchaseRequestCategoryController@getPurchase');
 });
+Route::get('ajax/getUOM/{id}', function ($id){
+	$data=[];
+	if($id=='1') {
+		$data=[
+			['value'=>1, 'label'=>'CS'],
+			['value'=>2, 'label'=>'PC']
+		];
+	} else if($id=='2') {
+		$data=[
+			['value'=>1, 'label'=>'CS'],
+			['value'=>2, 'label'=>'PACKS']
+		];
+	} else if($id=='3') {
+		$data=[
+			['value'=>1, 'label'=>'CS'],
+			['value'=>2, 'label'=>'BX']
+		];
+	} else if($id=='4') {
+		$data=[
+			['value'=>1, 'label'=>'CS'],
+			['value'=>2, 'label'=>'PACKS'],
+			['value'=>3, 'label'=>'BX']
+		];
+	} else if($id=='5') {
+		$data=[
+			['value'=>1, 'label'=>'CS'],
+			['value'=>2, 'label'=>'PCS'],
+			['value'=>3, 'label'=>'PACKS']
+		];
+	}
 
+	return Response::json($data);
+});
 Route::get('/', function(){
 	return view('app');
 });

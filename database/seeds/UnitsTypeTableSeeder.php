@@ -14,31 +14,38 @@ class UnitsTypeTableSeeder extends Seeder
     {
         //clear table
         UnitType::truncate();
+        $faker = Faker\Factory::create();
 
-        UnitType::create([
-        	'name' => 'In Piece'
-        ]);
+        foreach(range(1, 300) as $index) {
+            UnitType::create([
+                'name' => $faker->company()
+            ]);
+        }
+        
+        // UnitType::create([
+        // 	'name' => 'In Piece'
+        // ]);
 
-        UnitType::create([
-        	'name' => 'In Case'
-        ]);
+        // UnitType::create([
+        // 	'name' => 'In Case'
+        // ]);
 
-        UnitType::create([
-        	'name' => '1 Case x 8 Pieces'
-        ]);
+        // UnitType::create([
+        // 	'name' => '1 Case x 8 Pieces'
+        // ]);
 
-        UnitType::create([
-        	'name' => '1 Case x 16 Pieces'
-        ]);
+        // UnitType::create([
+        // 	'name' => '1 Case x 16 Pieces'
+        // ]);
 
-        UnitType::create([
-        	'name' => '1 Case x 24 Pieces'
-        ]);
-        UnitType::create([
-        	'name' => '1 Case x 36 Pieces'
-        ]);
-        UnitType::create([
-        	'name' => '1 Case x 48 Pieces'
-        ]);
+        // UnitType::create([
+        // 	'name' => '1 Case x 24 Pieces'
+        // ]);
+        // UnitType::create([
+        // 	'name' => '1 Case x 36 Pieces'
+        // ]);
+        // UnitType::create([
+        // 	'name' => '1 Case x 48 Pieces'
+        // ]);
     }
 }
