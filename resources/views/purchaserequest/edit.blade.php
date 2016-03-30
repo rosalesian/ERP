@@ -50,10 +50,10 @@ Create New Purchase Requisition
                 "description"=>$key->item->itemcode,
                 "quantity"=>$key->quantity,
                 "unit_id"=>$key->unit_id,
-                "uom_label"=>unittype($key->item->id,$key->unit_id)
+                "uom_label"=>unittypeEdit($key->item->id,$key->unit_id)
           ]);
     }
-function unittype($itemid, $unitid) {
+function unittypeEdit($itemid, $unitid) {
   $data=[];
   if($itemid=='1') {
     $data=[
@@ -124,6 +124,7 @@ function unittype($itemid, $unitid) {
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
 {{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
+
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
 <script type="text/babel">
   var purchaserequests = <?php echo $purchaserequest; ?>;
