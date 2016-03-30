@@ -13,6 +13,14 @@ Create New Purchase Requisition
 @stop
 
 @section('content')
+@if($errors->any())
+  <ul class="alert alert-danger">
+      @foreach($errors->all() as $error)
+         <li> {{ $error }} </li>
+      @endforeach
+  </ul>
+@endif
+
  <div class="row">
   <div class="col-md-12">
     {!! Form::open(array('url'=>'purchaserequest','method'=>'post')) !!}
@@ -24,9 +32,6 @@ Create New Purchase Requisition
         {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
-    @if($errors->any()>=1)
-      {{dd($errors->first('type'))}}
-    @endif
       <div id="mainPR-container"></div>
     <!--<div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
