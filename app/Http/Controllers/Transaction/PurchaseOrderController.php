@@ -45,7 +45,6 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function store(CreatePurchaseOrderRequest $request)
 	{
-		dd($request->all());
 			$purchaseorder = $this->dispatchFrom(CreatePurchaseOrderCommand::class, $request);
 			return redirect()->route('purchaseorder.show', $purchaseorder->id);
 	}
