@@ -41,24 +41,8 @@ Create New Item Receipt
                       <div class="row">
                         <div class="box-body">
                           <div class="form-group">
-                            <label>PURCHASE ORDER TYPE</label>
-                            <select class="form-control select2" name="type_id">
-                              <option selected="selected" value="1">Alabama</option>
-                              <option value="2">Alaska</option>
-                              <option value="3">California</option>
-                              <option value="4">Delaware</option>
-                              <option value="5">Tennessee</option>
-                              <option value="6">Texas</option>
-                              <option value="7">Washington</option>
-                            </select>
-                          </div><!-- /.form-group -->
-                       </div><!-- /.box-body -->
-                      </div><!-- /.row -->
-                      <div class="row">
-                        <div class="box-body">
-                          <div class="form-group">
-                            <label>VENDOR</label>
-                            <select class="form-control select2" name="vendor_id">
+                            <label>CUSTOM FORM</label>
+                            <select class="form-control select2" name=" ">
                               <option selected="selected" value="1">Alabama</option>
                               <option value="2">Alaska</option>
                               <option value="3">California</option>
@@ -72,6 +56,53 @@ Create New Item Receipt
                       </div><!-- /.row -->
 
                       <div class="row">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <label>REFERENCE #</label>
+                            <input type="text" class="form-control" name="refrenceno" placeholder="To be Generated">
+                          </div><!-- /.form-group -->
+                       </div><!-- /.box-body -->
+                      </div><!-- /.row -->
+
+                       <div class="row">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <label>VENDOR</label>
+                            <input type="date" class="form-control" name="vendor" placeholder="To be Generated">
+                          </div><!-- /.form-group -->
+                       </div><!-- /.box-body -->
+                      </div><!-- /.row -->
+
+                      <div class="row">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <label>PRINCIPAL</label>
+                            <select class="form-control select2" name="principal">
+                              <option selected="selected" value="1">Alabama</option>
+                              <option value="2">Alaska</option>
+                              <option value="3">California</option>
+                              <option value="4">Delaware</option>
+                              <option value="5">Tennessee</option>
+                              <option value="6">Texas</option>
+                              <option value="7">Washington</option>
+                            </select>
+                          </div><!-- /.form-group -->
+                       </div><!-- /.box-body -->
+                      </div><!-- /.row -->                     
+                    </div><!-- /.col -->
+
+                     <div class="col-md-4 col-sm-6 col-xs-12">
+
+                      <div class="row">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <label>CREATED FROM</label>
+                            <input type="date" class="form-control" name="createdfrom" placeholder="To be Generated">
+                          </div><!-- /.form-group -->
+                       </div><!-- /.box-body -->
+                      </div><!-- /.row -->
+
+                        <div class="row">
                         <div class="box-body">
                           <div class="form-group">
                             <label>DATE</label>
@@ -80,10 +111,6 @@ Create New Item Receipt
                        </div><!-- /.box-body -->
                       </div><!-- /.row -->
 
-                     
-                    </div><!-- /.col -->
-
-                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="row">
                         <div class="box-body">
                           <div class="form-group">
@@ -104,7 +131,7 @@ Create New Item Receipt
                        <div class="row">
                         <div class="box-body">
                           <div class="form-group">
-                            <label>PAYMENT TYPE</label>
+                            <label>LOCATION</label>
                             <select class="form-control select2" name="paymenttype_id">
                              <option selected="selected" value="1">Alabama</option>
                               <option value="2">Alaska</option>
@@ -121,46 +148,53 @@ Create New Item Receipt
                     </div><!-- /.col -->
 
                      <div class="col-md-4 col-sm-6 col-xs-12">
-                      <div class="box-body">
+                      
                       <div class="row">
-                        <div class="col-md-12">
-                            <div class="summary-container">
-                            <div class="summary-header">Summary</div>
-                            <!-- /.box-header -->
-                            <div class="summary-content">
-                               <div class="row">
-                                  <div class="col-md-4">
-                                  Subtotal:
-                                  </div>
-                                  <div class="col-md-8" style="margin-left:-15px;">
-                                  123456789.999123
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-4">
-                                  VAT:
-                                  </div>
-                                  <div class="col-md-8" style="margin-left:-15px;">
-                                  12345678910.56422367
-                                  </div>
-                                </div>
-                                <div class="row" style="border-bottom:2px solid black; margin:0px 1px 0px 1px;"></div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                    <strong>Total:</strong>
-                                    </div>
-                                    <div class="col-md-8" style="margin-left:-15px;">
-                                    123123123123.324324324
-                                    </div>
-                                </div>
-                                
-
-                            </div><!-- /.summary-content -->
-                            </div><!-- /.summary-container -->
-                        </div><!-- /.col -->
+                        <div class="box-body">
+                          <div class="form-group">
+                            <label>POSTING PERIOD</label>
+                            <select class="form-control select2" name="terms_id">
+                              <option selected="selected" value="1">Alabama</option>
+                              <option value="2">Alaska</option>
+                              <option value="3">California</option>
+                              <option value="4">Delaware</option>
+                              <option value="5">Tennessee</option>
+                              <option value="6">Texas</option>
+                              <option value="7">Washington</option>
+                            </select>
+                          </div><!-- /.form-group -->
+                       </div><!-- /.box-body -->
                       </div><!-- /.row -->
-                    </div><!-- /.box-body -->
+
+                        <div class="row">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <label>REMARKS</label>
+                            <input type="text" class="form-control" name="date" placeholder="To be Generated">
+                          </div><!-- /.form-group -->
+                       </div><!-- /.box-body -->
+                      </div><!-- /.row -->
+
+                        <div class="row">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <label>RECEIVED BY</label>
+                            <input type="text" class="form-control" name="receivedby" placeholder="To be Generated">
+                          </div><!-- /.form-group -->
+                       </div><!-- /.box-body -->
+                      </div><!-- /.row -->
+
+                       <div class="row">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <label>DATE RECEIVED</label>
+                            <input type="text" class="form-control" name="datereceived" placeholder="To be Generated">
+                          </div><!-- /.form-group -->
+                       </div><!-- /.box-body -->
+                      </div><!-- /.row -->                     
                     </div><!-- /.col -->
+
+
           </div><!-- /.col -->
 
           </div>
