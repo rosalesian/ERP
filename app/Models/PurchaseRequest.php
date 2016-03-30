@@ -13,6 +13,7 @@ class PurchaseRequest extends Model {
 		'joborder_id',
 		'deliver_to',
 		'division_id',
+		'remarks',
 		'purchaserequestcategory_id',
 		'approvalstatus_id',
 		'total_amount'

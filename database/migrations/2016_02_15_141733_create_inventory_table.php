@@ -17,6 +17,7 @@ class CreateInventoryTable extends Migration
             $table->integer('item_id')->unsigned();
             $table->integer('company_id')->unsigned();
             $table->integer('branch_id')->unsigned();
+						$table->integer('location')->unsigned();
             $table->integer('bin_id')->unsigned();
             $table->integer('lot_id')->unsigned();
             $table->decimal('quantity', 8, 2);

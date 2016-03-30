@@ -85,12 +85,13 @@ class PurchaseRequestControllerTest extends TestCase
 		{
 				$item = [
 					['item_id'=> 1,'quantity'=> 2, 'unit_id'=> 1],
-					['item_id'=> 2,'quantity'=> 2, 'unit_id'=> 1]
+					['item_id'=> 2,'quantity'=> 2, 'unit_id'=> 1],
+					['item_id'=> 1,'quantity'=> 2, 'unit_id'=> 2]
 				];
 
 				$request =[
-					'requester' => '1',
-					'type'	=>	'1',
+					'requester' => '3',
+					'type_id'	=>	'2',
 					'date'	=>	'2016-02-22',
 					'remarks'	=> 'this is a test',
 					'deliver_to' => '1',

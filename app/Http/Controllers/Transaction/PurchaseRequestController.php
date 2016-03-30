@@ -46,6 +46,7 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function store(CreatePurchaseRequestRequest $request)
 	{
+
 		$purchaserequest = $this->dispatchFrom(CreatePurchaseRequestCommand::class, $request);
 		return redirect()->route('purchaserequest.show', $purchaserequest->id);
 	}
