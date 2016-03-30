@@ -7,7 +7,7 @@ use Nixzen\Http\Requests\CreatePurchaseRequestRequest as Request;
 
 class PurchaseRequestControllerTest extends TestCase
 {
-		use DatabaseMigrations, WithoutMiddleware;
+		use DatabaseMigrations;
 
 		public function __construct()
 		{
@@ -32,6 +32,7 @@ class PurchaseRequestControllerTest extends TestCase
 
 		public function testStore()
 		{
+			$this->withoutMiddleware();
 			$request = $this->makeInputFactory();
 			$response = $this->call('POST', 'purchaserequest', $request);
 			$purchaserequest = $this->purchaserequest->all()->last();
@@ -58,6 +59,7 @@ class PurchaseRequestControllerTest extends TestCase
 
 		public function testUpdate()
 		{
+			$this->withoutMiddleware();
 			$request = $this->makeInputFactory();
 			$this->makeFactoryPurchaseRequest();
 			$response = $this->call('PATCH', 'purchaserequest/1', $request);
@@ -66,6 +68,7 @@ class PurchaseRequestControllerTest extends TestCase
 
 		public function testDestroy()
 		{
+			$this->withoutMiddleware();
 			$response = $this->call('DELETE', 'purchaserequest/1');
 			$this->assertResponseStatus(302);
 			$this->assertRedirectedToRoute('purchaserequest.index');
