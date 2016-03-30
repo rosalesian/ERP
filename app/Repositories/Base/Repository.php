@@ -157,6 +157,20 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface {
         return $this->model->where($attribute, '=', $value)->get($columns);
     }
 
+		/**
+		 * @param $attribute
+		 * @param $value
+		 * @param array $columns
+		 * @return mixed
+		 */
+		public function findOrCreate($id, $columns = array('*')) {
+				$model = $this->model->find($id);
+				if($model == null){
+					$model = $this->model->create($columns);
+				}
+				$this->applyCriteria();
+				return $model;
+		}
     /**
      * Find a collection of models by the given query conditions.
      *

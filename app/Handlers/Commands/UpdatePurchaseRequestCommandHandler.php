@@ -15,9 +15,8 @@ class UpdatePurchaseRequestCommandHandler
      *
      * @return void
      */
-    public function __construct(PurchaseRequestRepository $purchaserequest)
+    public function __construct()
     {
-        $this->purchaserequest = $purchaserequest;
     }
 
     /**
@@ -28,15 +27,27 @@ class UpdatePurchaseRequestCommandHandler
      */
     public function handle(UpdatePurchaseRequestCommand $command)
     {
-        $command->purchaserequest->update([
-            'requester' => $command->requester,
-            'type' => $command->type,
-            'date' => $command->date,
-            'remarks' => $command->remarks
-        ]);
+        $command->purchaserequest->update((array)$command);
+				$lineitems = $command->purchaserequest->items();
+
         foreach($command->items as $item){
-						$command->purchaserequest->update((array)$item);
+						$prItem = $command->purchaserequest
+											->items()
+											->where('item_id', $item->item_id)
+											->where('unit_id', $item->unit_id)
+											->first();
+
+						if($prItem == null){
+							$command->purchaserequest->items()->create((array)$item);
+						}else{
+							$prItem->update((array)$item);
+						}
         }
         event(new PurchaseRequestWasUpdated($command->purchaserequest));
     }
+
+		public function cleanLineItem($lineitem)
+		{
+
+		}
 }

@@ -45,11 +45,10 @@ class CanvassController extends Controller {
 	 */
 	public function save($id, Request $request)
 	{
+		
 		$prItem = $this->prItem->find($id);
 		$canvasses = json_decode($request->input('canvasses'));
-
 		foreach($canvasses as $data){
-
 			$canvass = $prItem->canvasses()->where('vendor_id', $data->vendor_id)->first();
 			if($canvass == null){
 				$prItem->canvasses()->create((array)$data);

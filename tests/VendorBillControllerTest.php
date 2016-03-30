@@ -38,7 +38,9 @@ class VendorBillControllerTest extends TestCase
      */
     public function testStore()
 	{
+
 		$this->withoutMiddleware();
+
 		$items = [
 			[
 				'item_id' => 1,
@@ -69,10 +71,10 @@ class VendorBillControllerTest extends TestCase
 		$request = [
 			'vendor_id' => 1,
 			'transno' => '001',
-			'suppliers_inv_no' => '1', 
-			'date' => '2016-03-29', 
+			'suppliers_inv_no' => '1',
+			'date' => '2016-03-29',
 			'duedate' => '2016-03-29', //date('Y/m/d')
-			'billtype_id' => 2, 
+			'billtype_id' => 2,
 			'billtype_nontrade_subtype_id' => 2,
 			'coa_id' => 1,
 			'terms_id' => 1,
@@ -142,10 +144,10 @@ class VendorBillControllerTest extends TestCase
 		$request = [
 			'vendor_id' => 2,
 			'transno' => '001',
-			'suppliers_inv_no' => '1', 
-			'date' => '2016-03-29', 
+			'suppliers_inv_no' => '1',
+			'date' => '2016-03-29',
 			'duedate' => '2016-03-29', //date('Y/m/d')
-			'billtype_id' => 2, 
+			'billtype_id' => 2,
 			'billtype_nontrade_subtype_id' => 2,
 			'coa_id' => 1,
 			'terms_id' => 1,

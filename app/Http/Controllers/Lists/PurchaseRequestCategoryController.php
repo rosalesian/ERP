@@ -97,7 +97,9 @@ class PurchaseRequestCategoryController extends Controller {
 
 	public function getPurchase() {
       	$type = $this->purchaserequetcategory->lists('name', 'id');
-        return Response::json($type); 
+      	$t = $this->purchaserequetcategory->all();
+      	dd($t[0]);
+        // return Response::json($type); 
     }
 
 }

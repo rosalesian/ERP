@@ -25,6 +25,17 @@ $factory->define(Nixzen\Models\Lists::class, function ($faker) {
 				'description' => $faker->text
 		];
 });
+$factory->define(Nixzen\Models\Inventory::class, function ($faker) {
+		return [
+				'item_id' => $faker->numberBetween(1, 5),
+				'company_id' => $faker->numberBetween(1, 5),
+				'branch_id' => $faker->numberBetween(1, 5),
+				'location_id' => $faker->numberBetween(1, 5),
+				'bin_id' => $faker->numberBetween(1, 5),
+				'lot_id' => $faker->numberBetween(1, 5),
+				'quantity' => $faker->numberBetween(1, 5),
+		];
+});
 $factory->define(Nixzen\Models\ListItem::class, function ($faker) {
 		return [
 				'name' => $faker->word,

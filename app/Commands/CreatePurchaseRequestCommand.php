@@ -24,10 +24,10 @@ class CreatePurchaseRequestCommand extends Command
      *
      * @return void
      */
-    public function __construct($requester, $type, $date, $deliver_to, $remarks, $items)
+    public function __construct($requester, $type_id, $date, $deliver_to, $remarks, $items)
     {
 				$this->requester = $requester;
-				$this->type_id = $type;
+				$this->type_id = $type_id;
 				$this->date = $date;
 				$this->remarks = $remarks;
 				$this->deliver_to = $deliver_to;
