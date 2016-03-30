@@ -24,7 +24,7 @@ Create New Purchase Requisition
         {!! HTML::link('purchaserequest','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
-    <div class="approvaltransition"> 
+    <div class="approvaltransition">
       <ol class="breadcrumb">
       <li>Encoder</li>
       <li>Branch Finance Supervisor</li>
@@ -35,7 +35,7 @@ Create New Purchase Requisition
       <li>CFO</li>
       <li>CEO</li>
       </ol>
-    </div>    
+    </div>
 
     <div id="mainPR-container"></div>
 
@@ -49,12 +49,12 @@ Create New Purchase Requisition
     </div>
 
   </div><!-- /.col -->
-</div><!-- /.row -->  
+</div><!-- /.row -->
 
 <!-- canvass modal -->
 <div class="example-modal" style="width:900px;"> <div class="modal" id="myModal"></div> </div>
 
-<?php 
+<?php
     $items=[];
     foreach ($purchaserequest->items as $key) {
         array_push($items, [
@@ -99,6 +99,7 @@ function unittypeShow($itemid, $unitid) {
     ];
   }
 
+  $f='';
   foreach($data as $d) {
     if($d['value']==$unitid) {
       $f = $d['label'];

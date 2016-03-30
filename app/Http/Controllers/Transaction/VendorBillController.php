@@ -75,9 +75,10 @@ class VendorBillController extends Controller {
 	 */
 	public function store(CreateVendorBillRequest $request)
 	{
+		
 		$vendorbill = $this->dispatchFrom(CreateVendorBillCommand::class, $request);
-		//return redirect()->route('vendorbill.show', $vendorbill->id);
-		return view('vendorbill.index');
+		
+		return redirect()->route('vendorbill.show', $vendorbill->id);
 	}
 
 	/**
