@@ -15,8 +15,8 @@ class CreateLaborItemsTable extends Migration {
 		Schema::create('labor_items', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
-			$table->integer('jobtype_id')->unsigned();
+			$table->integer('item_id')->unsigned();//REFERENCE IN ITEM TABLE
+			$table->integer('jobtype_id')->unsigned();//STATIC VALUE GENERIC TABLE
 			$table->integer('joborder_id')->unsigned();
 			$table->integer('created_by')->unsigned();
 			$table->integer('updated_by')->unsigned();

@@ -16,7 +16,7 @@ class CreateMaterialCostsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('joborder_id');
-			$table->integer('name')->unsigned();
+			$table->integer('item_id')->unsigned();//item_id
 			$table->integer('units_id')->unsigned();
 			$table->decimal('quantity', 8, 2); // max 99,999,999.99
 			$table->boolean('inactive');

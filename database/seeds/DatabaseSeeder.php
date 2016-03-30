@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-      /*  $this->call('BranchTableSeeder');
+        $this->call('BranchTableSeeder');
         $this->call('DivisionTableSeeder');
         $this->call('CompanyTableSeeder');
         $this->call('DepartmentTableSeeder');
@@ -22,15 +22,15 @@ class DatabaseSeeder extends Seeder
         $this->call('UnitsTypeTableSeeder');
         $this->call('UnitsTableSeeder');
 
-        $this->call('ItemTypeTableSeeder');*/
+        $this->call('ItemTypeTableSeeder');
 
-        //$this->call('ItemTableSeeder');
-        //$this->call('MaintenanceTypeSeeder');
-        //$this->call('PurchaseCategoryTableSeeder');
+        $this->call('ItemTableSeeder');
+        $this->call('MaintenanceTypeSeeder');
+        $this->call('PurchaseCategoryTableSeeder');
 
         //$this->call('ItemTypeTableSeeder');
-        //$this->call('BillTypeSeeder');
-        //$this->call('BillTypeNonTradeSubTypeSeeder');
+        $this->call('BillTypeSeeder');
+        $this->call('BillTypeNonTradeSubTypeSeeder');
         $this->call('VendorsTableSeeder');
         Model::reguard();
     }
