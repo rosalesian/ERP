@@ -26,7 +26,7 @@ Create New Purchase Requisition
         {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
-    
+
     <div id="mainPR-container"></div>
 
     <div class="transaction-buttons-container">
@@ -40,8 +40,8 @@ Create New Purchase Requisition
 
   {!! Form::close() !!}
   </div><!-- /.col -->
-</div><!-- /.row -->  
-    <?php 
+</div><!-- /.row -->
+    <?php
     $items=[];
     foreach ($purchaserequest->items as $key) {
         array_push($items, [
@@ -83,7 +83,7 @@ function unittypeEdit($itemid, $unitid) {
       ['value'=>3, 'label'=>'PACKS']
     ];
   }
-  $f;
+  $f='';
   foreach($data as $d) {
     if($d['value']==$unitid) {
       $f = $d['label'];

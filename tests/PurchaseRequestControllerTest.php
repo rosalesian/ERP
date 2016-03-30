@@ -43,16 +43,16 @@ class PurchaseRequestControllerTest extends TestCase
 		{
 			$this->makeFactoryPurchaseRequest();
 			$response = $this->call('GET', 'purchaserequest/1');
+			//dd($response->original);
 			$this->assertResponseOk();
 			$this->assertViewHas('purchaserequest');
-			$purchaserequest = $this->purchaserequest->with('items')->find(1);
-			$vpurchaserequest = $response->original->getData()['purchaserequest'];
-			$this->assertEquals($purchaserequest->items, $vpurchaserequest->items);
 		}
 
 		public function testEdit()
 		{
+			$this->makeFactoryPurchaseRequest();
 			$response = $this->call('GET', 'purchaserequest/1/edit');
+			//dd($response);
 			$this->assertResponseOk();
 			$this->assertViewHas('purchaserequest');
 		}
@@ -75,6 +75,7 @@ class PurchaseRequestControllerTest extends TestCase
 		}
 		public function makeFactoryPurchaseRequest()
 		{
+			factory(Nixzen\Models\Item::class, 100)->create();
 			$purchaserequest = factory(Nixzen\Models\PurchaseRequest::class, 3)->create();
 			$purchaserequest->each(function($pr) {
 					$items = factory(Nixzen\Models\PurchaseRequestItem::class, 3)->create(['purchaserequisition_id' => $pr->id]);
