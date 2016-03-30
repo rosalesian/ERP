@@ -98,7 +98,7 @@ function unittypeShow($itemid, $unitid) {
       ['value'=>3, 'label'=>'PACKS']
     ];
   }
-  $f;
+
   foreach($data as $d) {
     if($d['value']==$unitid) {
       $f = $d['label'];

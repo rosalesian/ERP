@@ -432,7 +432,17 @@ window.TableRow = React.createClass({
 		}
 	},
 	render : function () {
-		if(this.props.context!='view') {
+		if(this.props.context=='view') {
+			return (
+				<tr>
+					<td>{this.props.defaultValues.item_label}</td>
+					<td>{this.props.defaultValues.description}</td>
+					<td>{this.props.defaultValues.uom_label}</td>
+					<td>{this.props.defaultValues.quantity}</td>
+					<td><a href={"#"} data-toggle={"modal"} data-target={"#myModal"} onClick={this.displayModal.bind(this,this.props.defaultValues)}><i className="fa fa-toggle-up" style={{fontSize:"25px",marginLeft:"30%"}}></i></a></td>
+				</tr>
+			);
+		} else {
 			if(this.props.create) {
 				return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
@@ -483,16 +493,6 @@ window.TableRow = React.createClass({
 					);
 				}
 			}
-		} else {
-			return (
-				<tr>
-					<td>{this.props.defaultValues.item_label}</td>
-					<td>{this.props.defaultValues.description}</td>
-					<td>{this.props.defaultValues.uom_label}</td>
-					<td>{this.props.defaultValues.quantity}</td>
-					<td><a href="#" data-toggle="modal" data-target="#myModal" onClick={this.displayModal.bind(this,this.props.defaultValues)}><i className="fa fa-toggle-up" style={{fontSize:"25px",marginLeft:"30%"}}></i></a></td>
-				</tr>
-			);
 		}
 	},
 	displayModal : function (defaultValues, evt) {
