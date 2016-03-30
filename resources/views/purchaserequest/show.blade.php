@@ -65,10 +65,10 @@ Create New Purchase Requisition
                 "description"=>$key->item->itemcode,
                 "quantity"=>$key->quantity,
                 "unit_id"=>$key->unit_id,
-                "uom_label"=>unittype($key->item->id,$key->unit_id)
+                "uom_label"=>unittypeShow($key->item->id,$key->unit_id)
           ]);
     }
-function unittype($itemid, $unitid) {
+function unittypeShow($itemid, $unitid) {
   $data=[];
   if($itemid=='1') {
     $data=[
