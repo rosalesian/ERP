@@ -494,6 +494,7 @@ window.TableRow = React.createClass({
 		}
 	},
 	displayModal : function (defaultValues, evt) {
+		console.log(defaultValues);
 		ReactDOM.render(<CanvassComponent callBackParent={this.handleCallBackLine}
 							defaultValues={defaultValues}
 				            context='create' />, document.getElementById('myModal'));
