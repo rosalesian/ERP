@@ -94,39 +94,41 @@ window.PrimaryComponent = React.createClass({
 		return (
 			<Wrapper>
             	<FieldContainer>
-        			<Type callBackParent={this.handleChangeCallBack}
-        				context={this.props.context}
-        				defaultValue={this.props.defaultValues.type_id}
-        				attributes={{name:"type_id", label:"TYPE"}} />
+            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.type_id}
+    				attributes={{name:"type_id", label:"TYPE"}} />
 
-        			<Date callBackParent={this.handleChangeCallBack}
+        			<DateMainComponent callBackParent={this.handleChangeCallBack}
         				context={this.props.context}
         				defaultValue={this.props.defaultValues.date} 
-        				attributes={{name:"date", label:"DATE"}} />
+        				attributes={{name:"date", label:"DATE"}} />	
         		</FieldContainer>
 
 				<FieldContainer> 
-        			<DeliveredTo callBackParent={this.handleChangeCallBack} 
-        				context={this.props.context}
-        				defaultValue={this.props.defaultValues.deliver_to} 
-        				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
+    				<TextMainComponent callBackParent={this.handleChangeCallBack} 
+    				context={this.props.context}
+    				defaultValue={this.props.defaultValues.deliver_to} 
+    				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
 
-        			<Remarks callBackParent={this.handleChangeCallBack} 
+        			<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
         				context={this.props.context}
         				defaultValue={this.props.defaultValues.remarks}
         				attributes={{name:"remarks", label:"REMARKS"}} />
         		</FieldContainer>
 
             	<FieldContainer>
-            		<TotalAmount callBackParent={this.handleChangeCallBack}
-            			context={this.props.context} 
-            			defaultValue={this.props.defaultValues.totalamount} 
-            			attributes={{name:"totalamount", label:"TOTAL AMOUNT"}} />
-            			
-		          	<Requester callBackParent={this.handleChangeCallBack} 
-		          		context={this.props.context}
-		          		defaultValue={this.props.defaultValues.requester} 
-		          		attributes={{name:"requester", label:"NAME OF REQUESTER"}} />		
+            		<TextMainComponent callBackParent={this.handleChangeCallBack} 
+    				context={this.props.context}
+    				defaultValue={this.props.defaultValues.totalamount} 
+    				attributes={{name:"totalamount", label:"TOTAL AMOUNT"}} />
+
+            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.requester}
+    				attributes={{name:"requester", label:"NAME OF REQUESTER"}} />
             	</FieldContainer>
 	        </Wrapper>
 		);
