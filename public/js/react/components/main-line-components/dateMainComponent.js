@@ -1,4 +1,4 @@
-window.DeliveredTo = React.createClass({
+window.DateMainComponent = React.createClass({
 	getDefaultProps : function () {
 		return {
 			defaultValue : '',
@@ -16,17 +16,17 @@ window.DeliveredTo = React.createClass({
 			var field;
 			if(this.props.context=='create' || this.props.context=='edit') {
 				field = <div className="form-group">
-							<label for={this.props.attributes.id}>{this.props.attributes.label}</label>
-			            	<input onChange={this.handleChange} 
-			            	type="text" 
-			            	value={this.props.defaultValue} 
-			            	name={this.props.attributes.name} 
-			            	id={this.props.attributes.name} 
-			            	className="form-control" />	
+						<label for={this.props.attributes.id}>{this.props.attributes.label}</label>
+		            	<input onChange={this.handleChange} 
+		            	type="date" 
+		            	value={this.props.defaultValue} 
+		            	name={this.props.attributes.name} 
+		            	id={this.props.attributes.name} 
+		            	className="form-control" />	
 			            </div> 
 			} else {
 				field =  <div className="form-group">
-							<label for={this.props.attributes.id}>{this.props.attributes.label}</label><br />
+							<label for={this.props.attributes.name}>{this.props.attributes.label}</label><br />
 							<span id={this.props.attributes.name}>{ this.props.defaultValue }</span>
 			            </div>
 			}

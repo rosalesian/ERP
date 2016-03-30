@@ -1,4 +1,4 @@
-window.Requester = React.createClass({
+window.SelectMainComponent = React.createClass({
 	getDefaultProps : function () {
 		return {
 			defaultValue : '',
@@ -13,7 +13,7 @@ window.Requester = React.createClass({
 	componentDidMount : function () {
 		if(this.props.context=='create' || this.props.context=='edit') {
 			this.request = $.ajax({
-				url:base_url+'/ajax/getItems',
+				url:this.props.source,
 				dataType: 'json',
 				type:'GET',
 				success : function (response) {
@@ -39,6 +39,8 @@ window.Requester = React.createClass({
 	},
 	render : function () {
 		var field;
+		var placeholder="CHOOSE "+this.props.attributes.label;
+
 		if(this.props.context=='create' || this.props.context=='edit') {
 			field = <div className="form-group">
 						<label for={this.props.attributes.id}>{this.props.attributes.label}</label>
@@ -48,20 +50,20 @@ window.Requester = React.createClass({
 		                name={this.props.attributes.name} 
 		                value={this.props.defaultValue} 
 		                options={this.state.data} 
-		                placeholder="Choose Name of Requester" 
+		                placeholder={placeholder}
 		                clearable={false} />
 		            </div> 
 		} else {
 			field =  <div className="form-group">
-						<label for={this.props.attributes.id}>{this.props.attributes.label}</label><br />
+						<label for={this.props.attributes.name}>{this.props.attributes.label}</label><br />
 						<span id={this.props.attributes.name}>{ this.props.defaultValue }</span>
 		            </div>
 		}
 
-		return(
+		return (
 			<div className="row">
 			<div className="box-body">
-				{field}
+                {field}
             </div>
             </div>
         );
