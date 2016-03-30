@@ -25,7 +25,8 @@ window.VendorBillMainComponent = React.createClass({
 			posting_period_id: '',
 			items: '',
 			expenses: '',
-			transno: ''
+			transno: '',
+			context: ''
 		};
 	},
 	handleChangeCallBack : function (obj) {
@@ -39,7 +40,7 @@ window.VendorBillMainComponent = React.createClass({
 			            <h3 className="box-title">Primary Information</h3>
 			    	</div>
 			       
-			       <VendorBillPrimaryComponent defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			       <VendorBillPrimaryComponent context={this.props.context} defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
 			    </div>
 
 		       
@@ -71,7 +72,7 @@ window.VendorBillPrimaryComponent = React.createClass({
 		this.props.callBackParent(obj);
 	},
 	getDefaultProps : function () {
-		return { defaultValues:{} }
+		return { defaultValues:{}, context: '' }
 	},
 	getInitialState : function () {
 		return {
@@ -91,61 +92,86 @@ window.VendorBillPrimaryComponent = React.createClass({
 			<Wrapper>
             	<FieldContainer>
 
-            	
-        		<DeliveredTo callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.suppliers_inv_no}
-        				attributes={{name:"suppliers_inv_no", label:"SUPPLIER'S INVOICE NO"}} />
+            
 
-        		<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.vendor_id}
-        				attributes={{name:"vendor_id", label:"VENDOR",options:this.state.data.listvedorbills}} />
+        		<TextMainComponent callBackParent={this.handleChangeCallBack} 
+    				context={this.props.context}
+    				defaultValue={this.props.defaultValues.suppliers_inv_no} 
+    				attributes={{name:"suppliers_inv_no", label:"SUPPLIER'S INVOICE NO"}} />
 
-        		<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.billtype_id}
-        				attributes={{name:"billtype_id", label:"BILL TYPE",options:this.state.data.listemployee}} />
+        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.vendor_id}
+    				attributes={{name:"vendor_id", label:"VENDOR"}} />
 
-        		<Date callBackParent={this.handleChangeCallBack} 
-	        				defaultValue={this.props.defaultValues.duedate} 
-	        				attributes={{name:"duedate", label:"DUE DATE"}} />
+    			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.billtype_id}
+    				attributes={{name:"billtype_id", label:"BILL TYPE"}} />
 
-	        	<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.approvalstatus_id}
-        				attributes={{name:"approvalstatus_id", label:"APPROVAL STATUS",options:this.state.data.listemployee}} />
-        		
-        		<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.items}
-        				attributes={{name:"items", label:"ITEMS",options:this.state.data.listemployee}} />
+
+    			<DateMainComponent callBackParent={this.handleChangeCallBack}
+        				context={this.props.context}
+        				defaultValue={this.props.defaultValues.duedate} 
+        				attributes={{name:"duedate", label:"DUE DATE"}} />	
+
+
+        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.approvalstatus_id}
+    				attributes={{name:"approvalstatus_id", label:"APPROVAL STATUS"}} />
+
+
+	        	<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.items}
+    				attributes={{name:"items", label:"ITEMS"}} />
 
 
         		</FieldContainer>
 
 				<FieldContainer> 
 
-					<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.department_id}
-        				attributes={{name:"department_id", label:"DEPARTEMENT",options:this.state.data.listdepartment}} />
 
-        			<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.division_id}
-        				attributes={{name:"division_id", label:"DIVISION",options:this.state.data.listspurchase}} />
+	        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				source={base_url+'/ajax/getItems'}
+	    				defaultValue={this.props.defaultValues.department_id}
+	    				attributes={{name:"department_id", label:"DEPARTEMENT"}} />
 
-					<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.branch_id}
-        				attributes={{name:"branch_id", label:"BRANCH",options:this.state.data.listspurchase}} />
+					<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				source={base_url+'/ajax/getItems'}
+	    				defaultValue={this.props.defaultValues.division_id}
+	    				attributes={{name:"division_id", label:"DIVISION"}} />
 
 
-					<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.coa_id}
-        				attributes={{name:"coa_id", label:"COA ID",options:this.state.data.listspurchase}} />
+        			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				source={base_url+'/ajax/getItems'}
+	    				defaultValue={this.props.defaultValues.branch_id}
+	    				attributes={{name:"branch_id", label:"BRANCH"}} />
 
-        			<Remarks callBackParent={this.handleChangeCallBack} 
-        				defaultValue={this.props.defaultValues.memo} 
+	    			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				source={base_url+'/ajax/getItems'}
+	    				defaultValue={this.props.defaultValues.coa_id}
+	    				attributes={{name:"coa_id", label:"COA ID"}} />
+
+
+	    			<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+        				context={this.props.context}
+        				defaultValue={this.props.defaultValues.memo}
         				attributes={{name:"memo", label:"MEMO"}} />
 
-
-        		<DeliveredTo callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.transno}
-        				attributes={{name:"transno", label:"SUPPLIER'S INVOICE NO"}} />
+        			<TextMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.transno} 
+	    				attributes={{name:"transno", label:"SUPPLIER'S INVOICE NO"}} />
 
 
 
@@ -155,30 +181,43 @@ window.VendorBillPrimaryComponent = React.createClass({
 
         		<FieldContainer> 
 
-					<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.terms_id}
-        				attributes={{name:"terms_id", label:"TERM",options:this.state.data.listmaintenancetype}} />
+        			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				source={base_url+'/ajax/getItems'}
+	    				defaultValue={this.props.defaultValues.terms_id}
+	    				attributes={{name:"terms_id", label:"TERM"}} />
 
-        			<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.billtype_nontrade_subtype_id}
-        				attributes={{name:"billtype_nontrade_subtype_id", label:"NONE TRADE",options:this.state.data.listspurchase}} />
+	    			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				source={base_url+'/ajax/getItems'}
+	    				defaultValue={this.props.defaultValues.billtype_nontrade_subtype_id}
+	    				attributes={{name:"billtype_nontrade_subtype_id", label:"NONE TRADE"}} />
 
-					<Date callBackParent={this.handleChangeCallBack} 
+					<DateMainComponent callBackParent={this.handleChangeCallBack}
+        				context={this.props.context}
         				defaultValue={this.props.defaultValues.date} 
-        				attributes={{name:"date", label:"DATE"}} />
+        				attributes={{name:"date", label:"DATE"}} />	
 
+					
+					<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				source={base_url+'/ajax/getItems'}
+	    				defaultValue={this.props.defaultValues.terms_id}
+	    				attributes={{name:"terms_id", label:"TERMS"}} />
 
-					<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.terms_id}
-        				attributes={{name:"terms_id", label:"TERMS",options:this.state.data.listspurchase}} />
+					
 
-        			<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.posting_period_id}
-        				attributes={{name:"posting_period_id", label:"POSTING PERIOD ID",options:this.state.data.listspurchase}} />
+					<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				source={base_url+'/ajax/getItems'}
+	    				defaultValue={this.props.defaultValues.posting_period_id}
+	    				attributes={{name:"posting_period_id", label:"POSTING PERIOD ID"}} />
 
-        			<DeliveredTo callBackParent={this.handleChangeCallBack} 
-        				defaultValue={this.props.defaultValues.expenses} 
-        				attributes={{name:"expenses", label:"EXPENSES"}} />
+        			
+	    			<TextMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.expenses} 
+	    				attributes={{name:"expenses", label:"EXPENSES"}} />
 
         		</FieldContainer>
 
@@ -190,4 +229,4 @@ window.VendorBillPrimaryComponent = React.createClass({
 	}
 });
 	
-ReactDOM.render(<VendorBillMainComponent />, document.getElementById("vendorBill-container"));
+

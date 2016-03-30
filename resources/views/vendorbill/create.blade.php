@@ -73,18 +73,21 @@ Create New Vendor Bill
 <script src="{{ asset('js/react/plugin/react-select/dist/react-select.min.js') }}"></script> <!-- select -->
 
 <!-- MAINLINE COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/type.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/date.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/deliveredto.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/remarks.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/totalamount.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/nameofrequester.js') }}"></script>
+
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/selectMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
 
 <!-- CUSTOM REACT COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
-{{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
+
 <script type="text/babel" src="{{ asset('js/react/forms/vendorbills/vendorbills_view.js') }}"></script>
-
-
+<script type="text/babel">
+var context = "create";
+  ReactDOM.render(<VendorBillMainComponent context={context} />, document.getElementById("vendorBill-container"));
+ 
+</script>
 @stop
+

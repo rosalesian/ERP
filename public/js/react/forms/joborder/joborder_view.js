@@ -8,7 +8,8 @@ window.JOMainComponent = React.createClass({
 			asset: '',
 			requested_by: '',
 			maintenancetype_id: '',
-			prcategory_id: ''
+			prcategory_id: '',
+			context:''
 		};
 	},
 	handleChangeCallBack : function (obj) {
@@ -22,7 +23,7 @@ window.JOMainComponent = React.createClass({
 			            <h3 className="box-title">Primary Information</h3>
 			    	</div>
 			       
-			       <JOrimaryComponent defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			       <JOrimaryComponent context={this.props.context} defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
 			    </div>
 
 		       
@@ -54,7 +55,7 @@ window.JOrimaryComponent = React.createClass({
 		this.props.callBackParent(obj);
 	},
 	getDefaultProps : function () {
-		return { defaultValues:{} }
+		return { defaultValues:{}, context:'' }
 	},
 	getInitialState : function () {
 		return {
@@ -74,33 +75,44 @@ window.JOrimaryComponent = React.createClass({
 			<Wrapper>
             	<FieldContainer>
 
-            	<Date callBackParent={this.handleChangeCallBack} 
+        		<DateMainComponent callBackParent={this.handleChangeCallBack}
+        				context={this.props.context}
         				defaultValue={this.props.defaultValues.transdate} 
-        				attributes={{name:"transdate", label:"DATE"}} />
+        				attributes={{name:"transdate", label:"DATE"}} />	
 
-        		<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.asset}
-        				attributes={{name:"asset", label:"ASSET NAME",options:this.state.data.typelist}} />
+        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.asset}
+    				attributes={{name:"asset", label:"ASSET"}} />
 
-        		<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.requested_by}
-        				attributes={{name:"requested_by", label:"REQUESTED BY",options:this.state.data.listemployee}} />
+        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getEmployee'}
+    				defaultValue={this.props.defaultValues.requested_by}
+    				attributes={{name:"requested_by", label:"REQUESTED BY"}} />
 
         		</FieldContainer>
 
 				<FieldContainer> 
 
-					<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.maintenancetype_id}
-        				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE",options:this.state.data.listmaintenancetype}} />
+				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getMaintenancetype'}
+    				defaultValue={this.props.defaultValues.maintenancetype_id}
+    				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE"}} />
 
-        			<Type callBackParent={this.handleChangeCallBack}
-        				defaultValue={this.props.defaultValues.prcategory_id}
-        				attributes={{name:"prcategory_id", label:"CATEGORIES",options:this.state.data.listspurchase}} />
+				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getPurchseRequest'}
+    				defaultValue={this.props.defaultValues.prcategory_id}
+    				attributes={{name:"prcategory_id", label:"CATEGORIES"}} />
 
-        			<Remarks callBackParent={this.handleChangeCallBack} 
-        				defaultValue={this.props.defaultValues.memo} 
+        		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+        				context={this.props.context}
+        				defaultValue={this.props.defaultValues.memo}
         				attributes={{name:"memo", label:"REMARKS"}} />
+
         		</FieldContainer>
 
             
@@ -108,5 +120,3 @@ window.JOrimaryComponent = React.createClass({
 		);
 	}
 });
-	
-ReactDOM.render(<JOMainComponent />, document.getElementById("mainPR-container"));

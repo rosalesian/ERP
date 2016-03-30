@@ -76,10 +76,17 @@ Route::group(['namespace' => 'Admin'], function(){
 Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
 	Route::get('getItems', 'ItemController@getItems');
 	Route::get('getDescription/{id}', 'ItemController@getDescription');
-	Route::get('getEmployees','EmployeeController@getEmployees');
+	/*Route::get('getEmployees','EmployeeController@getEmployees');*/
 	Route::get('getMaintenance','MaintenanceTypeController@getMaintenance');
 	Route::get('getPurchase','PurchaseRequestCategoryController@getPurchase');
+
+	//job order request
 	Route::get('job/request','UserController@getJObRequest');
+	Route::get('getPurchseRequest', 'UserController@getPurchseRequest');
+	Route::get('getEmployee', 'UserController@getEmployee');
+	Route::get('getMaintenancetype', 'UserController@getMaintenancetype');
+	Route::get('getVendorBill', 'UserController@getVendorBill');
+	Route::get('getDepartment', 'UserController@getDepartment');
 });
 Route::get('ajax/getUOM/{id}', function ($id){
 	$data=[];
