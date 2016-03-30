@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class VendorBillControllerTest extends TestCase
 {
 
-	use DatabaseMigrations, WithoutMiddleware;
+	use DatabaseMigrations;
 
 	public $vendorbill;
 
@@ -38,7 +38,7 @@ class VendorBillControllerTest extends TestCase
      */
     public function testStore()
 	{
-		
+		$this->withoutMiddleware();
 		$items = [
 			[
 				'item_id' => 1,
@@ -109,7 +109,7 @@ class VendorBillControllerTest extends TestCase
 
 	public function testUpdate()
 	{
-
+		$this->withoutMiddleware();
 		$items = [
 			[
 				'id' => '1',
@@ -168,6 +168,7 @@ class VendorBillControllerTest extends TestCase
 
 	public function testDestroy()
 	{
+		$this->withoutMiddleware();
 		$response = $this->call('DELETE', 'vendorbill/1');
 		$this->assertResponseStatus(302);
 		$this->assertRedirectedToRoute('vendorbill.index');
