@@ -45,7 +45,7 @@ Create New Purchase Requisition
     $items=[];
     foreach ($purchaserequest->items as $key) {
         array_push($items, [
-                "item_id"=>$key->item->id,
+                "item_id"=>$key->item_id,
                 "item_label"=>$key->item->description,
                 "description"=>$key->item->itemcode,
                 "quantity"=>$key->quantity,

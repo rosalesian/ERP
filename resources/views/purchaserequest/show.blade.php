@@ -60,7 +60,7 @@ Create New Purchase Requisition
         array_push($items, [
                 "_token"=> csrf_token(),
                 "id"=>$key->id,
-                "item_id"=>$key->item->id,
+                "item_id"=>$key->item_id,
                 "item_label"=>$key->item->description,
                 "description"=>$key->item->itemcode,
                 "quantity"=>$key->quantity,
