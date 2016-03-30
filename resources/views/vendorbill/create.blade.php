@@ -1,21 +1,30 @@
 @extends('layout.content_template')
 
 @section('title')
-Create New Vendor Payment
+Create New Vendor Bill
 @stop
 
 @section('content-header')
-<h1>Vondor Payment</h1>
+<h1>Vendor Bill</h1>
 <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Dashboard</li>
 </ol>
 @stop
 
+
 @section('content')
+@if($errors->any())
+  <ul class="alert alert-danger">
+      @foreach($errors->all() as $error)
+         <li> {{ $error }} </li>
+      @endforeach
+  </ul>
+@endif
+
  <div class="row">
   <div class="col-md-12">
-    {!! Form::open(array('url'=>'joborder','method'=>'post')) !!}
+    {!! Form::open(array('url'=>'vendorbill','method'=>'post')) !!}
 
     <div class="transaction-buttons-container">
       <div class="trans-button">
@@ -26,10 +35,8 @@ Create New Vendor Payment
       </div>
     </div>
     
-  
-    <div id="mainPR-container"></div>
+    <div id="vendorBill-container"></div>
    
-
     <div class="transaction-buttons-container">
       <div class="trans-button">
          <button class="btn btn-block btn-primary btn-flat">Save</button>
@@ -76,7 +83,7 @@ Create New Vendor Payment
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
 {{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
-<script type="text/babel" src="{{ asset('js/react/forms/joborder/joborder_view.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/forms/vendorbills/vendorbills_view.js') }}"></script>
 
 
 @stop

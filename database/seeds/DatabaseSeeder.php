@@ -21,10 +21,17 @@ class DatabaseSeeder extends Seeder
         $this->call('EmployeeTableSeeder');
         $this->call('UnitsTypeTableSeeder');
         $this->call('UnitsTableSeeder');
+
         $this->call('ItemTypeTableSeeder');*/
-        $this->call('ItemTableSeeder');
-        // $this->call('MaintenanceTypeSeeder');
-         $this->call('PurchaseCategoryTableSeeder');
+
+        //$this->call('ItemTableSeeder');
+        //$this->call('MaintenanceTypeSeeder');
+        //$this->call('PurchaseCategoryTableSeeder');
+
+        //$this->call('ItemTypeTableSeeder');
+        //$this->call('BillTypeSeeder');
+        //$this->call('BillTypeNonTradeSubTypeSeeder');
+        $this->call('VendorsTableSeeder');
         Model::reguard();
     }
 }

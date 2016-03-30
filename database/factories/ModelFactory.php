@@ -138,13 +138,36 @@ $factory->define(Nixzen\Models\VendorCategory::class, function ($faker) {
 });
 
 
-$factory->define(Nixzen\Models\Branch::class, function ($faker) {
+$factory->define(Nixzen\Models\Lists\Branch::class, function ($faker) {
 		return [
-				'name'	=> $faker->randomElement(['tagunol', 'pakanaan', 'bohol', 'tacloban', 'hq']),
+				'name'	=> $faker->unique()->randomElement(['tagunol', 'pakanaan', 'bohol', 'tacloban', 'hq']),
 				'description'	=> $faker->text,
-				'company_id'	=> $faker->numberBetween(1, 3)
+				'company_id'	=> $faker->numberBetween(1, 3),
+				'created_by' => $faker->numberBetween(1, 3),
+				'updated_by' => $faker->numberBetween(1, 3)
 		];
 });
+
+$factory->define(Nixzen\Models\Lists\Department::class, function ($faker) {
+		return [
+				'name'	=> $faker->randomElement(['IT', 'FINANCE', 'OPERATION']),
+				'description'	=> $faker->text,
+				'company_id'	=> $faker->numberBetween(1, 3),
+				'created_by' => $faker->numberBetween(1, 3),
+				'updated_by' => $faker->numberBetween(1, 3)
+		];
+});
+
+$factory->define(Nixzen\Models\Lists\Division::class, function ($faker) {
+		return [
+				'name'	=> $faker->randomElement(['PG', 'MONDELEZ', 'NUTRI-ASIA']),
+				'description'	=> $faker->text,
+				'company_id'	=> $faker->numberBetween(1, 3),
+				'created_by' => $faker->numberBetween(1, 3),
+				'updated_by' => $faker->numberBetween(1, 3)
+		];
+});
+
 $factory->define(Nixzen\Models\Terms::class, function ($faker) {
 		return [
 				'name'	=> $faker->randomElement(['1 day', '15 days', '25 days']),
@@ -155,6 +178,67 @@ $factory->define(Nixzen\Models\Terms::class, function ($faker) {
 $factory->define(Nixzen\Models\PaymentType::class, function ($faker) {
 		return [
 				'name'	=> $faker->randomElement(['cash', 'check']),
+				'description'	=> $faker->text
+		];
+});
+
+
+$factory->define(Nixzen\Models\VendorBill::class, function ($faker) {
+		return [
+			'vendor_id' => $faker->numberBetween(1, 2),
+			'transno' => $faker->numerify('###'),
+			'suppliers_inv_no' => $faker->numerify('###'), 
+			'date' => $faker->dateTime('now'), 
+			'duedate' => $faker->dateTime('now'), //date('Y/m/d')
+			'billtype_id' => 2, 
+			'billtype_nontrade_subtype_id' => $faker->numberBetween(1, 2),
+			'coa_id' => $faker->numberBetween(1, 2),
+			'terms_id' => $faker->numberBetween(1, 2),
+			'posting_period_id' => $faker->numberBetween(1, 2),
+			'department_id' => $faker->numberBetween(1, 2),
+			'division_id' => $faker->numberBetween(1, 2),
+			'branch_id' => $faker->numberBetween(1, 2),
+			'memo' =>  $faker->text()
+		];
+});
+
+$factory->define(Nixzen\Models\VendorBillItem::class, function ($faker) {
+		return [
+			'item_id' => $faker->numberBetween(1, 3),
+			'quantity' => $faker->numberBetween(10,15 ),
+			'uom_id' => $faker->numberBetween(1, 3),
+			'unit_cost' => $faker->numberBetween(100, 200),
+			'amount' => $faker->numberBetween(100, 200),
+			'taxcode_id' => $faker->numberBetween(1, 3),
+			'tax_amount' => $faker->numberBetween(1, 3),
+			'gross_amount' => $faker->numberBetween(1, 3)
+		];
+});
+
+$factory->define(Nixzen\Models\VendorBillExpenses::class, function ($faker) {
+		return [
+			'coa_id' => $faker->numberBetween(1, 3),
+			'amount' => $faker->numberBetween(100, 300),
+			'taxcode_id' => $faker->numberBetween(1, 3),
+			'tax_amount' => $faker->numberBetween(1, 3),
+			'gross_amount' => $faker->numberBetween(100, 300),
+			'department_id' => $faker->numberBetween(1, 3),
+			'division_id' => $faker->numberBetween(1, 3),
+			'branch_id' => $faker->numberBetween(1, 3),
+			'vendor_id' => $faker->numberBetween(1, 3)
+		];
+});
+
+$factory->define(Nixzen\Models\BillType::class, function ($faker) {
+		return [
+				'name'	=> $faker->randomElement(['Trade', 'Non-Trade'])
+		];
+});
+
+$factory->define(Nixzen\Models\BillTypeNonTradeSubType::class, function ($faker) {
+		return [
+				'bill_type_id' => 2,
+				'name'	=> $faker->randomElement(['Payroll', 'Branch-Expense']),
 				'description'	=> $faker->text
 		];
 });

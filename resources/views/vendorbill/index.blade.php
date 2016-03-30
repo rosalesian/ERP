@@ -11,14 +11,14 @@
           <thead>
              <tr>
                 <th>OPTION</th>
-                <th>ID</th>
-                <th>DATE</th>
+                <th>VENDOR</th>
+                <th>TRANSACTION #</th>
+                <th>SUPPLIER NO</th>
+                <th>INVOICE #</th>
+                <th>DUE DATE</th>
+                <th>BILL TYPE</th>
+                <th>NONE TRADE</th>
                 <th>DEPARTMENT</th>
-                <th>MEMO</th>
-                <th>PREPARED BY</th>
-                <th>APPROVAL STATUS</th>
-                <th>NEXT APPROVAL</th>
-                <th>TYPE OF MAINTENANCE</th>
                 <th>CREATED AT</th>
             </tr>
           </thead>
@@ -35,17 +35,17 @@ $(function() {
     $('#joborder-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{!! route('jobordertable.data') !!}',
+        ajax: '{!! route('vendortable.data') !!}',
         columns: [
             {data: 'action', name: 'action', orderable: false, searchable: false},
+            { data: 'vendor_name', name: 'vendor_name'},
             { data: 'id', name: 'id'},
-            { data: 'transdate', name: 'transdate'},
-            { data: 'item_description', name: 'item_description' },
-            { data: 'memo', name: 'memo' },
-            { data: 'firstname', name: 'firstname' },
-            { data: 'firstname', name: 'firstname' },
-            { data: 'prc_description', name: 'prc_description' },
-            { data: 'maintenance_description', name: 'maintenance_description' },
+            { data: 'transno', name: 'transno' },
+            { data: 'suppliers_inv_no', name: 'suppliers_inv_no' },
+            { data: 'duedate', name: 'duedate' },
+            { data: 'duedate', name: 'duedate' },
+            { data: 'billtype_id', name: 'billtype_id' },
+            { data: 'department_name', name: 'department_name' },
             { data: 'created_at', name: 'created_at' }
         ]
     });

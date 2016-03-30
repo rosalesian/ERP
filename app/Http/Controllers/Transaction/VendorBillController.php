@@ -2,10 +2,22 @@
 
 use Nixzen\Http\Requests;
 use Nixzen\Http\Controllers\Controller;
+use Nixzen\Repositories\VendorBillRepository as VendorBill;
+use Nixzen\Http\Requests\CreateVendorBillRequest;
+use Nixzen\Commands\CreateVendorBillCommand;
+use Nixzen\Commands\UpdateVendorBillCommand;
 
 use Illuminate\Http\Request;
+use Datatables;
+use DB;
 
 class VendorBillController extends Controller {
+
+	private $vendorbill;
+
+	function __construct(VendorBill $vendorbill){
+		$this->vendorbill = $vendorbill;
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -14,7 +26,36 @@ class VendorBillController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$vendorbills = $this->vendorbill->all();
+
+		return view('vendorbill.index')
+						->with('vendorbills',$vendorbills);
+	}
+
+	public function anyData()
+	{
+		$vendorbills = DB::table('vendor_bills')
+						->leftjoin('vendors', 'vendor_bills.vendor_id', '=', 'vendors.id')
+						->leftjoin('departments', 'vendor_bills.department_id', '=', 'departments.id')
+						->select(
+								'vendor_bills.id',
+								'vendors.name as vendor_name',
+								'departments.name as department_name',
+								'vendor_bills.created_at',
+								'vendor_bills.transno',
+								'vendor_bills.suppliers_inv_no',
+								'vendor_bills.duedate',
+								'vendor_bills.billtype_id',
+								'vendor_bills.billtype_nontrade_subtype_id'
+							);
+
+		return Datatables::of($vendorbills)
+							 ->addColumn('action', function ($vendorbills) {
+										                return 
+										                '<a href="#edit-'.$vendorbills->id.'"">Edit |</a>
+										                <a href="#edit-'.$vendorbills->id.'"">View</a>';
+										            })
+							->make(true);
 	}
 
 	/**
@@ -24,7 +65,7 @@ class VendorBillController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('vendorbill.create');
 	}
 
 	/**
@@ -32,9 +73,11 @@ class VendorBillController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateVendorBillRequest $request)
 	{
-		//
+		$vendorbill = $this->dispatchFrom(CreateVendorBillCommand::class, $request);
+		//return redirect()->route('vendorbill.show', $vendorbill->id);
+		return view('vendorbill.index');
 	}
 
 	/**
@@ -45,7 +88,9 @@ class VendorBillController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$vendorbill = $this->vendorbill->find($id);
+
+		return view('vendorbill.show')-> with('vendorbill',$vendorbill);
 	}
 
 	/**
@@ -56,7 +101,9 @@ class VendorBillController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$vendorbill = $this->vendorbill->find($id);
+		
+		return view('vendorbill.edit')-> with('vendorbill',$vendorbill);
 	}
 
 	/**
@@ -65,9 +112,13 @@ class VendorBillController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(CreateVendorBillRequest $request, $id)
 	{
-		//
+		$vendorbill = $this->vendorbill->find($id);
+
+		$this->dispatchFrom(UpdateVendorBillCommand::class, $request, ['vendorbill' => $vendorbill]);
+		
+		return redirect()->route('vendorbill.show', $id);
 	}
 
 	/**
@@ -78,7 +129,8 @@ class VendorBillController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->vendorbill->delete($id);
+		return redirect()->route('vendorbill.index');
 	}
 
 }

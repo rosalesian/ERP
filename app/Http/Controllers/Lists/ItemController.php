@@ -15,6 +15,8 @@ class ItemController extends Controller {
 
 	private $item;
 	private $purchaserequetcategory;
+
+
 	public function __construct(Item $item, PurchaseRequestCategory $purchaserequetcategory){
 		$this->item = $item;
 		$this->purchaserequetcategory = $purchaserequetcategory;

@@ -1,9 +1,20 @@
 <?php namespace Nixzen\Models\Item;
 
 use Illuminate\Database\Eloquent\Model;
+use Datatables;
+use DB;
 
 class JobOrder extends Model {
 
+	protected $fillable = [
+			'transdate',
+			'transnumber',
+			'asset',
+			'requested_by',
+			'maintenancetype_id',
+			'prcategory_id',
+			'memo'
+		];
 	protected $table = 'job_orders';
 	
 	protected $primary_key = 'id';
@@ -48,5 +59,36 @@ class JobOrder extends Model {
 	
 	public function updated_by(){
 		return $this->belongsTo('Nixzen\Employee', 'updated_by');
+	}
+
+	public static function getIndex() {
+
+        $jobs = DB::table('job_orders')
+        				->leftjoin('items', 'job_orders.asset', '=', 'items.id')
+        				->leftjoin('departments', 'job_orders.id', '=', 'departments.id')
+        				->leftjoin('employees', 'job_orders.requested_by', '=', 'employees.id')
+        				->leftjoin('maintenance_types', 'job_orders.maintenancetype_id', '=', 'maintenance_types.id')
+        				->leftjoin('purchase_request_categories', 'job_orders.prcategory_id', '=', 'purchase_request_categories.id')
+        				->select(
+	        					'job_orders.id', 
+	        					'job_orders.transdate', 
+	        					'items.description as item_description',
+	        					'job_orders.memo',
+	        					'departments.name as dept_name', 
+	        					'employees.firstname',
+	        					'maintenance_types.description as maintenance_description',
+	        					'purchase_request_categories.description as prc_description',
+	        					'job_orders.created_at',
+	        					'job_orders.updated_at'
+        					)
+        				  ->orderBy('job_orders.created_at', 'desc');
+
+        return Datatables::of($jobs)
+        					 ->addColumn('action', function ($jobs) {
+					                return 
+					                '<a href="#edit-'.$jobs->id.'"">Edit |</a>
+					                <a href="#edit-'.$jobs->id.'"">View</a>';
+					            })
+        					->make(true);
 	}
 }

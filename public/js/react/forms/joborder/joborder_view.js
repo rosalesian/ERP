@@ -1,83 +1,112 @@
-window.PrimaryComponent = React.createClass({
-	callBackCustomForm : function (event) {
-		alert(event.value);
+window.JOMainComponent = React.createClass({
+	getInitialState : function () {
+		return {
+			data:{},
+			type:'',
+			transdate:'',
+			memo:'',
+			asset: '',
+			requested_by: '',
+			maintenancetype_id: '',
+			prcategory_id: ''
+		};
+	},
+	handleChangeCallBack : function (obj) {
+		this.setState(obj);
 	},
 	render : function () {
+		return (
+			<div>
+				<div className="box box-primary">
+			    	<div className="box-header with-border">
+			            <h3 className="box-title">Primary Information</h3>
+			    	</div>
+			       
+			       <JOrimaryComponent defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			    </div>
+
+		       
+			</div>    
+		);
+	}
+});
+
+window.Wrapper = React.createClass({
+	render : function () {
 		return(
+			 <div className="row">
+				<div className="col-md-12"> 
+					{ this.props.children }
+				</div>
+			</div>
+		);
+	}
+});
+
+window.FieldContainer = React.createClass({
+	render : function () {
+		return( <div className="col-md-4 col-sm-6 col-xs-12"> {this.props.children} </div> );
+	}
+});
+
+window.JOrimaryComponent = React.createClass({
+	handleChangeCallBack : function (obj) {
+		this.props.callBackParent(obj);
+	},
+	getDefaultProps : function () {
+		return { defaultValues:{} }
+	},
+	getInitialState : function () {
+		return {
+			data:{}
+		};
+	},
+	componentDidMount : function () {
+		this.request = $.get(base_url+'/ajax/job/request', function (response) {
+			this.setState({data:response});
+		}.bind(this));
+	},
+	componentWillUnmount : function () {
+		this.request.abort();
+	},
+	render : function () {
+		return (
 			<Wrapper>
             	<FieldContainer>
-        			<InputTag attributes={{type:"date", id:"date", name:"date", label:"DATE"}}/>
-        			<InputTag attributes={{type:"select",id:"assetname",name:"assetname", label:"ASSET NAME",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-        			<InputTag attributes={{type:"select",id:"request_department",name:"request_department", label:"REQUEST DEPARTMENT",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-            	</FieldContainer>
 
-            	<FieldContainer>
-        			<InputTag attributes={{type:"select",id:"approval",name:"approval", label:"APPROVAL STATUS",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-        			<InputTag attributes={{type:"select",id:"preparedby",name:"preparedby", label:"PREPARED BY",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-        			<InputTag attributes={{type:"select",id:"type_maintenamce",name:"type_maintenamce", label:"TYPE OF MAINTENANCE",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-            	</FieldContainer>
+            	<Date callBackParent={this.handleChangeCallBack} 
+        				defaultValue={this.props.defaultValues.transdate} 
+        				attributes={{name:"transdate", label:"DATE"}} />
 
-            	<FieldContainer>
-		          	<InputTag attributes={{type:"textarea",id:"remarks",name:"remarks", label:"PURPOSE",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-            	</FieldContainer>
-            	
+        		<Type callBackParent={this.handleChangeCallBack}
+        				defaultValue={this.props.defaultValues.asset}
+        				attributes={{name:"asset", label:"ASSET NAME",options:this.state.data.typelist}} />
+
+        		<Type callBackParent={this.handleChangeCallBack}
+        				defaultValue={this.props.defaultValues.requested_by}
+        				attributes={{name:"requested_by", label:"REQUESTED BY",options:this.state.data.listemployee}} />
+
+        		</FieldContainer>
+
+				<FieldContainer> 
+
+					<Type callBackParent={this.handleChangeCallBack}
+        				defaultValue={this.props.defaultValues.maintenancetype_id}
+        				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE",options:this.state.data.listmaintenancetype}} />
+
+        			<Type callBackParent={this.handleChangeCallBack}
+        				defaultValue={this.props.defaultValues.prcategory_id}
+        				attributes={{name:"prcategory_id", label:"CATEGORIES",options:this.state.data.listspurchase}} />
+
+        			<Remarks callBackParent={this.handleChangeCallBack} 
+        				defaultValue={this.props.defaultValues.memo} 
+        				attributes={{name:"memo", label:"REMARKS"}} />
+        		</FieldContainer>
+
+            
 	        </Wrapper>
 		);
 	}
 });
-
-window.ClassPurchaseRequisition = React.createClass({
-	render : function () {
-		return (
-			<Wrapper>
-				<FieldContainer>
-		          
-		          	<InputTag attributes={{type:"select",id:"type",name:"type", label:"TYPE",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-		          	<InputTag attributes={{type:"select",id:"pricipal",name:"pricipal", label:"PRINCIPAL",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-            	</FieldContainer>
-			
-				<FieldContainer>
-		          	<InputTag attributes={{type:"textarea",id:"remarks",name:"remarks", label:"PURPOSE",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-            	</FieldContainer>
-			
-				<FieldContainer>
-		          	<InputTag attributes={{type:"select",id:"request_department",name:"request_department", label:"NAME OF REQUESTER",options:[{value:'data1',label:'Data 1'},{value:'data2',label:'Data 2'}]}}/>
-            	</FieldContainer>
-			</Wrapper>
-		);
-	}
-});
-
-var TABLE_DESCCRIPTION = {
-	storage:"item_storage",
-	columns: [
-		{name: "description", displayName: "Description", fieldType: "text", className: "form-control"}
-	]
-};
-
-
-var items = [
-	{value:"data1", label:"4000318 CDM FRUIT & NUT 6X24X65G", description:"This is Data 1"},
-	{value:"data2", label:"4005793 CDM ROAST ALMOND 6X24X65G (CS)", description:"This is Data 2"},
-	{value:"data3", label:"4000304 30G CDM FRUIT & NUT (1X12X24)", description:"This is Data 3"}
-];
-
-var TABLE = {
-	storage:"item_storage",
-	columns: [
-		{name: "item", displayName: "Item", className: "react-select-input-lineitem", fieldType: "select", data:items},
-		{name: "description", displayName: "Description", fieldType: "disabled", className: "form-control"},
-		{name: "uom", displayName: "Unit", className: "react-select-input-lineitem", fieldType: "select"},
-		{name: "quantity", displayName: "Quantity", fieldType: "text", className: "form-control"},
-		{name: "rate", displayName: "Rate", fieldType: "disabled", className: "form-control"},
-		{name: "amount", displayName: "Amount", fieldType: "disabled", className: "form-control"},
-		{name: "vatamount", displayName: "VAT Amount", fieldType: "disabled", className: "form-control"},
-		{name: "grossamount", displayName: "Gross Amount", fieldType: "disabled", className: "form-control"},
-		{name: "canvass", displayName: "Canvass", fieldType: "link"}
-	]
-};
-
-ReactDOM.render(<PrimaryComponent />, document.getElementById("joborder_primaryform"));
-ReactDOM.render(<TableComponent table={TABLE_DESCCRIPTION}/>, document.getElementById("description"));
-ReactDOM.render(<ClassPurchaseRequisition />, document.getElementById("purchase_request"));
-ReactDOM.render(<TableComponent table={TABLE}/>, document.getElementById("sublist-items"));
+	
+ReactDOM.render(<JOMainComponent />, document.getElementById("mainPR-container"));

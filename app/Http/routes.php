@@ -42,6 +42,21 @@ Route::group(['namespace' => 'Transaction'], function(){
 	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
 	Route::resource('purchaserequest', 'PurchaseRequestController');
 	Route::resource('vendorpayment', 'VendorPaymentController');
+
+	//Datatables
+	Route::controller('jobordertable', 'JobOrderController', [
+		'anyData'  => 'jobordertable.data',
+		'index' => 'jobordertable',
+	]);
+	Route::resource('vendorbill', 'VendorBillController');
+
+	//Datatables for Vendorbill
+	//Datatables
+	Route::controller('vendortable', 'VendorBillController', [
+		'anyData'  => 'vendortable.data',
+		'index' => 'vendortable',
+	]);
+
 });
 
 Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
@@ -64,6 +79,7 @@ Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
 	Route::get('getEmployees','EmployeeController@getEmployees');
 	Route::get('getMaintenance','MaintenanceTypeController@getMaintenance');
 	Route::get('getPurchase','PurchaseRequestCategoryController@getPurchase');
+	Route::get('job/request','UserController@getJObRequest');
 });
 Route::get('ajax/getUOM/{id}', function ($id){
 	$data=[];
@@ -101,3 +117,4 @@ Route::get('ajax/getUOM/{id}', function ($id){
 Route::get('/', function(){
 	return view('app');
 });
+

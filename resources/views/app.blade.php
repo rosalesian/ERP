@@ -29,7 +29,7 @@
                 </section>
 
                 <section class="content">
-                    @yield('joborder')
+                    @yield('content')
                 </section>
 
             </div><!-- /.content -->
@@ -38,8 +38,6 @@
         </div><!-- ./wrapper -->
  
         @include('layout.main-js')
-
-    
 
      <!-- page script -->
     <script>
