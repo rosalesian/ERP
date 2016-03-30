@@ -53,7 +53,8 @@ Create New Purchase Requisition
 
 <!-- canvass modal -->
 <div class="example-modal" style="width:900px;"> <div class="modal" id="myModal"></div> </div>
-    <?php 
+
+<?php 
     $items=[];
     foreach ($purchaserequest->items as $key) {
         array_push($items, [
@@ -106,7 +107,7 @@ function unittype($itemid, $unitid) {
   return $f;
 }
 
-    ?>
+?>
 @stop
 
 @section('scripts')

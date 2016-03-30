@@ -9,7 +9,7 @@ window.PRMainComponent = React.createClass({
 		return {
 			data : {},
 			pr_id: (typeof this.props.data.id=='undefined') ? '' : this.props.data.id,
-			type : (typeof this.props.data.type_id=='undefined') ? '' : this.props.data.type_id,
+			type_id : (typeof this.props.data.type_id=='undefined') ? '' : this.props.data.type_id,
 			date : (typeof this.props.data.date=='undefined') ? '' : this.props.data.date,
 			deliver_to : (typeof this.props.data.deliver_to=='undefined') ? '' : this.props.data.deliver_to,
 			remarks : (typeof this.props.data.remarks=='undefined') ? '' : this.props.data.remarks,
@@ -96,8 +96,8 @@ window.PrimaryComponent = React.createClass({
             	<FieldContainer>
         			<Type callBackParent={this.handleChangeCallBack}
         				context={this.props.context}
-        				defaultValue={this.props.defaultValues.type}
-        				attributes={{name:"type", label:"TYPE"}} />
+        				defaultValue={this.props.defaultValues.type_id}
+        				attributes={{name:"type_id", label:"TYPE"}} />
 
         			<Date callBackParent={this.handleChangeCallBack}
         				context={this.props.context}
