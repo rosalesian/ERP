@@ -83,6 +83,7 @@ function unittypeEdit($itemid, $unitid) {
       ['value'=>3, 'label'=>'PACKS']
     ];
   }
+
   $f='';
   foreach($data as $d) {
     if($d['value']==$unitid) {
