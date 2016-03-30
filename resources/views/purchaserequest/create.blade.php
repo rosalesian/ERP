@@ -13,10 +13,17 @@ Create New Purchase Requisition
 @stop
 
 @section('content')
+@if($errors->any())
+  <ul class="alert alert-danger">
+      @foreach($errors->all() as $error)
+         <li> {{ $error }} </li>
+      @endforeach
+  </ul>
+@endif
+
  <div class="row">
   <div class="col-md-12">
-    {!! Form::open(array('url'=>'joborder','method'=>'post')) !!}
-
+    {!! Form::open(array('url'=>'purchaserequest','method'=>'post')) !!}
     <div class="transaction-buttons-container">
       <div class="trans-button">
          <input type="submit" class="btn btn-block btn-primary btn-flat" value="Save"/>
@@ -25,30 +32,7 @@ Create New Purchase Requisition
         {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
-    
-   <!--<div class="box box-primary">
-      <div class="box-header with-border">
-              <h3 class="box-title">Primary Information</h3>
-              <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              </div>
-      </div>
-       
-       <div class="box-body" id="pr_primary_form"> 
-       </div>
-
-    </div>
-
-    <div class="box box-primary">
-      <div class="box-header with-border primaryinformation">
-              <h3 class="box-title">Classification</h3>
-              <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              </div>
-      </div>
-      <div class="box-body" id="pr_classification_form"> </div>
-    </div>-->
-    <div id="mainPR-container"></div>
+      <div id="mainPR-container"></div>
     <!--<div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#tab_1" data-toggle="tab">Item</a></li>
@@ -94,7 +78,8 @@ Create New Purchase Requisition
 
 @section('scripts')
 <!-- REACT LIBRARY -->
-<script src="{{ asset('js/react/react.min.js') }}"></script>
+{{-- <script src="{{ asset('js/react/react.min.js') }}"></script> --}}
+<script src="{{ asset('js/react/react.js') }}"></script>
 <script src="{{ asset('js/react/react-dom.min.js') }}"></script>
 <script src="{{ asset('js/react/browser.min.js') }}"></script>
 
@@ -104,18 +89,28 @@ Create New Purchase Requisition
 <script src="{{ asset('js/react/plugin/react-select/dist/react-select.min.js') }}"></script> <!-- select -->
 
 <!-- MAINLINE COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/type.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/date.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/deliveredto.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/remarks.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/totalamount.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/nameofrequester.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/type.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/date.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/deliveredto.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/remarks.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/totalamount.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/nameofrequester.js') }}"></script>
+
+<!-- LINEITEM COMPONENTS -->
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
 
 <!-- CUSTOM REACT COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
 {{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
-
+<script type="text/babel">
+  //console.log(<?php echo json_encode($errors->first()); ?>);
+  var context = "create";
+  ReactDOM.render(<PRMainComponent context={context} data={(typeof purchaserequests=='undefined') ? [] : purchaserequests} />, document.getElementById("mainPR-container"));
+</script>
 
 @stop

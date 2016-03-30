@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call('UnitsTableSeeder');
 
         $this->call('ItemTypeTableSeeder');*/
+
         //$this->call('ItemTableSeeder');
         //$this->call('MaintenanceTypeSeeder');
         //$this->call('PurchaseCategoryTableSeeder');
@@ -31,7 +32,6 @@ class DatabaseSeeder extends Seeder
         //$this->call('BillTypeSeeder');
         //$this->call('BillTypeNonTradeSubTypeSeeder');
         $this->call('VendorsTableSeeder');
-
         Model::reguard();
     }
 }

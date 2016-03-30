@@ -28,7 +28,7 @@ window.TableComponent = React.createClass({
 	},
 	render : function () {
 		var that = this;
-		return(
+		return (
 			<div className="tableWrapper">
 
 				<DataStorage data={this.state.dataStorage} name={this.props.table.storage} />
@@ -95,9 +95,9 @@ window.TableComponent = React.createClass({
 	getUnitOfMeasure : function (item) {
 		var data=[];
 		var rateCS, ratePC, rateBX, ratePCK;
-		if(item=='data1') {
+		if(item=='1') {
 		 data = [{value:"cs", label:"CS", conversionrate:12},{value:"pc", label:"PC", conversionrate:1},{value:"bx", label:"BX", conversionrate:3},{value:"pck", label:"PACK", conversionrate:5}];
-		} else if(item=='data2') {
+		} else if(item=='2') {
 		 data = [{value:"cs", label:"CS", conversionrate:24},{value:"pc", label:"PC", conversionrate:1}];
 		} else {
 		 data = [{value:"cs", label:"CS", conversionrate:48},{value:"pc", label:"PC", conversionrate:1},{value:"bx", label:"BX", conversionrate:3}];
@@ -106,9 +106,9 @@ window.TableComponent = React.createClass({
 	},
 	getRate : function (item) {
 		var data={};
-		if(item=='data1') data = {value:"100", conversion_factor:"12"};
-		if(item=='data2') data = {value:"200", conversion_factor:"24"};
-		if(item=='data3') data = {value:"300", conversion_factor:"48"};
+		if(item=='1') data = {value:"100", conversion_factor:"12"};
+		if(item=='2') data = {value:"200", conversion_factor:"24"};
+		if(item=='3') data = {value:"300", conversion_factor:"48"};
 		return data;	
 	},
 	computeGrossAmount : function (inputValues) {
@@ -124,7 +124,6 @@ window.TableComponent = React.createClass({
 		var serverData = this.state.serverData;
 		var columnsUpdate = this.state.columns;
 		var purchaseprice={};
-
 		switch(column.fieldType) {
 			case "select":
 				if(column.name=='item') {
@@ -171,6 +170,7 @@ window.TableComponent = React.createClass({
 		obj.canvass = canvassItems.data;
 		dataStorage.push(obj);
 		
+		console.log(obj);
 		canvassItems.data = 0;
 		rows.push( <LineRow columns={this.props.table.columns} data={obj} id={rowCounter} callbackParent={this.lineRowCallBack} /> );
 		this.setState({rows: rows, dataStorage:dataStorage, inputValues:inputValues, canvassItems:canvassItems});
@@ -339,11 +339,32 @@ window.LineInputComponent = React.createClass({
 	},
 	getInitialState : function() {
 		return {
-			defaultValue:''
+			defaultValue:'',
+			data:[]
 		};
 	},
 	componentWillReceiveProps : function(nextProps) {
 		this.setState({defaultValue:nextProps.defaultValue});
+	},
+	componentDidMount : function () {
+		if(this.props.column.name=='item') {
+			this.request = $.ajax({
+				url:base_url+'/ajax/getItems',
+				dataType: 'json',
+				type:'GET',
+				success : function (response) {
+					var data=this.state.data;
+					data.length=0;
+					for(var i in response) {
+						data.push({value:response[i].value, label:response[i].label, description:response[i].label});
+					}
+					this.setState({data : data});
+				}.bind(this)
+			});
+		}
+	},
+	componentWillUnmount : function () {
+		this.request.abort();
 	},
 	onChangeHandler : function(column, event) {
 		switch(column.fieldType) {
@@ -362,7 +383,22 @@ window.LineInputComponent = React.createClass({
 		if(this.props.edit) {
 			switch(column.fieldType) {
 				case "select":
-					field = <Select className={column.className} name="form-field-name" value={this.state.defaultValue} options={column.data} onChange={this.onChangeHandler.bind(this,column)} clearable={false} />
+					if(column.name=='item') {
+						field = <Select className={column.className}
+								name="form-field-name"
+								value={this.state.defaultValue}
+								options={this.state.data}
+								onChange={this.onChangeHandler.bind(this,column)}
+								clearable={false} />
+					} else {
+						field = <Select className={column.className}
+								name="form-field-name"
+								value={this.state.defaultValue}
+								options={column.data}
+								onChange={this.onChangeHandler.bind(this,column)}
+								clearable={false} />
+					}
+					
 					break;
 				case "text":
 					field = <input name={column.name} value={this.state.defaultValue} type={column.type} className={column.className} id={column.name}  onChange={this.onChangeHandler.bind(this,column)}/>;
@@ -431,7 +467,8 @@ window.LineColumn = React.createClass({
 	},
 	getInitialState : function () {
 		return {
-			defaultValue:this.props.defaultValue
+			defaultValue:this.props.defaultValue,
+			data:[]
 		}
 	},
 	handleChange : function (event) {
@@ -459,13 +496,48 @@ window.LineColumn = React.createClass({
 	displayModal : function () {
 		this.props.callBackDisplay();
 	},
+	componentDidMount : function () {
+		if(this.props.column.name=='item') {
+			this.request = $.ajax({
+				url:base_url+'/ajax/getItems',
+				dataType: 'json',
+				type:'GET',
+				success : function (response) {
+					var data=this.state.data;
+					data.length=0;
+					for(var i in response) {
+						data.push({value:response[i].value, label:response[i].label, description:response[i].label});
+					}
+					this.setState({data : data});
+				}.bind(this)
+			});
+		}
+	},
+	componentWillUnmount : function () {
+		this.request.abort();
+	},
 	render : function () {
 		var field;
 		var that = this;
+		console.log(this.props.column);
 		if(this.props.edit) {
 			switch(this.props.column.fieldType) {
 				case "select":
-						field = <Select className={this.props.column.className} name="form-field-name" value={this.state.defaultValue} options={this.props.column.data} onChange={this.handleChange} clearable={false} />
+						if(column.name=='item') {
+							field = <Select className={column.className}
+								name="form-field-name"
+								value={this.state.defaultValue}
+								options={this.state.data}
+								onChange={this.onChangeHandler.bind(this,column)}
+								clearable={false} />
+						} else {
+							field = <Select className={this.props.column.className}
+								name="form-field-name"
+								value={this.state.defaultValue}
+								options={this.props.column.data}
+								onChange={this.handleChange}
+								clearable={false} />
+						}
 						break;
 				case "text":
 						field = <input id={this.props.column.name+'_row'} name={this.props.column.name} value={ this.state.defaultValue } type={this.props.column.type} className={this.props.column.className} id={this.props.column.name}  onChange={this.handleChange}/>;

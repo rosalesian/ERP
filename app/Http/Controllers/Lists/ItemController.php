@@ -16,6 +16,7 @@ class ItemController extends Controller {
 	private $item;
 	private $purchaserequetcategory;
 
+
 	public function __construct(Item $item, PurchaseRequestCategory $purchaserequetcategory){
 		$this->item = $item;
 		$this->purchaserequetcategory = $purchaserequetcategory;
@@ -105,19 +106,32 @@ class ItemController extends Controller {
 
 	public function getItems()
     {
-     
-        $data_items = [];
+        // $items = $this->item->lists('description', 'id');
         $items = $this->item->all();
-        foreach($items as $item) {
-        	$result = [];
-            $result['value'] = $item->id;
-            $result['label'] = $item->description;
-            $data_items[]= $result;
+        $d = [];
+        foreach ($items as $key) {
+        	$arr = [
+        		"value"=>$key->id,
+        		"label"=>$key->description,
+        		"description"=>$key->itemcode,
+        	];
+        	array_push($d, $arr);
         }
-        
-        return Response::json(['typelist' => $data_items]);
 
+        // $type = $this->purchaserequetcategory->all();
+        // $r = [];
+        // foreach ($type as $key) {
+        // 	$arrr = [
+        // 		"value"=>$key->id,
+        // 		"label"=>$key->name
+        // 	];
+        // 	array_push($r, $arrr);
+        // }
+        return Response::json($d);  
 
     }
 
+    public function getDescription($id) {
+    	return Response::json($this->item->find($id)->description);
+    }
 }

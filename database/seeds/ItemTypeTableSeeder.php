@@ -13,21 +13,21 @@ class ItemTypeTableSeeder extends Seeder
     public function run()
     {
     	//clear table
-        ItemTypes::truncate();
+        // ItemTypes::truncate();
 
         //1
-        ItemTypes::create([
-        	'name' => 'Services'
-        ]);
+        //  ItemTypes::create([
+        // 	'name' => 'Services'
+        // ]);
 
         //2
-        ItemTypes::create([
-        	'name' => 'Inventory'
-        ]);
+        // ItemTypes::create([
+        // 	'name' => 'Inventory'
+        // ]);
 
         //3
-        ItemTypes::create([
-        	'name' => 'Non-Inventory'
-        ]);
+        // ItemTypes::create([
+        // 	'name' => 'Non-Inventory'
+        // ]);
     }
 }
