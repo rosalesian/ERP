@@ -93,6 +93,12 @@ class ItemController extends Controller
 
     public function getItems()
     {
+<<<<<<< HEAD
+        $items = $this->item->lists('description', 'id');
+        dd($this->item);
+        // return Response::json($items);
+
+=======
         $data = [];
        // $items = $this->item->lists('description', 'id');
         $items = $this->item->all();
@@ -101,5 +107,6 @@ class ItemController extends Controller
             echo $tem->description;
         }
         //return Response::json($items);  
+>>>>>>> 7b2fd6aa8361fea3579bd555c2892acb63b2f327
     }
 }

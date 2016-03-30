@@ -59,6 +59,7 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function show($id)
 	{
+
 		$purchaserequest = $this->purchaserequest->with('items')->find($id);
 		return view('purchaserequest.show')-> with('purchaserequest',$purchaserequest);
 	}
