@@ -22,9 +22,8 @@ class CanvassController extends Controller {
 	public function index($id)
 	{
 		$prItem = $this->prItem->find($id);
-
 		return response()->json([
-			'canvasses' => $prItem->canvasses()
+			'canvasses' => json_encode($prItem->canvasses()->get())
 		]);
 	}
 
@@ -45,7 +44,7 @@ class CanvassController extends Controller {
 	 */
 	public function save($id, Request $request)
 	{
-		
+
 		$prItem = $this->prItem->find($id);
 		$canvasses = json_decode($request->input('canvasses'));
 		foreach($canvasses as $data){
