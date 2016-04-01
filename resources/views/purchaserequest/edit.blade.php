@@ -129,6 +129,7 @@ function unittypeEdit($itemid, $unitid) {
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
 <script type="text/babel">
   var purchaserequests = <?php echo $purchaserequest; ?>;
+  console.log(purchaserequests);
   var items= <?php echo json_encode($items); ?>;
   var context="edit";
   ReactDOM.render(<PRMainComponent context={context} data={(typeof purchaserequests=='undefined') ? [] : purchaserequests} items={items}/>, document.getElementById("mainPR-container"));

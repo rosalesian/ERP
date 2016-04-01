@@ -106,9 +106,11 @@ Create New Purchase Requisition
 {{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
 <script type="text/babel">
-  //console.log(<?php echo json_encode($errors->first()); ?>);
+  var purchaserequests = <?php echo json_encode(Input::old()); ?>;
   var context = "create";
-  ReactDOM.render(<PRMainComponent context={context} data={(typeof purchaserequests=='undefined') ? [] : purchaserequests} />, document.getElementById("mainPR-container"));
+  ReactDOM.render(<PRMainComponent context={context}
+                  data={(typeof purchaserequests=='undefined') ? {} : purchaserequests} />,
+                  document.getElementById("mainPR-container"));
 </script>
 
 @stop

@@ -20,22 +20,11 @@ div #navbar-collapse {
 }
 
 .summary-container {
-	margin:3% 0% 0% 10%;
-	width:80%;
 	background-color: #e0f1fb;
 }
 .summary-header {
-	padding:2px;
 	background-color: #3c8dbc;
 	color:#ffffff;
-	padding:1% 0% 1% 6%;
-}
-.summary-content {
-	margin:2% 6% 0% 6%;
-	padding-bottom:2%; 
-}
-.summary-content .row {
-	padding-top:4px;
 }
 
 input[type='checkbox'] {
