@@ -16,8 +16,7 @@ class UpdatePurchaseRequestCommandHandler
      * @return void
      */
     public function __construct()
-    {
-    }
+    {}
 
     /**
      * Handle the command.
@@ -27,27 +26,38 @@ class UpdatePurchaseRequestCommandHandler
      */
     public function handle(UpdatePurchaseRequestCommand $command)
     {
-        $command->purchaserequest->update((array)$command);
-				$lineitems = $command->purchaserequest->items();
+		$this->purchaserequest = $command->purchaserequest;
+        $this->purchaserequest->update((array)$command);
 
-        foreach($command->items as $item){
-						$prItem = $command->purchaserequest
-											->items()
-											->where('item_id', $item->item_id)
-											->where('unit_id', $item->unit_id)
-											->first();
+		$this->saveLineItems($command->items);
 
-						if($prItem == null){
-							$command->purchaserequest->items()->create((array)$item);
-						}else{
-							$prItem->update((array)$item);
-						}
-        }
         event(new PurchaseRequestWasUpdated($command->purchaserequest));
     }
 
-		public function cleanLineItem($lineitem)
-		{
+	public function saveLineItems($inputs)
+	{
+		$lineitems = $this->purchaserequest->items();
 
+		foreach($inputs as $data)
+		{
+			$lineitem = $lineitems->where('item_id', $data->item_id)
+							      ->where('unit_id', $data->unit_id)
+							      ->first();
+
+			if($lineitem == null)
+			{
+				$this->purchaserequest->items()->create((array)$data);
+			}else
+			{
+				$lineitem->update((array)$data);
+			}
 		}
+	}
+
+	public function cleanLineItem($inputs)
+	{
+		$lineitems = $this->purchaserequest->items();
+		$result = array_diff( $lineitems->get(['id']), (array)$inputs);
+
+	}
 }
