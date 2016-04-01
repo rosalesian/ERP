@@ -1,7 +1,7 @@
 window.PRMainComponent = React.createClass({
 	getDefaultProps : function () {
 		return { 
-			data:[],
+			data:{},
 			context:''
 		};
 	},
@@ -13,7 +13,7 @@ window.PRMainComponent = React.createClass({
 			date : (typeof this.props.data.date=='undefined') ? '' : this.props.data.date,
 			deliver_to : (typeof this.props.data.deliver_to=='undefined') ? '' : this.props.data.deliver_to,
 			remarks : (typeof this.props.data.remarks=='undefined') ? '' : this.props.data.remarks,
-			totalamount : (typeof this.props.data.total_amount=='undefined') ? '' : this.props.data.total_amount,
+			total_amount : (typeof this.props.data.total_amount=='undefined') ? '' : this.props.data.total_amount,
 			requester : (typeof this.props.data.requester=='undefined') ? '' : this.props.data.requester
 		};
 	},
@@ -121,8 +121,8 @@ window.PrimaryComponent = React.createClass({
             	<FieldContainer>
             		<TextMainComponent callBackParent={this.handleChangeCallBack} 
     				context={this.props.context}
-    				defaultValue={this.props.defaultValues.totalamount} 
-    				attributes={{name:"totalamount", label:"TOTAL AMOUNT"}} />
+    				defaultValue={this.props.defaultValues.total_amount}
+    				attributes={{name:"total_amount", label:"TOTAL AMOUNT"}} />
 
             		<SelectMainComponent callBackParent={this.handleChangeCallBack}
     				context={this.props.context}
@@ -496,13 +496,27 @@ window.TableRow = React.createClass({
 		}
 	},
 	displayModal : function (defaultValues, evt) {
-		console.log(defaultValues);
-		ReactDOM.render(<CanvassComponent callBackParent={this.handleCallBackLine}
-							defaultValues={defaultValues}
+		$.ajax({
+		url:base_url+'/api/1.0/pritem/'+this.props.defaultValues.id+'/canvass',
+		type:'GET',
+		success : function (response) {
+			var data = JSON.parse(response.canvasses);
+			var canvasses=[];
+			for(var i in data) {
+				canvasses.push({
+					vendor_id:data[i].vendor_id,
+					vendor_label:data[i].vendor_id,
+					terms_id:data[i].terms_id,
+					terms_label:data[i].terms_id,
+					cost:data[i].cost
+				});
+			}
+			
+			ReactDOM.render(<CanvassComponent defaultValues={defaultValues}
+							data={canvasses}
 				            context='create' />, document.getElementById('myModal'));
-	},
-	handleSaveCanvass : function (data) {
-		console.log(data);
+		}.bind(this)
+		});
 	},
 	handleClick : function (evt) {
 		this.props.handleCallBackParentClick(evt.currentTarget.id);
