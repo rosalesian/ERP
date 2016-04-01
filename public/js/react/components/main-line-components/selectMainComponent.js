@@ -40,7 +40,6 @@ window.SelectMainComponent = React.createClass({
 	render : function () {
 		var field;
 		var placeholder="CHOOSE "+this.props.attributes.label;
-
 		if(this.props.context=='create' || this.props.context=='edit') {
 			field = <div className="form-group">
 						<label for={this.props.attributes.id}>{this.props.attributes.label}</label>
