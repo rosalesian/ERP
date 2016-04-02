@@ -21,6 +21,7 @@ window.JOMainComponent = React.createClass({
 		
 
 			//for edit
+			id: (typeof this.props.data.id=='undefined') ? '' : this.props.data.id,
 			type_id: (typeof this.props.data.type_id=='undefined') ? '' : this.props.data.type_id,
 			requested_by: (typeof this.props.data.requested_by=='undefined') ? '' : this.props.data.requested_by,
 			prcategory_id: (typeof this.props.data.prcategory_id=='undefined') ? '' : this.props.data.prcategory_id,

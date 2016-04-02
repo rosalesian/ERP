@@ -112,32 +112,10 @@ class JobOrderController extends Controller {
 	 */
 	public function show($id)
 	{
-		/*$joborder = $this->joborder->with('items')->find($id);
-		return view('joborder.show')->with('joborder',$joborder);*/
-		//$joborder = $this->joborder->with('items')->find($id);
-		//dd($joborder->id);
-		/*$data = JobOrder::materialCost($id);
-		return Response::json($data);
-		return view('joborder.show')->with('joborder',$joborder);*/
-		//dd($this->joborder->find($id)->laborItems()->first()->jobOrderType()->get()->first()->name);
 
 		$joborder = $this->joborder->with('materialCost','laborItems')->find($id);
 		//return Response::json($joborder->laborCost);
 		return view('joborder.show')->with('joborder',$joborder);
-
-		//need modified
-		/*$labor_items = [];
-	    foreach($joborder->laborCost as $key) {
-	        $temp = [];
-	        $temp['_token'] = csrf_token();
-	        $temp['id'] = $key->id;
-	        $temp['item_id'] = $key->item->id;
-	        $temp['item_label'] = $key->item->description;
-	        $temp['job_type_id'] = $key->jobtype_id;
-	        $temp['job_type_label'] = $key->name;
-	        $labor_items[] = $temp;
-	    }
-	    return Response::json($labor_items);*/
 	}
 
 	/**
@@ -160,7 +138,8 @@ class JobOrderController extends Controller {
 	 */
 	public function update($id)
 	{
-		$this->joborder->update(Input::all(), $id);
+		$data = $this->joborder->find($id);
+		$data->update(Input::all(), $id);
 		return redirect()->route('joborder.show', $id);
 	}
 
