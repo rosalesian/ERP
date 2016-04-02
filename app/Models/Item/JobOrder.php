@@ -116,7 +116,7 @@ class JobOrder extends Model {
         return Datatables::of($jobs)
         					 ->addColumn('action', function ($jobs) {
 					                return 
-					                '<a href="#edit-'.$jobs->id.'"">Edit |</a>
+					                '<a href="joborder/'.$jobs->id.'/edit">Edit |</a>
 					                <a href="joborder/'.$jobs->id.'"">View</a>';
 					            })
         					->make(true);
