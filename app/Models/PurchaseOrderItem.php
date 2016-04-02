@@ -6,7 +6,15 @@ class PurchaseOrderItem extends Model {
 
 	protected $table = 'purchase_order_items';
 
-	protected $fillable = ['item_id', 'uom_id', 'quantity'];
+	const VAT_RATE = 0.12;
+
+	protected $fillable =
+	[
+		'item_id',
+		'uom_id',
+		'quantity',
+		'unit_cost'
+	];
 
 	public function purchaseorder()
 	{
@@ -36,5 +44,20 @@ class PurchaseOrderItem extends Model {
 	public function updatedby()
 	{
 		return $this->belongsTo('Nixzen\Employee', 'updated_by');
+	}
+
+	public function getGrossAmount()
+	{
+		return $this->getAmount() * (self::VAT_RATE + 1);
+	}
+
+	public function getVatAmount()
+	{
+		return $this->getAmount() * self::VAT_RATE;
+	}
+
+	public function getAmount()
+	{
+		return $this->quantity * $this->unit_cost;
 	}
 }

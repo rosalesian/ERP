@@ -52,7 +52,6 @@ class PurchaseRequestControllerTest extends TestCase
 		{
 			$this->makeFactoryPurchaseRequest();
 			$response = $this->call('GET', 'purchaserequest/1/edit');
-			//dd($response);
 			$this->assertResponseOk();
 			$this->assertViewHas('purchaserequest');
 		}

@@ -6,7 +6,8 @@ class PurchaseOrder extends Model {
 
 	protected $table = 'purchase_orders';
 
-	protected $fillable = [
+	protected $fillable =
+	[
 		'vendor_id',
 		'terms_id',
 		'date',
@@ -14,11 +15,6 @@ class PurchaseOrder extends Model {
 		'paymenttype_id',
 		'memo'
 	];
-
-	public function purchaseorderitems()
-	{
-		return $this->hasMany('Nixzen\PurchaseOrderItem', 'purchaseorder_id');
-	}
 
 	public function vendor()
 	{
@@ -84,5 +80,31 @@ class PurchaseOrder extends Model {
 	public function itemreceipt()
 	{
 		return $this->hasMany(ItemReceipt::class, 'purchaseorder_id');
+	}
+
+	public function getAmountDue()
+	{
+		$amountDue = 0;
+		$lineitems = $this->items()->get();
+
+		foreach($lineitems as $lineitem)
+		{
+			$amountDue += $lineitem->amount();
+		}
+
+		return $amountDue;
+	}
+
+	public function getTotalVatAmount()
+	{
+		$totalVatAmount = 0;
+		$lineitems = $this->items()->get();
+
+		foreach($lineitems as $lineitem)
+		{
+			$totalVatAmount += $lineitem->vatAmount();
+		}
+
+		return $totalVatAmount;
 	}
 }
