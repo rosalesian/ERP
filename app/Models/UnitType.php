@@ -22,5 +22,9 @@ class UnitType extends Model {
 	{
 		return $this->belongsTo('Nixzen\Employee', 'updated_by');
 	}
+    //adding relationship Unit type for items
+    public function items() {
+        return $this->hasMany('Nixzen\Models\Item', 'unittype_id');
+    }
 
 }
