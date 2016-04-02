@@ -5,6 +5,7 @@ use Nixzen\Http\Controllers\Controller;
 use Nixzen\Repositories\JobOrderTypeRepository as JobOrderType;
 
 use Illuminate\Http\Request;
+use Response;
 
 class JobOrderTypeController extends Controller {
 
@@ -92,6 +93,20 @@ class JobOrderTypeController extends Controller {
 	{
 		$this->jobordertype->delete($id);
 		//return view('');
+	}
+
+	public function getJoborderType() {
+		
+		$data_jobordertypes = [];
+		$jobordertypes = $this->jobordertype->all();
+		foreach($jobordertypes as $data_jobordertype) {
+			$result = [];
+			$result['value'] = $data_jobordertype->id;
+			$result['label'] = $data_jobordertype->name;
+			$data_jobordertypes[] = $result;
+		}
+
+		return Response::json($data_jobordertypes);
 	}
 
 }

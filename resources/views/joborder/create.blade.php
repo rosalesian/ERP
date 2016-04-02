@@ -5,7 +5,7 @@ Create New Job Order
 @stop
 
 @section('content-header')
-<h1>Purchase Requisition</h1>
+<h1>Create Job Order</h1>
 <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Dashboard</li>
@@ -13,6 +13,13 @@ Create New Job Order
 @stop
 
 @section('content')
+@if($errors->any())
+  <ul class="alert alert-danger">
+      @foreach($errors->all() as $error)
+         <li> {{ $error }} </li>
+      @endforeach
+  </ul>
+@endif
  <div class="row">
   <div class="col-md-12">
     {!! Form::open(array('url'=>'joborder','method'=>'post')) !!}
@@ -108,6 +115,12 @@ Create New Job Order
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/selectMainComponent.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
+
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/repair_type.js') }}"></script>
 
 <!-- CUSTOM REACT COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
