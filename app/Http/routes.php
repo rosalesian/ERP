@@ -57,6 +57,14 @@ Route::group(['namespace' => 'Transaction'], function(){
 		'index' => 'vendortable',
 	]);
 
+	//GET DATA FOR PURCHASE REQUEST
+	//Route::get('getPurchaseRequest', 'PurchaseRequestController@getPurchaseRequest');
+
+	Route::controller('prtable', 'PurchaseRequestController', [
+		'anyData'  => 'prtable.data',
+		'index' => 'prtable',
+	]);
+
 });
 
 Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
