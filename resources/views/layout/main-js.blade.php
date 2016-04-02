@@ -67,7 +67,7 @@
     {{-- // <script src="{{ asset('plugins/select2/select2.full.min.js') }}"></script> --}}
 
     <!-- DataTables -->
-    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('js/datatable.js') }}"></script>
 
           <!-- App scripts -->
     @stack('scripts')

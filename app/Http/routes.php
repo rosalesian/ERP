@@ -87,6 +87,9 @@ Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
 	Route::get('getMaintenancetype', 'UserController@getMaintenancetype');
 	Route::get('getVendorBill', 'UserController@getVendorBill');
 	Route::get('getDepartment', 'UserController@getDepartment');
+
+	//lists for jobordertype
+	Route::get('getJoborderType', 'JobOrderTypeController@getJoborderType');
 });
 Route::get('ajax/getUOM/{id}', function ($id){
 	$data=[];
