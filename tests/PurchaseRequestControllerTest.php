@@ -20,8 +20,8 @@ class PurchaseRequestControllerTest extends TestCase
      */
     public function testIndex()
     {
-      $response = $this->call('GET','purchaserequest');
-			$this->assertViewHas('purchaserequests');
+      	$response = $this->call('GET','purchaserequest');
+		$this->assertViewHas('purchaserequests');
     }
 
 	public function testCreate()
@@ -65,7 +65,6 @@ class PurchaseRequestControllerTest extends TestCase
 		$this->makeFactoryPurchaseRequest();
 
 		$response = $this->call('PATCH', 'purchaserequest/1', $request);
-		//dd($response->original);
 		$this->assertRedirectedToRoute('purchaserequest.show', [1]);
 	}
 
@@ -91,9 +90,9 @@ class PurchaseRequestControllerTest extends TestCase
 	public function makeInputFactory()
 	{
 		$item = [
-			['item_id'=> 1,'quantity'=> 2, 'unit_id'=> 1],
-			['item_id'=> 2,'quantity'=> 2, 'unit_id'=> 1],
-			['item_id'=> 1,'quantity'=> 2, 'unit_id'=> 2]
+			['id' => '1', 'item_id'=> '1','quantity'=> '2', 'unit_id'=> '1'],
+			['id' => '2', 'item_id'=> '2','quantity'=> '2', 'unit_id'=> '1'],
+			['id' => '3', 'item_id'=> '1','quantity'=> '2', 'unit_id'=> '2']
 		];
 
 		$request =[

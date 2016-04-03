@@ -77,4 +77,31 @@ class PurchaseRequest extends Model {
 
 		return $this->hasMany('Nixzen\Models\Workflow', 'record_id');
 	}
+
+	public function updateLineItems($inputs){
+		foreach($inputs as $input)
+		{
+			$lineitem = $this->items()
+					->firstOrNew(['id' => $input->id]);
+
+			$lineitem->item_id = $input->item_id;
+			$lineitem->quantity = $input->quantity;
+			$lineitem->unit_id = $input->unit_id;
+			$lineitem->save();
+		}
+
+		$ids = collect($inputs)->fetch('id')->toArray();
+		$this->cleanLineItems($ids);
+	}
+
+	public function cleanLineItems($ids)
+	{
+		foreach($this->items as $key => $item)
+		{
+			if(in_array($item->id, $ids))
+			{
+				$item->delete();
+			}
+		}
+	}
 }

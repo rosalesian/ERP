@@ -26,38 +26,16 @@ class UpdatePurchaseRequestCommandHandler
      */
     public function handle(UpdatePurchaseRequestCommand $command)
     {
-		$this->purchaserequest = $command->purchaserequest;
-        $this->purchaserequest->update((array)$command);
+        $purchaserequest = $command->purchaserequest;
+		$purchaserequest->type_id = $command->type_id;
+		$purchaserequest->date = $command->date;
+		$purchaserequest->requester = $command->requester;
+		$purchaserequest->deliver_to = $command->deliver_to;
+		$purchaserequest->remarks = $command->remarks;
+		$purchaserequest->save();
 
-		$this->saveLineItems($command->items);
+		$purchaserequest->updateLineItems($command->items);
 
         event(new PurchaseRequestWasUpdated($command->purchaserequest));
     }
-
-	public function saveLineItems($inputs)
-	{
-		$lineitems = $this->purchaserequest->items();
-
-		foreach($inputs as $data)
-		{
-			$lineitem = $lineitems->where('item_id', $data->item_id)
-							      ->where('unit_id', $data->unit_id)
-							      ->first();
-
-			if($lineitem == null)
-			{
-				$this->purchaserequest->items()->create((array)$data);
-			}else
-			{
-				$lineitem->update((array)$data);
-			}
-		}
-	}
-
-	public function cleanLineItem($inputs)
-	{
-		$lineitems = $this->purchaserequest->items();
-		$result = array_diff( $lineitems->get(['id']), (array)$inputs);
-
-	}
 }
