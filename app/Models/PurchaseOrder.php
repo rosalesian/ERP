@@ -107,4 +107,15 @@ class PurchaseOrder extends Model {
 
 		return $totalVatAmount;
 	}
+
+	public function removeitems($ids)
+    {
+        foreach ($this->items as $key => $item) {
+
+             if(!in_array($item->id,$ids))
+             {
+                $item->delete();
+             }
+        }
+    }
 }

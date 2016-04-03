@@ -77,4 +77,15 @@ class PurchaseRequest extends Model {
 
 		return $this->hasMany('Nixzen\Models\Workflow', 'record_id');
 	}
+
+	public function removeitems($ids)
+    {
+        foreach ($this->items as $key => $item) {
+
+             if(!in_array($item->id,$ids))
+             {
+                $item->delete();
+             }
+        }
+    }
 }
