@@ -65,49 +65,9 @@ Create New Purchase Requisition
                 "description"=>$key->item->itemcode,
                 "quantity"=>$key->quantity,
                 "unit_id"=>$key->unit_id,
-                "uom_label"=>unittypeShow($key->item->id,$key->unit_id)
+                "uom_label"=>$key->unit->abbreviation
           ]);
     }
-function unittypeShow($itemid, $unitid) {
-  $data=[];
-  if($itemid=='1') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PC']
-    ];
-  } else if($itemid=='2') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PACKS']
-    ];
-  } else if($itemid=='3') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'BX']
-    ];
-  } else if($itemid=='4') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PACKS'],
-      ['value'=>3, 'label'=>'BX']
-    ];
-  } else if($itemid=='5') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PCS'],
-      ['value'=>3, 'label'=>'PACKS']
-    ];
-  }
-
-  $f='';
-  foreach($data as $d) {
-    if($d['value']==$unitid) {
-      $f = $d['label'];
-    }
-  }
-  return $f;
-}
-
 ?>
 @stop
 

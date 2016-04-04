@@ -100,38 +100,17 @@ Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
 	Route::get('getJoborderType', 'JobOrderTypeController@getJoborderType');
 });
 Route::get('ajax/getUOM/{id}', function ($id){
-	$data=[];
-	if($id=='1') {
-		$data=[
-			['value'=>1, 'label'=>'CS'],
-			['value'=>2, 'label'=>'PC']
-		];
-	} else if($id=='2') {
-		$data=[
-			['value'=>1, 'label'=>'CS'],
-			['value'=>2, 'label'=>'PACKS']
-		];
-	} else if($id=='3') {
-		$data=[
-			['value'=>1, 'label'=>'CS'],
-			['value'=>2, 'label'=>'BX']
-		];
-	} else if($id=='4') {
-		$data=[
-			['value'=>1, 'label'=>'CS'],
-			['value'=>2, 'label'=>'PACKS'],
-			['value'=>3, 'label'=>'BX']
-		];
-	} else if($id=='5') {
-		$data=[
-			['value'=>1, 'label'=>'CS'],
-			['value'=>2, 'label'=>'PCS'],
-			['value'=>3, 'label'=>'PACKS']
-		];
+	$data = Nixzen\Models\UnitType::find($id)->units;
+	$units=[];
+	foreach($data as $val) {
+		array_push($units,[
+			'value'=>$val->id,
+			'label'=>$val->abbreviation
+		]);
 	}
-
-	return Response::json($data);
+	return Response::json($units);
 });
+
 Route::get('/', function(){
 	return view('app');
 });
