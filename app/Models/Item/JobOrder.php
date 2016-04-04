@@ -110,8 +110,7 @@ class JobOrder extends Model {
 	        					'purchase_request_categories.description as prc_description',
 	        					'job_orders.created_at',
 	        					'job_orders.updated_at'
-        					)
-        				  ->orderBy('job_orders.created_at', 'desc');
+        					);
 
         return Datatables::of($jobs)
         					 ->addColumn('action', function ($jobs) {
