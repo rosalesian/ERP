@@ -14,9 +14,9 @@ class CreateVendorPaymentItemTable extends Migration
     {
         Schema::create('vendor_payment_item', function (Blueprint $table) {
             $table->increments('id');
-						$table->integer('vendor_payment_id')->unsigned();
-						$table->boolean('apply')->default(false);
-						$table->integer('bill_id')->unsigned();
+			$table->integer('vendor_payment_id')->unsigned();
+			$table->boolean('apply')->default(false);
+			$table->integer('bill_id')->unsigned();
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ interface RepositoryInterface {
      * @return mixed
      */
     public function paginate($perPage = 1, $columns = array('*'));
-    
+
     /**
      * @param array $data
      * @return mixed
@@ -64,6 +64,19 @@ interface RepositoryInterface {
      */
     public function findWhere($where, $columns = array('*'));
 
+	/**
+     * @param $relation
+     * @return repository instance
+     */
     public function with($relation);
+
+	/**
+     * @param $id
+     * @param array $columns
+     * @return mixed
+     */
+	public function firstOrCreate($columns, array $data);
+
+	public function saveWith($id, array $relations);
 
 }
