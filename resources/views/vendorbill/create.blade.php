@@ -32,7 +32,7 @@ Create New Vendor Bill
          <input type="submit" class="btn btn-block btn-primary btn-flat" value="Save"/>
       </div>
       <div class="trans-button">
-        {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
+        {!! HTML::link('vendorbill','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
 
@@ -43,7 +43,7 @@ Create New Vendor Bill
          <button class="btn btn-block btn-primary btn-flat">Save</button>
       </div>
       <div class="trans-button">
-        {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
+        {!! HTML::link('vendorbill','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
 
@@ -78,6 +78,12 @@ Create New Vendor Bill
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
+
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/repair_type.js') }}"></script>
 
 <!-- CUSTOM REACT COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>

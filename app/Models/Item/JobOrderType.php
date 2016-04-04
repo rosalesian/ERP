@@ -15,5 +15,9 @@ class JobOrderType extends Model {
 	public function updated_by(){
 		return $this->belongsTo('Nixzen\Employee', 'updated_by');
 	}
-
+	//add relationship job_order_type to labor_item
+/*	public function labor_item() {
+		return $this->hasMany('Nixzen\Models\LaborItem', 'jobtype_id');
+	}
+*/
 }

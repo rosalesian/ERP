@@ -16,13 +16,14 @@ class VendorBillItem extends Model
 		'amount',
 		'taxcode_id',
 		'tax_amount',
-		'gross_amount'
+		'gross_amount',
+        'vendorbill_id'
     ];
 
-
+    //change belongsTo to hasMany
     public function vendorbill()
 	{
-		return $this->belongsTo('Nixzen\Models\VendorBill', 'vendorbill_id');
+		return $this->hasMany('Nixzen\Models\VendorBill', 'vendorbill_id');
 	}
 
     public function item()

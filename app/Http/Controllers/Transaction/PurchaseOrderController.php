@@ -13,7 +13,7 @@ class PurchaseOrderController extends Controller {
 	private $purchaseorder;
 
 	public function __construct(PurchaseOrder $purchaseorder){
-			$this->purchaseorder = $purchaseorder;
+		$this->purchaseorder = $purchaseorder;
 	}
 
 	/**
@@ -23,9 +23,10 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function index()
 	{
-			$purchaseorders = $this->purchaseorder->all();
+		$purchaseorders = $this->purchaseorder->all();
 
-			return view('purchaseorder.index')->with('purchaseorders',$purchaseorders);
+		return view('purchaseorder.index')
+				->with('purchaseorders',$purchaseorders);
 	}
 
 	/**
@@ -35,7 +36,7 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function create()
 	{
-			return view('purchaseorder.create');
+		return view('purchaseorder.create');
 	}
 
 	/**
@@ -45,8 +46,13 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function store(CreatePurchaseOrderRequest $request)
 	{
-			$purchaseorder = $this->dispatchFrom(CreatePurchaseOrderCommand::class, $request);
-			return redirect()->route('purchaseorder.show', $purchaseorder->id);
+		$purchaseorder = $this->dispatchFrom(
+			CreatePurchaseOrderCommand::class,
+			$request
+		);
+
+		return redirect()
+				->route('purchaseorder.show',$purchaseorder->id);
 	}
 
 	/**
@@ -57,8 +63,17 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function show($id)
 	{
-			$purchaseorder = $this->purchaseorder->with('items')->find($id);
-			return view('purchaseorder.show')->with('purchaseorder',$purchaseorder);
+		$purchaseorder = $this->purchaseorder
+						->with('items')
+						->find($id);
+
+		if($purchaseorder == null)
+			abort(404);
+
+
+
+		return view('purchaseorder.show')
+				->with('purchaseorder',$purchaseorder);
 	}
 
 	/**
@@ -69,8 +84,12 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function edit($id)
 	{
-			$purchaseorder = $this->purchaseorder->with('items')->find($id);
-			return view('purchaseorder.edit')->with('purchaseorder',$purchaseorder);
+		$purchaseorder = $this->purchaseorder
+						->with('items')
+						->find($id);
+
+		return view('purchaseorder.edit')
+				->with('purchaseorder',$purchaseorder);
 	}
 
 	/**
@@ -81,9 +100,18 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function update($id, CreatePurchaseOrderRequest $request)
 	{
-			$purchaseorder = $this->purchaseorder->find($id);
-			$this->dispatchFrom(UpdatePurchaseOrderCommand::class, $request, ['purchaseorder' => $purchaseorder]);
-			return redirect()->route('purchaseorder.show', $id);
+		$purchaseorder = $this->purchaseorder->find($id);
+
+		$this->dispatchFrom(
+			UpdatePurchaseOrderCommand::class,
+			$request,
+			[
+				'purchaseorder' => $purchaseorder
+			]
+		);
+
+		return redirect()
+				->route('purchaseorder.show', $id);
 	}
 
 	/**
@@ -94,8 +122,8 @@ class PurchaseOrderController extends Controller {
 	 */
 	public function destroy($id)
 	{
-			$this->purchaseorder->delete($id);
-			return redirect()->route('purchaseorder.index');
+		$this->purchaseorder->delete($id);
+		return redirect()->route('purchaseorder.index');
 	}
 
 }

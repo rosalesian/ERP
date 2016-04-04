@@ -22,7 +22,7 @@ class JobOrder extends Model {
 	protected $date = ['transdate'];
 	
 	public function asset(){
-		return $this->belongsTo('Nixzen\Item', 'item_id');
+		return $this->belongsTo('Nixzen\Models\Item', 'item_id');
 	}
 	
 	public function branch(){
@@ -61,6 +61,36 @@ class JobOrder extends Model {
 		return $this->belongsTo('Nixzen\Employee', 'updated_by');
 	}
 
+	public function items(){
+		return $this->belongsTo('Nixzen\Models\Item', 'asset');
+	}
+    //add relationship joborder to material costs
+	public function materialCost() {
+		return $this->hasMany('Nixzen\Models\MaterialCost', 'joborder_id');
+	}
+    //add relationship joborder to labor costs
+    public function laborItems() {
+        return $this->hasMany('Nixzen\Models\LaborItem', 'joborder_id');
+    }
+
+	//last event
+	/*//need to modified
+	static function materialCost($id) {
+		return DB::table('job_orders')
+					->leftjoin('material_costs', 'job_orders.id', '=', 'material_costs.id')
+					->leftjoin('items', 'material_costs.item_id', '=', 'items.id')
+					->leftjoin('units', 'material_costs.units_id', '=', 'units.id')
+					->select(
+						'job_orders.id', 
+						'units.name', 
+						'units.pluralname', 
+						'units.abbreviation', 
+						'items.description'
+					)
+					->where('material_costs.joborder_id', '=', $id)
+					->get();
+	}*/
+
 	public static function getIndex() {
 
         $jobs = DB::table('job_orders')
@@ -80,14 +110,13 @@ class JobOrder extends Model {
 	        					'purchase_request_categories.description as prc_description',
 	        					'job_orders.created_at',
 	        					'job_orders.updated_at'
-        					)
-        				  ->orderBy('job_orders.created_at', 'desc');
+        					);
 
         return Datatables::of($jobs)
         					 ->addColumn('action', function ($jobs) {
 					                return 
-					                '<a href="#edit-'.$jobs->id.'"">Edit |</a>
-					                <a href="#edit-'.$jobs->id.'"">View</a>';
+					                '<a href="joborder/'.$jobs->id.'/edit">Edit |</a>
+					                <a href="joborder/'.$jobs->id.'"">View</a>';
 					            })
         					->make(true);
 	}

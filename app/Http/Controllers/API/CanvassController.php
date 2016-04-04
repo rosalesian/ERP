@@ -45,7 +45,6 @@ class CanvassController extends Controller {
 	 */
 	public function save($id, Request $request)
 	{
-		
 		$prItem = $this->prItem->find($id);
 		$canvasses = json_decode($request->input('canvasses'));
 		foreach($canvasses as $data){
