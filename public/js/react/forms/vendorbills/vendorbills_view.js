@@ -26,6 +26,7 @@ window.VendorBillMainComponent = React.createClass({
             items: '',
             expenses: '',
             transno: '',
+            amount: '',
             context: '',
 
             vendor_id: (typeof this.props.data.vendor_id=='undefined') ? '' : this.props.data.vendor_id,
@@ -152,12 +153,6 @@ window.VendorBillPrimaryComponent = React.createClass({
                     source={base_url+'/ajax/getItems'}
                     defaultValue={this.props.defaultValues.approvalstatus_id}
                     attributes={{name:"approvalstatus_id", label:"APPROVAL STATUS"}} />
-
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
-                    context={this.props.context}
-                    source={base_url+'/ajax/getItems'}
-                    defaultValue={this.props.defaultValues.items}
-                    attributes={{name:"items", label:"ITEMS"}} />
 
                 </FieldContainer>
 
@@ -288,7 +283,13 @@ window.VENDORTable = React.createClass({
 			dataStorage:dataStorage,
 			rows:rows,
 			item_id:'',
-			unit_id:'',
+			uom_id:'',
+			amount: '',
+			tax_amount: '',
+			gross_amount: '',
+			unit_cost: '',
+			taxcode_label: '',
+			taxcode_id: '',
 			description:'',
 			item_label:'',
 			uom_label:'',
@@ -302,7 +303,13 @@ window.VENDORTable = React.createClass({
 			state.item_label='';
 			state.description='';
 			state.uom_label='';
-			state.unit_id = ''
+			state.uom_id = '';
+			state.amount = '';
+			state.unit_cost = '';
+			state.taxcode_id = '';
+			state.taxcode_label = '';
+			state.tax_amount = '';
+			state.gross_amount = '';
 			state.quantity='';
 		return state;
 	},
@@ -317,6 +324,11 @@ window.VENDORTable = React.createClass({
 							<th>Description</th>
 							<th>Units</th>
 							<th>Quantity</th>
+							<th>Amount</th>
+							<th>Tax Code</th>
+							<th>Tax Amount</th>
+							<th>Gross Amount</th>
+							<th>Unit Cost</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -339,6 +351,11 @@ window.VENDORTable = React.createClass({
 							<th>Description</th>
 							<th>Units</th>
 							<th>Quantity</th>
+							<th>Amount</th>
+							<th>Tax Code</th>
+							<th>Tax Amount</th>
+							<th>Gross Amount</th>
+							<th>Unit Cost</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -379,13 +396,29 @@ window.VENDORTable = React.createClass({
 						state.description = obj.description;
 						state.item_label = obj.item_label;
 					break;
-				case "unit_id":
-						state.unit_id = obj.unit_id;
+				case "uom_id":
+						state.uom_id = obj.uom_id;
 						state.uom_label = obj.uom_label;
 					break;
 				case "quantity":
 						state.quantity=obj.quantity;
 					break;	
+				case "amount":
+						state.amount=obj.amount;
+					break;
+				case "tax_amount":
+						state.tax_amount=obj.tax_amount;
+					break;
+				case "taxcode_id":
+						state.taxcode_id=obj.taxcode_id;
+						state.taxcode_label=obj.taxcode_label;
+					break;
+				case "gross_amount":
+						state.gross_amount=obj.gross_amount;
+					break;
+				case "unit_cost":
+						state.unit_cost=obj.unit_cost;
+					break;
 			}
 			rows[obj.id] = <TableRow callBackParent={this.handleCallBack}
 							defaultValues={state}
@@ -406,7 +439,13 @@ window.VENDORTable = React.createClass({
 			item_id:this.state.item_id,
 			item_label:this.state.item_label,
 			description: this.state.description,
-			unit_id:this.state.unit_id,
+			uom_id:this.state.uom_id,
+			amount:this.state.amount,
+			taxcode_id:this.state.taxcode_id,
+			taxcode_label:this.state.taxcode_label,
+			tax_amount:this.state.tax_amount,
+			gross_amount:this.state.gross_amount,
+			unit_cost:this.state.unit_cost,
 			uom_label:this.state.uom_label,
 			quantity:this.state.quantity
 		};
@@ -447,7 +486,13 @@ window.VENDORTable = React.createClass({
 		var state = this.state;
 		state.item_id = dataStorage[rowid].item_id;
 		state.item_label = dataStorage[rowid].item_label;
-		state.unit_id = dataStorage[rowid].unit_id;
+		state.uom_id = dataStorage[rowid].uom_id;
+		state.amount = dataStorage[rowid].amount;
+		state.taxcode_id = dataStorage[rowid].taxcode_id;
+		state.taxcode_label = dataStorage[rowid].taxcode_label;
+		state.tax_amount = dataStorage[rowid].tax_amount;
+		state.gross_amount = dataStorage[rowid].gross_amount;
+		state.unit_cost = dataStorage[rowid].unit_cost;
 		state.uom_label = dataStorage[rowid].uom_label;
 		state.description = dataStorage[rowid].description;
 		state.quantity = dataStorage[rowid].quantity;
@@ -464,7 +509,13 @@ window.VENDORTable = React.createClass({
 			item_id:this.state.item_id,
 			item_label:this.state.item_label,
 			description: this.state.description,
-			unit_id:this.state.unit_id,
+			uom_id:this.state.uom_id,
+			amount:this.state.amount,
+			unit_cost:this.state.unit_cost,
+			taxcode_id:this.state.taxcode_id,
+			taxcode_label:this.state.taxcode_label,
+			tax_amount:this.state.tax_amount,
+			gross_amount:this.state.gross_amount,
 			uom_label:this.state.uom_label,
 			quantity:this.state.quantity
 		};
@@ -555,6 +606,10 @@ window.TableRow = React.createClass({
 					<td>{this.props.defaultValues.description}</td>
 					<td>{this.props.defaultValues.uom_label}</td>
 					<td>{this.props.defaultValues.quantity}</td>
+					<td>{this.props.defaultValues.taxcode_id}</td>
+					<td>{this.props.defaultValues.taxcode_label}</td>
+					<td>{this.props.defaultValues.gross_amount}</td>
+					<td>{this.props.defaultValues.unit_cost}</td>
 
 				</tr>
 			);
@@ -569,13 +624,38 @@ window.TableRow = React.createClass({
 						<Description callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.description} />
 
-						<UOM callBackParent={this.handleCallBack} 
+						<VENDORBILLUOM callBackParent={this.handleCallBack} 
 						source={base_url+'/ajax/getUOM/'+this.props.defaultValues.item_id}
-						defaultValue={this.props.defaultValues.unit_id} />
+						defaultValue={this.props.defaultValues.uom_id} />
 
 						<Quantity callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.quantity}
 						attributes={{name:"quantity"}} />
+
+						<Amount callBackParent={this.handleCallBack} 
+						defaultValue={this.props.defaultValues.amount}
+						attributes={{name:"amount"}} />
+
+
+						<TAXCode callBackParent={this.handleCallBack} 
+						source={base_url+'/ajax/getTaxCode'}
+						defaultValue={this.props.defaultValues.taxcode_id} />
+
+
+						<TAXAmount callBackParent={this.handleCallBack} 
+						defaultValue={this.props.defaultValues.tax_amount}
+						attributes={{name:"tax_amount"}} />
+
+						<GROSSAmount callBackParent={this.handleCallBack} 
+						defaultValue={this.props.defaultValues.gross_amount}
+						attributes={{name:"gross_amount"}} />
+
+						<UNITCost callBackParent={this.handleCallBack} 
+						defaultValue={this.props.defaultValues.unit_cost}
+						attributes={{name:"unit_cost"}} />
+						
+
+
 					</tr>
 				);
 			} else {
@@ -589,13 +669,31 @@ window.TableRow = React.createClass({
 						<Description callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.description} />
 
-						<UOM callBackParent={this.handleCallBack}
+							<VENDORBILLUOM callBackParent={this.handleCallBack} 
 						source={base_url+'/ajax/getUOM/'+this.props.defaultValues.item_id}
-						defaultValue={this.props.defaultValues.unit_id} />
+						defaultValue={this.props.defaultValues.uom_id} />
 
 						<Quantity callBackParent={this.handleCallBack}
 						defaultValue={this.props.defaultValues.quantity}
 						attributes={{name:"quantity"}} />
+
+						<Amount callBackParent={this.handleCallBack} 
+						defaultValue={this.props.defaultValues.tax_amount}
+						attributes={{name:"tax_amount"}} />
+
+						<Item callBackParent={this.handleCallBack} 
+						source={base_url+'/ajax/getItems'}
+						defaultValue={this.props.defaultValues.taxcode_id} />
+
+						<GROSSAmount callBackParent={this.handleCallBack} 
+						defaultValue={this.props.defaultValues.gross_amount}
+						attributes={{name:"gross_amount"}} />
+
+						<UNITCost callBackParent={this.handleCallBack} 
+						defaultValue={this.props.defaultValues.unit_cost}
+						attributes={{name:"unit_cost"}} />
+
+
 					</tr>
 					);
 				} else {
@@ -605,6 +703,11 @@ window.TableRow = React.createClass({
 							<td>{this.props.defaultValues.description}</td>
 							<td>{this.props.defaultValues.uom_label}</td>
 							<td>{this.props.defaultValues.quantity}</td>
+							<td>{this.props.defaultValues.amount}</td>
+							<td>{this.props.defaultValues.taxcode_id}</td>
+							<td>{this.props.defaultValues.tax_amount}</td>
+							<td>{this.props.defaultValues.gross_amount}</td>
+							<td>{this.props.defaultValues.unit_cost}</td>
 						</tr>
 					);
 				}

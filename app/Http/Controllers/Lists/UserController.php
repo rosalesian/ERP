@@ -13,6 +13,7 @@ use Nixzen\Repositories\MaintenanceTypeRepository as MaintenanceType;
 
 use Nixzen\Models\Vendor;
 use Nixzen\Models\Lists\Department;
+use Nixzen\Models\TaxCode;
 
 use Response;
 
@@ -254,5 +255,19 @@ class UserController extends Controller
 		}
 
 		return Response::json($data_department);
+	}
+
+	public function getTaxCode() {
+
+		$data_taxcode = [];
+		$taxcode_types = TaxCode::all();
+		foreach($taxcode_types as $taxcode_type) {
+			$result = [];
+			$result['value'] = $taxcode_type->id;
+			$result['label'] = $taxcode_type->name;
+			$data_taxcode[] = $result;
+		}
+
+		return Response::json($data_taxcode);
 	}
 }
