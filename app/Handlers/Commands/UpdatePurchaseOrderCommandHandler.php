@@ -39,22 +39,7 @@ class UpdatePurchaseOrderCommandHandler
 		$purchaseorder->memo = $command->memo;
 		$purchaseorder->save();
 
-		$lineitems = $purchaseorder->items();
-
-		foreach($command->items as $input)
-		{
-			$lineitem = $lineitems->firstOrNew(['id'=>$input->id]);
-
-			$lineitem->item_id 		= $input->item_id;
-			$lineitem->quantity 	= $input->quantity;
-			$lineitem->uom_id 		= $input->uom_id;
-			$lineitem->unit_cost 	= $input->unit_cost;
-			$lineitem->save();
-		}
-
-		$data = collect($command->items)->fetch('id')->toArray();
-
-		$purchaseorder->removeitems($data);
+		$purchaseorder->updateLineItems($command->items);
 
         event(new PurchaseOrderWasUpdated($command->purchaseorder));
     }

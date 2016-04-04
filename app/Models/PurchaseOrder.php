@@ -108,7 +108,25 @@ class PurchaseOrder extends Model {
 		return $totalVatAmount;
 	}
 
-	public function removeitems($ids)
+	public function updateLineItems($inputs)
+	{
+		$ids = collect($inputs)->fetch('id')->toArray();
+		$this->cleanLineItems($ids);
+
+		foreach($inputs as $input)
+		{
+			$lineitem = $this->items()
+							->firstOrNew(['id'=>$input->id]);
+
+			$lineitem->item_id 		= $input->item_id;
+			$lineitem->quantity 	= $input->quantity;
+			$lineitem->uom_id 		= $input->uom_id;
+			$lineitem->unit_cost 	= $input->unit_cost;
+			$lineitem->save();
+		}
+	}
+
+	public function cleanLineItems($ids)
     {
         foreach ($this->items as $key => $item) {
 
