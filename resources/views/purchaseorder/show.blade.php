@@ -23,6 +23,9 @@ Create New Purchase Order
       <div class="trans-button">
         {!! HTML::link('purchaseorder','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
+      <div class="trans-button">
+        {!! HTML::link('purchaseorder/'.$purchaseorder->id.'/itemreceipt/create','Approve',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
+      </div>
     </div>
     <div class="approvaltransition">
       <ol class="breadcrumb">
@@ -137,14 +140,13 @@ function unittypeShow($itemid, $unitid) {
 
 <!-- CUSTOM REACT COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
-{{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
-<script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/forms/purchaseorder/purchaseorder_view.js') }}"></script>
 <script type="text/babel">
   var purchaseorders = <?php echo $purchaseorder?>;
   var items= <?php echo json_encode($items); ?>;
+  console.log(items);
   var context="view";
-  ReactDOM.render(<PRMainComponent context={context} data={(typeof purchaseorders=='undefined') ? [] : purchaseorders}
+  ReactDOM.render(<POMainComponent context={context} data={(typeof purchaseorders=='undefined') ? [] : purchaseorders}
     items={items} />, document.getElementById("mainPR-container"));
 </script>
 @stop

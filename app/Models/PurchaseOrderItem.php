@@ -6,15 +6,7 @@ class PurchaseOrderItem extends Model {
 
 	protected $table = 'purchase_order_items';
 
-	const VAT_RATE = 0.12;
-
-	protected $fillable =
-	[
-		'item_id',
-		'uom_id',
-		'quantity',
-		'unit_cost'
-	];
+	protected $fillable = ['item_id', 'unit_id', 'quantity','unit_cost'];
 
 	public function purchaseorder()
 	{
