@@ -25,6 +25,6 @@ class ItemReceiptItem extends Model
 
 		public function item()
 		{
-			return $this->belongsTo(Nixzen\Models\Item::class, 'item_id');
+			return $this->belongsTo(Item::class, 'purchaseorderitem_id');
 		}
 }
