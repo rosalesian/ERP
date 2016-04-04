@@ -8,13 +8,17 @@ window.POMainComponent = React.createClass({
 	getInitialState : function () {
 		return {
 			data : {},
-			pr_id: (typeof this.props.data.id=='undefined') ? '' : this.props.data.id,
-			type : (typeof this.props.data.type_id=='undefined') ? '' : this.props.data.type_id,
+			po_id: (typeof this.props.data.id=='undefined') ? '' : this.props.data.id,
+			type_id : (typeof this.props.data.type_id=='undefined') ? '' : this.props.data.type_id,
+			vendor_id : (typeof this.props.data.vendor_id=='undefined') ? '' : this.props.data.vendor_id,
+			paymenttype_id : (typeof this.props.data.paymenttype_id=='undefined') ? '' : this.props.data.paymenttype_id,
+			terms_id : (typeof this.props.data.terms_id=='undefined') ? '' : this.props.data.terms_id,
 			date : (typeof this.props.data.date=='undefined') ? '' : this.props.data.date,
-			deliver_to : (typeof this.props.data.deliver_to=='undefined') ? '' : this.props.data.deliver_to,
-			remarks : (typeof this.props.data.remarks=='undefined') ? '' : this.props.data.remarks,
-			totalamount : (typeof this.props.data.total_amount=='undefined') ? '' : this.props.data.total_amount,
-			requester : (typeof this.props.data.requester=='undefined') ? '' : this.props.data.requester
+			delivered_to : (typeof this.props.data.delivered_to=='undefined') ? '' : this.props.data.delivered_to,
+			memo : (typeof this.props.data.memo=='undefined') ? '' : this.props.data.memo,
+			requested_by : (typeof this.props.data.requested_by=='undefined') ? '' : this.props.data.requested_by,
+			items:(typeof this.props.data.items=='undefined') ? [] : this.props.data.items,
+			total:''
 		};
 	},
 	handleChangeCallBack : function (obj) {
@@ -25,7 +29,7 @@ window.POMainComponent = React.createClass({
 		for(var i in data) {
 			total+=parseInt(data[i].quantity);
 		}
-		this.setState({totalamount:total});
+		this.setState({total:total});
 	},
 	render : function () {
 		return (
@@ -143,7 +147,7 @@ window.POPrimaryComponent = React.createClass({
         		</POFieldContainer>
 
             	<POFieldContainer>
-            		<SummaryComponent />          	
+            		<SummaryComponent defaultValue={this.props.defaultValues.total}/>          	
             	</POFieldContainer>
 	        </POWrapper>
 		);
@@ -155,6 +159,12 @@ window.POPrimaryComponent = React.createClass({
 *******************************************************************/
 window.SummaryComponent = React.createClass({
 	render : function () {
+		var subtotal=this.props.defaultValue,
+			vat=0,
+			total=0;
+
+		vat = parseFloat(subtotal * parseFloat(0.12));
+		total = subtotal + vat;
 		return (
 				<table className="table" style={{border:'1px solid #f4f4f4', marginTop:'15px'}}>
 					<thead>
@@ -165,15 +175,15 @@ window.SummaryComponent = React.createClass({
 					<tbody className="summary-container">
 						<tr>
 							<td>SUBTOTAL</td>
-							<td>12345678910.56422367</td>
+							<td>{subtotal}</td>
 						</tr>
 						<tr>
 							<td style={{borderBottom:'1px solid black'}}>VAT</td>
-							<td style={{borderBottom:'1px solid black'}}>12345678910.56422367</td>
+							<td style={{borderBottom:'1px solid black'}}>{vat}</td>
 						</tr>
 						<tr>
 							<td><b>TOTAL</b></td>
-							<td>12345678910.56422367</td>
+							<td>{total}</td>
 						</tr>
 					</tbody>							
 				</table>
@@ -197,7 +207,7 @@ window.POTable = React.createClass({
 		var rows=[];
 		if(this.props.data.length!=0) {
 			dataStorage = this.props.data;
-			rows=[];
+			var total=0;
 			for(var i=0, counter=dataStorage.length; i<counter; i++) {
 				rows[i] = <TableRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
@@ -207,7 +217,9 @@ window.POTable = React.createClass({
 							context={this.props.context}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			}
+			this.props.callBackParent(this.props.data);
 		}
+
 		return {
 			editLineItem:this.props.editLineItem,
 			dataStorage:dataStorage,
@@ -242,7 +254,6 @@ window.POTable = React.createClass({
 							<th>Description</th>
 							<th>Units</th>
 							<th>Quantity</th>
-							<th>Canvass</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -474,7 +485,16 @@ window.TableRow = React.createClass({
 		}
 	},
 	render : function () {
-		if(this.props.context!='view') {
+		if(this.props.context=='view') {
+			return (
+				<tr>
+					<td>{this.props.defaultValues.item_label}</td>
+					<td>{this.props.defaultValues.description}</td>
+					<td>{this.props.defaultValues.uom_label}</td>
+					<td>{this.props.defaultValues.quantity}</td>
+				</tr>
+			);
+		} else {
 			if(this.props.create) {
 				return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
@@ -525,16 +545,6 @@ window.TableRow = React.createClass({
 					);
 				}
 			}
-		} else {
-			return (
-				<tr>
-					<td>{this.props.defaultValues.item_label}</td>
-					<td>{this.props.defaultValues.description}</td>
-					<td>{this.props.defaultValues.uom_label}</td>
-					<td>{this.props.defaultValues.quantity}</td>
-					<td><a href="#" data-toggle="modal" data-target="#myModal" onClick={this.displayModal.bind(this,this.props.defaultValues)}><i className="fa fa-toggle-up" style={{fontSize:"25px",marginLeft:"30%"}}></i></a></td>
-				</tr>
-			);
 		}
 	},
 	displayModal : function (defaultValues, evt) {

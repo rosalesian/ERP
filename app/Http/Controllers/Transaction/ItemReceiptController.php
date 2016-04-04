@@ -76,8 +76,9 @@ class ItemReceiptController extends Controller {
 	 */
 	public function edit($poId, $irId)
 	{
+		$purchaseorder = $this->purchaseorder->find($poId);
 		$itemreceipt = $this->itemreceipt->with('items')->find($irId);
-		return view('itemreceipt.edit')->with('itemreceipt', $itemreceipt);
+		return view('itemreceipt.edit')->with('itemreceipt', $itemreceipt)->with('purchaseorder', $purchaseorder);
 	}
 
 	/**

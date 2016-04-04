@@ -281,12 +281,13 @@ window.PRTable = React.createClass({
 		}
 
 	},
-	handleAdd : function () {
+	handleAdd : function () {// ADD FUNCTION
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
 		rows.push( <TableRow callBackParent={this.handleCallBack}
 					defaultValues={this.state} id={rows.length} key={rows.length} handleCallBackParentClick={this.handleCallBackClick}/> );
 		var obj = {
+			id:'',
 			item_id:this.state.item_id,
 			item_label:this.state.item_label,
 			description: this.state.description,
@@ -340,18 +341,17 @@ window.PRTable = React.createClass({
 		this.setState({rows:rows, editLineItem:true});
 	}
 	},
-	handleUpdate : function (id) {
+	handleUpdate : function (id) {// UPDATE FUNCTION
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
 		rows.length=0;
-		dataStorage[id] = {
-			item_id:this.state.item_id,
-			item_label:this.state.item_label,
-			description: this.state.description,
-			unit_id:this.state.unit_id,
-			uom_label:this.state.uom_label,
-			quantity:this.state.quantity
-		};
+		dataStorage[id].item_id = this.state.item_id;
+		dataStorage[id].item_label = this.state.item_label;
+		dataStorage[id].description = this.state.description;
+		dataStorage[id].unit_id = this.state.unit_id;
+		dataStorage[id].uom_label = this.state.uom_label;
+		dataStorage[id].quantity = this.state.quantity;
+
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <TableRow callBackParent={this.handleCallBack}
@@ -364,7 +364,7 @@ window.PRTable = React.createClass({
 		this.setState({rows:rows, dataStorage:dataStorage, editLineItem:false});
 		this.props.callBackParent(dataStorage);
 	},
-	handleRemove : function (id) {
+	handleRemove : function (id) {// REMOVE FUNCTION
 		var dataStorage = this.state.dataStorage;
 		dataStorage.splice(id,1);
 		var rows = this.state.rows;
@@ -380,7 +380,7 @@ window.PRTable = React.createClass({
 		this.setState(this._initial_data()); //empty state values
 		this.setState({rows:rows, dataStorage:dataStorage, editLineItem:false});
 	},
-	handleCancel : function () {
+	handleCancel : function () {// CANCEL FUNCTION
 		if(this.state.editLineItem) {
 			var rows = this.state.rows;
 			var dataStorage = this.state.dataStorage;

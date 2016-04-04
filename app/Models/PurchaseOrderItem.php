@@ -6,7 +6,7 @@ class PurchaseOrderItem extends Model {
 
 	protected $table = 'purchase_order_items';
 
-	protected $fillable = ['item_id', 'uom_id', 'quantity'];
+	protected $fillable = ['item_id', 'unit_id', 'quantity'];
 
 	public function purchaseorder()
 	{
