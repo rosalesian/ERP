@@ -500,7 +500,8 @@ window.TableRow = React.createClass({
 		url:base_url+'/api/1.0/pritem/'+this.props.defaultValues.id+'/canvass',
 		type:'GET',
 		success : function (response) {
-			var data = JSON.parse(response.canvasses);
+			var data = response.canvasses;
+			console.log(data);
 			var canvasses=[];
 			for(var i in data) {
 				canvasses.push({

@@ -21,7 +21,8 @@ class ItemTableSeeder extends Seeder
             Item::create([
                 'description' => $faker->name,
                 'itemcode' => $faker->phoneNumber,
-                'itemtype_id' => 3
+                'itemtype_id' => 3,
+                'unittype_id' =>3
             ]);
         }
     }

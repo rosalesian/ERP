@@ -34,32 +34,32 @@ class PurchaseRequestItem extends Model {
 
 	public function unit()
 	{
-		return $this->belongsTo('Nixzen\Unit', 'unit_id');
+		return $this->belongsTo('Nixzen\Models\Unit', 'unit_id');
 	}
 
 	public function vendor()
 	{
-		return $this->belongsTo('Nixzen\Vendor', 'vendor_id');
+		return $this->belongsTo('Nixzen\Models\Vendor', 'vendor_id');
 	}
 
 	public function term()
 	{
-		return $this->belongsTo('Nixzen\Terms', 'term_id');
+		return $this->belongsTo('Nixzen\Models\Terms', 'term_id');
 	}
 
 	public function taxcode()
 	{
-		return $this->belongsTo('Nixzen\Taxcode', 'taxcode');
+		return $this->belongsTo('Nixzen\Models\Taxcode', 'taxcode');
 	}
 
 	public function createby()
 	{
-		return $this->belongsTo('Nixzen\Employee', 'created_by');
+		return $this->belongsTo('Nixzen\Models\Employee', 'created_by');
 	}
 
 	public function updatedby()
 	{
-		return $this->belongsTo('Nixzen\Employee', 'updated_by');
+		return $this->belongsTo('Nixzen\Models\Employee', 'updated_by');
 	}
 
 }
