@@ -106,5 +106,6 @@ class PurchaseRequestControllerTest extends TestCase
 
 		return $request;
 	}
+>>>>>>> a70663355f7f10a6da3c63be1c1cb4822af29e8f
 
 }

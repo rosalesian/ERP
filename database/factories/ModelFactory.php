@@ -85,7 +85,8 @@ $factory->define(Nixzen\Models\PurchaseOrderItem::class, function ($faker) {
 		return [
 			'item_id'=> $faker->numberBetween(1, 5),
 			'quantity'=> $faker->numberBetween(1, 10),
-			'uom_id'=> $faker->numberBetween(1, 5)
+			'uom_id'=> $faker->numberBetween(1, 5),
+			'amount' => $faker->randomFloat()
 		];
 });
 

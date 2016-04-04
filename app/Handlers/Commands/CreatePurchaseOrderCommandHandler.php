@@ -39,9 +39,9 @@ class CreatePurchaseOrderCommandHandler
         ]);
 
         foreach($command->items as $item){
-					$purchaseorder->items()->create((array)$item);
+			$purchaseorder->items()->create((array)$item);
         }
-				
+
         event(new PurchaseOrderWasCreated($purchaseorder));
 
         return $purchaseorder;
