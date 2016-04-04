@@ -45,8 +45,8 @@ $(function() {
         columns: [
             { data: 'action', name: 'action', orderable: false, searchable: false},
             { data: 'id', name: 'id'},
-            { data: 'transdate', name: 'transdate', searchable: true},
-            { data: 'item_description', name: 'item_description', searchable: true,  orderable: true},
+            { data: 'transdate', name: 'transdate'},
+            { data: 'item_description', name: 'item_description'},
             { data: 'memo', name: 'memo' },
             { data: 'firstname', name: 'firstname' },
             { data: 'firstname', name: 'firstname' },

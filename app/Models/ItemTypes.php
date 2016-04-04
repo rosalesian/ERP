@@ -18,7 +18,7 @@ class ItemTypes extends Model {
 		return $this->belongsTo('Nixzen\Models\Lists\Employee', 'updated_by');
 	}
 
-	public function items()
+	public function itemType()
 	{
 		return $this->hasMany('Nixzen\Models\Item\Item', 'type_id');
 	}

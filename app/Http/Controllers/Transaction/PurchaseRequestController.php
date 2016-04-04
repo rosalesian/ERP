@@ -47,8 +47,7 @@ class PurchaseRequestController extends Controller {
 	        					'item_types.name',
 	        					'departments.name as dep_name',
 	        					'departments.description'
-        					)
-        				  ->orderBy('purchase_requests.created_at', 'desc');
+        					);
 
         return Datatables::of($jobs)
         					 ->addColumn('action', function ($jobs) {
