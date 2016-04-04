@@ -64,8 +64,12 @@ class ItemReceiptController extends Controller {
 	 */
 	public function show($poId, $irId)
 	{
+		$purchaseorder = $this->purchaseorder->find($poId);
 		$itemreceipt = $this->itemreceipt->with('items')->find($irId);
-		return view('itemreceipt.show')->with('itemreceipt', $itemreceipt);
+		
+		return view('itemreceipt.show')
+			->with('itemreceipt', $itemreceipt)
+			->with('purchaseorder', $purchaseorder);
 	}
 
 	/**
@@ -76,8 +80,12 @@ class ItemReceiptController extends Controller {
 	 */
 	public function edit($poId, $irId)
 	{
+		$purchaseorder = $this->purchaseorder->find($poId);
 		$itemreceipt = $this->itemreceipt->with('items')->find($irId);
-		return view('itemreceipt.edit')->with('itemreceipt', $itemreceipt);
+		
+		return view('itemreceipt.edit')
+			->with('itemreceipt', $itemreceipt)
+			->with('purchaseorder', $purchaseorder);
 	}
 
 	/**

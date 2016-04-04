@@ -14,6 +14,7 @@ class CanvassControllerTest extends TestCase
 		{
 			$this->canvass = new Nixzen\Models\Canvass;
 		}
+
     /**
      * A basic test example.
      *
@@ -23,18 +24,11 @@ class CanvassControllerTest extends TestCase
     {
 			//create mock data to database
 			$pr = $this->makePurchaseRequestFactory();
-
 			//get first line of pr
 			$prItem = $pr->first()->items()->first();
-
-			$canvasses = $this->canvass->where('purchaserequisition_id', $prItem->id)->get();
-
 			//assertion
       $this->get('api/1.0/pritem/'. $prItem->id .'/canvass')
-					->seeJson([
-						'canvasses' => $canvasses
-					]);
-    }
+					->seeJson(['canvasses' => json_encode($prItem->canvasses()->get())]);    }
 
 		public function testSave()
 		{
@@ -43,7 +37,7 @@ class CanvassControllerTest extends TestCase
 
 			$canvasses = [
 				['vendor_id' => 1, 'cost' => 1000.00, 'terms_id' => 1],
-				['vendor_id' => 2, 'cost' => 1100.00, 'terms_id' => 1],
+				['vendor_id' => 2, 'cost' => 100000.00, 'terms_id' => 1],
 				['vendor_id' => 3, 'cost' => 1010.00, 'terms_id' => 1],
 			];
 
@@ -55,15 +49,24 @@ class CanvassControllerTest extends TestCase
 			$this->post('api/1.0/pritem/1/canvass', $data)
 					->seeJson([
 						'message' => 'canvass was created'
-					]);
+					])
+					->seeInDatabase('canvasses', ['vendor_id' => 2, 'cost'=> 100000]);
 		}
 
 		public function makePurchaseRequestFactory()
 		{
+			factory(Nixzen\Models\Vendor::class, 50)->create();
+			factory(Nixzen\Models\Terms::class, 3)->create();
+
 			$pr = factory(Nixzen\Models\PurchaseRequest::class, 3)
 					->create()
 					->each(function($pr){
-							$item = factory(Nixzen\Models\PurchaseRequestItem::class)->create(['purchaserequisition_id' => $pr->id]);
+							$item = factory(Nixzen\Models\PurchaseRequestItem::class, 10)
+							->create(['purchaserequisition_id' => $pr->id])
+							->each(function($prItem){
+								$canvasses = factory(Nixzen\Models\Canvass::class, 3)->create(['purchaserequestitem_id' => $prItem->id]);
+								$prItem->save([$canvasses]);
+							});
 							$pr->save([$item]);
 					});
 

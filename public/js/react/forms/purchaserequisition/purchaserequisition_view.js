@@ -1,7 +1,7 @@
 window.PRMainComponent = React.createClass({
 	getDefaultProps : function () {
 		return { 
-			data:[],
+			data:{},
 			context:''
 		};
 	},
@@ -13,7 +13,7 @@ window.PRMainComponent = React.createClass({
 			date : (typeof this.props.data.date=='undefined') ? '' : this.props.data.date,
 			deliver_to : (typeof this.props.data.deliver_to=='undefined') ? '' : this.props.data.deliver_to,
 			remarks : (typeof this.props.data.remarks=='undefined') ? '' : this.props.data.remarks,
-			totalamount : (typeof this.props.data.total_amount=='undefined') ? '' : this.props.data.total_amount,
+			total_amount : (typeof this.props.data.total_amount=='undefined') ? '' : this.props.data.total_amount,
 			requester : (typeof this.props.data.requester=='undefined') ? '' : this.props.data.requester
 		};
 	},
@@ -121,8 +121,8 @@ window.PrimaryComponent = React.createClass({
             	<FieldContainer>
             		<TextMainComponent callBackParent={this.handleChangeCallBack} 
     				context={this.props.context}
-    				defaultValue={this.props.defaultValues.totalamount} 
-    				attributes={{name:"totalamount", label:"TOTAL AMOUNT"}} />
+    				defaultValue={this.props.defaultValues.total_amount}
+    				attributes={{name:"total_amount", label:"TOTAL AMOUNT"}} />
 
             		<SelectMainComponent callBackParent={this.handleChangeCallBack}
     				context={this.props.context}
@@ -281,12 +281,13 @@ window.PRTable = React.createClass({
 		}
 
 	},
-	handleAdd : function () {
+	handleAdd : function () {// ADD FUNCTION
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
 		rows.push( <TableRow callBackParent={this.handleCallBack}
 					defaultValues={this.state} id={rows.length} key={rows.length} handleCallBackParentClick={this.handleCallBackClick}/> );
 		var obj = {
+			id:'',
 			item_id:this.state.item_id,
 			item_label:this.state.item_label,
 			description: this.state.description,
@@ -340,18 +341,17 @@ window.PRTable = React.createClass({
 		this.setState({rows:rows, editLineItem:true});
 	}
 	},
-	handleUpdate : function (id) {
+	handleUpdate : function (id) {// UPDATE FUNCTION
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
 		rows.length=0;
-		dataStorage[id] = {
-			item_id:this.state.item_id,
-			item_label:this.state.item_label,
-			description: this.state.description,
-			unit_id:this.state.unit_id,
-			uom_label:this.state.uom_label,
-			quantity:this.state.quantity
-		};
+		dataStorage[id].item_id = this.state.item_id;
+		dataStorage[id].item_label = this.state.item_label;
+		dataStorage[id].description = this.state.description;
+		dataStorage[id].unit_id = this.state.unit_id;
+		dataStorage[id].uom_label = this.state.uom_label;
+		dataStorage[id].quantity = this.state.quantity;
+
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <TableRow callBackParent={this.handleCallBack}
@@ -364,7 +364,7 @@ window.PRTable = React.createClass({
 		this.setState({rows:rows, dataStorage:dataStorage, editLineItem:false});
 		this.props.callBackParent(dataStorage);
 	},
-	handleRemove : function (id) {
+	handleRemove : function (id) {// REMOVE FUNCTION
 		var dataStorage = this.state.dataStorage;
 		dataStorage.splice(id,1);
 		var rows = this.state.rows;
@@ -380,7 +380,7 @@ window.PRTable = React.createClass({
 		this.setState(this._initial_data()); //empty state values
 		this.setState({rows:rows, dataStorage:dataStorage, editLineItem:false});
 	},
-	handleCancel : function () {
+	handleCancel : function () {// CANCEL FUNCTION
 		if(this.state.editLineItem) {
 			var rows = this.state.rows;
 			var dataStorage = this.state.dataStorage;
@@ -496,13 +496,28 @@ window.TableRow = React.createClass({
 		}
 	},
 	displayModal : function (defaultValues, evt) {
-		console.log(defaultValues);
-		ReactDOM.render(<CanvassComponent callBackParent={this.handleCallBackLine}
-							defaultValues={defaultValues}
+		$.ajax({
+		url:base_url+'/api/1.0/pritem/'+this.props.defaultValues.id+'/canvass',
+		type:'GET',
+		success : function (response) {
+			var data = response.canvasses;
+			console.log(data);
+			var canvasses=[];
+			for(var i in data) {
+				canvasses.push({
+					vendor_id:data[i].vendor_id,
+					vendor_label:data[i].vendor_id,
+					terms_id:data[i].terms_id,
+					terms_label:data[i].terms_id,
+					cost:data[i].cost
+				});
+			}
+			
+			ReactDOM.render(<CanvassComponent defaultValues={defaultValues}
+							data={canvasses}
 				            context='create' />, document.getElementById('myModal'));
-	},
-	handleSaveCanvass : function (data) {
-		console.log(data);
+		}.bind(this)
+		});
 	},
 	handleClick : function (evt) {
 		this.props.handleCallBackParentClick(evt.currentTarget.id);

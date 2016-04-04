@@ -22,10 +22,10 @@ class ItemReceiptControllerTest extends TestCase
   public function testIndex()
   {
     $response = $this->call('GET', 'purchaseorder/1/itemreceipt');
-		$this->assertResponseOk();
-		$this->assertViewHas('itemreceipts');
-		$purchaseorders = $response->original->getData()['itemreceipts'];
-		$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $purchaseorders);
+	$this->assertResponseOk();
+	$this->assertViewHas('itemreceipts');
+	$purchaseorders = $response->original->getData()['itemreceipts'];
+	$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $purchaseorders);
   }
 
 	public function testCreate()
@@ -38,8 +38,8 @@ class ItemReceiptControllerTest extends TestCase
 	public function testStore()
 	{
 		$items = [
-			['purchaseorderitem_id'=> 1,'quantity_received'=> 2],
-			['purchaseorderitem_id'=> 2,'quantity_received'=> 2]
+			['purchaseorderitem_id'=> '1','quantity_received'=> '2'],
+			['purchaseorderitem_id'=> '2','quantity_received'=> '2']
 		];
 
 		$request = [
@@ -49,7 +49,6 @@ class ItemReceiptControllerTest extends TestCase
 		];
 
 		$this->makeFactoryPurchaseOrder();
-		//$this->expectsJobs(CreateItemReceiptCommand::class);
 		$response = $this->call('POST', 'purchaseorder/1/itemreceipt', $request);
 		$this->assertResponseStatus(302);
 
@@ -75,8 +74,8 @@ class ItemReceiptControllerTest extends TestCase
 	public function testUpdate()
 	{
 		$items = [
-			['purchaseorderitem_id'=> 1,'quantity_received'=> 2],
-			['purchaseorderitem_id'=> 2,'quantity_received'=> 2]
+			['id'=>'1','purchaseorderitem_id'=> '1','quantity_received'=> '2'],
+			['id'=>'2','purchaseorderitem_id'=> '2','quantity_received'=> '2']
 		];
 
 		$request = [

@@ -12,7 +12,11 @@ class ItemReceiptItem extends Model
 			'purchaseorderitem_id',
 			'quantity_received'
 		];
-
+		
+		public function purchaseorderitem() {
+			return $this->belongsTo('Nixzen\Models\PurchaseOrderItem','purchaseorderitem_id');
+		}
+		
 		public function getAmount()
 		{
 
@@ -25,6 +29,6 @@ class ItemReceiptItem extends Model
 
 		public function item()
 		{
-			return $this->belongsTo(Nixzen\Models\Item::class, 'item_id');
+			return $this->belongsTo(Item::class, 'purchaseorderitem_id');
 		}
 }

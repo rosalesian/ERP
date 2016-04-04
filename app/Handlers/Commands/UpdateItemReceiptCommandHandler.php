@@ -27,13 +27,13 @@ class UpdateItemReceiptCommandHandler
      */
     public function handle(UpdateItemReceiptCommand $command)
     {
-				$command->itemreceipt->update([
-	          'date'           	=> $command->date,
-	          'remarks'        	=> $command->remarks
-	      ]);
-	      foreach($command->items as $item){
-		      $command->itemreceipt->items()->update((array) $item);
-	      }
-				event(new ItemReceiptWasUpdated($command->itemreceipt));
+		$itemreceipt = $command->itemreceipt;
+
+		$itemreceipt->date = $command->date;
+		$itemreceipt->remarks = $command->remarks;
+
+		$itemreceipt->updateLineItems($command->items);
+
+		event(new ItemReceiptWasUpdated($command->itemreceipt));
     }
 }

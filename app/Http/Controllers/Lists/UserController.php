@@ -19,20 +19,19 @@ use Response;
 
 class UserController extends Controller
 {
-	private $item;
-	private $employee;
-	private $purchaserequetcategory;
-	private $maintenancetype;
+    private $item;
+    private $employee;
+    private $purchaserequetcategory;
+    private $maintenancetype;
 
-	public function __construct(Item $item, PurchaseRequestCategory $purchaserequetcategory, Employee $employee, MaintenanceType $maintenancetype)
-	{
-		$this->item = $item;
-		$this->purchaserequetcategory = $purchaserequetcategory;
-		$this->employee = $employee;
-		$this->maintenancetype = $maintenancetype;
-	}
+    public function __construct(Item $item, PurchaseRequestCategory $purchaserequetcategory, Employee $employee, MaintenanceType $maintenancetype)
+    {
+        $this->item = $item;
+        $this->purchaserequetcategory = $purchaserequetcategory;
+        $this->employee = $employee;
+        $this->maintenancetype = $maintenancetype;
+    }
   
-
 	/**
 	 * Display a listing of the resource.
 	 *

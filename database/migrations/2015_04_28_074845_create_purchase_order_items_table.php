@@ -18,7 +18,7 @@ class CreatePurchaseOrderItemsTable extends Migration {
 			$table->integer('purchaseorder_id')->unsigned();
 			$table->integer('item_id')->unsigned();
 			$table->decimal('quantity', 8, 2)->default(1);
-			$table->integer('uom_id')->unsigned();
+			$table->integer('unit_id')->unsigned();
 			$table->double('unit_cost', 9 , 5)->default(0);
 			$table->double('amount', 9 , 5)->default(0);
 			$table->integer('taxcode')->unsigned()->nullable();

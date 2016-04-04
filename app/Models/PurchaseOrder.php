@@ -6,7 +6,8 @@ class PurchaseOrder extends Model {
 
 	protected $table = 'purchase_orders';
 
-	protected $fillable = [
+	protected $fillable =
+	[
 		'vendor_id',
 		'terms_id',
 		'date',
@@ -14,11 +15,6 @@ class PurchaseOrder extends Model {
 		'paymenttype_id',
 		'memo'
 	];
-
-	public function purchaseorderitems()
-	{
-		return $this->hasMany('Nixzen\PurchaseOrderItem', 'purchaseorder_id');
-	}
 
 	public function vendor()
 	{
@@ -85,4 +81,59 @@ class PurchaseOrder extends Model {
 	{
 		return $this->hasMany(ItemReceipt::class, 'purchaseorder_id');
 	}
+
+	public function getAmountDue()
+	{
+		$amountDue = 0;
+		$lineitems = $this->items()->get();
+
+		foreach($lineitems as $lineitem)
+		{
+			$amountDue += $lineitem->amount();
+		}
+
+		return $amountDue;
+	}
+
+	public function getTotalVatAmount()
+	{
+		$totalVatAmount = 0;
+		$lineitems = $this->items()->get();
+
+		foreach($lineitems as $lineitem)
+		{
+			$totalVatAmount += $lineitem->vatAmount();
+		}
+
+		return $totalVatAmount;
+	}
+
+	public function updateLineItems($inputs)
+	{
+		$ids = collect($inputs)->fetch('id')->toArray();
+		$this->cleanLineItems($ids);
+
+		foreach($inputs as $input)
+		{
+			$lineitem = $this->items()
+							->firstOrNew(['id'=>$input->id]);
+
+			$lineitem->item_id 		= $input->item_id;
+			$lineitem->quantity 	= $input->quantity;
+			$lineitem->uom_id 		= $input->uom_id;
+			$lineitem->unit_cost 	= $input->unit_cost;
+			$lineitem->save();
+		}
+	}
+
+	public function cleanLineItems($ids)
+    {
+        foreach ($this->items as $key => $item) {
+
+             if(!in_array($item->id,$ids))
+             {
+                $item->delete();
+             }
+        }
+    }
 }
