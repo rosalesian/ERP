@@ -25,4 +25,30 @@ class ItemReceipt extends Model
 	{
 		return $this->belongsTo(User::class, 'created_by');
 	}
+
+	public function updateLineItems($inputs)
+	{
+		$ids = collect($inputs)->fetch('id')->toArray();
+		$this->cleanLineItem($ids);
+
+		foreach($inputs as $input)
+		{
+			$lineitem = $this->items()->firstOrNew(['id' => $input->id]);
+
+			$lineitem->purchaseorderitem_id = $input->purchaseorderitem_id;
+			$lineitem->quantity_received = $input->quantity_received;
+		}
+	}
+
+	public function cleanLineItem($ids)
+	{
+		foreach($this->items as $key => $item)
+		{
+			if(in_array($item->id, $ids))
+			{
+				$item->delete();
+			}
+		}
+	}
+
 }
