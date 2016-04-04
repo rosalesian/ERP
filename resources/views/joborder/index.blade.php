@@ -2,12 +2,18 @@
 @section('content')
  <div class="row">
   <div class="col-xs-12">
+  <div class="transaction-buttons-container">
+      <div class="trans-button">
+        <a href="{{url('joborder/create ')}}" class="btn btn-block btn-primary btn-flat">New Job Order</a>
+      </div>
+   </div>
+
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Data Table With Full Features</h3>
+   
       </div><!-- /.box-header -->
       <div class="box-body">
-        <table id="joborder-table" class="table table-bordered table-striped">
+        <table id="joborder-table" class="table table-condensed table-bordered table-striped">
           <thead>
              <tr>
                 <th>OPTION</th>
@@ -37,10 +43,10 @@ $(function() {
         serverSide: true,
         ajax: '{!! route('jobordertable.data') !!}',
         columns: [
-            {data: 'action', name: 'action', orderable: false, searchable: false},
+            { data: 'action', name: 'action', orderable: false, searchable: false},
             { data: 'id', name: 'id'},
             { data: 'transdate', name: 'transdate'},
-            { data: 'item_description', name: 'item_description' },
+            { data: 'item_description', name: 'item_description'},
             { data: 'memo', name: 'memo' },
             { data: 'firstname', name: 'firstname' },
             { data: 'firstname', name: 'firstname' },

@@ -30,4 +30,8 @@ class Unit extends Model {
 		return $this->belongsTo('Nixzen\Employee', 'updated_by');
 	}
 
+	public function materialCost() {
+		return $this->hasMany('Nixzen\Models\Unit', 'units_id');
+	}
+
 }

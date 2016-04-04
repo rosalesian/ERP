@@ -27,8 +27,19 @@ class VendorBill extends Model
 
     public function items()
     {
-    	return $this->hasMany('Nixzen\Models\VendorBillItem', 'vendorbill_id');
+    	return $this->belongsTo('Nixzen\Models\VendorBillItem', 'billtype_id');
     }
+
+    public function vendorBillItems()
+    {
+        return $this->hasMany('Nixzen\Models\VendorBillItem', 'vendorbill_id');
+    }
+
+    public function billitems()
+    {
+        return $this->belongsTo('Nixzen\Models\VendorBillItem', 'billtype_id');
+    }
+
 
     public function expenses()
     {

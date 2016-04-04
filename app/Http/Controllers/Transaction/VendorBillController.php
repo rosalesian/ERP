@@ -7,7 +7,7 @@ use Nixzen\Http\Requests\CreateVendorBillRequest;
 use Nixzen\Commands\CreateVendorBillCommand;
 use Nixzen\Commands\UpdateVendorBillCommand;
 
-use Illuminate\Http\Request;
+
 use Datatables;
 use DB;
 
@@ -51,10 +51,10 @@ class VendorBillController extends Controller {
 
 		return Datatables::of($vendorbills)
 							 ->addColumn('action', function ($vendorbills) {
-										                return 
-										                '<a href="#edit-'.$vendorbills->id.'"">Edit |</a>
-										                <a href="#edit-'.$vendorbills->id.'"">View</a>';
-										            })
+                                return
+                                '<a href="vendorbill/'.$vendorbills->id.'/edit">Edit |</a>
+                                <a href="vendorbill/'.$vendorbills->id.'"">View</a>';
+                            })
 							->make(true);
 	}
 
@@ -75,10 +75,11 @@ class VendorBillController extends Controller {
 	 */
 	public function store(CreateVendorBillRequest $request)
 	{
-		
-		$vendorbill = $this->dispatchFrom(CreateVendorBillCommand::class, $request);
-		
+
+	    $vendorbill = $this->dispatchFrom(CreateVendorBillCommand::class, $request);
+
 		return redirect()->route('vendorbill.show', $vendorbill->id);
+
 	}
 
 	/**
@@ -89,8 +90,7 @@ class VendorBillController extends Controller {
 	 */
 	public function show($id)
 	{
-		$vendorbill = $this->vendorbill->find($id);
-
+		$vendorbill = $this->vendorbill->with('vendorBillItems')->find($id);
 		return view('vendorbill.show')-> with('vendorbill',$vendorbill);
 	}
 

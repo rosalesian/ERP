@@ -35,7 +35,7 @@ window.POMainComponent = React.createClass({
 			            <h3 className="box-title">Primary Information</h3>
 			    	</div>
 			       
-			       <PrimaryComponent context={this.props.context} defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			       <POPrimaryComponent context={this.props.context} defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
 			    </div>
 
 		        <div className="nav-tabs-custom">
@@ -62,7 +62,7 @@ window.POMainComponent = React.createClass({
 	}
 });
 
-window.Wrapper = React.createClass({
+window.POWrapper = React.createClass({
 	render : function () {
 		return(
 			 <div className="row">
@@ -74,13 +74,13 @@ window.Wrapper = React.createClass({
 	}
 });
 
-window.FieldContainer = React.createClass({
+window.POFieldContainer = React.createClass({
 	render : function () {
 		return( <div className="col-md-4 col-sm-6 col-xs-12"> {this.props.children} </div> );
 	}
 });
 
-window.PrimaryComponent = React.createClass({
+window.POPrimaryComponent = React.createClass({
 	handleChangeCallBack : function (obj) {
 		this.props.callBackParent(obj);
 	},
@@ -92,94 +92,98 @@ window.PrimaryComponent = React.createClass({
 	},
 	render : function () {
 		return (
-			<Wrapper>
-            	<FieldContainer>
-        			<Type callBackParent={this.handleChangeCallBack}
-        				context={this.props.context}
-        				defaultValue={this.props.defaultValues.type}
-        				attributes={{name:"type", label:"TYPE"}} />
+			<POWrapper>
+            	<POFieldContainer>
+        			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.type_id}
+    				attributes={{name:"type_id", label:"PURCHASE ORDER TYPE"}} />
 
-        			<Date callBackParent={this.handleChangeCallBack}
+    				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.vendor_id}
+    				attributes={{name:"vendor_id", label:"VENDOR"}} />
+
+        			<DateMainComponent callBackParent={this.handleChangeCallBack}
         				context={this.props.context}
         				defaultValue={this.props.defaultValues.date} 
         				attributes={{name:"date", label:"DATE"}} />
-        		</FieldContainer>
 
-				<FieldContainer> 
-        			<DeliveredTo callBackParent={this.handleChangeCallBack} 
+        			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.requested_by}
+    				attributes={{name:"requested_by", label:"REQEUSTED BY"}} />
+        		</POFieldContainer>
+
+				<POFieldContainer> 
+        			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.terms_id}
+    				attributes={{name:"terms_id", label:"TERMS"}} />
+
+        			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+    				context={this.props.context}
+    				source={base_url+'/ajax/getItems'}
+    				defaultValue={this.props.defaultValues.paymenttype_id}
+    				attributes={{name:"paymenttype_id", label:"PAYMENT TYPE"}} />
+
+    				<TextMainComponent callBackParent={this.handleChangeCallBack} 
+    				context={this.props.context}
+    				defaultValue={this.props.defaultValues.delivered_to} 
+    				attributes={{name:"delivered_to", label:"DELIVERED TO"}} />
+        			
+            		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
         				context={this.props.context}
-        				defaultValue={this.props.defaultValues.deliver_to} 
-        				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
+        				defaultValue={this.props.defaultValues.memo}
+        				attributes={{name:"memo", label:"MEMO"}} />	
+        		</POFieldContainer>
 
-        			<Remarks callBackParent={this.handleChangeCallBack} 
-        				context={this.props.context}
-        				defaultValue={this.props.defaultValues.remarks}
-        				attributes={{name:"remarks", label:"REMARKS"}} />
-        		</FieldContainer>
-
-            	<FieldContainer>
-            		<TotalAmount callBackParent={this.handleChangeCallBack}
-            			context={this.props.context} 
-            			defaultValue={this.props.defaultValues.totalamount} 
-            			attributes={{name:"totalamount", label:"TOTAL AMOUNT"}} />
-            			
-		          	<Requester callBackParent={this.handleChangeCallBack} 
-		          		context={this.props.context}
-		          		defaultValue={this.props.defaultValues.requester} 
-		          		attributes={{name:"requester", label:"NAME OF REQUESTER"}} />		
-            	</FieldContainer>
-	        </Wrapper>
+            	<POFieldContainer>
+            		<SummaryComponent />          	
+            	</POFieldContainer>
+	        </POWrapper>
 		);
 	}
 });
 
-// var items = [
-// 	{value:"data1", label:"4000318 CDM FRUIT & NUT 6X24X65G", description:"This is Data 1"},
-// 	{value:"data2", label:"4005793 CDM ROAST ALMOND 6X24X65G (CS)", description:"This is Data 2"},
-// 	{value:"data3", label:"4000304 30G CDM FRUIT & NUT (1X12X24)", description:"This is Data 3"}
-// ];
-
-// var TABLE = {
-// 	storage:"items",
-// 	columns: [
-// 		{name: "item", displayName: "ITEM", className: "react-select-input-lineitem", fieldType: "select"},
-// 		{name: "description", displayName: "DESCRIPTION", fieldType: "disabled", className: "form-control"},
-// 		{name: "uom", displayName: "UNIT", className: "react-select-input-lineitem", fieldType: "select"},
-// 		{name: "quantity", displayName: "QUANTITY", fieldType: "text", className: "form-control"},
-// 		{name: "rate", displayName: "RATE", fieldType: "disabled", className: "form-control"},
-// 		{name: "amount", displayName: "AMOUNT", fieldType: "disabled", className: "form-control"},
-// 		{name: "vatamount", displayName: "VAT AMOUNT", fieldType: "disabled", className: "form-control"},
-// 		{name: "grossamount", displayName: "GROSS AMOUNT", fieldType: "disabled", className: "form-control"},
-// 		{name: "canvass", displayName: "CANVASS", fieldType: "link"}
-// 	]
-// };
-// var TABLE = {
-// 	storage:"item_storage",
-// 	columns: [
-// 		{name: "item", displayName: "Item", className: "react-select-input-lineitem", fieldType: "select", data:items},
-// 		{name: "description", displayName: "Description", fieldType: "text", className: "form-control"},
-// 		{name: "uom", displayName: "Unit", className: "react-select-input-lineitem", fieldType: "select", data:items},
-// 		{name: "quantity", displayName: "Quantity", fieldType: "text", className: "form-control"},
-// 		{name: "rate", displayName: "Rate", fieldType: "text", className: "form-control"},
-// 		{name: "amount", displayName: "Amount", fieldType: "text", className: "form-control"},
-// 		{name: "vatamount", displayName: "VAT Amount", fieldType: "text", className: "form-control"},
-// 		{name: "grossamount", displayName: "Gross Amount", fieldType: "text", className: "form-control"}
-// 	]
-// };
-// ReactDOM.render(<LineItems table={TABLE}/>, document.getElementById("line-items"));
-
-// ReactDOM.render(<PrimaryComponent />, document.getElementById("pr_primary_form"));
-// ReactDOM.render(<ClassificationComponent />, document.getElementById("pr_classification_form"));
-
-// ReactDOM.render(<TableComponent table={TABLE}/>, document.getElementById("sublist-items"));
-
-
-
+/*******************************************************************
+********************************************************************
+*******************************************************************/
+window.SummaryComponent = React.createClass({
+	render : function () {
+		return (
+				<table className="table" style={{border:'1px solid #f4f4f4', marginTop:'15px'}}>
+					<thead>
+						<tr>
+							<th colSpan="2" className="summary-header">SUMMARY</th>
+						</tr>
+					</thead>
+					<tbody className="summary-container">
+						<tr>
+							<td>SUBTOTAL</td>
+							<td>12345678910.56422367</td>
+						</tr>
+						<tr>
+							<td style={{borderBottom:'1px solid black'}}>VAT</td>
+							<td style={{borderBottom:'1px solid black'}}>12345678910.56422367</td>
+						</tr>
+						<tr>
+							<td><b>TOTAL</b></td>
+							<td>12345678910.56422367</td>
+						</tr>
+					</tbody>							
+				</table>
+		);
+	}
+});
 
 /*******************************************************************
 ********************************************************************
 *******************************************************************/
-
 window.POTable = React.createClass({
 	getDefaultProps : function () {
 		return {
@@ -230,7 +234,7 @@ window.POTable = React.createClass({
 	render : function () {
 		if(this.props.context=='view') {
 			return (
-				<div className="tableWrapper">
+				<div className="tablePOWrapper">
 					<table className="table table-bordered react-table" style={{overflow:'auto'}}>
 					<thead>
 						<tr>
@@ -252,7 +256,7 @@ window.POTable = React.createClass({
 		} else {
 			var that = this;
 			return (
-				<div className="tableWrapper">
+				<div className="tablePOWrapper">
 					<DataStorage data={this.state.dataStorage} name="items" />
 					<table className="table table-bordered react-table" style={{overflow:'auto'}}>
 					<thead>

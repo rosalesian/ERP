@@ -1,100 +1,91 @@
 @extends('layout.content_template')
 
 @section('title')
-Create New Purchase Requisition
+Job Order View
 @stop
 
 @section('content-header')
-<h1>Purchase Requisition</h1>
+<h1>Job Order</h1>
 <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Dashboard</li>
 </ol>
-
 @stop
 
 @section('content')
  <div class="row">
   <div class="col-md-12">
-    {!! Form::open(array('url'=>'purchaserequest/'.$purchaserequest->id,'method'=>'put')) !!}
 
     <div class="transaction-buttons-container">
       <div class="trans-button">
-         <button class="btn btn-block btn-primary btn-flat">Save</button>
+        {!! HTML::link('joborder/'.$joborder->id.'/edit','Edit',array('class'=>'btn btn-block btn-success btn-flat')) !!}
       </div>
       <div class="trans-button">
-        {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
+        {!! HTML::link('joborder','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
+    </div>
+    <div class="approvaltransition">
+      <ol class="breadcrumb">
+      <li>Encoder</li>
+      <li>Branch Finance Supervisor</li>
+      <li>Branch Purchaser</li>
+      <li class="active">Branch Finance Manager</li>
+      <li>Corporate Purchaser</li>
+      <li>CA</li>
+      <li>CFO</li>
+      <li>CEO</li>
+      </ol>
     </div>
 
     <div id="mainPR-container"></div>
 
     <div class="transaction-buttons-container">
       <div class="trans-button">
-         <button class="btn btn-block btn-primary btn-flat">Save</button>
+        {!! HTML::link('joborder/'.$joborder->id.'/edit','Edit',array('class'=>'btn btn-block btn-success btn-flat')) !!}
       </div>
       <div class="trans-button">
-        {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
+        {!! HTML::link('joborder','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
 
-  {!! Form::close() !!}
   </div><!-- /.col -->
 </div><!-- /.row -->
-    <?php
+
+<!-- canvass modal -->
+<div class="example-modal" style="width:900px;"> <div class="modal" id="myModal"></div> </div>
+
+<?php
+
     $items=[];
-    foreach ($purchaserequest->items as $key) {
+    foreach ($joborder->materialCost as $key) {
         array_push($items, [
-                "item_id"=>$key->item_id,
-                "item_label"=>$key->item->description,
-                "description"=>$key->item->itemcode,
+                "_token"=> csrf_token(),
+                "id"=>$key->id,
+                "item_id"=>$key->item->id,
+                "item_label"=>$key->item->itemcode,
+                "description"=>$key->item->description,
                 "quantity"=>$key->quantity,
-                "unit_id"=>$key->unit_id,
-                "uom_label"=>unittypeEdit($key->item->id,$key->unit_id)
+                "unit_id"=>$key->units_id,
+                "uom_label"=> $key->unit->abbreviation
           ]);
     }
-function unittypeEdit($itemid, $unitid) {
-  $data=[];
-  if($itemid=='1') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PC']
-    ];
-  } else if($itemid=='2') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PACKS']
-    ];
-  } else if($itemid=='3') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'BX']
-    ];
-  } else if($itemid=='4') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PACKS'],
-      ['value'=>3, 'label'=>'BX']
-    ];
-  } else if($itemid=='5') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PCS'],
-      ['value'=>3, 'label'=>'PACKS']
-    ];
-  }
 
-  $f='';
-  foreach($data as $d) {
-    if($d['value']==$unitid) {
-      $f = $d['label'];
-    }
-  }
-  return $f;
-}
-
-    ?>
-
+      $labor_items = [];
+      foreach($joborder->laborItems as $laboritem) {
+         // dd($laboritem->jobOrderType->name);
+          $temp = [];
+          $temp['_token'] = csrf_token();
+          $temp['id'] = $laboritem->id;
+          $temp['item_id'] = $laboritem->item->id;
+          $temp['item_label'] = $laboritem->item->description;
+          $temp['jobtype_id'] = $laboritem->jobOrderType->id;
+          $temp['jobtype_label'] = $laboritem->jobOrderType->name;
+          $temp['noofdays_label'] = $laboritem->item->id;
+          $temp['description'] = $laboritem->jobOrderType->description;
+          $labor_items[] = $temp;
+      }
+    //dd($joborder->laborCost);
+?>
 @stop
 
 @section('scripts')
@@ -125,13 +116,20 @@ function unittypeEdit($itemid, $unitid) {
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
 {{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
-
-<script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/forms/joborder/joborder_view.js') }}"></script>
 <script type="text/babel">
-  var purchaserequests = <?php echo $purchaserequest; ?>;
-  console.log(purchaserequests);
+  var joborder = <?php echo $joborder?>;
   var items= <?php echo json_encode($items); ?>;
-  var context="edit";
-  ReactDOM.render(<PRMainComponent context={context} data={(typeof purchaserequests=='undefined') ? [] : purchaserequests} items={items}/>, document.getElementById("mainPR-container"));
+  var laborcost = <?php echo json_encode($labor_items);?>
+  //console.log(items);
+  console.log(laborcost);
+  var context="view";
+  ReactDOM.render(<JOMainComponent context={context} data={(typeof joborder=='undefined') ? [] : joborder} items={items} laborcosts = {laborcost}/>, document.getElementById("mainPR-container"));
 </script>
+
+<!-- <script type="text/babel" src="{{ asset('js/react/forms/joborder/joborder_view.js') }}"></script>
+<script type="text/babel">
+var context = "create";
+  ReactDOM.render(<JOMainComponent context={context} />, document.getElementById("mainPR-container"));
+</script> -->
 @stop
