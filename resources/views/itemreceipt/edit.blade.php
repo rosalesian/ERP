@@ -45,56 +45,15 @@ Create New Item Receipt
     $items=[];
     foreach ($itemreceipt->items as $key) {
         array_push($items, [
-                "_token"=> csrf_token(),
-                "id"=>$key->id,
-                "purchaseorderitem_id"=>$key->purchaseorder_id,
-                "purchaseorderitem_label"=>$key->item->description,
-                "description"=>$key->item->itemcode,
-                "quantity_received"=>$key->quantity_received,
-                "unit_id"=>$key->unit_id,
-                "uom_label"=>unittypeEdit($key->item->id,$key->unit_id)
-          ]);
+            "id"=>$key->id,
+            "purchaseorderitem_id"=>$key->purchaseorderitem_id,
+            "purchaseorderitem_label"=>$key->item->description,
+            "description"=>$key->item->itemcode,
+            "quantity_received"=>$key->quantity_received,
+            "unit_id"=>$key->purchaseorderitem->unit_id,
+            "uom_label"=>$key->purchaseorderitem->unit->abbreviation
+        ]);
     }
-function unittypeEdit($itemid, $unitid) {
-  $data=[];
-  if($itemid=='1') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PC']
-    ];
-  } else if($itemid=='2') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PACKS']
-    ];
-  } else if($itemid=='3') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'BX']
-    ];
-  } else if($itemid=='4') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PACKS'],
-      ['value'=>3, 'label'=>'BX']
-    ];
-  } else if($itemid=='5') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PCS'],
-      ['value'=>3, 'label'=>'PACKS']
-    ];
-  }
-
-  $f='';
-  foreach($data as $d) {
-    if($d['value']==$unitid) {
-      $f = $d['label'];
-    }
-  }
-  return $f;
-}
-
     ?>
 
 @stop

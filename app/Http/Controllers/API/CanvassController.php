@@ -22,9 +22,8 @@ class CanvassController extends Controller {
 	public function index($id)
 	{
 		$prItem = $this->prItem->find($id);
-
 		return response()->json([
-			'canvasses' => $prItem->canvasses()
+			'canvasses' => $prItem->canvasses
 		]);
 	}
 

@@ -160,7 +160,6 @@ window.DataStorageIR = React.createClass ({
 				data.push(this.props.data[i]);
 			}
 		}
-		console.log(data);
 		return( <input type="hidden" name={this.props.name} value={JSON.stringify(data)}/> )
 	}
 });
