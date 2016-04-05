@@ -38,9 +38,9 @@ class CreatePurchaseOrderCommandHandler
             'memo'       => $command->memo
         ]);
 
-        foreach($command->items as $item){
-			$purchaseorder->items()->create((array)$item);
-        }
+		$this->purchaseorder->saveWith($purchaseorder->id, [
+			'items' => $command->items
+		]);
 
         event(new PurchaseOrderWasCreated($purchaseorder));
 
