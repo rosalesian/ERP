@@ -101,25 +101,4 @@ class VendorBill extends Model
 		return $this->belongsTo('Nixzen\Models\Lists\Employee', 'updated_by');
 	}
 
-	public function removeitems($ids)
-    {
-        foreach ($this->items as $key => $item) {
-
-             if(!in_array($item->id,$ids))
-             {
-                $item->delete();
-             }
-        }
-    }
-
-    public function removeexpenses($ids)
-    {
-        foreach ($this->expenses as $key => $expense) {
-
-             if(!in_array($expense->id,$ids))
-             {
-                $expense->delete();
-             }
-        }
-    }
 }

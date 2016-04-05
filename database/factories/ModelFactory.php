@@ -281,3 +281,13 @@ $factory->define(Nixzen\Models\Unit::class, function ($faker) {
 		'base_unit' => true,
 	];
 });
+
+$factory->define(Nixzen\Models\ItemTypes::class, function ($faker) {
+	return [
+		'name' => $faker->word,
+		'description' => $faker->word,
+		'company_id' => 0,
+		'created_by' => 0,
+		'updated_by' => 0
+	];
+});
