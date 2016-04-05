@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PurchaseOrderControllerTest extends TestCase
 {
-	use DatabaseMigrations, WithoutMiddleware;
+	use DatabaseMigrations;
 
 	public $purchaseorder;
 
@@ -25,7 +25,7 @@ class PurchaseOrderControllerTest extends TestCase
     {
         $response = $this->call('GET', 'purchaseorder');
 
-		$purchaseorders = $response->original->getData()['purchaseorders'];
+		$purchaseorders = $this->getData('purchaseorders');
 
 		$this->assertResponseOk();
 		$this->assertViewHas('purchaseorders');
@@ -37,26 +37,31 @@ class PurchaseOrderControllerTest extends TestCase
 
 	public function testCreate()
 	{
-			$this->call('GET', 'purchaseorder/create');
-			$this->assertResponseOk();
+		$this->makeFactoryPurchaseOrder();
+		$this->call('GET', 'purchaseorder/create');
+		$this->assertResponseOk();
 	}
 
 	public function testStore()
 	{
+		$this->withoutMiddleware();
+
 		$items =
 		[
 			[
+				'id' => '',
 				'item_id'=> 1,
 				'quantity'=> 2,
-				'uom_id'=> 1,
+				'unit_id'=> 1,
 				'unit_cost' => 10.00,
 				'item_label' => 'bla bla bla',
 				'description' => 'this is a test'
 			],
 			[
+				'id' => '',
 				'item_id'=> 2,
 				'quantity'=> 2,
-				'uom_id'=> 1,
+				'unit_id'=> 1,
 				'unit_cost' => 5.50,
 				'item_label' => 'bla bla bla',
 				'description' => 'this is a test'
@@ -75,8 +80,10 @@ class PurchaseOrderControllerTest extends TestCase
 			'items'	=> json_encode($items)
 		];
 
-		$response = $this->call('POST', 'purchaseorder', $request);
+		$this->call('POST', 'purchaseorder', $request);
 		$purchaseorder = $this->purchaseorder->all()->last();
+		
+		$this->assertPOItemsIs(2);
 		$this->assertResponseStatus(302);
 		$this->seeInDatabase('purchase_orders', ['vendor_id' => 1]);
 		$this->assertRedirectedToRoute(
@@ -99,30 +106,30 @@ class PurchaseOrderControllerTest extends TestCase
 	{
 		$this->makeFactoryPurchaseOrder();
 		$response = $this->call('GET', 'purchaseorder/1/edit');
-		$poEditData = $response->original->getData()['purchaseorder'];
-		//dd($this->response);
 		$this->assertResponseOk();
 		$this->assertViewHas('purchaseorder');
 	}
 
 	public function testUpdate()
 	{
+		$this->withoutMiddleware();
+
 		$items =
 		[
 			[
 				'id' => '1',
 				'item_id'=> '1',
 				'quantity'=> '2',
-				'uom_id'=> '1',
+				'unit_id'=> '1',
 				'unit_cost' => '10.00',
 				'item_label' => 'bla bla bla',
 				'description' => 'this is a test'
 			],
 			[
-				'id' => '2',
+				'id' => '',
 				'item_id'=> '2',
 				'quantity'=> '2',
-				'uom_id'=> '1',
+				'unit_id'=> '1',
 				'unit_cost' => '5.50',
 				'item_label' => 'bla bla bla',
 				'description' => 'this is a test'
@@ -143,10 +150,8 @@ class PurchaseOrderControllerTest extends TestCase
 
 		$this->makeFactoryPurchaseOrder();
 		$response = $this->call('PATCH', 'purchaseorder/1', $request);
-		//dd($response->original);
-		$lineitem_count = $this->purchaseorder->find(1)->items()->get()->count();
-		//dd($lineitem_count);
-		$this->assertEquals(2, $lineitem_count);
+		$count = $this->purchaseorder->find(1)->items->count();
+		$this->assertEquals(2, $count);
 		$this->assertResponseStatus(302);
 		$this->seeInDatabase('purchase_orders', ['id' => 1, 'vendor_id' => 2]);
 		$this->assertRedirectedToRoute('purchaseorder.show', [1]);
@@ -154,12 +159,26 @@ class PurchaseOrderControllerTest extends TestCase
 
 	public function testDestroy()
 	{
-			$response = $this->call('DELETE', 'purchaseorder/1');
-			$this->assertResponseStatus(302);
-			$this->assertRedirectedToRoute('purchaseorder.index');
+		$this->withoutMiddleware();
+
+		$response = $this->call('DELETE', 'purchaseorder/1');
+		$this->assertResponseStatus(302);
+		$this->assertRedirectedToRoute('purchaseorder.index');
 	}
 	public function makeFactoryPurchaseOrder()
 	{
+		factory(Nixzen\Models\UnitType::class, 5)
+			->create()
+			->each(function($ut){
+				$ut->save([
+					factory(Nixzen\Models\Unit::class, 3)
+						->create(['unittype_id' => $ut->id])
+				]);
+			});
+
+		$items = factory(Nixzen\Models\Item::class, 20)->create();
+
+		//dd($items->first()->unitType->first()->units);
 		factory(Nixzen\Models\PurchaseOrder::class, 3)
 			->create()
 			->each(function($po) {
@@ -183,9 +202,19 @@ class PurchaseOrderControllerTest extends TestCase
 			});
 	}
 
-	public function getEditData($data)
+	public function getData($type)
 	{
-		$this->data = $this->response->original->getData()[$data];
+		return $this->response->original->getData()[$type];
+	}
 
+	public function dumpResponse()
+	{
+		dd($this->original);
+	}
+
+	public function assertPOItemsIs($count)
+	{
+		$item_count = $this->purchaseorder->find(1)->items->count();
+		return $this->assertEquals($count, $item_count);
 	}
 }
