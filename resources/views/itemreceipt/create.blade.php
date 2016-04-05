@@ -32,7 +32,7 @@ Create New Item Receipt
         {!! HTML::link('purchaseorder/'.$purchaseorder->id.'/itemreceipt','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
-      
+
       <div id="mainIR-container"></div>
 
     <div class="transaction-buttons-container">
@@ -47,7 +47,7 @@ Create New Item Receipt
   {!! Form::close() !!}
 
   </div><!-- /.col -->
-</div><!-- /.row -->  
+</div><!-- /.row -->
 
 <!-- canvass modal -->
 <div class="example-modal" style="width:900px;"> <div class="modal" id="myModal"></div> </div>
@@ -103,7 +103,7 @@ Create New Item Receipt
   var old_inputs = <?php echo json_encode(Input::old()); ?>;
   var context = "create";
   var items= <?php echo json_encode($items); ?>;
-  ReactDOM.render(<IRMainComponent context={context} data={(typeof old_inputs=='undefined') ? [] : old_inputs} 
+  ReactDOM.render(<IRMainComponent context={context} data={(typeof old_inputs=='undefined') ? [] : old_inputs}
                   purchaseorder={purchaseorder}
                   items={items} />,
                   document.getElementById("mainIR-container"));
