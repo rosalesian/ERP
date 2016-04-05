@@ -46,6 +46,7 @@ class VendorBillControllerTest extends TestCase
 
 		$items = [
 			[
+				'id' => '',
 				'item_id' => 1,
 				'quantity' => 2,
 				'uom_id' => 2,
@@ -59,6 +60,7 @@ class VendorBillControllerTest extends TestCase
 
 		$expenses = [
 			[
+				'id' => '',
 				'coa_id' => 1,
 				'amount' => 1000,
 				'taxcode_id' => 1,
@@ -122,7 +124,7 @@ class VendorBillControllerTest extends TestCase
 				'quantity' => 2,
 				'uom_id' => 2,
 				'unit_cost' => 100,
-				'amount' => 200,
+				'amount' => 300,
 				'taxcode_id' => 1,
 				'tax_amount' => 0,
 				'gross_amount' => 200
@@ -184,10 +186,10 @@ class VendorBillControllerTest extends TestCase
 		factory(Nixzen\Models\VendorBill::class, 2)
 			->create()
 			->each(function($bill) {
-				$bill->items()->saveMany(factory(Nixzen\Models\VendorBillItem::class, 2)->create(
+				$bill->items()->saveMany(factory(Nixzen\Models\VendorBillItem::class, 3)->create(
 					['vendorbill_id' => $bill->id]
 				));
-				$bill->expenses()->saveMany(factory(Nixzen\Models\VendorBillExpenses::class, 2)->create(
+				$bill->expenses()->saveMany(factory(Nixzen\Models\VendorBillExpenses::class, 3)->create(
 					['vendorbill_id' => $bill->id]
 				));
 				$bill->vendor()->associate(factory(Nixzen\Models\Vendor::class)->create());

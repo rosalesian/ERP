@@ -35,18 +35,20 @@ class CreateVendorBillCommandHandler
 
         if($command->items)
         {
-            foreach($command->items as $item){
-                $vendorbill->items()->create((array)$item);
-            }
-
+    
+            $this->vendorbill->saveWith($vendorbill->id, [
+                    'items' => $command->items
+                ]);
         }
 
         if($command->expenses)
         {
-            foreach($command->expenses as $expense){
-                $vendorbill->expenses()->create((array)$expense);
-            }
+            
+            $this->vendorbill->saveWith($vendorbill->id, [
+                    'expenses' => $command->expenses
+                ]);
         }
+
         return $vendorbill;
     }
 
