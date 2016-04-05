@@ -23,7 +23,7 @@ class CanvassController extends Controller {
 	{
 		$prItem = $this->prItem->find($id);
 		return response()->json([
-			'canvasses' => $prItem->canvasses
+			'canvasses' => $prItem->canvasses->toJson()
 		]);
 	}
 
@@ -46,15 +46,10 @@ class CanvassController extends Controller {
 	{
 		$prItem = $this->prItem->find($id);
 		$canvasses = json_decode($request->input('canvasses'));
-		foreach($canvasses as $data){
-			$canvass = $prItem->canvasses()->where('vendor_id', $data->vendor_id)->first();
-			if($canvass == null){
-				$prItem->canvasses()->create((array)$data);
-			}else {
-				$canvass->update((array)$data);
-			}
 
-		}
+		$this->prItem->saveWith($id, [
+			'canvasses' => $canvasses
+		]);
 
 		return response()->json([
 			'message' => 'canvass was created'
