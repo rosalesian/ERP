@@ -91,8 +91,8 @@ $factory->define(Nixzen\Models\PurchaseOrderItem::class, function ($faker) {
 	return [
 		'item_id'=> $faker->numberBetween(1, 5),
 		'quantity'=> $faker->numberBetween(1, 10),
-		'uom_id'=> $faker->numberBetween(1, 5),
-		'amount' => $faker->randomFloat()
+		'unit_id'=> $faker->numberBetween(1, 5),
+		'amount' => $faker->randomFloat(100, 500)
 	];
 });
 
@@ -265,5 +265,19 @@ $factory->define(Nixzen\Models\Canvass::class, function ($faker) {
 		'vendor_id' => $faker->numberBetween(1, 50),
 		'cost' => $faker->numberBetween(100, 1000),
 		'terms_id' => $faker->numberBetween(0, 2)
+	];
+});
+$factory->define(Nixzen\Models\UnitType::class, function ($faker) {
+	return [
+		'name' => $faker->word
+	];
+});
+$factory->define(Nixzen\Models\Unit::class, function ($faker) {
+	return [
+		'name' => $faker->word,
+		'pluralname' => $faker->word,
+		'abbreviation' => $faker->word,
+		'conversion_rate' => 1,
+		'base_unit' => true,
 	];
 });
