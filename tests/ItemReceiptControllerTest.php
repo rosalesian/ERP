@@ -64,11 +64,13 @@ class ItemReceiptControllerTest extends TestCase
 
 		$this->makeFactoryPurchaseOrder();
 		$response = $this->call('POST', 'purchaseorder/1/itemreceipt', $request);
+
 		$this->assertResponseStatus(302);
 
 		$itemreceipt = $this->itemreceipt->all()->last();
 
 		$this->assertRedirectedToRoute('purchaseorder.itemreceipt.show', [$itemreceipt]);
+		$this->assertEquals(2, $itemreceipt->items->count());
 	}
 
 	public function testShow()
@@ -88,7 +90,7 @@ class ItemReceiptControllerTest extends TestCase
 		});
 
 		$response = $this->call('GET', 'purchaseorder/1/itemreceipt/1');
-		//dd($response->original);
+
 		$this->assertResponseOk();
 		$this->assertViewHas('itemreceipt');
 	}
@@ -119,9 +121,18 @@ class ItemReceiptControllerTest extends TestCase
 	{
 		$this->withoutMiddleware();
 
-		$items = [
-			['id'=>'1','purchaseorderitem_id'=> '1','quantity_received'=> '2'],
-			['id'=>'2','purchaseorderitem_id'=> '2','quantity_received'=> '2']
+		$items =
+		[
+			[
+				'id'=>'1',
+				'purchaseorderitem_id'=> '1',
+				'quantity_received'=> '2'
+			],
+			[
+				'id'=>'',
+				'purchaseorderitem_id'=> '2',
+				'quantity_received'=> '2'
+			]
 		];
 
 		$request = [
@@ -133,7 +144,7 @@ class ItemReceiptControllerTest extends TestCase
 		$purchaseorders = $this->makeFactoryPurchaseOrder();
 		$purchaseorders->each(function($po) {
 			$po->save([
-				factory(Nixzen\Models\ItemReceipt::class, 3)
+				factory(Nixzen\Models\ItemReceipt::class, 5)
 					->create(['purchaseorder_id' => $po->id])
 					->each(function ($ir) {
 						$ir->save([
@@ -147,6 +158,9 @@ class ItemReceiptControllerTest extends TestCase
 		$response = $this->call('PATCH', 'purchaseorder/1/itemreceipt/1', $request);
 
 		$this->assertResponseStatus(302);		$this->assertRedirectedToRoute('purchaseorder.itemreceipt.show', [1]);
+
+		$count = $this->itemreceipt->find(1)->items->count();
+		$this->assertEquals(2, $count);
 	}
 
 	public function testDestroy()
