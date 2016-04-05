@@ -82,7 +82,7 @@ class PurchaseOrderControllerTest extends TestCase
 
 		$this->call('POST', 'purchaseorder', $request);
 		$purchaseorder = $this->purchaseorder->all()->last();
-		
+
 		$this->assertPOItemsIs(2);
 		$this->assertResponseStatus(302);
 		$this->seeInDatabase('purchase_orders', ['vendor_id' => 1]);
