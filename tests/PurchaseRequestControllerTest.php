@@ -42,8 +42,7 @@ class PurchaseRequestControllerTest extends TestCase
 	public function testShow()
 	{
 		$this->makeFactoryPurchaseRequest();
-		$response = $this->call('GET', 'purchaserequest/1');
-		//dd($response->original);
+		$this->call('GET', 'purchaserequest/1');
 		$this->assertResponseOk();
 		$this->assertViewHas('purchaserequest');
 	}
@@ -52,7 +51,6 @@ class PurchaseRequestControllerTest extends TestCase
 	{
 		$this->makeFactoryPurchaseRequest();
 		$response = $this->call('GET', 'purchaserequest/1/edit');
-		//dd($response);
 		$this->assertResponseOk();
 		$this->assertViewHas('purchaserequest');
 	}
@@ -77,8 +75,21 @@ class PurchaseRequestControllerTest extends TestCase
 	}
 	public function makeFactoryPurchaseRequest()
 	{
-		factory(Nixzen\Models\Item::class, 100)->create();
-		$purchaserequest = factory(Nixzen\Models\PurchaseRequest::class, 3)->create();
+		factory(Nixzen\Models\UnitType::class, 5)
+			->create()
+			->each(function($ut){
+				$ut->save([
+					factory(Nixzen\Models\Unit::class, 3)
+						->create(['unittype_id' => $ut->id])
+				]);
+			});
+
+		factory(Nixzen\Models\Item::class, 100)
+			->create();
+
+		$purchaserequest = factory(Nixzen\Models\PurchaseRequest::class, 3)
+				->create();
+
 		$purchaserequest->each(function($pr) {
 				$items = factory(Nixzen\Models\PurchaseRequestItem::class, 3)->create(['purchaserequisition_id' => $pr->id]);
 				$pr->items()->saveMany($items);
@@ -105,5 +116,10 @@ class PurchaseRequestControllerTest extends TestCase
 		];
 
 		return $request;
+	}
+
+	public function dumpResponse()
+	{
+		dd($this->response->original);
 	}
 }
