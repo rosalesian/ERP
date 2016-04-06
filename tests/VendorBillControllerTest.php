@@ -21,6 +21,7 @@ class VendorBillControllerTest extends TestCase
 	public function testIndex()
     {
         $response = $this->call('GET', 'vendorbill');
+
 		$this->assertResponseOk();
 		$this->assertViewHas('vendorbills');
 		$vendorbills = $response->original->getData()['vendorbills'];
@@ -46,6 +47,7 @@ class VendorBillControllerTest extends TestCase
 
 		$items = [
 			[
+				'id' => '',
 				'item_id' => 1,
 				'quantity' => 2,
 				'uom_id' => 2,
@@ -59,6 +61,7 @@ class VendorBillControllerTest extends TestCase
 
 		$expenses = [
 			[
+				'id' => '',
 				'coa_id' => 1,
 				'amount' => 1000,
 				'taxcode_id' => 1,
@@ -100,6 +103,8 @@ class VendorBillControllerTest extends TestCase
 
 	public function testShow()
 	{
+		$this->makeFactoryVendorBill();
+
 		$response = $this->call('GET', 'vendorbill/1');
 		$this->assertResponseOk();
 		$this->assertViewHas('vendorbill');
@@ -107,6 +112,9 @@ class VendorBillControllerTest extends TestCase
 
 	public function testEdit()
 	{
+
+		$this->makeFactoryVendorBill();
+		
 		$response = $this->call('GET', 'vendorbill/1/edit');
 		$this->assertResponseOk();
 		$this->assertViewHas('vendorbill');
@@ -122,7 +130,7 @@ class VendorBillControllerTest extends TestCase
 				'quantity' => 2,
 				'uom_id' => 2,
 				'unit_cost' => 100,
-				'amount' => 200,
+				'amount' => 300,
 				'taxcode_id' => 1,
 				'tax_amount' => 0,
 				'gross_amount' => 200
@@ -181,15 +189,30 @@ class VendorBillControllerTest extends TestCase
 
 	public function makeFactoryVendorBill()
 	{
+		factory(Nixzen\Models\UnitType::class, 5)
+			->create()
+			->each(function($ut){
+				$ut->save([
+					factory(Nixzen\Models\Unit::class, 3)
+						->create(['unittype_id' => $ut->id])
+				]);
+			});
+
+		$items = factory(Nixzen\Models\Item::class, 20)->create();
+
+		factory(Nixzen\Models\ItemTypes::class, 5)->create();
+
 		factory(Nixzen\Models\VendorBill::class, 2)
 			->create()
 			->each(function($bill) {
-				$bill->items()->saveMany(factory(Nixzen\Models\VendorBillItem::class, 2)->create(
-					['vendorbill_id' => $bill->id]
-				));
-				$bill->expenses()->saveMany(factory(Nixzen\Models\VendorBillExpenses::class, 2)->create(
-					['vendorbill_id' => $bill->id]
-				));
+				$bill->items()->saveMany(
+					factory(Nixzen\Models\VendorBillItem::class, 3)
+					->create(['vendorbill_id' => $bill->id])
+				);
+				$bill->expenses()->saveMany(
+					factory(Nixzen\Models\VendorBillExpenses::class, 3)
+					->create(['vendorbill_id' => $bill->id])
+				);
 				$bill->vendor()->associate(factory(Nixzen\Models\Vendor::class)->create());
 				$bill->billtype()->associate(factory(Nixzen\Models\BillType::class)->create());
 				$bill->billtypenontradesubtype()->associate(factory(Nixzen\Models\BillTypeNonTradeSubType::class)->create());

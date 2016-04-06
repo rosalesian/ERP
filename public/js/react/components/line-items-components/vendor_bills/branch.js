@@ -55,7 +55,7 @@ window.BRANHCES = React.createClass({
 	},
 	handleChange : function (event) {
 		var obj = {};
-		obj.name = '';
+		obj.name = 'branch_id';
 		obj['branch_id'] = event.value;
 		obj['branch_label'] = event.label;
 		this.setState({defaultValue:event.value});
@@ -67,7 +67,6 @@ window.BRANHCES = React.createClass({
 				<Select onChange={this.handleChange} 
                 id="branch_id" 
                 className="react-select-input-mainline" 
-                name="branch_id"
                 value={this.state.defaultValue}
                 options={this.state.data} 
                 placeholder={this.state.placeholder} 

@@ -67,7 +67,6 @@ window.DEPARTEMENT = React.createClass({
 				<Select onChange={this.handleChange} 
                 id="department_id" 
                 className="react-select-input-mainline" 
-                name="department_id"
                 value={this.state.defaultValue}
                 options={this.state.data} 
                 placeholder={this.state.placeholder} 

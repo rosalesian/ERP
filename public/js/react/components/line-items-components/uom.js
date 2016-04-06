@@ -65,7 +65,7 @@ window.UOM = React.createClass({
 				<Select onChange={this.handleChange} 
                 id='unit_id'
                 className="react-select-input-mainline" 
-                name='unit_id'
+
                 value={this.state.defaultValue}
                 options={this.state.data} 
                 placeholder={this.state.placeholder} 

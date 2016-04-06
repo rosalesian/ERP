@@ -87,6 +87,7 @@ Vendor Bill View
             $expenses[] = $temp;
         }
 
+
 ?>
 @stop
 
@@ -145,9 +146,4 @@ Vendor Bill View
   ReactDOM.render(<VendorBillMainComponent context={context} data={(typeof vendorbill=='undefined') ? [] : vendorbill} items={items} expenses = {expenses} />, document.getElementById("mainPR-container"));
 </script>
 
-<!-- <script type="text/babel" src="{{ asset('js/react/forms/vendorbill/vendorbill_view.js') }}"></script>
-<script type="text/babel">
-var context = "create";
-  ReactDOM.render(<JOMainComponent context={context} />, document.getElementById("mainPR-container"));
-</script> -->
 @stop

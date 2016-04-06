@@ -94,6 +94,9 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface {
         return $this->model->create($data);
     }
 
+	public function make(){
+		return $this->model;
+	}
     /**
      * @param array $data
      * @param $id
@@ -157,20 +160,24 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface {
         return $this->model->where($attribute, '=', $value)->get($columns);
     }
 
-		/**
-		 * @param $attribute
-		 * @param $value
-		 * @param array $columns
-		 * @return mixed
-		 */
-		public function findOrCreate($id, $columns = array('*')) {
-				$model = $this->model->find($id);
-				if($model == null){
-					$model = $this->model->create($columns);
-				}
-				$this->applyCriteria();
-				return $model;
+	/**
+	 * @param $attribute
+	 * @param $value
+	 * @param array $columns
+	 * @return mixed
+	 */
+	public function firstOrCreate($columns, array $data) {
+		$this->applyCriteria();
+		$model = $this->model->where($columns)->first();
+		if($model == null){
+			$model = $this->model->create($data);
 		}
+		else {
+			$model->update($data);
+		}
+
+		return $model;
+	}
     /**
      * Find a collection of models by the given query conditions.
      *
@@ -224,6 +231,39 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface {
 
         return $this->model = $model;
     }
+
+	public function saveWith($id, array $relations)
+	{
+		$lineitems = null;
+
+		foreach($relations as $key => $inputs)
+		{
+			$lineitems = $this->model->findOrFail($id)->{$key}();
+			$ids = collect($inputs)->fetch('id')->toArray();
+
+			foreach ($lineitems->get() as $key => $item)
+			{
+				if(! in_array($item->id, $ids))
+				{
+					$item->delete();
+				}
+			}
+
+			foreach($inputs as $input)
+			{
+				$lineitem = $lineitems->find($input->id);
+
+				if($lineitem == null)
+				{
+					$lineitems->create((array) $input);
+				}
+				else
+				{
+					$lineitem->update((array) $input);
+				}
+			}
+		}
+	}
 
     /**
      * @return $this

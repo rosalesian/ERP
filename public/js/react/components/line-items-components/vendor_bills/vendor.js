@@ -55,7 +55,7 @@ window.VENDOR = React.createClass({
 	},
 	handleChange : function (event) {
 		var obj = {};
-		obj.name = '';
+		obj.name = 'vendor_id';
 		obj['vendor_id'] = event.value;
 		obj['vendor_label'] = event.label;
 		this.setState({defaultValue:event.value});
@@ -67,7 +67,6 @@ window.VENDOR = React.createClass({
 				<Select onChange={this.handleChange} 
                 id="vendor_id" 
                 className="react-select-input-mainline" 
-                name="vendor_id"
                 value={this.state.defaultValue}
                 options={this.state.data} 
                 placeholder={this.state.placeholder} 

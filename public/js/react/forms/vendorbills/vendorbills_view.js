@@ -15,24 +15,23 @@ window.VendorBillMainComponent = React.createClass({
             requested_by: '',
             maintenancetype_id: '',
             prcategory_id: '',
-
-
-
-            billtype_nontrade_subtype_id: '',
-            duedate: '',
-            coa_id: '',
+       
 
             posting_period_id: '',
             items: '',
             expenses: '',
             transno: '',
-            amount: '',
+     
             context: '',
 
 
+           
+
             billtype_id: (typeof this.props.data.billtype_id=='undefined') ? '' : this.props.data.billtype_id,
+           	department_id: (typeof this.props.data.department_id=='undefined') ? '' : this.props.data.department_id,
+
             duedate: (typeof this.props.data.duedate=='undefined') ? '' : this.props.data.duedate,
-            approvalstatus_id: (typeof this.props.data.approvalstatus_id=='undefined') ? '' : this.props.data.approvalstatus_id,
+         
             division_id: (typeof this.props.data.division_id=='undefined') ? '' : this.props.data.division_id,
             transno: (typeof this.props.data.transno=='undefined') ? '' : this.props.data.transno,
             billtype_nontrade_subtype_id: (typeof this.props.data.billtype_nontrade_subtype_id=='undefined') ? '' : this.props.data.billtype_nontrade_subtype_id,
@@ -43,11 +42,15 @@ window.VendorBillMainComponent = React.createClass({
 
 
             coa_id: (typeof this.props.data.coa_id=='undefined') ? '' : this.props.data.coa_id,
+
             amount: (typeof this.props.data.amount=='undefined') ? '' : this.props.data.amount,
             vendor_id: (typeof this.props.data.vendor_id=='undefined') ? '' : this.props.data.vendor_id,
-            department_id: (typeof this.props.data.department_id=='undefined') ? '' : this.props.data.department_id,
+          
             division_id: (typeof this.props.data.division_id=='undefined') ? '' : this.props.data.division_id,
+         
+
             branch_id: (typeof this.props.data.branch_id=='undefined') ? '' : this.props.data.branch_id,
+
 
             suppliers_inv_no: (typeof this.props.data.suppliers_inv_no=='undefined') ? '' : this.props.data.suppliers_inv_no,
             terms_id: (typeof this.props.data.terms_id=='undefined') ? '' : this.props.data.terms_id,
@@ -183,7 +186,8 @@ window.VendorBillPrimaryComponent = React.createClass({
                     context={this.props.context}
                     source={base_url+'/ajax/getDepartment'}
                     defaultValue={this.props.defaultValues.department_id}
-                    attributes={{name:"department_id", label:"DEPARTMENT"}} />
+                    attributes={{name:"department_id", label:"DEPARTMENT "}} />
+
 
                     <SelectMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
@@ -198,11 +202,13 @@ window.VendorBillPrimaryComponent = React.createClass({
                     defaultValue={this.props.defaultValues.branch_id}
                     attributes={{name:"branch_id", label:"BRANCH"}} />
 
+          
+
                     <SelectMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     source={base_url+'/ajax/getCoa'}
                     defaultValue={this.props.defaultValues.coa_id}
-                    attributes={{name:"coa_id", label:"CHART OF ACCOUNT"}} />
+                    attributes={{name:"coa_id", label:"CHART OF ACCOUNT "}} />
 
 
                     <TextAreaMainComponent callBackParent={this.handleChangeCallBack}
