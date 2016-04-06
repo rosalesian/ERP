@@ -29,7 +29,6 @@ class UpdateVendorPaymentCommandHandler
      */
     public function handle(UpdateVendorPaymentCommand $command)
     {
-		//$command->vendorpayment->update((array) $command);
 		$vendorpayment = $this->vendorpayment->update([
 			'transno' => $command->transno,
 			'coa_id' => $command->coa_id,
@@ -42,7 +41,7 @@ class UpdateVendorPaymentCommandHandler
 			'branch_id' => $command->branch_id,
 		], $command->vendorpayment->id);
 
-		$this->vendorpayment->saveWith($vendorpayment, [
+		$this->vendorpayment->saveWith($command->vendorpayment->id, [
 			'items' => $command->items
 		]);
 

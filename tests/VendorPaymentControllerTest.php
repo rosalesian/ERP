@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class VendorPaymentControllerTest extends TestCase
 {
-	use DatabaseMigrations, WithoutMiddleware;
+	use DatabaseMigrations;
 
 	public $vendorpayment;
 
@@ -36,6 +36,8 @@ class VendorPaymentControllerTest extends TestCase
 
 	public function testStore()
 	{
+		$this->withoutMiddleware();
+
 		$items = [
 			['id' => '', 'apply'=> true,'bill_id'=> '1'],
 			['id' => '', 'apply'=> true,'bill_id'=> '2']
@@ -79,7 +81,35 @@ class VendorPaymentControllerTest extends TestCase
 
 	public function testUpdate()
 	{
-		$request = $this->makeVendorPaymentData();
+		$this->withoutMiddleware();
+
+		$items =
+		[
+			[
+				'id' => '1',
+				'apply'=> true,
+				'bill_id'=> '1'
+			],
+			[
+				'id' => '',
+				'apply'=> true,
+				'bill_id'=> '2'
+			]
+		];
+
+		$request = [
+			'transno' => '100100',
+			'coa_id' => '2',
+			'payee_id' => '1',
+			'date' => '1/1/2016',
+			'posting_period_id' => '1',
+			'checkno' => '1-000-1-000',
+			'checkdate' => '1/1/2016',
+			'principal_id' => '1',
+			'branch_id' => '3',
+			'items' => json_encode($items)
+		];
+
 
 		$vendorpayment = factory(Nixzen\Models\VendorPayment::class)
 							->create();
@@ -92,13 +122,20 @@ class VendorPaymentControllerTest extends TestCase
 		$response = $this->call('PATCH', 'vendorpayment/1', $request);
 
 		$count = $this->vendorpayment->find(1)->items->count();
-		$this->assertEquals(2, $count);
 
+		$this->assertEquals(2, $count);
 		$this->assertRedirectedToRoute('vendorpayment.show', [1]);
+		$this->seeInDatabase('vendor_payment', [
+			'id' => 1,
+			'transno' => '100100',
+			'checkno' => '1-000-1-000'
+		]);
 	}
 
 	public function testDestroy()
 	{
+		$this->withoutMiddleware();
+
 		$this->call('DELETE', 'vendorpayment/1');
 		$this->assertRedirectedToRoute('vendorpayment.index');
 		$vendorpayment = $this->vendorpayment->find(1);
