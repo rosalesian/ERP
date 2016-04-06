@@ -20,6 +20,7 @@ class PurchaseRequestControllerTest extends TestCase
      */
     public function testIndex()
     {
+		$this->makeFactoryPurchaseRequest();
       	$response = $this->call('GET','purchaserequest');
 		$this->assertViewHas('purchaserequests');
     }
@@ -42,8 +43,7 @@ class PurchaseRequestControllerTest extends TestCase
 	public function testShow()
 	{
 		$this->makeFactoryPurchaseRequest();
-		$response = $this->call('GET', 'purchaserequest/1');
-		//dd($response->original);
+		$this->call('GET', 'purchaserequest/1');
 		$this->assertResponseOk();
 		$this->assertViewHas('purchaserequest');
 	}
@@ -52,7 +52,6 @@ class PurchaseRequestControllerTest extends TestCase
 	{
 		$this->makeFactoryPurchaseRequest();
 		$response = $this->call('GET', 'purchaserequest/1/edit');
-		//dd($response);
 		$this->assertResponseOk();
 		$this->assertViewHas('purchaserequest');
 	}
@@ -61,11 +60,52 @@ class PurchaseRequestControllerTest extends TestCase
 	{
 		$this->withoutMiddleware();
 
-		$request = $this->makeInputFactory();
+		$item =
+		[
+			[
+				'id' => '1',
+				'itemcode' => '12345',
+				'description' => 'Item 1',
+				'item_id'=> '1',
+				'quantity'=> '2',
+				'unit_id'=> '1'
+			],
+			[
+				'id' => '2',
+				'itemcode' => '3456',
+				'description' => 'Item 2',
+				'item_id'=> '2',
+				'quantity'=> '2',
+				'unit_id'=> '1'
+			],
+			[
+				'id' => '3',
+				'itemcode' => '543',
+				'description' => 'Item 3',
+				'item_id'=> '1',
+				'quantity'=> '2',
+				'unit_id'=> '2'
+			]
+		];
+
+		$request =[
+			'requester' => '3',
+			'type_id'	=>	'2',
+			'date'	=>	'2016-02-22',
+			'remarks'	=> 'this is a test',
+			'deliver_to' => 'target',
+			'items'	=> json_encode($item)
+		];
+
 		$this->makeFactoryPurchaseRequest();
 
-		$response = $this->call('PATCH', 'purchaserequest/1', $request);
-		$this->assertRedirectedToRoute('purchaserequest.show', [1]);
+		$this->call('PATCH', 'purchaserequest/1', $request);
+		$this->assertRedirectedToRoute('purchaserequest.show',[1]);
+		$this->seeInDatabase('purchase_requests', [
+			'id' => '1',
+			'deliver_to' => 'target',
+			'type_id' => '2'
+		]);
 	}
 
 	public function testDestroy()
@@ -77,8 +117,21 @@ class PurchaseRequestControllerTest extends TestCase
 	}
 	public function makeFactoryPurchaseRequest()
 	{
-		factory(Nixzen\Models\Item::class, 100)->create();
-		$purchaserequest = factory(Nixzen\Models\PurchaseRequest::class, 3)->create();
+		factory(Nixzen\Models\UnitType::class, 5)
+			->create()
+			->each(function($ut){
+				$ut->save([
+					factory(Nixzen\Models\Unit::class, 3)
+						->create(['unittype_id' => $ut->id])
+				]);
+			});
+
+		factory(Nixzen\Models\Item::class, 100)
+			->create();
+
+		$purchaserequest = factory(Nixzen\Models\PurchaseRequest::class, 10)
+				->create();
+
 		$purchaserequest->each(function($pr) {
 				$items = factory(Nixzen\Models\PurchaseRequestItem::class, 3)->create(['purchaserequisition_id' => $pr->id]);
 				$pr->items()->saveMany($items);
@@ -105,5 +158,10 @@ class PurchaseRequestControllerTest extends TestCase
 		];
 
 		return $request;
+	}
+
+	public function dumpResponse()
+	{
+		dd($this->response->original);
 	}
 }

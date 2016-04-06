@@ -61,7 +61,7 @@ Edit New Vendor Bill
 <?php
 
 $items = [];
-foreach($vendorbill->vendorBillItems as $item) {
+foreach($vendorbill->items as $item) {
     $temp=[];
     $temp['quantity'] = $item->quantity;
     $temp['uom_label'] = $item->unit->abbreviation;

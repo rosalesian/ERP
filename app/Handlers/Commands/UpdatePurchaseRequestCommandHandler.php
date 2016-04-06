@@ -15,8 +15,10 @@ class UpdatePurchaseRequestCommandHandler
      *
      * @return void
      */
-    public function __construct()
-    {}
+    public function __construct(PurchaseRequestRepository $purchaserequest)
+    {
+		$this->purchaserequest = $purchaserequest;
+	}
 
     /**
      * Handle the command.
@@ -26,15 +28,17 @@ class UpdatePurchaseRequestCommandHandler
      */
     public function handle(UpdatePurchaseRequestCommand $command)
     {
-        $purchaserequest = $command->purchaserequest;
-		$purchaserequest->type_id = $command->type_id;
-		$purchaserequest->date = $command->date;
-		$purchaserequest->requester = $command->requester;
-		$purchaserequest->deliver_to = $command->deliver_to;
-		$purchaserequest->remarks = $command->remarks;
-		$purchaserequest->save();
+		$purchaserequest = $this->purchaserequest->update([
+			'type_id' => $command->type_id,
+			'date' => $command->date,
+			'requester' => $command->requester,
+			'deliver_to' => $command->deliver_to,
+			'remarks' => $command->remarks
+		], $command->purchaserequest->id);
 
-		$purchaserequest->updateLineItems($command->items);
+		$this->purchaserequest->saveWith($command->purchaserequest->id, [
+			'items' => $command->items
+		]);
 
         event(new PurchaseRequestWasUpdated($command->purchaserequest));
     }

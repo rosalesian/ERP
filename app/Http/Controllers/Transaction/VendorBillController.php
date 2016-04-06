@@ -116,7 +116,7 @@ class VendorBillController extends Controller {
 	{
 		$vendorbill = $this->vendorbill->find($id);
 
-		$this->dispatchFrom(UpdateVendorBillCommand::class, $request, ['vendorbill' => $vendorbill]);
+		$this->dispatchFrom(UpdateVendorBillCommand::class, $request, ['vendorbill' => $vendorbill->id]);
 		
 		return redirect()->route('vendorbill.show', $id);
 	}

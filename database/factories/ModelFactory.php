@@ -116,7 +116,7 @@ $factory->define(Nixzen\Models\PurchaseRequest::class, function ($faker) {
 		'requester' => $faker->numberBetween(1, 5),
 		'type_id' => $faker->numberBetween(1, 5),
 		'date' => $faker->dateTime('now'),
-		'deliver_to'=> $faker->numberBetween(1, 5),
+		'deliver_to'=> $faker->word,
 		'remarks' => $faker->text
 	];
 });
@@ -279,5 +279,15 @@ $factory->define(Nixzen\Models\Unit::class, function ($faker) {
 		'abbreviation' => $faker->word,
 		'conversion_rate' => 1,
 		'base_unit' => true,
+	];
+});
+
+$factory->define(Nixzen\Models\ItemTypes::class, function ($faker) {
+	return [
+		'name' => $faker->word,
+		'description' => $faker->word,
+		'company_id' => 0,
+		'created_by' => 0,
+		'updated_by' => 0
 	];
 });
