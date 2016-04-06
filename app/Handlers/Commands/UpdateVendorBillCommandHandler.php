@@ -4,17 +4,21 @@ namespace Nixzen\Handlers\Commands;
 
 use Nixzen\Commands\UpdateVendorBillCommand;
 use Illuminate\Queue\InteractsWithQueue;
+use Nixzen\Repositories\VendorBillRepository as VendorBill;
 
 class UpdateVendorBillCommandHandler
 {
+
+    private $vendorbill;
+
     /**
      * Create the command handler.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(VendorBill $vendorbill)
     {
-        //
+        $this->vendorbill = $vendorbill;
     }
 
     /**
@@ -25,59 +29,31 @@ class UpdateVendorBillCommandHandler
      */
     public function handle(UpdateVendorBillCommand $command)
     {
-        $command->vendorbill->update((array)$command);
+
+        $data = (array)$command;
+        
+        unset(
+            $data['items'],
+            $data['expenses'],
+            $data['vendorbill']
+        );
+
+        $this->vendorbill->update($data, $command->vendorbill);
 
         if($command->items)
         {
 
-            $item_ids = array_map(function($i) {
-                return is_object($i) ? $i->id : $i['id'];
-            }, $command->items);
-
-            $command->vendorbill->removeitems($item_ids);
-
-            foreach($command->items as $item){
-
-                $vendorbillitem = $command->vendorbill->items()->firstOrNew([
-                        'id' => $item->id
+            $this->vendorbill->saveWith($command->vendorbill, [
+                    'items' => $command->items
                 ]);
-                $vendorbillitem->item_id = $item->item_id;
-                $vendorbillitem->quantity = $item->quantity;
-                $vendorbillitem->uom_id = $item->uom_id;
-                $vendorbillitem->unit_cost = $item->unit_cost;
-                $vendorbillitem->amount = $item->amount;
-                $vendorbillitem->taxcode_id = $item->taxcode_id;
-                $vendorbillitem->tax_amount = $item->tax_amount;
-                $vendorbillitem->gross_amount = $item->gross_amount;
-                $vendorbillitem->save();
-            }
         }
 
         if($command->expenses)
         {
 
-            $expense_ids = array_map(function($e) {
-                return is_object($e) ? $e->id : $e['id'];
-            }, $command->expenses);
-
-            $command->vendorbill->removeexpenses($expense_ids);
-
-            foreach($command->expenses as $expense){
-
-                $vendorbillexpense = $command->vendorbill->expenses()->firstOrNew([
-                        'id' => $expense->id
+            $this->vendorbill->saveWith($command->vendorbill, [
+                    'expenses' => $command->expenses
                 ]);
-                $vendorbillexpense->coa_id = $expense->coa_id;
-                $vendorbillexpense->amount = $expense->amount;
-                $vendorbillexpense->taxcode_id = $expense->taxcode_id;
-                $vendorbillexpense->tax_amount = $expense->tax_amount;
-                $vendorbillexpense->gross_amount = $expense->gross_amount;
-                $vendorbillexpense->department_id = $expense->department_id;
-                $vendorbillexpense->division_id = $expense->division_id;
-                $vendorbillexpense->branch_id = $expense->branch_id;
-                $vendorbillexpense->vendor_id = $expense->vendor_id;
-                $vendorbillexpense->save();
-            }
         }
     }
 }

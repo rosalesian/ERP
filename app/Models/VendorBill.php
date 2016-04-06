@@ -25,12 +25,17 @@ class VendorBill extends Model
 		'memo'
     ];
 
-    public function items()
+    /*public function items()
     {
     	return $this->belongsTo('Nixzen\Models\VendorBillItem', 'billtype_id');
+    }*/
+
+    public function items()
+    {
+    	return $this->hasMany('Nixzen\Models\VendorBillItem', 'vendorbill_id');
     }
 
-    public function vendorBillItems()
+    /*public function vendorBillItems()
     {
         return $this->hasMany('Nixzen\Models\VendorBillItem', 'vendorbill_id');
     }
@@ -38,7 +43,7 @@ class VendorBill extends Model
     public function billitems()
     {
         return $this->belongsTo('Nixzen\Models\VendorBillItem', 'billtype_id');
-    }
+    }*/
 
 
     public function expenses()
@@ -96,25 +101,4 @@ class VendorBill extends Model
 		return $this->belongsTo('Nixzen\Models\Lists\Employee', 'updated_by');
 	}
 
-	public function removeitems($ids)
-    {
-        foreach ($this->items as $key => $item) {
-
-             if(!in_array($item->id,$ids))
-             {
-                $item->delete();
-             }
-        }
-    }
-
-    public function removeexpenses($ids)
-    {
-        foreach ($this->expenses as $key => $expense) {
-
-             if(!in_array($expense->id,$ids))
-             {
-                $expense->delete();
-             }
-        }
-    }
 }

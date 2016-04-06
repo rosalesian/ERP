@@ -7,7 +7,6 @@ use Nixzen\Http\Requests\CreateVendorBillRequest;
 use Nixzen\Commands\CreateVendorBillCommand;
 use Nixzen\Commands\UpdateVendorBillCommand;
 
-
 use Datatables;
 use DB;
 
@@ -75,9 +74,9 @@ class VendorBillController extends Controller {
 	 */
 	public function store(CreateVendorBillRequest $request)
 	{
-
+		
 	    $vendorbill = $this->dispatchFrom(CreateVendorBillCommand::class, $request);
-
+	   
 		return redirect()->route('vendorbill.show', $vendorbill->id);
 
 	}
@@ -117,7 +116,7 @@ class VendorBillController extends Controller {
 	{
 		$vendorbill = $this->vendorbill->find($id);
 
-		$this->dispatchFrom(UpdateVendorBillCommand::class, $request, ['vendorbill' => $vendorbill]);
+		$this->dispatchFrom(UpdateVendorBillCommand::class, $request, ['vendorbill' => $vendorbill->id]);
 		
 		return redirect()->route('vendorbill.show', $id);
 	}

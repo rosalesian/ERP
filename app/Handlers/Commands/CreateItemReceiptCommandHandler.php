@@ -5,17 +5,19 @@ namespace Nixzen\Handlers\Commands;
 use Nixzen\Commands\CreateItemReceiptCommand;
 use Illuminate\Queue\InteractsWithQueue;
 use Nixzen\Events\ItemReceiptWasCreated;
+use Nixzen\Repositories\ItemReceiptRepository;
 
 class CreateItemReceiptCommandHandler
 {
+	protected $itemreceipt;
     /**
      * Create the command handler.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ItemReceiptRepository $itemreceipt)
     {
-
+		$this->itemreceipt = $itemreceipt;
     }
 
     /**
@@ -26,17 +28,18 @@ class CreateItemReceiptCommandHandler
      */
     public function handle(CreateItemReceiptCommand $command)
     {
-				$itemreceipt = $command->purchaseorder->itemreceipt()->create([
-	          'date'		=> $command->date,
-	          'remarks'	=> $command->remarks
-	      ]);
+		$itemreceipt = $this->itemreceipt->create([
+			'date' => $command->date,
+			'remarks' => $command->remarks,
+			'purchaseorder_id' => $command->purchaseorder->id
+		]);
 
-	      foreach($command->items as $item){
-					$itemreceipt->items()->create((array) $item);
-	      }
+		$this->itemreceipt->saveWith($itemreceipt->id, [
+			'items' => $command->items
+		]);
 
-				event(new ItemReceiptWasCreated($itemreceipt));
+		event(new ItemReceiptWasCreated($itemreceipt));
 
-				return $itemreceipt;
+		return $itemreceipt;
     }
 }

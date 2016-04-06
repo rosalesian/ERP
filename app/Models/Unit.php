@@ -7,18 +7,18 @@ class Unit extends Model {
 	protected $table = 'units';
 
 	protected $fillable = [
-		'name', 
-		'pluralname', 
+		'name',
+		'pluralname',
 		'abbreviation',
 		'plural_abbreviation',
 		'conversion_rate',
 		'base_unit'
 	];
 
-	public function unittype()
-	{
-		return $this->belongsTo('Nixzen\UnitType', 'unittype_id');
-	}
+	// public function unittype()
+	// {
+	// 	return $this->belongsTo('Nixzen\UnitType', 'unittype_id');
+	// }
 
 	public function createby()
 	{

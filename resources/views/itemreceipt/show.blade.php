@@ -18,10 +18,10 @@ View Item Receipt
 
     <div class="transaction-buttons-container">
       <div class="trans-button">
-        {!! HTML::link('purchaseorder/'.$itemreceipt->id.'/itemreceipt/edit','Edit',array('class'=>'btn btn-block btn-success btn-flat')) !!}
+        {!! HTML::link('purchaseorder/'.$purchaseorder->id.'/itemreceipt/'.$itemreceipt->id.'/edit','Edit',array('class'=>'btn btn-block btn-success btn-flat')) !!}
       </div>
       <div class="trans-button">
-        {!! HTML::link('purchaseorder/'.$itemreceipt->id.'/itemreceipt','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
+        {!! HTML::link('purchaseorder/'.$purchaseorder->id.'/itemreceipt','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
     <div class="approvaltransition">
@@ -41,10 +41,10 @@ View Item Receipt
 
     <div class="transaction-buttons-container">
       <div class="trans-button">
-        {!! HTML::link('purchaseorder/'.$itemreceipt->id.'/itemreceipt/edit','Edit',array('class'=>'btn btn-block btn-success btn-flat')) !!}
+        {!! HTML::link('purchaseorder/'.$purchaseorder->id.'/itemreceipt/'.$itemreceipt->id.'/edit','Edit',array('class'=>'btn btn-block btn-success btn-flat')) !!}
       </div>
       <div class="trans-button">
-        {!! HTML::link('purchaseorder/'.$itemreceipt->id.'/itemreceipt','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
+        {!! HTML::link('purchaseorder/'.$purchaseorder->id.'/itemreceipt','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
 
@@ -58,56 +58,15 @@ View Item Receipt
     $items=[];
     foreach ($itemreceipt->items as $key) {
         array_push($items, [
-                "_token"=> csrf_token(),
-                "id"=>$key->id,
-                "purchaseorderitem_id"=>$key->purchaseorder_id,
-                "purchaseorderitem_label"=>$key->item->description,
-                "description"=>$key->item->itemcode,
-                "quantity_received"=>$key->quantity_received,
-                "unit_id"=>$key->unit_id,
-                "uom_label"=>unittypeShow($key->item->id,$key->unit_id)
-          ]);
+            "id"=>$key->id,
+            "purchaseorderitem_id"=>$key->purchaseorderitem_id,
+            "purchaseorderitem_label"=>$key->item->description,
+            "description"=>$key->item->itemcode,
+            "quantity_received"=>$key->quantity_received,
+            "unit_id"=>$key->purchaseorderitem->unit_id,
+            "uom_label"=>$key->purchaseorderitem->unit->abbreviation
+        ]);
     }
-function unittypeShow($itemid, $unitid) {
-  $data=[];
-  if($itemid=='1') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PC']
-    ];
-  } else if($itemid=='2') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PACKS']
-    ];
-  } else if($itemid=='3') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'BX']
-    ];
-  } else if($itemid=='4') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PACKS'],
-      ['value'=>3, 'label'=>'BX']
-    ];
-  } else if($itemid=='5') {
-    $data=[
-      ['value'=>1, 'label'=>'CS'],
-      ['value'=>2, 'label'=>'PCS'],
-      ['value'=>3, 'label'=>'PACKS']
-    ];
-  }
-
-  $f='';
-  foreach($data as $d) {
-    if($d['value']==$unitid) {
-      $f = $d['label'];
-    }
-  }
-  return $f;
-}
-
 ?>
 @stop
 
@@ -141,7 +100,6 @@ function unittypeShow($itemid, $unitid) {
 <script type="text/babel">
   var itemreceipts = <?php echo $itemreceipt?>;
   var items= <?php echo json_encode($items); ?>;
-  console.log(itemreceipts);
   var context="view";
   ReactDOM.render(<IRMainComponent context={context} data={(typeof itemreceipts=='undefined') ? [] : itemreceipts}
     items={items} />, document.getElementById("mainIR-container"));

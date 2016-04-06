@@ -16,9 +16,9 @@ class UpdatePurchaseOrderCommandHandler
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(PurchaseOrderRepository $purchaseorder)
     {
-
+		$this->purchaseorder = $purchaseorder;
     }
 
     /**
@@ -29,17 +29,18 @@ class UpdatePurchaseOrderCommandHandler
      */
     public function handle(UpdatePurchaseOrderCommand $command)
     {
-		$purchaseorder = $command->purchaseorder;
+		$purchaseorder = $this->purchaseorder->update([
+			'vendor_id' => $command->vendor_id,
+			'terms_id' => $command->terms_id,
+			'date' => $command->date,
+			'type_id' => $command->type_id,
+			'paymenttype_id' => $command->paymenttype_id,
+			'memo' => $command->memo
+		], $command->purchaseorder->id);
 
-		$purchaseorder->vendor_id = $command->vendor_id;
-		$purchaseorder->terms_id = $command->terms_id;
-		$purchaseorder->date = $command->date;
-		$purchaseorder->type_id = $command->type_id;
-		$purchaseorder->paymenttype_id = $command->paymenttype_id;
-		$purchaseorder->memo = $command->memo;
-		$purchaseorder->save();
-
-		$purchaseorder->updateLineItems($command->items);
+		$this->purchaseorder->saveWith($command->purchaseorder->id, [
+			'items' => $command->items
+		]);
 
         event(new PurchaseOrderWasUpdated($command->purchaseorder));
     }

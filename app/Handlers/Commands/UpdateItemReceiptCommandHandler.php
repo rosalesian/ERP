@@ -5,18 +5,19 @@ namespace Nixzen\Handlers\Commands;
 use Nixzen\Commands\UpdateItemReceiptCommand;
 use Illuminate\Queue\InteractsWithQueue;
 use Nixzen\Repositories\ItemReceiptRepository;
-use Nixzen\Models\ItemReceiptItem;
 use Nixzen\Events\ItemReceiptWasUpdated;
+
 class UpdateItemReceiptCommandHandler
 {
+	protected $itemreceipt;
     /**
      * Create the command handler.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ItemReceiptRepository $itemreceipt)
     {
-
+		$this->itemreceipt = $itemreceipt;
     }
 
     /**
@@ -27,12 +28,15 @@ class UpdateItemReceiptCommandHandler
      */
     public function handle(UpdateItemReceiptCommand $command)
     {
-		$itemreceipt = $command->itemreceipt;
 
-		$itemreceipt->date = $command->date;
-		$itemreceipt->remarks = $command->remarks;
+		$itemreceipt = $this->itemreceipt->update([
+			'date'	=> $command->date,
+			'remarks' => $command->remarks
+		], $command->itemreceipt->id);
 
-		$itemreceipt->updateLineItems($command->items);
+		$this->itemreceipt->saveWith($command->itemreceipt->id, [
+			'items' => $command->items
+		]);
 
 		event(new ItemReceiptWasUpdated($command->itemreceipt));
     }
