@@ -31,13 +31,14 @@ class UpdatePurchaseRequestCommand extends Command
         $this->type_id = $type_id;
         $this->date = $date;
         $this->remarks = $remarks;
-				$this->deliver_to = $deliver_to;
-				if(gettype($items) == 'string')
-				{
-						$this->items = json_decode($items);
-				}
-				else {
-						$this->items = $items;
-				}
+		$this->deliver_to = $deliver_to;
+		if(gettype($items) == 'string')
+		{
+				$this->items = json_decode($items);
+		}
+		else
+		{
+				$this->items = $items;
+		}
     }
 }
