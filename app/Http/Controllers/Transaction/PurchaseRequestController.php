@@ -38,12 +38,12 @@ class PurchaseRequestController extends Controller {
         				->leftjoin('item_types', 'purchase_requests.type_id', '=', 'item_types.id')
         				->leftjoin('departments', 'purchase_requests.type_id', '=', 'departments.id')
         				->select(
-	        					'purchase_requests.id', 
-	        					'purchase_requests.deliver_to', 
+	        					'purchase_requests.id',
+	        					'purchase_requests.deliver_to',
 	        					'purchase_requests.created_at',
 	        					'purchase_requests.total_amount',
 	        					'purchase_requests.remarks',
-	        					'purchase_requests.date', 
+	        					'purchase_requests.date',
 	        					'item_types.name',
 	        					'departments.name as dep_name',
 	        					'departments.description'
@@ -51,7 +51,7 @@ class PurchaseRequestController extends Controller {
 
         return Datatables::of($jobs)
         					 ->addColumn('action', function ($jobs) {
-					                return 
+					                return
 					                '<a href="purchaserequest/'.$jobs->id.'/edit">Edit |</a>
 					                <a href="purchaserequest/'.$jobs->id.'"">View</a>';
 					            })
@@ -126,6 +126,18 @@ class PurchaseRequestController extends Controller {
 	{
 		$this->purchaserequest->delete($id);
 		return redirect()->route('purchaserequest.index');
+	}
+
+	/**
+	 * Create PO Based on PR.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function autoCreatePO($prid) {
+		$purchaserequest = $this->purchaserequest->with('items')->find($prid);
+		dd($purchaserequest->items);
+
 	}
 
 }

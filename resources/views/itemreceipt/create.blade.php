@@ -56,12 +56,13 @@ Create New Item Receipt
     $items=[];
     foreach ($purchaseorder->items as $key) {
         array_push($items, [
-                "purchaseorderitem_id"=>$key->item_id,
-                "purchaseorderitem_label"=>$key->item->description,
-                "description"=>$key->item->itemcode,
-                "quantity_received"=>$key->quantity,
-                "unit_id"=>$key->unit_id,
-                "uom_label"=>$key->unit->abbreviation
+            "id"=>'',
+            "purchaseorderitem_id"=>$key->item_id,
+            "purchaseorderitem_label"=>$key->item->description,
+            "description"=>$key->item->itemcode,
+            "quantity_received"=>$key->quantity,
+            "unit_id"=>$key->unit_id,
+            "uom_label"=>$key->unit->abbreviation
           ]);
     }
     ?>

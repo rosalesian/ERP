@@ -340,6 +340,7 @@ window.POTable = React.createClass({
 		rows.push( <TableRow callBackParent={this.handleCallBack}
 					defaultValues={this.state} id={rows.length} key={rows.length} handleCallBackParentClick={this.handleCallBackClick}/> );
 		var obj = {
+			id:'',
 			item_id:this.state.item_id,
 			item_label:this.state.item_label,
 			description: this.state.description,
@@ -397,14 +398,13 @@ window.POTable = React.createClass({
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
 		rows.length=0;
-		dataStorage[id] = {
-			item_id:this.state.item_id,
-			item_label:this.state.item_label,
-			description: this.state.description,
-			unit_id:this.state.unit_id,
-			uom_label:this.state.uom_label,
-			quantity:this.state.quantity
-		};
+
+		dataStorage[id].itemid = this.state.item_id;
+		dataStorage[id].item_label=this.state.item_label;
+		dataStorage[id].description=this.state.description;
+		dataStorage[id].unit_id=this.state.unit_id;
+		dataStorage[id].uom_label=this.state.uom_label;
+		dataStorage[id].quantity=this.state.quantity;
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <TableRow callBackParent={this.handleCallBack}

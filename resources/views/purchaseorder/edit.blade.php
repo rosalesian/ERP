@@ -45,12 +45,13 @@ Create New Purchase Order
     $items=[];
     foreach ($purchaseorder->items as $key) {
         array_push($items, [
-                "item_id"=>$key->item_id,
-                "item_label"=>$key->item->description,
-                "description"=>$key->item->itemcode,
-                "quantity"=>$key->quantity,
-                "unit_id"=>$key->unit_id,
-                "uom_label"=>$key->unit->abbreviation
+            "id"=> (string) $key->id,
+            "item_id"=>$key->item_id,
+            "item_label"=>$key->item->description,
+            "description"=>$key->item->itemcode,
+            "quantity"=>$key->quantity,
+            "unit_id"=>$key->unit_id,
+            "uom_label"=>$key->unit->abbreviation
           ]);
     }
     ?>

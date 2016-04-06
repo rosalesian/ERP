@@ -35,7 +35,11 @@ window.PRMainComponent = React.createClass({
 			            <h3 className="box-title">Primary Information</h3>
 			    	</div>
 			       
-			       <PrimaryComponent context={this.props.context} defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			       <PrimaryComponent lists={ this.props.lists }
+		       		context={this.props.context}
+		       		defaultValues={this.state}
+		       		callBackParent={this.handleChangeCallBack} />
+			    
 			    </div>
 
 		        <div className="nav-tabs-custom">
@@ -96,7 +100,7 @@ window.PrimaryComponent = React.createClass({
             	<FieldContainer>
             		<SelectMainComponent callBackParent={this.handleChangeCallBack}
     				context={this.props.context}
-    				source={base_url+'/ajax/getItems'}
+    				options={this.props.lists.items}
     				defaultValue={this.props.defaultValues.type_id}
     				attributes={{name:"type_id", label:"TYPE"}} />
 
@@ -126,7 +130,7 @@ window.PrimaryComponent = React.createClass({
 
             		<SelectMainComponent callBackParent={this.handleChangeCallBack}
     				context={this.props.context}
-    				source={base_url+'/ajax/getItems'}
+    				options={this.props.lists.items}
     				defaultValue={this.props.defaultValues.requester}
     				attributes={{name:"requester", label:"NAME OF REQUESTER"}} />
             	</FieldContainer>
@@ -500,11 +504,11 @@ window.TableRow = React.createClass({
 		url:base_url+'/api/1.0/pritem/'+this.props.defaultValues.id+'/canvass',
 		type:'GET',
 		success : function (response) {
-			var data = response.canvasses;
-			console.log(data);
+			var data = JSON.parse(response.canvasses);
 			var canvasses=[];
 			for(var i in data) {
 				canvasses.push({
+					id:data[i].id,
 					vendor_id:data[i].vendor_id,
 					vendor_label:data[i].vendor_id,
 					terms_id:data[i].terms_id,
