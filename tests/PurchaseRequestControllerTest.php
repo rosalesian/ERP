@@ -20,6 +20,7 @@ class PurchaseRequestControllerTest extends TestCase
      */
     public function testIndex()
     {
+		$this->makeFactoryPurchaseRequest();
       	$response = $this->call('GET','purchaserequest');
 		$this->assertViewHas('purchaserequests');
     }
@@ -59,11 +60,53 @@ class PurchaseRequestControllerTest extends TestCase
 	{
 		$this->withoutMiddleware();
 
+		$item =
+		[
+			[
+				'id' => '1',
+				'itemcode' => '12345',
+				'description' => 'Item 1',
+				'item_id'=> '1',
+				'quantity'=> '2',
+				'unit_id'=> '1'
+			],
+			[
+				'id' => '2',
+				'itemcode' => '3456',
+				'description' => 'Item 2',
+				'item_id'=> '2',
+				'quantity'=> '2',
+				'unit_id'=> '1'
+			],
+			[
+				'id' => '3',
+				'itemcode' => '543',
+				'description' => 'Item 3',
+				'item_id'=> '1',
+				'quantity'=> '2',
+				'unit_id'=> '2'
+			]
+		];
+
+		$request =[
+			'requester' => '3',
+			'type_id'	=>	'2',
+			'date'	=>	'2016-02-22',
+			'remarks'	=> 'this is a test',
+			'deliver_to' => 'target',
+			'items'	=> json_encode($item)
+		];
+
 		$request = $this->makeInputFactory();
 		$this->makeFactoryPurchaseRequest();
 
-		$response = $this->call('PATCH', 'purchaserequest/1', $request);
-		$this->assertRedirectedToRoute('purchaserequest.show', [1]);
+		$this->call('PATCH', 'purchaserequest/2', $request);
+		$this->assertRedirectedToRoute('purchaserequest.show', [2]);
+		$this->seeInDatabase('purchase_requests', [
+			'id' => '2',
+			'deliver_to' => 'target',
+			'type_id' => '2'
+		]);
 	}
 
 	public function testDestroy()
@@ -87,7 +130,7 @@ class PurchaseRequestControllerTest extends TestCase
 		factory(Nixzen\Models\Item::class, 100)
 			->create();
 
-		$purchaserequest = factory(Nixzen\Models\PurchaseRequest::class, 3)
+		$purchaserequest = factory(Nixzen\Models\PurchaseRequest::class, 10)
 				->create();
 
 		$purchaserequest->each(function($pr) {

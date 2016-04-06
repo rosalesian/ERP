@@ -69,11 +69,12 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface {
      */
     public function lists($value, $key = null) {
         $this->applyCriteria();
-        $lists = $this->model->lists($value, $key);
+        $lists = $this->model->all(["$value as label","$key as value"]);
         if(is_array($lists)) {
             return $lists;
         }
-        return $lists->all();
+
+    	return $lists->toJson();
     }
 
     /**
