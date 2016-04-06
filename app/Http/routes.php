@@ -43,6 +43,8 @@ Route::group(['namespace' => 'Transaction'], function(){
 	Route::resource('purchaserequest', 'PurchaseRequestController');
 	Route::resource('vendorpayment', 'VendorPaymentController');
 
+	Route::get('purchaserequest/{id}/purchaseorder/create', 'PurchaseRequestController@autoCreatePO');
+
 	//Datatables
 	Route::controller('jobordertable', 'JobOrderController', [
 		'anyData'  => 'jobordertable.data',

@@ -32,26 +32,10 @@ Create New Purchase Requisition
         {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
+      
+      @inject('items', 'Nixzen\Repositories\ItemRepository')
       <div id="mainPR-container"></div>
-    <!--<div class="nav-tabs-custom">
-      <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab_1" data-toggle="tab">Item</a></li>
-        <li><a href="#tab_2" data-toggle="tab">File</a></li>
-        <li><a href="#tab_3" data-toggle="tab">Notes</a></li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane active" id="tab_1">
-              <div id="sublist-items"></div>
-        </div>
-        <div class="tab-pane" id="tab_2">
 
-          <div id="line-items"></div>
-
-        </div>
-        <div class="tab-pane" id="tab_3">
-        </div>
-      </div>
-    </div>-->
 
     <div class="transaction-buttons-container">
       <div class="trans-button">
@@ -63,10 +47,6 @@ Create New Purchase Requisition
     </div>
 
   {!! Form::close() !!}
-      <!-- Button trigger modal -->
-    {{-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-      Launch demo modal
-    </button> --}}
 
   </div><!-- /.col -->
 </div><!-- /.row -->  
@@ -107,9 +87,12 @@ Create New Purchase Requisition
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
 <script type="text/babel">
   var purchaserequests = <?php echo json_encode(Input::old()); ?>;
+  var lists = {
+    'items' : <?php echo $items->lists('description','id'); ?>
+  };
   var context = "create";
   ReactDOM.render(<PRMainComponent context={context}
-                  data={(typeof purchaserequests=='undefined') ? {} : purchaserequests} />,
+                  data={(typeof purchaserequests=='undefined') ? {} : purchaserequests} lists={lists} />,
                   document.getElementById("mainPR-container"));
 </script>
 
