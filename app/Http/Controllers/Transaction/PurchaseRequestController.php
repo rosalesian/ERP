@@ -27,7 +27,6 @@ class PurchaseRequestController extends Controller {
 	 */
 	public function index()
 	{
-		dd($this->purchaserequest->lists('deliver_to','id'));
 		$purchaserequests = $this->purchaserequest->all();
 		return view('purchaserequest.index')
 						->with('purchaserequests',$purchaserequests);
