@@ -38,7 +38,7 @@ class UpdatePurchaseOrderCommandHandler
 			'memo' => $command->memo
 		], $command->purchaseorder->id);
 
-		$this->purchaseorder->saveWith($purchaseorder, [
+		$this->purchaseorder->saveWith($command->purchaseorder->id, [
 			'items' => $command->items
 		]);
 

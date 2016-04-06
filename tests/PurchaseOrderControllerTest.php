@@ -82,8 +82,8 @@ class PurchaseOrderControllerTest extends TestCase
 
 		$this->call('POST', 'purchaseorder', $request);
 		$purchaseorder = $this->purchaseorder->all()->last();
-		
-		$this->assertPOItemsIs(2);
+
+		$this->assertLineCountIs(2);
 		$this->assertResponseStatus(302);
 		$this->seeInDatabase('purchase_orders', ['vendor_id' => 1]);
 		$this->assertRedirectedToRoute(
@@ -144,16 +144,21 @@ class PurchaseOrderControllerTest extends TestCase
 			'type_id'	=>	'1',
 			'date'	=> '2016-02-22',
 			'paymenttype_id'	=> '1',
-			'memo'	=> 'this is a test',
+			'memo'	=> 'this test is for update',
 			'items'	=> json_encode($items)
 		];
 
 		$this->makeFactoryPurchaseOrder();
 		$response = $this->call('PATCH', 'purchaseorder/1', $request);
 		$count = $this->purchaseorder->find(1)->items->count();
-		$this->assertEquals(2, $count);
+
+		$this->assertLineCountIs(2);
 		$this->assertResponseStatus(302);
-		$this->seeInDatabase('purchase_orders', ['id' => 1, 'vendor_id' => 2]);
+		$this->seeInDatabase('purchase_orders', [
+			'id' => 1,
+			'vendor_id' => 2,
+			'memo' => 'this test is for update'
+		]);
 		$this->assertRedirectedToRoute('purchaseorder.show', [1]);
 	}
 
@@ -212,7 +217,7 @@ class PurchaseOrderControllerTest extends TestCase
 		dd($this->original);
 	}
 
-	public function assertPOItemsIs($count)
+	public function assertLineCountIs($count)
 	{
 		$item_count = $this->purchaseorder->find(1)->items->count();
 		return $this->assertEquals($count, $item_count);
