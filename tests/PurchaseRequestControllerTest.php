@@ -97,13 +97,12 @@ class PurchaseRequestControllerTest extends TestCase
 			'items'	=> json_encode($item)
 		];
 
-		$request = $this->makeInputFactory();
 		$this->makeFactoryPurchaseRequest();
 
-		$this->call('PATCH', 'purchaserequest/2', $request);
-		$this->assertRedirectedToRoute('purchaserequest.show', [2]);
+		$this->call('PATCH', 'purchaserequest/1', $request);
+		$this->assertRedirectedToRoute('purchaserequest.show',[1]);
 		$this->seeInDatabase('purchase_requests', [
-			'id' => '2',
+			'id' => '1',
 			'deliver_to' => 'target',
 			'type_id' => '2'
 		]);
