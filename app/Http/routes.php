@@ -97,6 +97,11 @@ Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
 	Route::get('getDepartment', 'UserController@getDepartment');
 	//get request for taxcode_id in vendor bill line-item
 	Route::get('getTaxCode', 'UserController@getTaxCode');
+	//route for expenses
+	Route::get('getCoa', 'UserController@getCoa');
+	Route::get('getDivision', 'UserController@getDivision');
+	Route::get('getBranch', 'UserController@getBranch');
+	Route::get('getVendor', 'UserController@getVendor');
 
 	//lists for jobordertype
 	Route::get('getJoborderType', 'JobOrderTypeController@getJoborderType');

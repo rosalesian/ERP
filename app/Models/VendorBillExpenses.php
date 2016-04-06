@@ -39,10 +39,10 @@ class VendorBillExpenses extends Model
 	{
 		return $this->belongsTo('Nixzen\Models\Lists\Department', 'department_id');
 	}
-
+	//change divisions to division
 	public function division()
 	{
-		return $this->belongsTo('Nixzen\Models\Lists\Divisions', 'division_id');
+		return $this->belongsTo('Nixzen\Models\Lists\Division', 'division_id');
 	}
 
 	public function branch()
@@ -53,6 +53,11 @@ class VendorBillExpenses extends Model
 	public function vendor()
 	{
 		return $this->belongsTo('Nixzen\Models\Vendor', 'vendor_id');
+	}
+
+	//add relastionship for chart of account
+	public function coa(){
+		return $this->belongsTo('Nixzen\Models\ChartOfAccount', 'coa_id');
 	}
     
 }

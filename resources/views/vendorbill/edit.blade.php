@@ -25,7 +25,8 @@ Edit New Vendor Bill
 
 <div class="row">
     <div class="col-md-12">
-        {!! Form::open(array('url'=>'vendorbill','method'=>'post')) !!}
+      
+         {!! Form::open(array('url'=>'vendorbill/'.$vendorbill->id,'method'=>'put')) !!}
 
         <div class="transaction-buttons-container">
             <div class="trans-button">
@@ -60,17 +61,47 @@ Edit New Vendor Bill
 <div class="example-modal" style="width:900px;"> <div class="modal" id="myModal"></div> </div>
 <?php
 
-$items = [];
-foreach($vendorbill->vendorBillItems as $item) {
-    $temp=[];
-    $temp['quantity'] = $item->quantity;
-    $temp['uom_label'] = $item->unit->abbreviation;
-    $temp['uom_id'] = $item->unit->id;
-    $temp['item_id'] = $item->item->id;
-    $temp['description'] = $item->item->description;
-    $temp['item_label'] = $item->item->itemType->name;
-    $items[] = $temp;
-}
+    $items = [];
+    foreach($vendorbill->items as $item) {
+        $temp=[];
+        $temp['id'] = $item->id;
+        $temp['quantity'] = $item->quantity;
+        $temp['uom_label'] = $item->unit->abbreviation;
+        $temp['uom_id'] = $item->unit->id;
+        $temp['item_id'] = $item->item->id;
+        $temp['description'] = $item->item->description;
+        $temp['item_label'] = $item->item->itemType->name;
+        $temp['amount'] = $item->amount;
+        $temp['tax_amount'] =$item->tax_amount;
+        //need to modefied
+        $temp['gross_amount'] =$item->gross_amount;
+        $temp['taxcode_id'] =$item->taxcode_id;
+        $temp['taxcode_label'] = 'Hello Wolrd';
+        $temp['unit_cost'] =$item->unit_cost;
+        $items[] = $temp;
+    }
+
+  $expenses = [];
+        foreach($vendorbill->expenses as $expense) {
+            $temp=[];
+            $temp['id'] = $expense->id;
+            $temp['amount'] = $expense->amount;
+            $temp['taxcode_label'] = $expense->taxcode->name;
+            $temp['coa_label'] = $expense->coa->title;
+            $temp['coa_id'] = $expense->coa->id;
+            $temp['department_label'] = $expense->department->name;
+            $temp['division_label'] = $expense->division->name;
+            $temp['branch_label'] = $expense->branch->name;
+            $temp['vendor_label'] = $expense->vendor->name;
+            $temp['department_id'] = $expense->department->id;
+            $temp['division_id'] = $expense->division->id;
+            $temp['branch_id'] = $expense->branch->id;
+            $temp['vendor_id'] = $expense->vendor->id;
+            $temp['tax_amount'] = $expense->tax_amount;
+            $temp['taxcode_id'] =$expense->taxcode_id;
+            $temp['gross_amount'] = $expense->gross_amount;
+            $expenses[] = $temp;
+        }
 
 ?>
 
@@ -95,10 +126,21 @@ foreach($vendorbill->vendorBillItems as $item) {
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
 
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
+
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/uom.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/coa.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/department.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/division.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/branch.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/vendor.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/repair_type.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/amount.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/tax_amount.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/gross_amount.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/tax_code.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/unit_cost.js') }}"></script>
 
 <!-- CUSTOM REACT COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
@@ -109,9 +151,11 @@ foreach($vendorbill->vendorBillItems as $item) {
 <script type="text/babel">
   var vendorbill = <?php echo $vendorbill?>;
   var items= <?php echo json_encode($items); ?>;
+  var expenses = <?php echo json_encode($expenses);?>;
+  console.log(expenses);
 
   var context="edit";
-  ReactDOM.render(<VendorBillMainComponent context={context} data={(typeof vendorbill=='undefined') ? [] : vendorbill} items={items} />,  document.getElementById("vendorBill-container"));
+  ReactDOM.render(<VendorBillMainComponent context={context} data={(typeof vendorbill=='undefined') ? [] : vendorbill} items={items} expenses = {expenses}/>,  document.getElementById("vendorBill-container"));
 </script>
 @stop
 

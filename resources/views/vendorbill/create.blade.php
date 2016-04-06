@@ -81,6 +81,13 @@ Create New Vendor Bill
 
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/uom.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/coa.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/department.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/division.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/branch.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/vendor.js') }}"></script>
+
+
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/repair_type.js') }}"></script>
@@ -89,6 +96,7 @@ Create New Vendor Bill
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/gross_amount.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/tax_code.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/unit_cost.js') }}"></script>
+
 
 <!-- CUSTOM REACT COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
