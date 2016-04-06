@@ -34,7 +34,7 @@ class UpdateItemReceiptCommandHandler
 			'remarks' => $command->remarks
 		], $command->itemreceipt->id);
 
-		$this->itemreceipt->saveWith($itemreceipt, [
+		$this->itemreceipt->saveWith($command->itemreceipt->id, [
 			'items' => $command->items
 		]);
 
