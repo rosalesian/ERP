@@ -1,7 +1,7 @@
 <?php namespace Nixzen\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 class PurchaseRequest extends Model {
 
 	protected $table = 'purchase_requests';
@@ -103,5 +103,24 @@ class PurchaseRequest extends Model {
 				$item->delete();
 			}
 		}
+	}
+
+	public function index()
+	{
+		return DB::table('purchase_requests')
+				   ->leftjoin(
+				   	'item_types', 'purchase_requests.type_id', '=', 'item_types.id')
+				   ->leftjoin('departments', 'purchase_requests.type_id', '=', 'departments.id')
+				   ->select(
+						   'purchase_requests.id',
+						   'purchase_requests.deliver_to',
+						   'purchase_requests.created_at',
+						   'purchase_requests.total_amount',
+						   'purchase_requests.remarks',
+						   'purchase_requests.date',
+						   'item_types.name',
+						   'departments.name as dep_name',
+						   'departments.description'
+					   );
 	}
 }
