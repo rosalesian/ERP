@@ -28,7 +28,6 @@ class UpdatePurchaseRequestCommandHandler
      */
     public function handle(UpdatePurchaseRequestCommand $command)
     {
-
 		$purchaserequest = $this->purchaserequest->update([
 			'type_id' => $command->type_id,
 			'date' => $command->date,
@@ -37,9 +36,10 @@ class UpdatePurchaseRequestCommandHandler
 			'remarks' => $command->remarks
 		], $command->purchaserequest->id);
 
-		$this->purchaserequest->saveWith($purchaserequest, [
+		$this->purchaserequest->saveWith($command->purchaserequest->id, [
 			'items' => $command->items
 		]);
+
         event(new PurchaseRequestWasUpdated($command->purchaserequest));
     }
 }
