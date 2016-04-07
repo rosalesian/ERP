@@ -673,6 +673,7 @@ window.LaborCostTable = React.createClass({
 			uom_label:'',
 			quantity:'',
 			noofdays_label: '',
+			noofdays_id: '',
 			jobtype_label: '',
 
 			pr_id:this.props.pr_id
@@ -684,7 +685,8 @@ window.LaborCostTable = React.createClass({
 			state.jobtype_id='';
 			state.joborder_id='';
 			state.jobdescription='';
-			state.noofdays = ''
+			state.noofdays_id = '';
+			state.noofdays_label = '';
 			state.quantity='';
 		return state;
 	},
@@ -770,7 +772,10 @@ window.LaborCostTable = React.createClass({
 					break;
 				case "noofdays":
 						state.noofdays=obj.noofdays;
-					break;	
+					break;
+				case "noofdays_id":
+						state.noofdays_id = obj.noofdays_id;
+						state.noofdays_label = obj.noofdays_label;	
 			}
 			rows[obj.id] = <TableRowLabor callBackParent={this.handleCallBack}
 							defaultValues={state}
@@ -793,6 +798,8 @@ window.LaborCostTable = React.createClass({
 			description: this.state.description,
 			unit_id:this.state.unit_id,
 			uom_label:this.state.uom_label,
+			noofdays_id:this.state.noofdays_id,
+			noofdays_label:this.state.noofdays_label,
 			quantity:this.state.quantity
 		};
 		dataStorage.push(obj);
@@ -835,6 +842,8 @@ window.LaborCostTable = React.createClass({
 		state.unit_id = dataStorage[rowid].unit_id;
 		state.uom_label = dataStorage[rowid].uom_label;
 		state.description = dataStorage[rowid].description;
+		state.noofdays_id = dataStorage[rowid].noofdays_id;
+		state.noofdays_label = dataStorage[rowid].noofdays_label;
 		state.quantity = dataStorage[rowid].quantity;
 		this.setState(state);
 
@@ -851,6 +860,8 @@ window.LaborCostTable = React.createClass({
 			description: this.state.description,
 			unit_id:this.state.unit_id,
 			uom_label:this.state.uom_label,
+			noofdays_id:this.state.noofdays_id,
+			noofdays_label:this.state.noofdays_label,
 			quantity:this.state.quantity
 		};
 
@@ -976,9 +987,11 @@ window.TableRowLabor = React.createClass({
 						<Description callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.description} />
 
-						<UOM callBackParent={this.handleCallBack}
-						source={base_url+'/ajax/getUOM/'+this.props.defaultValues.item_id}
-						defaultValue={this.props.defaultValues.unit_id} />
+						<REPAIR_TYPE callBackParent={this.handleCallBack} 
+						source={base_url+'/ajax/getJoborderType'}
+						defaultValue={this.props.defaultValues.jobtype_id} />
+
+						
 
 						<Quantity callBackParent={this.handleCallBack}
 						defaultValue={this.props.defaultValues.quantity}
@@ -990,7 +1003,7 @@ window.TableRowLabor = React.createClass({
 						<tr onClick={this.handleClick} id={"item-"+parseInt(this.props.id+1)}>
 							<td>{this.props.defaultValues.item_label}</td>
 							<td>{this.props.defaultValues.description}</td>
-							<td>{this.props.defaultValues.uom_label}</td>
+							<td>{this.props.defaultValues.noofdays_id}</td>
 							<td>{this.props.defaultValues.quantity}</td>
 						</tr>
 					);

@@ -71,8 +71,10 @@ Edit Job Order
           $temp['item_label'] = $laboritem->item->description;
           $temp['jobtype_id'] = $laboritem->jobOrderType->id;
           $temp['jobtype_label'] = $laboritem->jobOrderType->name;
-          $temp['noofdays_label'] = $laboritem->item->id;
+          $temp['joborder_id'] = $laboritem->jobOrderType->name;
+          $temp['noofdays_id'] = $laboritem->item->id;
           $temp['description'] = $laboritem->jobOrderType->description;
+          $temp['quantity'] = $laboritem->item->id;
           $labor_items[] = $temp;
       }
     //dd($joborder->laborCost);
@@ -120,7 +122,7 @@ Edit Job Order
     'prcategories': <?php echo $prcategories->lists('name', 'id');?>,
     'empployees': <?php echo $empployees->lists('name', 'id'); ?>
   };
-
+  console.log(laborcost);
   var context="edit";
   ReactDOM.render(<JOMainComponent context={context}
   data={(typeof joborder=='undefined') ? [] : joborder} 
