@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call('BillTypeSeeder');
         $this->call('BillTypeNonTradeSubTypeSeeder');
         $this->call('VendorsTableSeeder');
+		$this->call('PurchaseRequestTableSeeder');
         Model::reguard();
     }
 }
