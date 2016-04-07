@@ -8,13 +8,18 @@ use Nixzen\Commands\CreatePurchaseRequestCommand;
 use Nixzen\Commands\UpdatePurchaseRequestCommand;
 use Illuminate\Http\Request;
 use Nixzen\Models\PurchaseRequest as PR;
+use Nixzen\Http\Controllers\Traits\Approval;
+use Nixzen\Http\Controllers\Traits\DataTableTrait;
 
 use Datatables;
-use DB;
 
 class PurchaseRequestController extends Controller {
 
+	use Approval, DataTableTrait;
+
 	public $purchaserequest;
+
+	public $root_uri = 'purchaserequest';
 
 	public function __construct(PurchaseRequest $purchaserequest){
 		$this->purchaserequest = $purchaserequest;
@@ -28,34 +33,7 @@ class PurchaseRequestController extends Controller {
 	public function index()
 	{
 		$purchaserequests = $this->purchaserequest->all();
-		return view('purchaserequest.index')
-						->with('purchaserequests',$purchaserequests);
-	}
-
-	public function anyData() {
-
-		 $jobs = DB::table('purchase_requests')
-        				->leftjoin('item_types', 'purchase_requests.type_id', '=', 'item_types.id')
-        				->leftjoin('departments', 'purchase_requests.type_id', '=', 'departments.id')
-        				->select(
-	        					'purchase_requests.id',
-	        					'purchase_requests.deliver_to',
-	        					'purchase_requests.created_at',
-	        					'purchase_requests.total_amount',
-	        					'purchase_requests.remarks',
-	        					'purchase_requests.date',
-	        					'item_types.name',
-	        					'departments.name as dep_name',
-	        					'departments.description'
-        					);
-
-        return Datatables::of($jobs)
-        					 ->addColumn('action', function ($jobs) {
-					                return
-					                '<a href="purchaserequest/'.$jobs->id.'/edit">Edit |</a>
-					                <a href="purchaserequest/'.$jobs->id.'"">View</a>';
-					            })
-        					->make(true);
+		return view('purchaserequest.index');
 	}
 
 	/**
@@ -138,6 +116,17 @@ class PurchaseRequestController extends Controller {
 		$purchaserequest = $this->purchaserequest->with('items')->find($prid);
 		dd($purchaserequest->items);
 
+	}
+
+	/**
+	 * Create PO Based on PR.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getModel()
+	{
+		return new PR;
 	}
 
 }

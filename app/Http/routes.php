@@ -36,7 +36,7 @@ Route::group(['namespace' => 'Lists'], function(){
 });
 
 Route::group(['namespace' => 'Transaction'], function(){
-	Route::resource('lists', 'ListsController');
+	//Route::resource('lists', 'ListsController');
 	Route::resource('joborder', 'JobOrderController');
 	Route::resource('purchaseorder', 'PurchaseOrderController');
 	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
@@ -58,13 +58,25 @@ Route::group(['namespace' => 'Transaction'], function(){
 		'anyData'  => 'vendortable.data',
 		'index' => 'vendortable',
 	]);
+});
 
-	//GET DATA FOR PURCHASE REQUEST
-	//Route::get('getPurchaseRequest', 'PurchaseRequestController@getPurchaseRequest');
+Route::group(['namespace'=> 'Transaction'], function() {
+
+	Route::post(
+		'purchaserequest/{id}/approve',
+		'PurchaseRequestController@approve'
+	);
+
+	// Route::get('prtable/data', ['as' => 'prtable.data', function(){
+	// 	$controller = app()->make(
+	// 		'Nixzen\Http\Controllers\Transaction\PurchaseRequestController'
+	// 	);
+	// 	$pr = new Nixzen\Models\PurchaseRequest;
+	// 	$controller->callAction('anyData', [$pr]);
+	// }]);
 
 	Route::controller('prtable', 'PurchaseRequestController', [
-		'anyData'  => 'prtable.data',
-		'index' => 'prtable',
+		'anyData'  => 'prtable.data'
 	]);
 
 });
@@ -74,7 +86,7 @@ Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
 	Route::get('pritem/{id}/canvass', 'CanvassController@index');
 	Route::post('pritem/{id}/canvass', 'CanvassController@save');
 	//lists
-	Route::resource('list', 'ListsController');
+	//Route::resource('list', 'ListsController');
 });
 
 Route::group(['namespace' => 'Admin'], function(){
@@ -123,4 +135,3 @@ Route::get('ajax/getUOM/{id}', function ($id){
 Route::get('/', function(){
 	return view('app');
 });
-
