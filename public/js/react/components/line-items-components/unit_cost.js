@@ -20,7 +20,7 @@ window.UNITCost = React.createClass({
 				<input onChange={this.handleChange} 
             	type="text" 
             	value={this.props.defaultValue} 
-            	name="unit_cost" 
+   
             	id="unit_cost"
             	className="form-control" />
 			</td> 

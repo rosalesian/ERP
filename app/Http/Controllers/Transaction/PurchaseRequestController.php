@@ -133,4 +133,16 @@ class PurchaseRequestController extends Controller {
 		return redirect()->route('purchaserequest.index');
 	}
 
+	/**
+	 * Create PO Based on PR.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function autoCreatePO($prid) {
+		$purchaserequest = $this->purchaserequest->with('items')->find($prid);
+		dd($purchaserequest->items);
+
+	}
+
 }

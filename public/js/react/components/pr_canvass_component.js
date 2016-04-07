@@ -38,7 +38,6 @@ window.CanvassComponent = React.createClass({
 		};
 	},
 	componentWillReceiveProps : function(nextprops) {
-		console.log(nextprops);
 		var dataStorage = [];
 		var rows=[];
 		if(nextprops.data.length!=0) {
@@ -175,6 +174,14 @@ window.CanvassComponent = React.createClass({
 			terms_label:this.state.terms_label,
 			cost:this.state.cost
 		};
+		var obj={};
+		obj.id='';
+		obj.vendor_id = this.state.vendor_id;
+		obj.vendor_label = this.state.vendor_label;
+		obj.terms_id = this.state.terms_id;
+		obj.terms_label = this.state.terms_label;
+		obj.cost = this.state.cost;
+
 		dataStorage.push(obj);
 		this.setState(this._initial_data()); //empty state values
 		this.setState({rows:rows, dataStorage:dataStorage});
@@ -220,17 +227,15 @@ window.CanvassComponent = React.createClass({
 	}
 	},
 	handleUpdate : function (id) {
-		console.log(this.state);
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
 		rows.length=0;
-		dataStorage[id] = {
-			vendor_id:this.state.vendor_id,
-			vendor_label:this.state.vendor_label,
-			terms_id:this.state.terms_id,
-			terms_label:this.state.terms_label,
-			cost:this.state.cost
-		};
+
+		dataStorage[id].vendor_id = this.state.vendor_id;
+		dataStorage[id].vendor_label = this.state.vendor_label;
+		dataStorage[id].terms_id = this.state.terms_id;
+		dataStorage[id].terms_label = this.state.terms_label;
+		dataStorage[id].cost = this.state.cost;
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <CanvassRow callBackParent={this.handleCallBack}
