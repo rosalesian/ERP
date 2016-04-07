@@ -14,6 +14,10 @@ use Nixzen\Repositories\MaintenanceTypeRepository as MaintenanceType;
 use Nixzen\Models\Vendor;
 use Nixzen\Models\Lists\Department;
 use Nixzen\Models\TaxCode;
+use Nixzen\Models\ChartOfAccount;
+use Nixzen\Models\Lists\Division;
+use Nixzen\Models\Lists\Branch;
+
 
 use Response;
 
@@ -268,5 +272,60 @@ class UserController extends Controller
 		}
 
 		return Response::json($data_taxcode);
+	}
+
+	public function getCoa() {
+
+		$data_coa = [];
+		$coa_types = ChartOfAccount::all();
+		foreach($coa_types as $coa_type) {
+			$result = [];
+			$result['value'] = $coa_type->id;
+			$result['label'] = $coa_type->title;
+			$data_coa[] = $result;
+		}
+
+		return Response::json($data_coa);
+	}
+
+	public function getDivision() {
+
+		$data_division = [];
+		$division_types = Division::all();
+		foreach($division_types as $division_type) {
+			$result = [];
+			$result['value'] = $division_type->id;
+			$result['label'] = $division_type->name;
+			$data_division[] = $result;
+		}
+
+		return Response::json($data_division);
+	}
+
+	public function getBranch() {
+		$data_branch = [];
+		$branch_types = Branch::all();
+		foreach($branch_types as $branch_type) {
+			$result = [];
+			$result['value'] = $branch_type->id;
+			$result['label'] = $branch_type->name;
+			$data_branch[] = $result;
+		}
+
+		return Response::json($data_branch);
+	}
+
+	public function getVendor() {
+
+		$data_vendor = [];
+		$vendor_types = Vendor::all();
+		foreach($vendor_types as $vendor_type) {
+			$result = [];
+			$result['value'] = $vendor_type->id;
+			$result['label'] = $vendor_type->name;
+			$data_vendor[] = $result;
+		}
+
+		return Response::json($data_vendor);
 	}
 }

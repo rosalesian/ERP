@@ -24,7 +24,7 @@ class CreateVendorBillRequest extends Request
     public function rules()
     {
         return [
-            'vendor_id' => 'required',
+          /*  'vendor_id' => 'required',
             'suppliers_inv_no' => 'required',
             'billtype_id' => 'required',
             'billtype_nontrade_subtype_id' => 'required_if:billtype_id,2',
@@ -32,7 +32,7 @@ class CreateVendorBillRequest extends Request
             'date' => 'required',
             'department_id' => 'required',
             'division_id' => 'required',
-            'branch_id' => 'required'
+            'branch_id' => 'required'*/
         ];
     }
 }

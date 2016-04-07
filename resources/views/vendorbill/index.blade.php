@@ -2,9 +2,14 @@
 @section('content')
  <div class="row">
   <div class="col-xs-12">
+  <div class="transaction-buttons-container">
+      <div class="trans-button">
+        <a href="{{url('vendorbill/create ')}}" class="btn btn-block btn-primary btn-flat">New Vendor Bill</a>
+      </div>
+   </div>
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Data Table With Full Features</h3>
+       
       </div><!-- /.box-header -->
       <div class="box-body">
         <table id="joborder-table" class="table table-bordered table-striped">

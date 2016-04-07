@@ -23,6 +23,9 @@ Create New Purchase Requisition
       <div class="trans-button">
         {!! HTML::link('purchaserequest','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
+       <div class="trans-button">
+        {!! HTML::link('purchaserequest/'.$purchaserequest->id.'/purchaseorder/create','Approve',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
+      </div>
     </div>
     <div class="approvaltransition">
       <ol class="breadcrumb">
@@ -45,6 +48,9 @@ Create New Purchase Requisition
       </div>
       <div class="trans-button">
         {!! HTML::link('purchaserequest','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
+      </div>
+       <div class="trans-button">
+        {!! HTML::link('purchaserequest/'.$purchaserequest->id.'/purchaseorder/create','Approve',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
       </div>
     </div>
 

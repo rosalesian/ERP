@@ -1,4 +1,4 @@
-window.Item = React.createClass({
+window.CASHONHand = React.createClass({
 	getDefaultProps : function () {
 		return {
 			defaultValue : ''
@@ -55,10 +55,9 @@ window.Item = React.createClass({
 	},
 	handleChange : function (event) {
 		var obj = {};
-		obj.name = 'item_id';
-		obj['item_id'] = event.value;
-		obj['item_label'] = event.label;
-		obj['description'] = event.description;
+		obj.name = 'coa_id';
+		obj['coa_id'] = event.value;
+		obj['coa_label'] = event.label;
 		this.setState({defaultValue:event.value});
 		this.props.callBackParent(obj);
 	},
@@ -66,7 +65,7 @@ window.Item = React.createClass({
 		return( 
 			<td>
 				<Select onChange={this.handleChange} 
-                id="item_id" 
+                id="coa_id" 
                 className="react-select-input-mainline" 
                 value={this.state.defaultValue}
                 options={this.state.data} 
