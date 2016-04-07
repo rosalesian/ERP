@@ -5,7 +5,7 @@ Create New Vendor Payment
 @stop
 
 @section('content-header')
-<h1>Vondor Payment</h1>
+<h1>Vendor Payment</h1>
 <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Dashboard</li>
@@ -15,19 +15,20 @@ Create New Vendor Payment
 @section('content')
  <div class="row">
   <div class="col-md-12">
-    {!! Form::open(array('url'=>'joborder','method'=>'post')) !!}
+    {!! Form::open(array('url'=>'vendorpayment','method'=>'post')) !!}
 
     <div class="transaction-buttons-container">
       <div class="trans-button">
          <input type="submit" class="btn btn-block btn-primary btn-flat" value="Save"/>
       </div>
       <div class="trans-button">
-        {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
+        {!! HTML::link('vendorpayment','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
     
-  
-    <div id="mainPR-container"></div>
+    @inject('items', 'Nixzen\Repositories\ItemRepository')
+    @inject('vendor', 'Nixzen\Repositories\VendorRepository')
+    <div id="mainVP-container"></div>
    
 
     <div class="transaction-buttons-container">
@@ -35,15 +36,11 @@ Create New Vendor Payment
          <button class="btn btn-block btn-primary btn-flat">Save</button>
       </div>
       <div class="trans-button">
-        {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
+        {!! HTML::link('vendorpayment','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
 
   {!! Form::close() !!}
-      <!-- Button trigger modal -->
-    {{-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-      Launch demo modal
-    </button> --}}
 
   </div><!-- /.col -->
 </div><!-- /.row -->  
@@ -65,18 +62,29 @@ Create New Vendor Payment
 <script src="{{ asset('js/react/plugin/react-select/dist/react-select.min.js') }}"></script> <!-- select -->
 
 <!-- MAINLINE COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/type.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/date.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/deliveredto.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/remarks.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/totalamount.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/mainLine-components/nameofrequester.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/selectMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
 
-<!-- CUSTOM REACT COMPONENT -->
-<script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
-{{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
-<script type="text/babel" src="{{ asset('js/react/forms/joborder/joborder_view.js') }}"></script>
+<!-- LINEITEM COMPONENTS -->
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/displayLineComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/textLineComponent.js') }}"></script>
 
+<!-- FORM COMPONENTS -->
+<script type="text/babel" src="{{ asset('js/react/forms/vendorpayment/vendorpayment_view.js') }}"></script>
 
+<script type="text/babel">
+var old_inputs = <?php echo json_encode(Input::old()); ?>;
+var context = "create";
+var lists = {
+  'items' : <?php echo $items->lists('description','id'); ?>,
+  'vendors' : <?php echo $vendor->lists('name','id'); ?>
+};
+
+ReactDOM.render(<VPMainComponent context={context} data={(typeof old_inputs=='undefined') ? [] : old_inputs}
+lists={lists} />,
+document.getElementById("mainVP-container"));
+
+</script>
 @stop

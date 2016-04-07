@@ -33,6 +33,7 @@ Create New Purchase Order
       </div>
     </div>
       
+      @inject('items', 'Nixzen\Repositories\ItemRepository')
       <div id="mainPO-container"></div>
 
     <div class="transaction-buttons-container">
@@ -85,8 +86,16 @@ Create New Purchase Order
 <script type="text/babel" src="{{ asset('js/react/forms/purchaseorder/purchaseorder_view.js') }}"></script>
 <script type="text/babel">
   var old_inputs = <?php echo json_encode(Input::old()); ?>;
+  var lists = {
+    'items' : <?php echo $items->lists('description','id'); ?>
+  };
   var context = "create";
-  ReactDOM.render(<POMainComponent context={context} data={(typeof old_inputs=='undefined') ? [] : old_inputs} />, document.getElementById("mainPO-container"));
+  ReactDOM.render(<POMainComponent
+  context={context}
+  data={(typeof old_inputs=='undefined') ? [] : old_inputs}
+  lists={lists} />,
+  document.getElementById("mainPO-container"));
+
 </script>
 
 @stop

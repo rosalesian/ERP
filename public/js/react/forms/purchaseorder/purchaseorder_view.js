@@ -1,6 +1,7 @@
 window.POMainComponent = React.createClass({
 	getDefaultProps : function () {
-		return { 
+		return {
+			lists:{},
 			data:[],
 			context:''
 		};
@@ -39,7 +40,11 @@ window.POMainComponent = React.createClass({
 			            <h3 className="box-title">Primary Information</h3>
 			    	</div>
 			       
-			       <POPrimaryComponent context={this.props.context} defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			       <POPrimaryComponent
+			       context={this.props.context}
+			       defaultValues={this.state}
+			       lists={this.props.lists}
+			       callBackParent={this.handleChangeCallBack} />
 			    </div>
 
 		        <div className="nav-tabs-custom">
@@ -100,13 +105,13 @@ window.POPrimaryComponent = React.createClass({
             	<POFieldContainer>
         			<SelectMainComponent callBackParent={this.handleChangeCallBack}
     				context={this.props.context}
-    				source={base_url+'/ajax/getItems'}
+    				options={this.props.lists.items}
     				defaultValue={this.props.defaultValues.type_id}
     				attributes={{name:"type_id", label:"PURCHASE ORDER TYPE"}} />
 
     				<SelectMainComponent callBackParent={this.handleChangeCallBack}
     				context={this.props.context}
-    				source={base_url+'/ajax/getItems'}
+    				options={this.props.lists.items}
     				defaultValue={this.props.defaultValues.vendor_id}
     				attributes={{name:"vendor_id", label:"VENDOR"}} />
 
@@ -117,7 +122,7 @@ window.POPrimaryComponent = React.createClass({
 
         			<SelectMainComponent callBackParent={this.handleChangeCallBack}
     				context={this.props.context}
-    				source={base_url+'/ajax/getItems'}
+    				options={this.props.lists.items}
     				defaultValue={this.props.defaultValues.requested_by}
     				attributes={{name:"requested_by", label:"REQEUSTED BY"}} />
         		</POFieldContainer>
@@ -125,13 +130,13 @@ window.POPrimaryComponent = React.createClass({
 				<POFieldContainer> 
         			<SelectMainComponent callBackParent={this.handleChangeCallBack}
     				context={this.props.context}
-    				source={base_url+'/ajax/getItems'}
+    				options={this.props.lists.items}
     				defaultValue={this.props.defaultValues.terms_id}
     				attributes={{name:"terms_id", label:"TERMS"}} />
 
         			<SelectMainComponent callBackParent={this.handleChangeCallBack}
     				context={this.props.context}
-    				source={base_url+'/ajax/getItems'}
+    				options={this.props.lists.items}
     				defaultValue={this.props.defaultValues.paymenttype_id}
     				attributes={{name:"paymenttype_id", label:"PAYMENT TYPE"}} />
 

@@ -1,50 +1,59 @@
-window.IRMainComponent = React.createClass({
+window.VPMainComponent = React.createClass({
 	getDefaultProps : function () {
 		return { 
 			data:[],
-			context:''
+			context:'',
+			lineitems:[]
 		};
 	},
 	getInitialState : function () {
 		if(this.props.context=='create') {
 			return {
 				data : {},
-				purchaseorder_id: (typeof this.props.purchaseorder.id=='undefined') ? '' : this.props.purchaseorder.id,
+				lineitems: this.props.items,
+				purchaseorder_id: (typeof this.props.data.id=='undefined') ? '' : this.props.data.id,
 				type_id : (typeof this.props.data.type_id=='undefined') ? '' : this.props.data.type_id,
 				vendor_id : (typeof this.props.data.vendor_id=='undefined') ? '' : this.props.data.vendor_id,
 				paymenttype_id : (typeof this.props.data.paymenttype_id=='undefined') ? '' : this.props.data.paymenttype_id,
 				terms_id : (typeof this.props.data.terms_id=='undefined') ? '' : this.props.data.terms_id,
-				date : (typeof this.props.purchaseorder.date=='undefined') ? '' : this.props.purchaseorder.date,
-				delivered_to : (typeof this.props.purchaseorder.delivered_to=='undefined') ? '' : this.props.purchaseorder.delivered_to,
-				remarks : (typeof this.props.purchaseorder.memo=='undefined') ? '' : this.props.purchaseorder.memo,
+				date : (typeof this.props.data.date=='undefined') ? '' : this.props.data.date,
+				delivered_to : (typeof this.props.data.delivered_to=='undefined') ? '' : this.props.data.delivered_to,
+				remarks : (typeof this.props.data.memo=='undefined') ? '' : this.props.data.memo,
 				requested_by : (typeof this.props.data.requested_by=='undefined') ? '' : this.props.data.requested_by,
-				items:(typeof this.props.data.items=='undefined') ? [] : this.props.data.items,
 				total:''
 			};
 		} else if (this.props.context=='view'){
 			return {
 				data : {},
-				purchaseorder_id: (typeof this.props.data.purchaseorder_id=='undefined') ? '' : this.props.data.purchaseorder_id,
+				lineitems: this.props.items,
+				payee_id: (typeof this.props.data.payee_id=='undefined') ? '' : this.props.data.payee_id,
 				date : (typeof this.props.data.date=='undefined') ? '' : this.props.data.date,
-				delivered_to : (typeof this.props.data.created_by=='undefined') ? '' : this.props.data.created_by,
-				remarks : (typeof this.props.data.remarks=='undefined') ? '' : this.props.data.remarks,
-				items:(typeof this.props.data.items=='undefined') ? [] : this.props.data.items,
-				total:''
+				transno : (typeof this.props.data.transno=='undefined') ? '' : this.props.data.transno,
+				branch_id : (typeof this.props.data.branch_id=='undefined') ? '' : this.props.data.branch_id,
+				principal_id : (typeof this.props.data.principal_id=='undefined') ? '' : this.props.data.principal_id,
+				checkno : (typeof this.props.data.checkno=='undefined') ? '' : this.props.data.checkno,
+				checkdate : (typeof this.props.data.checkdate=='undefined') ? '' : this.props.data.checkdate,
+				coa_id : (typeof this.props.data.coa_id=='undefined') ? '' : this.props.data.coa_id,
+				posting_period_id : (typeof this.props.data.posting_period_id=='undefined') ? '' : this.props.data.posting_period_id
 			};
 		} else {
 			return {
 				data : {},
-				purchaseorder_id: (typeof this.props.data.purchaseorder_id=='undefined') ? '' : this.props.data.purchaseorder_id,
+				lineitems: this.props.items,
+				payee_id: (typeof this.props.data.payee_id=='undefined') ? '' : this.props.data.payee_id,
 				date : (typeof this.props.data.date=='undefined') ? '' : this.props.data.date,
-				delivered_to : (typeof this.props.data.created_by=='undefined') ? '' : this.props.data.created_by,
-				remarks : (typeof this.props.data.remarks=='undefined') ? '' : this.props.data.remarks,
-				items:(typeof this.props.data.items=='undefined') ? [] : this.props.data.items,
-				total:''
+				transno : (typeof this.props.data.transno=='undefined') ? '' : this.props.data.transno,
+				branch_id : (typeof this.props.data.branch_id=='undefined') ? '' : this.props.data.branch_id,
+				principal_id : (typeof this.props.data.principal_id=='undefined') ? '' : this.props.data.principal_id,
+				checkno : (typeof this.props.data.checkno=='undefined') ? '' : this.props.data.checkno,
+				checkdate : (typeof this.props.data.checkdate=='undefined') ? '' : this.props.data.checkdate,
+				coa_id : (typeof this.props.data.coa_id=='undefined') ? '' : this.props.data.coa_id,
+				posting_period_id : (typeof this.props.data.posting_period_id=='undefined') ? '' : this.props.data.posting_period_id
 			};
 		}
 	},
 	handleChangeCallBack : function (obj) {
-		this.setState(obj);
+		this.setState(obj);	
 	},
 	handleCallBackLine : function (data) {
 		var total = 0;
@@ -61,7 +70,12 @@ window.IRMainComponent = React.createClass({
 			            <h3 className="box-title">Primary Information</h3>
 			    	</div>
 			       
-			       <IRPrimaryComponent context={this.props.context} defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			       <VPPrimaryComponent
+			       context={this.props.context}
+			       defaultValues={this.state}
+			       lists={this.props.lists}
+			       callBackParent={this.handleChangeCallBack}
+			       ajaxCallBack = {this.handleAjax} />
 			    </div>
 
 		        <div className="nav-tabs-custom">
@@ -73,9 +87,9 @@ window.IRMainComponent = React.createClass({
 			    	<div className="tab-content">
 				        <div className="tab-pane active" id="tab_1">
 				            
-				            <IRTable callBackParent={this.handleCallBackLine}
-				            data={this.props.items}
-				            pr_id={this.state.pr_id}
+				            <VPTable callBackParent={this.handleCallBackLine}
+				            data={this.state.lineitems}
+				            payee_id={this.state.payee_id}
 				            context={this.props.context} />
 
 				        </div>
@@ -88,7 +102,7 @@ window.IRMainComponent = React.createClass({
 	}
 });
 
-window.IRWrapper = React.createClass({
+window.VPWrapper = React.createClass({
 	render : function () {
 		return(
 			 <div className="row">
@@ -100,13 +114,13 @@ window.IRWrapper = React.createClass({
 	}
 });
 
-window.IRFieldContainer = React.createClass({
+window.VPFieldContainer = React.createClass({
 	render : function () {
 		return( <div className="col-md-4 col-sm-6 col-xs-12"> {this.props.children} </div> );
 	}
 });
 
-window.IRPrimaryComponent = React.createClass({
+window.VPPrimaryComponent = React.createClass({
 	handleChangeCallBack : function (obj) {
 		this.props.callBackParent(obj);
 	},
@@ -117,46 +131,139 @@ window.IRPrimaryComponent = React.createClass({
 		}
 	},
 	render : function () {
-		return (
-			<IRWrapper>
-            	<IRFieldContainer>
-            		<TextMainComponent callBackParent={this.handleChangeCallBack} 
-    				context={this.props.context}
-    				defaultValue={this.props.defaultValues.purchaseorder_id} 
-    				attributes={{name:"purchaseorder_id", label:"PO#"}} />
+		if(this.props.context=='edit' || this.props.context=='create') {
+			return (
+				<VPWrapper>
+	            	<VPFieldContainer>
+	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.vendors}
+	    				defaultValue={this.props.defaultValues.payee_id}
+	    				attributes={{name:"payee_id", label:"PAYEE"}} />
 
-            		<TextMainComponent callBackParent={this.handleChangeCallBack} 
-    				context={this.props.context}
-    				defaultValue={this.props.defaultValues.delivered_to} 
-    				attributes={{name:"delivered_to", label:"DELIVERED TO"}} />
-        		</IRFieldContainer>
+	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.items}
+	    				defaultValue={this.props.defaultValues.coa_id}
+	    				attributes={{name:"coa_id", label:"A/P ACCOUNT"}} />
 
-				<IRFieldContainer> 
-        			<DateMainComponent callBackParent={this.handleChangeCallBack}
-    				context={this.props.context}
-    				defaultValue={this.props.defaultValues.date} 
-    				attributes={{name:"date", label:"DATE"}} />
-        		</IRFieldContainer>
+	    				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.items}
+	    				defaultValue={this.props.defaultValues.transno}
+	    				attributes={{name:"transno", label:"ACCOUNT"}} />
 
-            	<IRFieldContainer>
-            		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
-    				context={this.props.context}
-    				defaultValue={this.props.defaultValues.remarks}
-    				attributes={{name:"remarks", label:"MEMO"}} />	
-            	</IRFieldContainer>
-	        </IRWrapper>
-		);
+	        		</VPFieldContainer>
+
+					<VPFieldContainer>
+	    				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.items}
+	    				defaultValue={this.props.defaultValues.principal_id}
+	    				attributes={{name:"principal_id", label:"PRINCIPAL"}} />
+
+	    				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.items}
+	    				defaultValue={this.props.defaultValues.branch_id}
+	    				attributes={{name:"branch_id", label:"LOCATION"}} />
+
+	    				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.items}
+	    				defaultValue={this.props.defaultValues.posting_period_id}
+	    				attributes={{name:"posting_period_id", label:"POSTING PERIOD"}} />
+	        		</VPFieldContainer>
+
+	            	<VPFieldContainer>
+		            	<DateMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.date} 
+	    				attributes={{name:"date", label:"DATE"}} />
+
+	    				<TextMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.checkno} 
+	    				attributes={{name:"checkno", label:"CHECK NO."}} />
+
+	    				<DateMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.checkdate} 
+	    				attributes={{name:"checkdate", label:"CHECK DATE"}} />
+	    
+	            	</VPFieldContainer>
+		        </VPWrapper>
+			);
+		} else {
+			return (
+				<VPWrapper>
+	            	<VPFieldContainer>
+	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.payee_id}
+	    				attributes={{name:"payee_id", label:"PAYEE"}} />
+
+	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.coa_id}
+	    				attributes={{name:"coa_id", label:"A/P ACCOUNT"}} />
+
+	    				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.transno}
+	    				attributes={{name:"transno", label:"ACCOUNT"}} />
+
+	        		</VPFieldContainer>
+
+					<VPFieldContainer>
+	    				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.principal_id}
+	    				attributes={{name:"principal_id", label:"PRINCIPAL"}} />
+
+	    				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.branch_id}
+	    				attributes={{name:"branch_id", label:"LOCATION"}} />
+
+	    				<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.posting_period_id}
+	    				attributes={{name:"posting_period_id", label:"POSTING PERIOD"}} />
+	        		</VPFieldContainer>
+
+	            	<VPFieldContainer>
+		            	<DateMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.date} 
+	    				attributes={{name:"date", label:"DATE"}} />
+
+	    				<TextMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.checkno} 
+	    				attributes={{name:"checkno", label:"CHECK NO."}} />
+
+	    				<DateMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.checkdate} 
+	    				attributes={{name:"checkdate", label:"CHECK DATE"}} />
+	    
+	            	</VPFieldContainer>
+		        </VPWrapper>
+			);
+		}
+
 	}
 });
 
 /*******************************************************************
 ********************************************************************
 *******************************************************************/
-window.DataStorageIR = React.createClass ({
+window.DataStorageVP = React.createClass ({
 	render : function () {
 		var data = [];
 		for(var i=0, counter=this.props.data.length; i<counter; i++) {
-			if(this.props.data[i].isReceived) {
+			if(this.props.data[i].apply) {
 				data.push(this.props.data[i]);
 			}
 		}
@@ -164,36 +271,75 @@ window.DataStorageIR = React.createClass ({
 	}
 });
 
-window.IRTable = React.createClass({
+window.VPTable = React.createClass({
 	getDefaultProps : function () {
 		return { data:[], context:'' };
 	},
 	getInitialState : function () {
-		var rows=[], dataStorage=[];
-		if(this.props.data.length!=0) {
-			dataStorage = this.props.data;
-			for(var i=0, counter=dataStorage.length; i<counter; i++) {
-				dataStorage[i].isReceived=true;
-				dataStorage[i].remaining = dataStorage[i].quantity_received;
-				rows[i] = <IRRow callBackParent={this.handleChange}
-							defaultValues={dataStorage[i]}
-							id={i}
-							key={i}
-							context={this.props.context}
-							callBackReceiveIR={this.callBackReceiveIR} />;
-			}
-		}
-
 		return {
-			rows:rows,
-			dataStorage:dataStorage
+			rows:[],
+			dataStorage:[]
 		};
+	},
+	componentDidMount : function () {
+		if(this.props.context=='edit' || this.props.context=='view') {
+			this._handleAjax(this.props.payee_id);
+		}
+	},
+	componentWillReceiveProps : function (nextprops) {
+		if(this.props.payee_id!=nextprops.payee_id) {
+			this._handleAjax(nextprops.payee_id);			
+		}
+	},
+	_handleAjax : function (id) {
+		var vp = [];
+		$.ajax({
+			url:base_url+'/getVendorBills/'+id,
+			dataType: 'json',
+			type:'GET',
+			success : function (response) {
+				console.log(response);
+				var rows = this.state.rows;
+				var dataStorage = this.state.dataStorage;
+				rows.length=0;
+				dataStorage.length=0;
+				for(var i=0,counter=response.length; i<counter; i++) {
+					var amount=0,obj={};
+
+					obj={
+						apply:true,
+						payment_amount:response[i].amount,
+						vendor_id:response[i].vendor_id,
+						id:response[i].id,
+						bill_id:response[i].id,
+						duedate:response[i].duedate,
+						transno:response[i].transno,
+						amount:response[i].amount
+					};
+
+					dataStorage.push(obj);
+					rows[i] = <VPRow callBackParent={this.handleChange}
+						defaultValues={obj}
+						id={i}
+						key={i}
+						context={this.props.context}
+						callBackReceiveIR={this.callBackReceiveIR} />;
+	 			}
+				
+				this.setState({
+					data:vp,
+					rows:rows,
+					dataStorage:dataStorage
+				});
+
+			}.bind(this)
+		});
 	},
 	handleChange : function (obj) {
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
 		dataStorage[obj.index][obj.name] = obj[obj.name];
-		rows[obj.index] = <IRRow callBackParent={this.handleChange} 
+		rows[obj.index] = <VPRow callBackParent={this.handleChange} 
 							defaultValues={dataStorage[obj.index]}
 							id={obj.index}
 							key={obj.index}
@@ -202,21 +348,19 @@ window.IRTable = React.createClass({
 		this.setState({dataStorage:dataStorage, rows:rows});						
 	},
 	callBackReceiveIR: function (obj) {
-		if(obj.isReceived) {
-			var dataStorage = this.state.dataStorage;
-			dataStorage[obj.index]['isReceived'] = obj.isReceived;
-			dataStorage[obj.index]['quantity_received'] = dataStorage[obj.index]['remaining']; 
-			var rows = this.state.rows;
-			rows[obj.index] = <IRRow callBackParent={this.handleChange} 
+		var dataStorage = this.state.dataStorage;
+		var rows = this.state.rows;
+		if(obj.name=='apply') {
+			dataStorage[obj.index][obj.name] = obj[obj.name];
+			dataStorage[obj.index]['payment_amount'] = dataStorage[obj.index]['amount']; 
+			rows[obj.index] = <VPRow callBackParent={this.handleChange} 
 								defaultValues={dataStorage[obj.index]}
 								id={obj.index}
 								key={obj.index}
 								callBackReceiveIR={this.callBackReceiveIR} />;	
 		} else {
-			var dataStorage = this.state.dataStorage;
-			dataStorage[obj.index]['isReceived'] = obj.isReceived;
-			var rows = this.state.rows;
-			rows[obj.index] = <IRRow callBackParent={this.handleChange} 
+			dataStorage[obj.index]['apply'] = obj[obj.name];
+			rows[obj.index] = <VPRow callBackParent={this.handleChange} 
 								defaultValues={dataStorage[obj.index]}
 								id={obj.index}
 								key={obj.index}
@@ -229,14 +373,14 @@ window.IRTable = React.createClass({
 		if(this.props.context=='view') {
 			return (
 				<div className="tablePOWrapper">
-					<DataStorageIR data={this.state.dataStorage} name="items" />
+					<DataStorageVP data={this.state.dataStorage} name="items" />
 					<table className="table table-bordered react-table" style={{overflow:'auto'}}>
 					<thead>
 						<tr>
-							<th>Item</th>
-							<th>Description</th>
-							<th>Units</th>
-							<th>Quantity</th>
+							<th>Due Date</th>
+							<th>Ref No.</th>
+							<th>Amount</th>
+							<th>Payment</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -250,16 +394,15 @@ window.IRTable = React.createClass({
 		} else {
 			return (
 				<div className="tablePOWrapper">
-					<DataStorageIR data={this.state.dataStorage} name="items" />
+					<DataStorageVP data={this.state.dataStorage} name="items" />
 					<table className="table table-bordered react-table" style={{overflow:'auto'}}>
 					<thead>
 						<tr>
-							<th>Receive</th>
-							<th>Item</th>
-							<th>Description</th>
-							<th>Units</th>
-							<th>Remaining</th>
-							<th>Quantity</th>
+							<th>Apply</th>
+							<th>Due Date</th>
+							<th>Ref No.</th>
+							<th>Amount</th>
+							<th>Payment</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -274,13 +417,13 @@ window.IRTable = React.createClass({
 	}
 });
 
-window.ReceiveIRCheckBox = React.createClass({
+window.ApplyVP = React.createClass({
 	getInitialState : function () {
 		return { defaultChecked:this.props.defaultChecked };
 	},
 	handleChange : function (evt) {
 		this.setState({defaultChecked:evt.target.checked});
-		this.props.callBackReceiveIR({index:this.props.index, isReceived:evt.target.checked});
+		this.props.callBackReceiveIR({index:this.props.index, apply:evt.target.checked, name:this.props.name});
 	},
 	render : function () {
 		return (
@@ -295,7 +438,7 @@ window.ReceiveIRCheckBox = React.createClass({
 	}
 });
 
-window.IRRow = React.createClass({
+window.VPRow = React.createClass({
 	getDefaultProps: function () {
 		return { defaultValues:{} };
 	},
@@ -303,30 +446,29 @@ window.IRRow = React.createClass({
 		if(this.props.context=='view') {
 			return(
 				<tr>
-					<td>{this.props.defaultValues.purchaseorderitem_label}</td>
-					<td>{this.props.defaultValues.description}</td>
-					<td>{this.props.defaultValues.uom_label}</td>
-					<td>{this.props.defaultValues.quantity_received}</td>
+					<td>{this.props.defaultValues.duedate}</td>
+					<td>{this.props.defaultValues.transno}</td>
+					<td>{this.props.defaultValues.amount}</td>
+					<td>{this.props.defaultValues.payment_amount}</td>
 
 				</tr>
 				);
 		} else {
 			return(
 				<tr id={"item-"+parseInt(this.props.id+1)}>
-					<ReceiveIRCheckBox name="receive"
-					defaultChecked={this.props.defaultValues.isReceived}
+					<ApplyVP name="apply"
+					defaultChecked={this.props.defaultValues.apply}
 					index={this.props.id}
 					callBackReceiveIR={this.props.callBackReceiveIR}/>
 
-					<DisplayLineComponent defaultValue={this.props.defaultValues.purchaseorderitem_label} />
-					<DisplayLineComponent defaultValue={this.props.defaultValues.description} />
-					<DisplayLineComponent defaultValue={this.props.defaultValues.uom_label} />
-					<DisplayLineComponent defaultValue={this.props.defaultValues.remaining} />
-					
+					<DisplayLineComponent defaultValue={this.props.defaultValues.duedate} />
+					<DisplayLineComponent defaultValue={this.props.defaultValues.transno} />
+					<DisplayLineComponent defaultValue={this.props.defaultValues.amount} />
+
 					<TextLineComponent callBackParent={this.handleCallBack}
-					name="quantity_received"
-					defaultValue={this.props.defaultValues.quantity_received}
-					isReceived={this.props.defaultValues.isReceived}/>
+					name="payment_amount"
+					defaultValue={this.props.defaultValues.payment_amount}
+					isReceived={this.props.defaultValues.apply} />
 				</tr>
 			);
 		}

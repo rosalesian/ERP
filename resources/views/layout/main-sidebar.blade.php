@@ -79,6 +79,14 @@
                             <li><a href="{{ url('vendorbill/create') }}"><i class="fa fa-circle-o"></i> New</a></li>
                           </ul>
                         </li>
+                        <!--vendorpayment-->
+                         <li>
+                          <a href="#"><i class="fa fa-circle-o"></i> Vendor Payment<i class="fa fa-angle-left pull-right"></i></a>
+                          <ul class="treeview-menu">
+                            <li><a href="{{ url('vendorpayment') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                            <li><a href="{{ url('vendorpayment/create') }}"><i class="fa fa-circle-o"></i> New</a></li>
+                          </ul>
+                        </li>
                     </ul>
                 </li>
 

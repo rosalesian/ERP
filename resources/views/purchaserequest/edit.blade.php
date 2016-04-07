@@ -27,6 +27,7 @@ Create New Purchase Requisition
       </div>
     </div>
 
+    @inject('items', 'Nixzen\Repositories\ItemRepository')
     <div id="mainPR-container"></div>
 
     <div class="transaction-buttons-container">
@@ -42,9 +43,9 @@ Create New Purchase Requisition
   </div><!-- /.col -->
 </div><!-- /.row -->
     <?php
-    $items=[];
+    $lineitems=[];
     foreach ($purchaserequest->items as $key) {
-        array_push($items, [
+        array_push($lineitems, [
                 "id"=>(string) $key->id,
                 "item_id"=>$key->item_id,
                 "item_label"=>$key->item->description,
@@ -90,8 +91,18 @@ Create New Purchase Requisition
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
 <script type="text/babel">
   var purchaserequests = <?php echo $purchaserequest; ?>;
-  var items= <?php echo json_encode($items); ?>;
+  var lineitems= <?php echo json_encode($lineitems); ?>;
+  var lists = {
+    'items' : <?php echo $items->lists('description','id'); ?>
+  };
+
   var context="edit";
-  ReactDOM.render(<PRMainComponent context={context} data={(typeof purchaserequests=='undefined') ? [] : purchaserequests} items={items}/>, document.getElementById("mainPR-container"));
+  ReactDOM.render(<PRMainComponent
+    context={context}
+    data={(typeof purchaserequests=='undefined') ? [] : purchaserequests}
+    items={lineitems}
+    lists={lists}/>,
+    document.getElementById("mainPR-container"));
+
 </script>
 @stop
