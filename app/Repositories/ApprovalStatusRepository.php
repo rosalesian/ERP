@@ -8,6 +8,6 @@ class ApprovalStatusRepository extends Repository{
 	
 	public function model()
 	{
-		return 'Nixzen\ApprovalStatus';
+		return 'Nixzen\Models\ApprovalStatus';
 	}
 }
