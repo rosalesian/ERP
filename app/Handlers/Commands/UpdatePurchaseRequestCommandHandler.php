@@ -34,9 +34,9 @@ class UpdatePurchaseRequestCommandHandler
 			'requester' => $command->requester,
 			'deliver_to' => $command->deliver_to,
 			'remarks' => $command->remarks
-		], $command->purchaserequest->id);
-
-		$this->purchaserequest->saveWith($command->purchaserequest->id, [
+		], $command->purchaserequest);
+		//dd($this->purchaserequest->find($command->purchaserequest)->items);
+		$this->purchaserequest->saveWith($command->purchaserequest, [
 			'items' => $command->items
 		]);
 

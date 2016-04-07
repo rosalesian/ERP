@@ -90,7 +90,7 @@ class PurchaseRequestController extends Controller {
 	public function update($id, CreatePurchaseRequestRequest $request)
 	{
 		$purchaserequest = $this->purchaserequest->find($id);
-		$this->dispatchFrom(UpdatePurchaseRequestCommand::class, $request, ['purchaserequest' => $purchaserequest]);
+		$this->dispatchFrom(UpdatePurchaseRequestCommand::class, $request, ['purchaserequest' => $id]);
 		return redirect()->route('purchaserequest.show', $id);
 	}
 

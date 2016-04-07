@@ -38,6 +38,7 @@ class PurchaseRequestControllerTest extends TestCase
 		$response = $this->call('POST', 'purchaserequest', $request);
 		$purchaserequest = $this->purchaserequest->all()->last();
 		$this->assertRedirectedToRoute('purchaserequest.show',[$purchaserequest]);
+
 	}
 
 	public function testShow()
@@ -67,23 +68,23 @@ class PurchaseRequestControllerTest extends TestCase
 				'itemcode' => '12345',
 				'description' => 'Item 1',
 				'item_id'=> '1',
-				'quantity'=> '2',
+				'quantity'=> '100',
 				'unit_id'=> '1'
 			],
 			[
 				'id' => '2',
-				'itemcode' => '3456',
-				'description' => 'Item 2',
-				'item_id'=> '2',
-				'quantity'=> '2',
-				'unit_id'=> '1'
+				'itemcode' => '12345',
+				'description' => 'Item 1',
+				'item_id'=> '1',
+				'quantity'=> '70',
+				'unit_id'=> '2'
 			],
 			[
-				'id' => '3',
+				'id' => '',
 				'itemcode' => '543',
 				'description' => 'Item 3',
 				'item_id'=> '1',
-				'quantity'=> '2',
+				'quantity'=> '300',
 				'unit_id'=> '2'
 			]
 		];
@@ -106,6 +107,9 @@ class PurchaseRequestControllerTest extends TestCase
 			'deliver_to' => 'target',
 			'type_id' => '2'
 		]);
+
+		$item_count = $this->purchaserequest->find(1)->items->count();
+		$this->assertEquals(3, $item_count);
 	}
 
 	public function testDestroy()
@@ -145,7 +149,7 @@ class PurchaseRequestControllerTest extends TestCase
 				->create();
 
 		$purchaserequest->each(function($pr) {
-				$items = factory(Nixzen\Models\PurchaseRequestItem::class, 3)->create(['purchaserequisition_id' => $pr->id]);
+				$items = factory(Nixzen\Models\PurchaseRequestItem::class, 5)->create(['purchaserequisition_id' => $pr->id]);
 				$pr->items()->saveMany($items);
 		});
 
@@ -157,19 +161,19 @@ class PurchaseRequestControllerTest extends TestCase
 		$item =
 		[
 			[
-				'id' => '1',
+				'id' => '',
 				'item_id'=> '1',
 				'quantity'=> '2',
 				'unit_id'=> '1'
 			],
 			[
-				'id' => '2',
+				'id' => '',
 				'item_id'=> '2',
 				'quantity'=> '2',
 				'unit_id'=> '1'
 			],
 			[
-				'id' => '3',
+				'id' => '',
 				'item_id'=> '1',
 				'quantity'=> '2',
 				'unit_id'=> '2'
