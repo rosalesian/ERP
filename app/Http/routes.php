@@ -36,7 +36,7 @@ Route::group(['namespace' => 'Lists'], function(){
 });
 
 Route::group(['namespace' => 'Transaction'], function(){
-	//Route::resource('lists', 'ListsController');
+	Route::resource('lists', 'ListsController');
 	Route::resource('joborder', 'JobOrderController');
 	Route::resource('purchaseorder', 'PurchaseOrderController');
 	Route::resource('purchaseorder.itemreceipt', 'ItemReceiptController');
@@ -58,25 +58,13 @@ Route::group(['namespace' => 'Transaction'], function(){
 		'anyData'  => 'vendortable.data',
 		'index' => 'vendortable',
 	]);
-});
 
-Route::group(['namespace'=> 'Transaction'], function() {
-
-	Route::post(
-		'purchaserequest/{id}/approve',
-		'PurchaseRequestController@approve'
-	);
-
-	// Route::get('prtable/data', ['as' => 'prtable.data', function(){
-	// 	$controller = app()->make(
-	// 		'Nixzen\Http\Controllers\Transaction\PurchaseRequestController'
-	// 	);
-	// 	$pr = new Nixzen\Models\PurchaseRequest;
-	// 	$controller->callAction('anyData', [$pr]);
-	// }]);
+	//GET DATA FOR PURCHASE REQUEST
+	//Route::get('getPurchaseRequest', 'PurchaseRequestController@getPurchaseRequest');
 
 	Route::controller('prtable', 'PurchaseRequestController', [
-		'anyData'  => 'prtable.data'
+		'anyData'  => 'prtable.data',
+		'index' => 'prtable',
 	]);
 
 });
@@ -86,7 +74,7 @@ Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
 	Route::get('pritem/{id}/canvass', 'CanvassController@index');
 	Route::post('pritem/{id}/canvass', 'CanvassController@save');
 	//lists
-	//Route::resource('list', 'ListsController');
+	Route::resource('list', 'ListsController');
 });
 
 Route::group(['namespace' => 'Admin'], function(){
@@ -120,6 +108,8 @@ Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
 	//lists for jobordertype
 	Route::get('getJoborderType', 'JobOrderTypeController@getJoborderType');
 });
+
+/*ADDED BY BRIAN*/
 Route::get('ajax/getUOM/{id}', function ($id){
 	$data = Nixzen\Models\UnitType::find($id)->units;
 	$units=[];
@@ -131,7 +121,22 @@ Route::get('ajax/getUOM/{id}', function ($id){
 	}
 	return Response::json($units);
 });
-
+Route::get('getVendorBills/{id}', function ($id) {
+	$bills = Nixzen\Models\VendorBill::where('vendor_id',$id)->with('items')->get();
+	$vendorbills=[];
+	foreach($bills as $bill) {
+		array_push($vendorbills,[
+			'id'=>$bill->id,
+			'vendor_id'=>$bill->vendor_id,
+			'duedate'=>$bill->duedate,
+			'transno'=>$bill->transno,
+			'amount'=>$bill->amount
+			]);
+	}
+	return Response::json($vendorbills);
+});
+/***********************************/
 Route::get('/', function(){
 	return view('app');
 });
+

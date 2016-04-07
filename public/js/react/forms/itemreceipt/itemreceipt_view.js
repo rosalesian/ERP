@@ -61,7 +61,11 @@ window.IRMainComponent = React.createClass({
 			            <h3 className="box-title">Primary Information</h3>
 			    	</div>
 			       
-			       <IRPrimaryComponent context={this.props.context} defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			       <IRPrimaryComponent
+			       context={this.props.context}
+			       defaultValues={this.state}
+			       lists={this.props.lists}
+			       callBackParent={this.handleChangeCallBack} />
 			    </div>
 
 		        <div className="nav-tabs-custom">

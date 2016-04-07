@@ -33,6 +33,7 @@ Create New Item Receipt
       </div>
     </div>
 
+      @inject('items', 'Nixzen\Repositories\ItemRepository')
       <div id="mainIR-container"></div>
 
     <div class="transaction-buttons-container">
@@ -53,9 +54,9 @@ Create New Item Receipt
 <div class="example-modal" style="width:900px;"> <div class="modal" id="myModal"></div> </div>
 
 <?php
-    $items=[];
+    $lineitems=[];
     foreach ($purchaseorder->items as $key) {
-        array_push($items, [
+        array_push($lineitems, [
             "id"=>'',
             "purchaseorderitem_id"=>$key->item_id,
             "purchaseorderitem_label"=>$key->item->description,
@@ -100,14 +101,20 @@ Create New Item Receipt
 <script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/forms/itemreceipt/itemreceipt_view.js') }}"></script>
 <script type="text/babel">
-  var purchaseorder = <?php echo $purchaseorder; ?>;
-  var old_inputs = <?php echo json_encode(Input::old()); ?>;
-  var context = "create";
-  var items= <?php echo json_encode($items); ?>;
-  ReactDOM.render(<IRMainComponent context={context} data={(typeof old_inputs=='undefined') ? [] : old_inputs}
-                  purchaseorder={purchaseorder}
-                  items={items} />,
-                  document.getElementById("mainIR-container"));
+var purchaseorder = <?php echo $purchaseorder; ?>;
+var old_inputs = <?php echo json_encode(Input::old()); ?>;
+var context = "create";
+var lineitems= <?php echo json_encode($lineitems); ?>;
+var lists = {
+  'items' : <?php echo $items->lists('description','id'); ?>
+};
+
+ReactDOM.render(<IRMainComponent context={context} data={(typeof old_inputs=='undefined') ? [] : old_inputs}
+purchaseorder={purchaseorder}
+lists={lists}
+items={lineitems} />,
+document.getElementById("mainIR-container"));
+
 </script>
 
 @stop

@@ -52,7 +52,7 @@ Create New Purchase Requisition
        <div class="trans-button">
         {!! HTML::link('purchaserequest/'.$purchaserequest->id.'/purchaseorder/create','Approve',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
       </div>
-    </div>
+    </div >
 
   </div><!-- /.col -->
 </div><!-- /.row -->

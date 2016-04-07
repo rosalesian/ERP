@@ -95,47 +95,90 @@ window.PrimaryComponent = React.createClass({
 		}
 	},
 	render : function () {
-		return (
-			<Wrapper>
-            	<FieldContainer>
-            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
-    				context={this.props.context}
-    				options={this.props.lists.items}
-    				defaultValue={this.props.defaultValues.type_id}
-    				attributes={{name:"type_id", label:"TYPE"}} />
+		if(this.props.context=='create' || this.props.context=='edit'){
+			return (
+				<Wrapper>
+	            	<FieldContainer>
+	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.items}
+	    				defaultValue={this.props.defaultValues.type_id}
+	    				attributes={{name:"type_id", label:"TYPE"}} />
 
-        			<DateMainComponent callBackParent={this.handleChangeCallBack}
-        				context={this.props.context}
-        				defaultValue={this.props.defaultValues.date} 
-        				attributes={{name:"date", label:"DATE"}} />	
-        		</FieldContainer>
+	        			<DateMainComponent callBackParent={this.handleChangeCallBack}
+	        				context={this.props.context}
+	        				defaultValue={this.props.defaultValues.date} 
+	        				attributes={{name:"date", label:"DATE"}} />	
+	        		</FieldContainer>
 
-				<FieldContainer> 
-    				<TextMainComponent callBackParent={this.handleChangeCallBack} 
-    				context={this.props.context}
-    				defaultValue={this.props.defaultValues.deliver_to} 
-    				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
+					<FieldContainer> 
+	    				<TextMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.deliver_to} 
+	    				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
 
-        			<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
-        				context={this.props.context}
-        				defaultValue={this.props.defaultValues.remarks}
-        				attributes={{name:"remarks", label:"REMARKS"}} />
-        		</FieldContainer>
+	        			<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+	        				context={this.props.context}
+	        				defaultValue={this.props.defaultValues.remarks}
+	        				attributes={{name:"remarks", label:"REMARKS"}} />
+	        		</FieldContainer>
 
-            	<FieldContainer>
-            		<TextMainComponent callBackParent={this.handleChangeCallBack} 
-    				context={this.props.context}
-    				defaultValue={this.props.defaultValues.total_amount}
-    				attributes={{name:"total_amount", label:"TOTAL AMOUNT"}} />
+	            	<FieldContainer>
+	            		<TextMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.total_amount}
+	    				attributes={{name:"total_amount", label:"TOTAL AMOUNT"}} />
 
-            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
-    				context={this.props.context}
-    				options={this.props.lists.items}
-    				defaultValue={this.props.defaultValues.requester}
-    				attributes={{name:"requester", label:"NAME OF REQUESTER"}} />
-            	</FieldContainer>
-	        </Wrapper>
-		);
+	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.items}
+	    				defaultValue={this.props.defaultValues.requester}
+	    				attributes={{name:"requester", label:"NAME OF REQUESTER"}} />
+	            	</FieldContainer>
+		        </Wrapper>
+			);
+		} else {
+			return (
+				<Wrapper>
+	            	<FieldContainer>
+	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.type_id}
+	    				attributes={{name:"type_id", label:"TYPE"}} />
+
+	        			<DateMainComponent callBackParent={this.handleChangeCallBack}
+	        				context={this.props.context}
+	        				defaultValue={this.props.defaultValues.date} 
+	        				attributes={{name:"date", label:"DATE"}} />	
+	        		</FieldContainer>
+
+					<FieldContainer> 
+	    				<TextMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.deliver_to} 
+	    				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
+
+	        			<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+	        				context={this.props.context}
+	        				defaultValue={this.props.defaultValues.remarks}
+	        				attributes={{name:"remarks", label:"REMARKS"}} />
+	        		</FieldContainer>
+
+	            	<FieldContainer>
+	            		<TextMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.total_amount}
+	    				attributes={{name:"total_amount", label:"TOTAL AMOUNT"}} />
+
+	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.requester}
+	    				attributes={{name:"requester", label:"NAME OF REQUESTER"}} />
+	            	</FieldContainer>
+		        </Wrapper>
+			);
+		}
+		
 	}
 });
 
