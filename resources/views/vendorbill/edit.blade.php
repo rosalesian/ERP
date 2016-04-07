@@ -37,6 +37,16 @@ Edit New Vendor Bill
             </div>
         </div>
 
+        @inject('items2', 'Nixzen\Repositories\ItemRepository')
+        @inject('departments', 'Nixzen\Repositories\DepartmentRepository')
+        @inject('branches', 'Nixzen\Repositories\BranchRepository')
+        @inject('divisions', 'Nixzen\Repositories\DivisionRepository')
+        @inject('terms', 'Nixzen\Repositories\TermRepository')
+        @inject('nontrades', 'Nixzen\Repositories\BillTypeNonTradeSubTypeRepository')
+        @inject('billtypes', 'Nixzen\Repositories\BillTypeRepository')
+        @inject('chartofaccounts', 'Nixzen\Repositories\ChartOfAccountRepository')
+        @inject('approvalstatus', 'Nixzen\Repositories\ApprovalStatusRepository')
+        @inject('postingperiods', 'Nixzen\Repositories\PostingPeriodRepository')
         <div id="vendorBill-container"></div>
 
         <div class="transaction-buttons-container">
@@ -149,13 +159,31 @@ Edit New Vendor Bill
 <script type="text/babel" src="{{ asset('js/react/forms/vendorbills/vendorbills_view.js') }}"></script>
 
 <script type="text/babel">
+ 
   var vendorbill = <?php echo $vendorbill?>;
   var items= <?php echo json_encode($items); ?>;
   var expenses = <?php echo json_encode($expenses);?>;
-  console.log(expenses);
+
+  var lists = {
+    'items' : <?php echo $items2->lists('description','id'); ?>,
+    'departments' : <?php echo $departments->lists('name','id'); ?>,
+    'branches' : <?php echo $branches->lists('name', 'id'); ?>,
+    'divisions' : <?php echo $divisions->lists('name', 'id'); ?>,
+    'terms' : <?php echo $terms->lists('name', 'id'); ?>,
+    'nontrades' : <?php echo $nontrades->lists('name', 'id'); ?>,
+    'billtypes' : <?php echo $billtypes->lists('name', 'id'); ?>,
+    'chartofaccounts' : <?php echo $chartofaccounts->lists('title', 'id');?>,
+    'approvalstatus' : <?php echo $approvalstatus->lists('name', 'id');?>,
+    'postingperiods' : <?php echo $postingperiods->lists('name', 'id');?>
+  };
 
   var context="edit";
-  ReactDOM.render(<VendorBillMainComponent context={context} data={(typeof vendorbill=='undefined') ? [] : vendorbill} items={items} expenses = {expenses}/>,  document.getElementById("vendorBill-container"));
+  ReactDOM.render(<VendorBillMainComponent 
+    context={context} 
+    lists={lists} 
+    data={(typeof vendorbill=='undefined') ? [] : vendorbill} 
+    items={items} expenses = {expenses}/>,  
+    document.getElementById("vendorBill-container"));
 </script>
 @stop
 

@@ -76,7 +76,7 @@ class VendorBillController extends Controller {
 	 */
 	public function store(CreateVendorBillRequest $request)
 	{
-		dd($request->all());
+		
 	  	$vendorbill = $this->dispatchFrom(CreateVendorBillCommand::class, $request);
 	   
 		return redirect()->route('vendorbill.show', $vendorbill->id);
@@ -116,7 +116,7 @@ class VendorBillController extends Controller {
 	 */
 	public function update(CreateVendorBillRequest $request, $id)
 	{
-		dd(\Input::all());
+		
 		$vendorbill = $this->vendorbill->find($id);
 
 		$this->dispatchFrom(UpdateVendorBillCommand::class, $request, ['vendorbill' => $vendorbill->id]);
