@@ -24,9 +24,6 @@ window.VendorBillMainComponent = React.createClass({
      
             context: '',
 
-
-           
-
             billtype_id: (typeof this.props.data.billtype_id=='undefined') ? '' : this.props.data.billtype_id,
            	department_id: (typeof this.props.data.department_id=='undefined') ? '' : this.props.data.department_id,
 

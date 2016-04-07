@@ -33,48 +33,13 @@ Create New Job Order
       </div>
     </div>
     
-   <!--<div class="box box-primary">
-      <div class="box-header with-border">
-              <h3 class="box-title">Primary Information</h3>
-              <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              </div>
-      </div>
-       
-       <div class="box-body" id="pr_primary_form"> 
-       </div>
+    @inject('items', 'Nixzen\Repositories\ItemRepository')
+    @inject('maintenancetypes', 'Nixzen\Repositories\MaintenanceTypeRepository')
+    @inject('prcategories', 'Nixzen\Repositories\PurchaseRequestCategoryRepository')
+    @inject('empployees', 'Nixzen\Repositories\EmployeeRepository')
 
-    </div>
-
-    <div class="box box-primary">
-      <div class="box-header with-border primaryinformation">
-              <h3 class="box-title">Classification</h3>
-              <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              </div>
-      </div>
-      <div class="box-body" id="pr_classification_form"> </div>
-    </div>-->
     <div id="mainPR-container"></div>
-    <!--<div class="nav-tabs-custom">
-      <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab_1" data-toggle="tab">Item</a></li>
-        <li><a href="#tab_2" data-toggle="tab">File</a></li>
-        <li><a href="#tab_3" data-toggle="tab">Notes</a></li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane active" id="tab_1">
-              <div id="sublist-items"></div>
-        </div>
-        <div class="tab-pane" id="tab_2">
-
-          <div id="line-items"></div>
-
-        </div>
-        <div class="tab-pane" id="tab_3">
-        </div>
-      </div>
-    </div>-->
+    
 
     <div class="transaction-buttons-container">
       <div class="trans-button">
@@ -115,6 +80,7 @@ Create New Job Order
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/selectMainComponent.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
 
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
@@ -128,8 +94,19 @@ Create New Job Order
 <!-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script>  -->
 <script type="text/babel" src="{{ asset('js/react/forms/joborder/joborder_view.js') }}"></script>
 <script type="text/babel">
+ var lists = {
+    'items' : <?php echo $items->lists('description','id'); ?>,
+    'maintenancetypes' : <?php echo $maintenancetypes->lists('name', 'id'); ?>,
+    'prcategories': <?php echo $prcategories->lists('name', 'id');?>,
+    'empployees': <?php echo $empployees->lists('name', 'id'); ?>
+  };
+  console.log(lists);
 var context = "create";
-  ReactDOM.render(<JOMainComponent context={context} />, document.getElementById("mainPR-container"));
+  ReactDOM.render(<JOMainComponent 
+  context={context} 
+  data={(typeof jonorder=='undefined') ? {} : jonorder} 
+  lists={lists}/>, 
+  document.getElementById("mainPR-container"));
 </script>
 
 @stop
