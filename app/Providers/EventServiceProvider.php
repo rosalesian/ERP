@@ -14,8 +14,8 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'Nixzen\Events\PurchaseRequestWasCreated' => [],
-				'Nixzen\Events\ItemReceiptWasCreated' => [],
-				'Nixzen\Events\ItemReceiptWasUpdated' => [],
+		'Nixzen\Events\ItemReceiptWasCreated' => [],
+		'Nixzen\Events\ItemReceiptWasUpdated' => [],
     ];
 
     /**

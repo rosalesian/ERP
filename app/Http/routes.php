@@ -56,15 +56,21 @@ Route::group(['namespace' => 'Transaction'], function(){
 		'anyData'  => 'vendortable.data',
 		'index' => 'vendortable',
 	]);
+});
 
-	//GET DATA FOR PURCHASE REQUEST
-	//Route::get('getPurchaseRequest', 'PurchaseRequestController@getPurchaseRequest');
+Route::group(['namespace'=> 'Transaction'], function() {
+	Route::post(
+		'purchaserequest/{id}/approve',
+		'PurchaseRequestController@approve'
+	);
 
-	Route::controller('prtable', 'PurchaseRequestController', [
-		'anyData'  => 'prtable.data',
-		'index' => 'prtable',
-	]);
-
+	Route::get('pr-datatable', ['as' => 'prtable.data', function(){
+		$controller = app()->make(
+			'Nixzen\Http\Controllers\Transaction\PurchaseRequestController'
+		);
+		$pr = new Nixzen\Models\PurchaseRequest;
+		$controller->callAction('anyData', [$pr]);
+	}]);
 });
 
 Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
@@ -116,4 +122,3 @@ Route::get('ajax/getUOM/{id}', function ($id){
 Route::get('/', function(){
 	return view('app');
 });
-
