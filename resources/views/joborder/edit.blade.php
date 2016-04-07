@@ -27,6 +27,10 @@ Edit Job Order
       </div>
     </div>
 
+    @inject('items2', 'Nixzen\Repositories\ItemRepository')
+    @inject('maintenancetypes', 'Nixzen\Repositories\MaintenanceTypeRepository')
+    @inject('prcategories', 'Nixzen\Repositories\PurchaseRequestCategoryRepository')
+    @inject('empployees', 'Nixzen\Repositories\EmployeeRepository')
     <div id="mainPR-container"></div>
 
     <div class="transaction-buttons-container">
@@ -109,16 +113,20 @@ Edit Job Order
   var joborder = <?php echo $joborder?>;
   var items= <?php echo json_encode($items); ?>;
   var laborcost = <?php echo json_encode($labor_items);?>
-  //console.log(items);
-  //console.log(laborcost);
-  console.log(joborder);
+
+  var lists = {
+    'items' : <?php echo $items2->lists('description','id'); ?>,
+    'maintenancetypes' : <?php echo $maintenancetypes->lists('name', 'id'); ?>,
+    'prcategories': <?php echo $prcategories->lists('name', 'id');?>,
+    'empployees': <?php echo $empployees->lists('name', 'id'); ?>
+  };
+
   var context="edit";
-  ReactDOM.render(<JOMainComponent context={context} data={(typeof joborder=='undefined') ? [] : joborder} items={items} laborcosts = {laborcost}/>, document.getElementById("mainPR-container"));
+  ReactDOM.render(<JOMainComponent context={context}
+  data={(typeof joborder=='undefined') ? [] : joborder} 
+  items={items} 
+  lists={lists}
+  laborcosts = {laborcost}/>, document.getElementById("mainPR-container"));
 </script>
 
-<!-- <script type="text/babel" src="{{ asset('js/react/forms/joborder/joborder_view.js') }}"></script>
-<script type="text/babel">
-var context = "create";
-  ReactDOM.render(<JOMainComponent context={context} />, document.getElementById("mainPR-container"));
-</script> -->
 @stop

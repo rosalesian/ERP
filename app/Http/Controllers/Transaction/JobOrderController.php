@@ -69,8 +69,6 @@ class JobOrderController extends Controller {
 	{
 
 
-
-			//dd($result_data);
 		DB::beginTransaction();
 
 		$data_result = [];
@@ -91,8 +89,8 @@ class JobOrderController extends Controller {
 			$result_data = $this->dispatchFrom(CreatePurchaseRequestCommand::class, $request, [
 				'requester' => $request->input('requested_by'),
 				'date' => $request->input('transdate'),
-				'deliver_to' => 'test',
-				'remarks' => 'test'
+				'deliver_to' => $request->input('deliver_to'),
+				'remarks' => $request->input('memo')
 			]);
 		}
 		else {

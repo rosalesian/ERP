@@ -11,7 +11,6 @@ window.JOMainComponent = React.createClass({
 			type:'',
 			prcategory_id: '',
 			context:'',
-			type_id: '',
 
 			item_id: '',
 			jobtype_id: '',
@@ -57,7 +56,11 @@ window.JOMainComponent = React.createClass({
 			            <h3 className="box-title">Primary Information</h3>
 			    	</div>
 			       
-			       <JOrimaryComponent context={this.props.context} defaultValues={this.state} callBackParent={this.handleChangeCallBack} />
+			       <JOrimaryComponent 
+			       lists={this.props.lists}
+			       context={this.props.context} 
+			       defaultValues={this.state} 
+			       callBackParent={this.handleChangeCallBack} />
 			    </div>
 
 			     <div className="nav-tabs-custom">
@@ -129,60 +132,128 @@ window.JOrimaryComponent = React.createClass({
 	componentWillUnmount : function () {
 		this.request.abort();
 	},
-	render : function () {
-		return (
-			<Wrapper>
-            	<FieldContainer>
+	render : function () 
+	{
+		if(this.props.context=='create' || this.props.context=='edit') {
+			return (
+				<Wrapper>
+	            	<FieldContainer>
 
-        		<DateMainComponent callBackParent={this.handleChangeCallBack}
-        				context={this.props.context}
-        				defaultValue={this.props.defaultValues.transdate} 
-        				attributes={{name:"transdate", label:"DATE"}} />	
+	        		<DateMainComponent callBackParent={this.handleChangeCallBack}
+	        				context={this.props.context}
+	        				defaultValue={this.props.defaultValues.transdate} 
+	        				attributes={{name:"transdate", label:"DATE"}} />	
 
-        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
-    				context={this.props.context}
-    				source={base_url+'/ajax/getItems'}
-    				defaultValue={this.props.defaultValues.asset}
-    				attributes={{name:"asset", label:"ASSET"}} />
+	        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.items}
+	    				defaultValue={this.props.defaultValues.asset}
+	    				attributes={{name:"asset", label:"ASSET"}} />
 
-        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
-    				context={this.props.context}
-    				source={base_url+'/ajax/getEmployee'}
-    				defaultValue={this.props.defaultValues.requested_by}
-    				attributes={{name:"requested_by", label:"REQUESTED BY"}} />
+	        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.empployees}
+	    				defaultValue={this.props.defaultValues.requested_by}
+	    				attributes={{name:"requested_by", label:"REQUESTED BY"}} />
 
-    			<SelectMainComponent callBackParent={this.handleChangeCallBack}
-    				context={this.props.context}
-    				source={base_url+'/ajax/getItems'}
-    				defaultValue={this.props.defaultValues.type_id}
-    				attributes={{name:"type_id", label:"TYPE"}} />
+	    			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.items}
+	    				defaultValue={this.props.defaultValues.type_id}
+	    				attributes={{name:"type_id", label:"TYPE"}} />
 
-        		</FieldContainer>
+	        		</FieldContainer>
 
-				<FieldContainer> 
+					<FieldContainer> 
 
-				<SelectMainComponent callBackParent={this.handleChangeCallBack}
-    				context={this.props.context}
-    				source={base_url+'/ajax/getMaintenancetype'}
-    				defaultValue={this.props.defaultValues.maintenancetype_id}
-    				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE"}} />
+					<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.maintenancetypes}
+	    				defaultValue={this.props.defaultValues.maintenancetype_id}
+	    				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE"}} />
 
-				<SelectMainComponent callBackParent={this.handleChangeCallBack}
-    				context={this.props.context}
-    				source={base_url+'/ajax/getPurchseRequest'}
-    				defaultValue={this.props.defaultValues.prcategory_id}
-    				attributes={{name:"prcategory_id", label:"CATEGORIES"}} />
+					<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.prcategories}
+	    				defaultValue={this.props.defaultValues.prcategory_id}
+	    				attributes={{name:"prcategory_id", label:"CATEGORIES"}} />
 
-        		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
-        				context={this.props.context}
-        				defaultValue={this.props.defaultValues.memo}
-        				attributes={{name:"memo", label:"REMARKS"}} />
+	        		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+	        				context={this.props.context}
+	        				defaultValue={this.props.defaultValues.memo}
+	        				attributes={{name:"memo", label:"REMARKS"}} />
 
-        		</FieldContainer>
+	        		<TextMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.deliver_to} 
+	    				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
 
-            
-	        </Wrapper>
-		);
+	        		</FieldContainer>
+
+	            
+		        </Wrapper>
+			);
+		}
+		else {
+			return (
+				<Wrapper>
+	            	<FieldContainer>
+
+	        		<DateMainComponent callBackParent={this.handleChangeCallBack}
+	        				context={this.props.context}
+	        				defaultValue={this.props.defaultValues.transdate} 
+	        				attributes={{name:"transdate", label:"DATE"}} />	
+
+	        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				
+	    				defaultValue={this.props.defaultValues.asset}
+	    				attributes={{name:"asset", label:"ASSET"}} />
+
+	        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				
+	    				defaultValue={this.props.defaultValues.requested_by}
+	    				attributes={{name:"requested_by", label:"REQUESTED BY"}} />
+
+	    			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				
+	    				defaultValue={this.props.defaultValues.type_id}
+	    				attributes={{name:"type_id", label:"TYPE"}} />
+
+	        		</FieldContainer>
+
+					<FieldContainer> 
+
+					<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				
+	    				defaultValue={this.props.defaultValues.maintenancetype_id}
+	    				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE"}} />
+
+					<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				
+	    				defaultValue={this.props.defaultValues.prcategory_id}
+	    				attributes={{name:"prcategory_id", label:"CATEGORIES"}} />
+
+	        		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+	        				context={this.props.context}
+	        				defaultValue={this.props.defaultValues.memo}
+	        				attributes={{name:"memo", label:"REMARKS"}} />
+
+	        		<TextMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.deliver_to} 
+	    				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
+
+	        		</FieldContainer>
+
+	            
+		        </Wrapper>
+			);
+		}
 	}
 });
 
@@ -338,7 +409,8 @@ window.JOTable = React.createClass({
 			description: this.state.description,
 			unit_id:this.state.unit_id,
 			uom_label:this.state.uom_label,
-			quantity:this.state.quantity
+			quantity:this.state.quantity,
+			id: '',
 		};
 		dataStorage.push(obj);
 		this.setState(this._initial_data()); //empty state values
@@ -390,14 +462,15 @@ window.JOTable = React.createClass({
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
 		rows.length=0;
-		dataStorage[id] = {
-			item_id:this.state.item_id,
-			item_label:this.state.item_label,
-			description: this.state.description,
-			unit_id:this.state.unit_id,
-			uom_label:this.state.uom_label,
-			quantity:this.state.quantity
-		};
+		
+
+		dataStorage[id].item_id = this.state.item_id;
+		dataStorage[id].item_id = this.state.item_label;
+		dataStorage[id].item_id = this.state.description;
+		dataStorage[id].item_id = this.state.unit_id;
+		dataStorage[id].item_id = this.state.item_id;
+		dataStorage[id].item_id = this.state.uom_label;
+		dataStorage[id].item_id = this.state.quantity;
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <TableRow callBackParent={this.handleCallBack}

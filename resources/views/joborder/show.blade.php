@@ -120,16 +120,14 @@ Job Order View
 <script type="text/babel">
   var joborder = <?php echo $joborder?>;
   var items= <?php echo json_encode($items); ?>;
-  var laborcost = <?php echo json_encode($labor_items);?>
-  //console.log(items);
+  var laborcost = <?php echo json_encode($labor_items);?>;
   console.log(laborcost);
   var context="view";
-  ReactDOM.render(<JOMainComponent context={context} data={(typeof joborder=='undefined') ? [] : joborder} items={items} laborcosts = {laborcost}/>, document.getElementById("mainPR-container"));
+  ReactDOM.render(<JOMainComponent context={context} 
+  data={(typeof joborder=='undefined') ? [] : joborder} 
+  items={items} 
+  laborcosts = {laborcost}/>, document.getElementById("mainPR-container"));
 </script>
 
-<!-- <script type="text/babel" src="{{ asset('js/react/forms/joborder/joborder_view.js') }}"></script>
-<script type="text/babel">
-var context = "create";
-  ReactDOM.render(<JOMainComponent context={context} />, document.getElementById("mainPR-container"));
-</script> -->
+
 @stop
