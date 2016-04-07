@@ -240,10 +240,10 @@ $factory->define(Nixzen\Models\VendorBillExpenses::class, function ($faker) {
 		'taxcode_id' => $faker->numberBetween(1, 3),
 		'tax_amount' => $faker->numberBetween(1, 3),
 		'gross_amount' => $faker->numberBetween(100, 300),
-		'department_id' => $faker->numberBetween(1, 3),
-		'division_id' => $faker->numberBetween(1, 3),
-		'branch_id' => $faker->numberBetween(1, 3),
-		'vendor_id' => $faker->numberBetween(1, 3)
+		'department_id' => $faker->numberBetween(1, 2),
+		'division_id' => $faker->numberBetween(1, 2),
+		'branch_id' => $faker->numberBetween(1, 2),
+		'vendor_id' => $faker->numberBetween(1, 2)
 	];
 });
 
@@ -289,5 +289,23 @@ $factory->define(Nixzen\Models\ItemTypes::class, function ($faker) {
 		'company_id' => 0,
 		'created_by' => 0,
 		'updated_by' => 0
+	];
+});
+
+$factory->define(Nixzen\Models\ChartOfAccount::class, function ($faker) {
+	return [
+		'title' => $faker->word,
+		'code' => $faker->word
+	];
+});
+
+$factory->define(Nixzen\Models\Taxcode::class, function ($faker) {
+	return [
+		'name' => $faker->word,
+		'description' => $faker->word,
+		'rate' => $faker->numberBetween(0, 2),
+		'inactive' => 0,
+		'created_by' => 1,
+		'updated_by' => 1
 	];
 });

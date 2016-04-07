@@ -25,11 +25,6 @@ class VendorBillExpenses extends Model
 		return $this->belongsTo('Nixzen\Models\VendorBill', 'vendorbill_id');
 	}
 
-	public function account()
-	{
-		//
-	}
-
 	public function taxcode()
 	{
 		return $this->belongsTo('Nixzen\Models\Taxcode', 'taxcode_id');
@@ -58,6 +53,16 @@ class VendorBillExpenses extends Model
 	//add relastionship for chart of account
 	public function coa(){
 		return $this->belongsTo('Nixzen\Models\ChartOfAccount', 'coa_id');
+	}
+
+	public function gettaxamountAttribute()
+	{
+		return $this->amount * 0.12;
+	}
+
+	public function getgrossamountAttribute()
+	{
+		return $this->amount + $this->taxamount;
 	}
     
 }

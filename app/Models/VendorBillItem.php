@@ -16,15 +16,8 @@ class VendorBillItem extends Model
 		'amount',
 		'taxcode_id',
 		'tax_amount',
-		'gross_amount'/*,
-        'vendorbill_id'*/
+		'gross_amount'
     ];
-
-    //change belongsTo to hasMany
-    /*public function vendorbill()
-	{
-		return $this->hasMany('Nixzen\Models\VendorBill', 'vendorbill_id');
-	}*/
 
 	public function vendorbill()
 	{
@@ -44,5 +37,20 @@ class VendorBillItem extends Model
 	public function taxcode()
 	{
 		return $this->belongsTo('Nixzen\Models\Taxcode', 'taxcode_id');
+	}
+
+	public function getamountAttribute()
+	{
+		return $this->quantity * $this->unit_cost;
+	}
+
+	public function gettaxamountAttribute()
+	{
+		return $this->amount * 0.12;
+	}
+
+	public function getgrossamountAttribute()
+	{
+		return $this->amount + $this->taxamount;
 	}
 }

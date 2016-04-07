@@ -202,6 +202,18 @@ class VendorBillControllerTest extends TestCase
 
 		factory(Nixzen\Models\ItemTypes::class, 5)->create();
 
+		factory(Nixzen\Models\ChartOfAccount::class, 5)->create();
+
+		factory(Nixzen\Models\Taxcode::class, 5)->create();
+
+		factory(Nixzen\Models\Vendor::class, 2)->create();
+
+		factory(Nixzen\Models\Lists\Department::class, 2)->create();
+
+		factory(Nixzen\Models\Lists\Division::class, 2)->create();
+
+		factory(Nixzen\Models\Lists\Branch::class, 2)->create();
+
 		factory(Nixzen\Models\VendorBill::class, 2)
 			->create()
 			->each(function($bill) {
@@ -213,13 +225,10 @@ class VendorBillControllerTest extends TestCase
 					factory(Nixzen\Models\VendorBillExpenses::class, 3)
 					->create(['vendorbill_id' => $bill->id])
 				);
-				$bill->vendor()->associate(factory(Nixzen\Models\Vendor::class)->create());
+				
 				$bill->billtype()->associate(factory(Nixzen\Models\BillType::class)->create());
 				$bill->billtypenontradesubtype()->associate(factory(Nixzen\Models\BillTypeNonTradeSubType::class)->create());
 				$bill->term()->associate(factory(Nixzen\Models\Terms::class)->create());
-				$bill->department()->associate(factory(Nixzen\Models\Lists\Department::class)->create());
-				$bill->division()->associate(factory(Nixzen\Models\Lists\Division::class)->create());
-				$bill->branch()->associate(factory(Nixzen\Models\Lists\Branch::class)->create());
 			});
 	}
 }
