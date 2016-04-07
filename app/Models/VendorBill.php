@@ -25,26 +25,10 @@ class VendorBill extends Model
 		'memo'
     ];
 
-    /*public function items()
-    {
-    	return $this->belongsTo('Nixzen\Models\VendorBillItem', 'billtype_id');
-    }*/
-
     public function items()
     {
     	return $this->hasMany('Nixzen\Models\VendorBillItem', 'vendorbill_id');
     }
-
-    /*public function vendorBillItems()
-    {
-        return $this->hasMany('Nixzen\Models\VendorBillItem', 'vendorbill_id');
-    }
-
-    public function billitems()
-    {
-        return $this->belongsTo('Nixzen\Models\VendorBillItem', 'billtype_id');
-    }*/
-
 
     public function expenses()
     {
@@ -99,6 +83,35 @@ class VendorBill extends Model
 	public function getupdatedby()
 	{
 		return $this->belongsTo('Nixzen\Models\Lists\Employee', 'updated_by');
+	}
+
+	public function paymentitems()
+	{
+		return $this->hasMany('Nixzen\Models\VendorPaymentItem', 'bill_id');
+	}
+
+	public function getamountAttribute()
+	{
+
+		$totalitems = array_sum($this->items->lists('grossamount')
+						->toArray());
+
+		$totalexpenses = array_sum($this->expenses->lists('grossamount')
+						->toArray());
+
+		return $totalitems + $totalexpenses;
+	}
+
+	public function getamountdueAttribute()
+	{
+		$payments = $this->paymentitems->all();
+
+		if(count($payments) != 0)
+		{
+			return 0;
+		}
+
+		return $this->amount;
 	}
 
 }
