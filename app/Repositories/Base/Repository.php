@@ -235,11 +235,11 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface {
 
 	public function saveWith($id, array $relations)
 	{
-		$lineitems = null;
 
-		foreach($relations as $key => $inputs)
+		foreach($relations as $relation => $inputs)
 		{
-			$lineitems = $this->model->findOrFail($id)->{$key}();
+
+			$lineitems = $this->model->findOrFail($id)->{$relation}();
 			$ids = collect($inputs)->fetch('id')->toArray();
 
 			foreach ($lineitems->get() as $key => $item)
@@ -252,16 +252,13 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface {
 
 			foreach($inputs as $input)
 			{
-				$lineitem = $lineitems->find($input->id);
+				$lineitems = $this->model->findOrFail($id)->{$relation}();
 
-				if($lineitem == null)
-				{
-					$lineitems->create((array) $input);
-				}
-				else
-				{
-					$lineitem->update((array) $input);
-				}
+				$lineitem = $lineitems->updateOrCreate(
+					['id' => $input->id],
+					(array)$input
+				);
+
 			}
 		}
 	}
