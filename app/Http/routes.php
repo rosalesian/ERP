@@ -43,8 +43,6 @@ Route::group(['namespace' => 'Transaction'], function(){
 	Route::resource('purchaserequest', 'PurchaseRequestController');
 	Route::resource('vendorpayment', 'VendorPaymentController');
 
-	Route::get('purchaserequest/{id}/purchaseorder/create', 'PurchaseRequestController@autoCreatePO');
-
 	//Datatables
 	Route::controller('jobordertable', 'JobOrderController', [
 		'anyData'  => 'jobordertable.data',
@@ -134,6 +132,25 @@ Route::get('getVendorBills/{id}', function ($id) {
 			]);
 	}
 	return Response::json($vendorbills);
+});
+
+Route::get('api/items', function (){ //THIS ROUTE IS USE FOR QUERYING ITEMS FOR PR
+	$lineitems = [];
+	$items = Nixzen\Models\Item::all();
+      foreach($items as $item) {
+        array_push($lineitems, [
+          'value'=>$item->id,
+          'label'=>$item->itemcode,
+          'description'=>$item->description,
+          'units'=>$item->unitType->units()->get(['id as value','abbreviation as label'])->toArray()
+          ]);        
+      }
+      return Response::json($lineitems);
+});
+Route::get('api/getCanvassLists', function () { // THIS ROUTE IS USE FOR QUERYING CANVASS LISTS FOR PR CANVASS
+	$vendors = Nixzen\Models\Vendor::get(['id as value','name as label'])->toArray();
+	$terms = Nixzen\Models\Term::get(['id as value','name as label'])->toArray();
+	return Response::json(['vendors'=>$vendors, 'terms'=>$terms]);
 });
 /***********************************/
 Route::get('/', function(){

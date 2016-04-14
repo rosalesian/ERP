@@ -112,18 +112,6 @@ class PurchaseRequestController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function autoCreatePO($prid) {
-		$purchaserequest = $this->purchaserequest->with('items')->find($prid);
-		dd($purchaserequest->items);
-
-	}
-
-	/**
-	 * Create PO Based on PR.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function getModel()
 	{
 		return new PR;

@@ -24,7 +24,7 @@ Create New Purchase Requisition
         {!! HTML::link('purchaserequest','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
        <div class="trans-button">
-        {!! HTML::link('purchaserequest/'.$purchaserequest->id.'/purchaseorder/create','Approve',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
+        {!! HTML::link('purchaserequest/'.$purchaserequest->id,'Approve',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
       </div>
     </div>
     <div class="approvaltransition">
@@ -61,19 +61,37 @@ Create New Purchase Requisition
 <div class="example-modal" style="width:900px;"> <div class="modal" id="myModal"></div> </div>
 
 <?php
-    $items=[];
-    foreach ($purchaserequest->items as $key) {
-        array_push($items, [
-                "_token"=> csrf_token(),
-                "id"=>$key->id,
-                "item_id"=>$key->item_id,
-                "item_label"=>$key->item->description,
-                "description"=>$key->item->itemcode,
-                "quantity"=>$key->quantity,
-                "unit_id"=>$key->unit_id,
-                "uom_label"=>$key->unit->abbreviation
-          ]);
-    }
+$items=[];
+foreach ($purchaserequest->items as $key) {
+  array_push($items, [
+          "_token"=> csrf_token(),
+          "id"=>$key->id,
+          "item_id"=>$key->item_id,
+          "item_label"=>$key->item->itemcode,
+          "description"=>$key->item->description,
+          "quantity"=>$key->quantity,
+          "unit_id"=>$key->unit_id,
+          "uom_label"=>$key->unit->abbreviation,
+          "canvasses"=>json_encode(getCanvass($key->canvasses))
+  ]);
+}
+
+function getCanvass($canvasses) {
+  $canvasslists=[];
+  foreach($canvasses as $canvass) {
+   array_push($canvasslists,[
+        'id'=>(string) $canvass->id,
+        'vendor_id'=>$canvass->vendor_id,
+        'vendor_id_label'=>$canvass->vendor->name,
+        'terms_id'=>$canvass->terms_id,
+        'terms_id_label'=>$canvass->term->name,
+        'cost'=>$canvass->cost,
+        'purchaserequestitem_id'=>$canvass->purchaserequestitem_id,
+        'approve'=>$canvass->approve
+      ]);
+  }
+  return $canvasslists;
+}
 ?>
 @stop
 
@@ -90,21 +108,15 @@ Create New Purchase Requisition
 <script src="{{ asset('js/react/plugin/react-select/dist/react-select.min.js') }}"></script> <!-- select -->
 
 <!-- MAINLINE COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/selectMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/summaryMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/inputMainComponent.js') }}"></script>
 
 <!-- LINEITEM COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/inputLineComponent.js') }}"></script>
 
 <!-- CUSTOM REACT COMPONENT -->
-<script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
-{{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
+<!-- FORM COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
 <script type="text/babel">
   var purchaserequests = <?php echo $purchaserequest?>;

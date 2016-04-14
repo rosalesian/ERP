@@ -10,60 +10,68 @@ window.CanvassComponent = React.createClass({
 		};
 	},
 	getInitialState : function () {
-		var dataStorage = [];
-		var rows=[];
-		if(this.props.data.length!=0) {
-			dataStorage = this.props.data;
-			for(var i=0, counter=dataStorage.length; i<counter; i++) {
-				rows[i] = <CanvassRow callBackParent={this.handleCallBack}
-							defaultValues={dataStorage[i]}
-							id={i}
-							key={i}
-							pr_id={this.props.pr_id}
-							context={this.props.context}
-							handleCallBackParentClick={this.handleCallBackClick} />
-			}
-		}
-
 		return {
 			editLineItem:false,
-			dataStorage:dataStorage,
-			rows:rows,
+			dataStorage:[],
+			term_lists:[],
+			vendor_lists:[],
+			rows:[],
 			vendor_id:'',
-			vendor_label:'',
 			terms_id:'',
-			terms_label:'',
 			cost:'',
 			pr_id:this.props.pr_id
 		};
 	},
-	componentWillReceiveProps : function(nextprops) {
-		var dataStorage = [];
-		var rows=[];
-		if(nextprops.data.length!=0) {
-			dataStorage = nextprops.data;
-			for(var i=0, counter=dataStorage.length; i<counter; i++) {
-				rows[i] = <CanvassRow callBackParent={this.handleCallBack}
-							defaultValues={dataStorage[i]}
-							id={i}
-							key={i}
-							pr_id={nextprops.pr_id}
-							context={nextprops.context}
-							handleCallBackParentClick={this.handleCallBackClick} />
-			}
-		}
+	componentDidMount : function () {
+		this._ajaxRequest(base_url+'/api/getCanvassLists', this.props);
+	},
+	_ajaxRequest : function (source, props) {
+		return $.ajax({
+			url:source,
+			dataType: 'json',
+			type:'GET',
+			success : function (response) {
+				var vendor_lists = this.state.vendor_lists;
+				var term_lists = this.state.term_lists
+				var dataStorage = this.state.dataStorage;
+				var rows=this.state.rows;
+				rows.length=0;
+				dataStorage.length=0;
+				vendor_lists.length=0;
+				term_lists.length=0;
+				vendor_lists = response.vendors;
+				term_lists = response.terms;
 
-		this.setState({
-			dataStorage:dataStorage,
-			rows:rows,
+				if(props.data.length!=0) {
+					dataStorage = props.data;
+					for(var i=0, counter=dataStorage.length; i<counter; i++) {
+						rows[i] = <CanvassRow callBackParent={this.handleCallBack}
+									defaultValues={dataStorage[i]}
+									id={i}
+									key={i}
+									lists={{vendor_lists:vendor_lists, term_lists:term_lists}}
+									pr_id={props.pr_id}
+									context={props.context}
+									handleCallBackParentClick={this.handleCallBackClick} />
+					}
+				}
+
+				this.setState({
+					vendor_lists : vendor_lists,
+					term_lists : term_lists,
+					rows:rows,
+					dataStorage:dataStorage
+				});
+
+			}.bind(this)
 		});
-
+	},
+	componentWillReceiveProps : function(nextprops) {
+		this._ajaxRequest(base_url+'/api/getCanvassLists', nextprops);
 	},
 	_initial_data : function () {
 		var state = {};
 			state.vendor_id = '';
-			state.vendor_label=''; 
-			state.terms_label='';
 			state.terms_id = ''
 			state.cost='';
 		return state;
@@ -98,6 +106,7 @@ window.CanvassComponent = React.createClass({
 				{!this.state.editLineItem && (
 					<CanvassRow callBackParent={this.handleCallBack}
 					create={true}
+					lists={{vendor_lists:this.state.vendor_lists, term_lists:this.state.term_lists}}
 					id={this.state.rows.length}
 					defaultValues={this.state} />
 				)}
@@ -128,7 +137,7 @@ window.CanvassComponent = React.createClass({
 		type:'POST',
 		data:{canvasses:data},
 		success : function (response) {
-			console.log(response);
+			this.props.callBackCanvassSave(data); //Update Parent data
 		}.bind(this)
 	});
 	},
@@ -142,11 +151,9 @@ window.CanvassComponent = React.createClass({
 			switch(obj.name) {
 				case "vendor_id":
 						state.vendor_id = obj.vendor_id;
-						state.vendor_label = obj.vendor_label;
 					break;
 				case "terms_id":
 						state.terms_id = obj.terms_id;
-						state.terms_label = obj.terms_label;
 					break;
 				case "cost":
 						state.cost=obj.cost;
@@ -154,6 +161,7 @@ window.CanvassComponent = React.createClass({
 			}
 			rows[obj.id] = <CanvassRow callBackParent={this.handleCallBack}
 							defaultValues={state}
+							lists={{vendor_lists:this.state.vendor_lists, term_lists:this.state.term_lists}}
 							edit={true}
 							id={obj.id}
 							handleCallBackParentClick={this.handleCallBackClick} />
@@ -166,20 +174,15 @@ window.CanvassComponent = React.createClass({
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
 		rows.push( <CanvassRow callBackParent={this.handleCallBack}
-					defaultValues={this.state} id={rows.length} key={rows.length} handleCallBackParentClick={this.handleCallBackClick}/> );
-		var obj = {
-			vendor_id:this.state.vendor_id,
-			vendor_label:this.state.vendor_label,
-			terms_id:this.state.terms_id,
-			terms_label:this.state.terms_label,
-			cost:this.state.cost
-		};
+					defaultValues={this.state}
+					lists={{ vendor_lists:this.state.vendor_lists, term_lists:this.state.term_lists }}
+					id={rows.length}
+					key={rows.length}
+					handleCallBackParentClick={this.handleCallBackClick}/> );
 		var obj={};
 		obj.id='';
 		obj.vendor_id = this.state.vendor_id;
-		obj.vendor_label = this.state.vendor_label;
 		obj.terms_id = this.state.terms_id;
-		obj.terms_label = this.state.terms_label;
 		obj.cost = this.state.cost;
 
 		dataStorage.push(obj);
@@ -199,12 +202,14 @@ window.CanvassComponent = React.createClass({
 				rows[i] = <CanvassRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							edit={true}
+							lists={{vendor_lists:this.state.vendor_lists, term_lists:this.state.term_lists}}
 							id={i}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			} else {
 				rows[i] = <CanvassRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
+							lists={{ vendor_lists:this.state.vendor_lists, term_lists:this.state.term_lists }}
 							id={i}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
@@ -217,9 +222,7 @@ window.CanvassComponent = React.createClass({
 									callbackRemove={this.handleRemove}/>));
 		var state = this.state;
 		state.vendor_id = dataStorage[rowid].vendor_id;
-		state.vendor_label = dataStorage[rowid].vendor_label;
 		state.terms_id = dataStorage[rowid].terms_id;
-		state.terms_label = dataStorage[rowid].terms_label;
 		state.cost = dataStorage[rowid].cost;
 		this.setState(state);
 
@@ -232,15 +235,14 @@ window.CanvassComponent = React.createClass({
 		rows.length=0;
 
 		dataStorage[id].vendor_id = this.state.vendor_id;
-		dataStorage[id].vendor_label = this.state.vendor_label;
 		dataStorage[id].terms_id = this.state.terms_id;
-		dataStorage[id].terms_label = this.state.terms_label;
 		dataStorage[id].cost = this.state.cost;
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <CanvassRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+							lists={{ vendor_lists:this.state.vendor_lists, term_lists:this.state.term_lists }}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 		}
@@ -256,6 +258,7 @@ window.CanvassComponent = React.createClass({
 			rows[i] = <CanvassRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+							lists={{ vendor_lists:this.state.vendor_lists, term_lists:this.state.term_lists }}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 		}
@@ -272,6 +275,7 @@ window.CanvassComponent = React.createClass({
 				rows[i] = <CanvassRow callBackParent={this.handleCallBack}
 								defaultValues={dataStorage[i]}
 								id={i}
+								lists={{ vendor_lists:this.state.vendor_lists, term_lists:this.state.term_lists }}
 								key={i}
 								handleCallBackParentClick={this.handleCallBackClick} />
 			}
@@ -292,47 +296,77 @@ window.CanvassRow = React.createClass({
 			edit:false,
 			id:'',
 			pr_id:'',
-			context:''
+			context:'',
+			lists:{
+				vendor_lists:[],
+				term_lists:[]
+			}
+		}
+	},
+	_getVendorLabel : function (vendorid) {
+		var lists = this.props.lists.vendor_lists;
+		for(var i=0, count=lists.length; i<count; i++) {
+			if(lists[i].value==vendorid) {
+				return lists[i].label;
+			}
+		}
+	},
+	_getTermLabel : function (termid) {
+		var lists = this.props.lists.term_lists;
+		for(var i=0, count=lists.length; i<count; i++) {
+			if(lists[i].value==termid) {
+				return lists[i].label;
+			}
 		}
 	},
 	render : function () {
 			if(this.props.create) {
 				return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
-						<CanvassVendor callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getItems'}
-						defaultValue={this.props.defaultValues.item_id} />
+						<InputLineComponent 
+						callBackParent={this.handleCallBack}
+						options={this.props.lists.vendor_lists}
+						defaultValue={this.props.defaultValues.vendor_id}
+						attributes={{name:"vendor_id", type:"select", placeholder:"CHOOSE VENDOR"}} />
 
-						<CanvassPrice callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.cost} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						defaultValue={this.props.defaultValues.cost} 
+						attributes={{name:'cost', type:"text"}}/>
 
-						<CanvassTerms callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getItems'}
-						defaultValue={this.props.defaultValues.terms_id} />
+						<InputLineComponent 
+						callBackParent={this.handleCallBack}
+						options={this.props.lists.term_lists}
+						defaultValue={this.props.defaultValues.terms_id}
+						attributes={{name:"terms_id", type:"select", placeholder:"CHOOSE TERMS"}} />
 					</tr>
 				);
 			} else {
 				if(this.props.edit) {
 					return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
-						<CanvassVendor callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getItems'}
-						defaultValue={this.props.defaultValues.vendor_id} />
+						<InputLineComponent 
+						callBackParent={this.handleCallBack}
+						options={this.props.lists.vendor_lists}
+						defaultValue={this.props.defaultValues.vendor_id}
+						attributes={{name:"vendor_id", type:"select", placeholder:"CHOOSE VENDOR"}} />
 
-						<CanvassPrice callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.cost} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						defaultValue={this.props.defaultValues.cost} 
+						attributes={{name:'cost', type:"text"}}/>
 
-						<CanvassTerms callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getItems'}
-						defaultValue={this.props.defaultValues.terms_id} />
+						<InputLineComponent 
+						callBackParent={this.handleCallBack}
+						options={this.props.lists.term_lists}
+						defaultValue={this.props.defaultValues.terms_id}
+						attributes={{name:"terms_id", type:"select", placeholder:"CHOOSE TERMS"}} />
 					</tr>
 					);
 				} else {
 					return (
 						<tr onClick={this.handleClick} id={"item-"+parseInt(this.props.id+1)}>
-							<td>{this.props.defaultValues.vendor_label}</td>
-							<td>{this.props.defaultValues.cost}</td>
-							<td>{this.props.defaultValues.terms_label}</td>
+							<td>{ this._getVendorLabel(this.props.defaultValues.vendor_id) }</td>
+							<td>{ this.props.defaultValues.cost }</td>
+							<td>{ this._getTermLabel(this.props.defaultValues.terms_id) }</td>
 						</tr>
 					);
 				}
@@ -349,197 +383,5 @@ window.CanvassRow = React.createClass({
 			obj.id = this.props.id;
 		}
 		this.props.callBackParent(obj);
-	}
-});
-
-/***********************************************************************************************************************************
-***********************************************************************************************************************************/
-window.CanvassVendor = React.createClass({
-getDefaultProps : function () {
-		return {
-			defaultValue : ''
-		};
-	},
-getInitialState : function () {
-	return { 
-		data:[],
-		defaultValue:this.props.defaultValue,
-		placeholder:''
-	};
-},
-componentDidMount : function () {
-	this.request = $.ajax({
-		url:this.props.source,
-		dataType: 'json',
-		type:'GET',
-		beforeSend : function () {
-			this.setState({placeholder:'loading...'});
-		}.bind(this),
-		success : function (response) {
-			var data=this.state.data;
-			data.length=0;
-			for(var i in response) {
-				data.push({value:response[i].value, label:response[i].label, description:response[i].description});
-			}
-			this.setState({data : data, placeholder:'Choose Vendor'});
-		}.bind(this)
-	});
-},
-componentWillUnmount : function () {
-	this.request.abort();
-},
-_ajaxRequest : function (source) {
-	$.ajax({
-		url:source,
-		dataType: 'json',
-		type:'GET',
-		beforeSend : function () {
-			this.setState({placeholder:'loading...'});
-		}.bind(this),
-		success : function (response) {
-			var data=this.state.data;
-			data.length=0;
-			for(var i in response) {
-				data.push({value:response[i].value, label:response[i].label, description:response[i].description});
-			}
-			this.setState({data : data, placeholder:'Choose Item'});
-		}.bind(this)
-	});
-},
-componentWillReceiveProps : function (nextprops) {
-	return this._ajaxRequest(nextprops.source)
-},
-handleChange : function (event) {
-	var obj = {};
-	obj.name = 'vendor_id';
-	obj['vendor_id'] = event.value;
-	obj['vendor_label'] = event.label;
-	this.setState({defaultValue:event.value});
-	this.props.callBackParent(obj);
-},
-render : function () {
-	return( 
-		<td>
-			<Select onChange={this.handleChange} 
-            id="vendor_id" 
-            className="react-select-input-mainline" 
-            name="item_id"
-            value={this.state.defaultValue}
-            options={this.state.data} 
-            placeholder={this.state.placeholder} 
-            clearable={false} />
-		</td>
-	);
-}
-});
-/***********************************************************************************************************************************
-***********************************************************************************************************************************/
-window.CanvassTerms = React.createClass({
-getDefaultProps : function () {
-		return {
-			defaultValue : ''
-		};
-	},
-getInitialState : function () {
-	return { 
-		data:[],
-		defaultValue:this.props.defaultValue,
-		placeholder:''
-	};
-},
-componentDidMount : function () {
-	this.request = $.ajax({
-		url:this.props.source,
-		dataType: 'json',
-		type:'GET',
-		beforeSend : function () {
-			this.setState({placeholder:'loading...'});
-		}.bind(this),
-		success : function (response) {
-			var data=this.state.data;
-			data.length=0;
-			for(var i in response) {
-				data.push({value:response[i].value, label:response[i].label, description:response[i].description});
-			}
-			this.setState({data : data, placeholder:'Choose Terms'});
-		}.bind(this)
-	});
-},
-componentWillUnmount : function () {
-	this.request.abort();
-},
-_ajaxRequest : function (source) {
-	$.ajax({
-		url:source,
-		dataType: 'json',
-		type:'GET',
-		beforeSend : function () {
-			this.setState({placeholder:'loading...'});
-		}.bind(this),
-		success : function (response) {
-			var data=this.state.data;
-			data.length=0;
-			for(var i in response) {
-				data.push({value:response[i].value, label:response[i].label, description:response[i].description});
-			}
-			this.setState({data : data, placeholder:'Choose Terms'});
-		}.bind(this)
-	});
-},
-componentWillReceiveProps : function (nextprops) {
-	return this._ajaxRequest(nextprops.source)
-},
-handleChange : function (event) {
-	var obj = {};
-	obj.name = 'terms_id';
-	obj['terms_id'] = event.value;
-	obj['terms_label'] = event.label;
-	this.setState({defaultValue:event.value});
-	this.props.callBackParent(obj);
-},
-render : function () {
-	return( 
-		<td>
-			<Select onChange={this.handleChange} 
-            id="terms_id" 
-            className="react-select-input-mainline" 
-            name="terms_id"
-            value={this.state.defaultValue}
-            options={this.state.data} 
-            placeholder={this.state.placeholder} 
-            clearable={false} />
-		</td>
-	);
-}
-});
-
-/***********************************************************************************************************************************
-***********************************************************************************************************************************/
-window.CanvassPrice = React.createClass({
-	getDefaultProps : function () {
-		return {
-			defaultValue : '',
-			edit:false
-		};
-	},
-	getInitialState : function () {
-		return { data:[] };
-	},
-	handleChange : function (event) {
-		var obj = {};
-		obj.name = 'cost';
-		obj['cost'] = event.target.value;
-		this.props.callBackParent(obj);
-	},
-	render : function () {
-		return (
-			<td>
-				<input onChange={this.handleChange} 
-            	type="text" 
-            	value={this.props.defaultValue} 
-            	name="cost"
-            	className="form-control" />
-			</td> 
-		);
 	}
 });
