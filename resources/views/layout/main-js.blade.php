@@ -5,7 +5,7 @@
 
     <!--<script src="{{ asset('js/jquery.min.js') }}"></script>-->
     <!--<script src="{{ asset('js/bootstrap.min.js') }}"></script>-->
-	<!-- jQuery 2.1.4 -->
+    <!-- jQuery 2.1.4 -->
     <script src="{{ asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 
     <!-- REACT LIBRARY -->
@@ -70,8 +70,4 @@
     <script src="{{ asset('js/datatable.js') }}"></script>
 
           <!-- App scripts -->
-<<<<<<< HEAD
-    @stack('scripts')
-=======
     @stack('scripts_index')
->>>>>>> job_order_views

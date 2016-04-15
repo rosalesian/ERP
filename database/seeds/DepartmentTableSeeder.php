@@ -13,11 +13,8 @@ class DepartmentTableSeeder extends Seeder
     public function run()
     {
         //clear table
-<<<<<<< HEAD
-        Department::truncate();
-=======
         //Department::truncate();
->>>>>>> job_order_views
+
 
         //1st row
         Department::create([

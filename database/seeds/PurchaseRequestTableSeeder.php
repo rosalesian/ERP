@@ -12,12 +12,8 @@ class PurchaseRequestTableSeeder extends Seeder
      */
     public function run()
     {
-<<<<<<< HEAD
-        PurchaseRequest::truncate();
-=======
-        //PurchaseRequest::truncate();
->>>>>>> job_order_views
 
+        //PurchaseRequest::truncate();
 		$this->makeFactoryPurchaseRequest();
 
     }

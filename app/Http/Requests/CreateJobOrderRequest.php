@@ -25,13 +25,7 @@ class CreateJobOrderRequest extends Request
     {
         return [
             'transdate' => 'required',
-<<<<<<< HEAD
-            'asset' => 'required',
             'requested_by' => 'required',
-            'maintenancetype_id' => 'required',
-=======
-            'requested_by' => 'required',
->>>>>>> job_order_views
             'prcategory_id' => 'required',
             'memo' => 'required',
         ];

@@ -20,12 +20,9 @@ Job Order View
       <div class="trans-button">
         {!! HTML::link('joborder/'.$joborder->id.'/edit','Edit',array('class'=>'btn btn-block btn-success btn-flat')) !!}
       </div>
-<<<<<<< HEAD
-=======
        <div class="trans-button">
         {!! HTML::link('joborder/'.$joborder->id.'/edit','With Material',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
       </div>
->>>>>>> job_order_views
       <div class="trans-button">
         {!! HTML::link('joborder','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
@@ -49,12 +46,9 @@ Job Order View
       <div class="trans-button">
         {!! HTML::link('joborder/'.$joborder->id.'/edit','Edit',array('class'=>'btn btn-block btn-success btn-flat')) !!}
       </div>
-<<<<<<< HEAD
-=======
        <div class="trans-button">
         {!! HTML::link('joborder/'.$joborder->id.'/edit','With Material',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
       </div>
->>>>>>> job_order_views
       <div class="trans-button">
         {!! HTML::link('joborder','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
@@ -68,23 +62,6 @@ Job Order View
 
 <?php
 
-<<<<<<< HEAD
-    $items=[];
-    foreach ($joborder->materialCost as $key) {
-        array_push($items, [
-                "_token"=> csrf_token(),
-                "id"=>$key->id,
-                "item_id"=>$key->item->id,
-                "item_label"=>$key->item->itemcode,
-                "description"=>$key->item->description,
-                "quantity"=>$key->quantity,
-                "unit_id"=>$key->units_id,
-                "uom_label"=> $key->unit->abbreviation
-          ]);
-    }
-
-=======
->>>>>>> job_order_views
       $labor_items = [];
       foreach($joborder->laborItems as $laboritem) {
          // dd($laboritem->jobOrderType->name);
@@ -92,17 +69,10 @@ Job Order View
           $temp['_token'] = csrf_token();
           $temp['id'] = $laboritem->id;
           $temp['item_id'] = $laboritem->item->id;
-<<<<<<< HEAD
-          $temp['item_label'] = $laboritem->item->description;
-          $temp['jobtype_id'] = $laboritem->jobOrderType->id;
-          $temp['jobtype_label'] = $laboritem->jobOrderType->name;
-          $temp['noofdays_label'] = $laboritem->item->id;
-=======
           $temp['item_label'] = $laboritem->item->itemcode;
           $temp['jobtype_id'] = $laboritem->jobOrderType->id;
           $temp['jobtype_label'] = $laboritem->jobOrderType->name;
           $temp['no_of_days'] = $laboritem->no_of_days;
->>>>>>> job_order_views
           $temp['description'] = $laboritem->jobOrderType->description;
           $labor_items[] = $temp;
       }
@@ -141,19 +111,11 @@ Job Order View
 <script type="text/babel" src="{{ asset('js/react/forms/joborder/joborder_view.js') }}"></script>
 <script type="text/babel">
   var joborder = <?php echo $joborder?>;
-<<<<<<< HEAD
-  var items= <?php echo json_encode($items); ?>;
-=======
->>>>>>> job_order_views
   var laborcost = <?php echo json_encode($labor_items);?>;
   console.log(laborcost);
   var context="view";
   ReactDOM.render(<JOMainComponent context={context} 
   data={(typeof joborder=='undefined') ? [] : joborder} 
-<<<<<<< HEAD
-  items={items} 
-=======
->>>>>>> job_order_views
   laborcosts = {laborcost}/>, document.getElementById("mainPR-container"));
 </script>
 

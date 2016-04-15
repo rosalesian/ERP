@@ -12,21 +12,7 @@ class MaintenanceTypeSeeder extends Seeder
      */
     public function run()
     {
-<<<<<<< HEAD
-        MaintenanceType::truncate();
 
-        $faker = Faker\Factory::create();
-
-        foreach(range(1, 300) as $index) {
-        	MaintenanceType::create([
-        		'name' => $faker->company,
-        		'description' => $faker->address,
-        		'inactive' => 1,
-        		'created_by' => 1,
-        		'updated_by' => 1
-        	]);
-        }
-=======
         //MaintenanceType::truncate();
 
        //1st row
@@ -52,7 +38,5 @@ class MaintenanceTypeSeeder extends Seeder
             'created_at' => date('Y-m-d h:i:s'),
             'updated_at' => date('Y-m-d h:i:s')
         ]);
-
->>>>>>> job_order_views
     }
 }

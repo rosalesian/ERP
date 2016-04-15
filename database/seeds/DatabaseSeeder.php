@@ -22,25 +22,14 @@ class DatabaseSeeder extends Seeder
         $this->call('UnitsTypeTableSeeder');
         $this->call('UnitsTableSeeder');
 
-<<<<<<< HEAD
-        $this->call('ItemTypeTableSeeder');
-
-=======
->>>>>>> job_order_views
         $this->call('ItemTableSeeder');
         $this->call('MaintenanceTypeSeeder');
         $this->call('PurchaseCategoryTableSeeder');
 
-<<<<<<< HEAD
-        //$this->call('ItemTypeTableSeeder');
-=======
->>>>>>> job_order_views
         $this->call('BillTypeSeeder');
         $this->call('BillTypeNonTradeSubTypeSeeder');
         $this->call('VendorsTableSeeder');
-		$this->call('PurchaseRequestTableSeeder');
-<<<<<<< HEAD
-=======
+        $this->call('PurchaseRequestTableSeeder');
 
         /*
             Description: Seeder for  
@@ -57,7 +46,6 @@ class DatabaseSeeder extends Seeder
         $this->call('AssetTableSeeder');
         $this->call('JobOrderTypeTableSeeder');
         //$this->call('ItemCategoryTableSeeder');
->>>>>>> job_order_views
         Model::reguard();
     }
 }

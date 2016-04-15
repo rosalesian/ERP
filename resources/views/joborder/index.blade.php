@@ -22,14 +22,8 @@
                 <th>DEPARTMENT</th>
                 <th>MEMO</th>
                 <th>PREPARED BY</th>
-<<<<<<< HEAD
-                <th>APPROVAL STATUS</th>
-                <th>NEXT APPROVAL</th>
-                <th>TYPE OF MAINTENANCE</th>
-=======
                 <th>TYPE OF MAINTENANCE</th>
                 <th>PURCHASE REQUEST CATEGORIES</th>
->>>>>>> job_order_views
                 <th>CREATED AT</th>
             </tr>
           </thead>
@@ -40,11 +34,7 @@
 </div><!-- /.row -->         
 @stop
 
-<<<<<<< HEAD
-@push('scripts')
-=======
 @push('scripts_index')
->>>>>>> job_order_views
 <script>
 $(function() {
     $('#joborder-table').DataTable({
@@ -55,18 +45,10 @@ $(function() {
             { data: 'action', name: 'action', orderable: false, searchable: false},
             { data: 'id', name: 'id'},
             { data: 'transdate', name: 'transdate'},
-<<<<<<< HEAD
-            { data: 'item_description', name: 'item_description'},
-            { data: 'memo', name: 'memo' },
-            { data: 'firstname', name: 'firstname' },
-            { data: 'firstname', name: 'firstname' },
-            { data: 'prc_description', name: 'prc_description' },
-=======
             { data: 'asset_name', name: 'asset_name'},
             { data: 'memo', name: 'memo' },
             { data: 'dept_name', name: 'dept_name'},
             { data: 'full_name', name: 'full_name' },
->>>>>>> job_order_views
             { data: 'maintenance_description', name: 'maintenance_description' },
             { data: 'created_at', name: 'created_at' }
         ]

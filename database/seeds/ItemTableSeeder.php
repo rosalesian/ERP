@@ -13,11 +13,7 @@ class ItemTableSeeder extends Seeder
     public function run()
     {
         //clear table
-<<<<<<< HEAD
-        Item::truncate();
-=======
         //Item::truncate();
->>>>>>> job_order_views
         
         $faker = Faker\Factory::create();
 

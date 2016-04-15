@@ -37,10 +37,7 @@ Create New Job Order
     @inject('maintenancetypes', 'Nixzen\Repositories\MaintenanceTypeRepository')
     @inject('prcategories', 'Nixzen\Repositories\PurchaseRequestCategoryRepository')
     @inject('empployees', 'Nixzen\Repositories\EmployeeRepository')
-<<<<<<< HEAD
-=======
     @inject('assets', 'Nixzen\Repositories\AssetsRepository')
->>>>>>> job_order_views
 
     <div id="mainPR-container"></div>
     
@@ -85,21 +82,14 @@ Create New Job Order
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
-<<<<<<< HEAD
-=======
 <script type="text/babel" src="{{ asset('js/react/components/main-line-components/checkBoxMainComponent.js') }}"></script>
 
 
->>>>>>> job_order_views
 
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
-<<<<<<< HEAD
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
-=======
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/job_orders/quantity.js') }}"></script>
->>>>>>> job_order_views
 <script type="text/babel" src="{{ asset('js/react/components/line-items-components/repair_type.js') }}"></script>
 
 <!-- CUSTOM REACT COMPONENT -->
@@ -112,16 +102,10 @@ Create New Job Order
     'items' : <?php echo $items->lists('description','id'); ?>,
     'maintenancetypes' : <?php echo $maintenancetypes->lists('name', 'id'); ?>,
     'prcategories': <?php echo $prcategories->lists('name', 'id');?>,
-<<<<<<< HEAD
-    'empployees': <?php echo $empployees->lists('name', 'id'); ?>
-  };
-  console.log(lists);
-=======
     'empployees': <?php echo $empployees->lists('name', 'id'); ?>,
     'assets' : <?php echo $assets->lists('name', 'id'); ?>
   };
   //console.log(lists);
->>>>>>> job_order_views
 var context = "create";
   ReactDOM.render(<JOMainComponent 
   context={context} 

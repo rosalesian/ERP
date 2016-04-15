@@ -6,19 +6,12 @@ use Nixzen\Repositories\JobOrderRepository as JobOrderRepo;
 use Nixzen\Repositories\PurchaseRequestRepository as PurchaseRequestRepo;
 use Nixzen\Http\Requests\CreateJobOrderRequest;
 use Nixzen\Commands\CreatePurchaseRequestCommand;
-<<<<<<< HEAD
-
-use Nixzen\Models\Item\JobOrder;
-use Nixzen\Models\MaterialCost;
-use Nixzen\Models\LaborItem;
-=======
 use Nixzen\Commands\CreateJobOrderCommand;
 use Nixzen\Commands\UpdateJobOrderCommand;
 
 use Nixzen\Models\Item\JobOrder;
 use Nixzen\Models\MaterialCost;
 
->>>>>>> job_order_views
 use Nixzen\Models\PurchaseRequest;
 
 use Input;
@@ -76,44 +69,8 @@ class JobOrderController extends Controller {
 	 */
 	public function store(CreateJobOrderRequest $request)
 	{
-<<<<<<< HEAD
-
-
-		DB::beginTransaction();
-
-		$data_result = [];
-		$data = $request->all();
-		$data['transnumber'] = rand();
-		//adding joborder
-		$joborder = $this->joborder->create($data);
-		if($joborder != null && $joborder != '' ) {
-			$this->_id = $joborder->id;
-			$data_items = $data['items'];
-			$data_labor_costs = $data['labor_costs'];
-			//adding material cost
-			$value = MaterialCost::addMaterialCost($data_items, $this->_id);
-
-			//add laborItem
-			$value_labor = LaborItem::addLaborItem($data_labor_costs, $this->_id);
-
-			$result_data = $this->dispatchFrom(CreatePurchaseRequestCommand::class, $request, [
-				'requester' => $request->input('requested_by'),
-				'date' => $request->input('transdate'),
-				'deliver_to' => $request->input('deliver_to'),
-				'remarks' => $request->input('memo')
-			]);
-		}
-		else {
-			DB::rollback();
-		}
-
-		DB::commit();
-		
-		return redirect()->route('joborder.show',$this->_id);
-=======
 		$joborder = $this->dispatchFrom(CreateJobOrderCommand::class, $request, ['purchaserequest_id' => NULL]);
 		return redirect()->route('joborder.show', $joborder);
->>>>>>> job_order_views
 	}
 
 	/**
@@ -126,10 +83,6 @@ class JobOrderController extends Controller {
 	{
 
 		$joborder = $this->joborder->with('materialCost','laborItems')->find($id);
-<<<<<<< HEAD
-		//return Response::json($joborder->laborCost);
-=======
->>>>>>> job_order_views
 		return view('joborder.show')->with('joborder',$joborder);
 	}
 
@@ -151,17 +104,10 @@ class JobOrderController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-<<<<<<< HEAD
-	public function update($id)
-	{
-		$data = $this->joborder->find($id);
-		$data->update(Input::all(), $id);
-=======
 	public function update($id, CreateJobOrderRequest $request)
 	{
 		$joborder = $this->joborder->find($id);
 		$this->dispatchFrom(UpdateJobOrderCommand::class, $request, ['joborder' => $id, 'purchaserequest_id' => NULL]);
->>>>>>> job_order_views
 		return redirect()->route('joborder.show', $id);
 	}
 
