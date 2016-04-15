@@ -1,0 +1,55 @@
+/*div .box {
+	border-top: 3px solid #3c8dbc;
+}*/
+div #navbar-collapse {
+	width: 50%;
+	margin-left:5px; 
+	margin-top:8px;
+	margin-bottom: -8px;
+}
+.transaction-buttons-container {
+	margin-bottom: 10px;
+	width: auto;
+}
+.transaction-buttons-container .trans-button {
+	margin-right: 5px;
+	display: inline-block;	
+}
+.approvaltransition .breadcrumb>.active {
+	color:red;
+}
+
+.summary-container {
+	background-color: #e0f1fb;
+}
+.summary-header {
+	background-color: #3c8dbc;
+	color:#ffffff;
+}
+
+input[type='checkbox'] {
+	width:20px;
+	height:20px;
+}
+
+.react-select-input-mainline {
+	width: auto;
+}
+.react-select-input-lineitem {
+	min-width: 250px;
+	width:auto;
+}
+#sublist-items {
+	position: relative;
+}
+#sublist-items div.tableWrapper {
+	overflow: auto;
+	width: 100%;
+	height: auto;
+}
+#sublist-items div .react-table {
+	width: 100%;
+}
+#sublist-items div .react-table thead tr th{
+	min-width: 80px;
+}

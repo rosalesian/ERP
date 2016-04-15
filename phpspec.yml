@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Nixzen
+        psr4_prefix: Nixzen
+        src_path: app
