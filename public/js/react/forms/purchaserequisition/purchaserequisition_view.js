@@ -45,8 +45,7 @@ window.PRMainComponent = React.createClass({
 		        <div className="nav-tabs-custom">
 				    <ul className="nav nav-tabs">
 					    <li className="active"><a href="#tab_1" data-toggle="tab">Item</a></li>
-					    <li><a href="#tab_2" data-toggle="tab">File</a></li>
-					    <li><a href="#tab_3" data-toggle="tab">Notes</a></li>
+					    <li><a href="#tab_2" data-toggle="tab">Notes</a></li>
 				    </ul>
 			    	<div className="tab-content">
 				        <div className="tab-pane active" id="tab_1">
@@ -58,7 +57,6 @@ window.PRMainComponent = React.createClass({
 
 				        </div>
 				        <div className="tab-pane" id="tab_2"> </div>
-				        <div className="tab-pane" id="tab_3"> </div>
 				    </div>
 	      		</div>
 			</div>    
@@ -99,41 +97,38 @@ window.PrimaryComponent = React.createClass({
 			return (
 				<Wrapper>
 	            	<FieldContainer>
-	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
-	    				context={this.props.context}
-	    				options={this.props.lists.items}
-	    				defaultValue={this.props.defaultValues.type_id}
-	    				attributes={{name:"type_id", label:"TYPE"}} />
-
-	        			<DateMainComponent callBackParent={this.handleChangeCallBack}
-	        				context={this.props.context}
-	        				defaultValue={this.props.defaultValues.date} 
-	        				attributes={{name:"date", label:"DATE"}} />	
-	        		</FieldContainer>
-
-					<FieldContainer> 
-	    				<TextMainComponent callBackParent={this.handleChangeCallBack} 
-	    				context={this.props.context}
-	    				defaultValue={this.props.defaultValues.deliver_to} 
-	    				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
-
-	        			<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
-	        				context={this.props.context}
-	        				defaultValue={this.props.defaultValues.remarks}
-	        				attributes={{name:"remarks", label:"REMARKS"}} />
-	        		</FieldContainer>
-
-	            	<FieldContainer>
-	            		<TextMainComponent callBackParent={this.handleChangeCallBack} 
-	    				context={this.props.context}
-	    				defaultValue={this.props.defaultValues.total_amount}
-	    				attributes={{name:"total_amount", label:"TOTAL AMOUNT"}} />
-
-	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+	            		<InputMainComponent callBackParent={this.handleChangeCallBack}
 	    				context={this.props.context}
 	    				options={this.props.lists.items}
 	    				defaultValue={this.props.defaultValues.requester}
-	    				attributes={{name:"requester", label:"NAME OF REQUESTER"}} />
+	    				attributes={{name:"requester", type:"select", label:"NAME OF REQUESTER"}} />
+
+	    				<InputMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				options={this.props.lists.items}
+	    				defaultValue={this.props.defaultValues.type_id}
+	    				attributes={{name:"type_id", type:"select", label:"TYPE"}} />
+
+	    				<InputMainComponent callBackParent={this.handleChangeCallBack}
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.date}
+	    				attributes={{name:"date", type:"date", label:"DATE"}} />	
+	        		</FieldContainer>
+
+					<FieldContainer>
+	    				<InputMainComponent callBackParent={this.handleChangeCallBack} 
+	    				context={this.props.context}
+	    				defaultValue={this.props.defaultValues.deliver_to} 
+	    				attributes={{name:"deliver_to", type:"text", label:"DELIVER TO"}} />
+
+	        			<InputMainComponent callBackParent={this.handleChangeCallBack} 
+	        				context={this.props.context}
+	        				defaultValue={this.props.defaultValues.remarks}
+	        				attributes={{name:"remarks", type:"textarea", label:"REMARKS"}} />
+	        		</FieldContainer>
+
+	            	<FieldContainer>
+	            		<SummaryComponent defaultValue={'1000'}/>
 	            	</FieldContainer>
 		        </Wrapper>
 			);
@@ -141,39 +136,31 @@ window.PrimaryComponent = React.createClass({
 			return (
 				<Wrapper>
 	            	<FieldContainer>
-	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
-	    				context={this.props.context}
+	            		<InputMainComponent context={this.props.context}
+	    				defaultValue={this.props.defaultValues.requester}
+	    				attributes={{name:"requester", label:"NAME OF REQUESTER"}} />
+
+	    				<InputMainComponent context={this.props.context}
 	    				defaultValue={this.props.defaultValues.type_id}
 	    				attributes={{name:"type_id", label:"TYPE"}} />
 
-	        			<DateMainComponent callBackParent={this.handleChangeCallBack}
-	        				context={this.props.context}
-	        				defaultValue={this.props.defaultValues.date} 
-	        				attributes={{name:"date", label:"DATE"}} />	
+	    				<InputMainComponent context={this.props.context}
+	    				defaultValue={this.props.defaultValues.date}
+	    				attributes={{name:"date", label:"DATE"}} />	
 	        		</FieldContainer>
 
-					<FieldContainer> 
-	    				<TextMainComponent callBackParent={this.handleChangeCallBack} 
-	    				context={this.props.context}
+					<FieldContainer>
+	    				<InputMainComponent context={this.props.context}
 	    				defaultValue={this.props.defaultValues.deliver_to} 
-	    				attributes={{name:"deliver_to", label:"DELIVERED TO"}} />
+	    				attributes={{name:"deliver_to", label:"DELIVER TO"}} />
 
-	        			<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
-	        				context={this.props.context}
-	        				defaultValue={this.props.defaultValues.remarks}
-	        				attributes={{name:"remarks", label:"REMARKS"}} />
+	        			<InputMainComponent context={this.props.context}
+        				defaultValue={this.props.defaultValues.remarks}
+        				attributes={{name:"remarks", label:"REMARKS"}} />      				
 	        		</FieldContainer>
 
 	            	<FieldContainer>
-	            		<TextMainComponent callBackParent={this.handleChangeCallBack} 
-	    				context={this.props.context}
-	    				defaultValue={this.props.defaultValues.total_amount}
-	    				attributes={{name:"total_amount", label:"TOTAL AMOUNT"}} />
-
-	            		<SelectMainComponent callBackParent={this.handleChangeCallBack}
-	    				context={this.props.context}
-	    				defaultValue={this.props.defaultValues.requester}
-	    				attributes={{name:"requester", label:"NAME OF REQUESTER"}} />
+	            		<SummaryComponent defaultValue={'1000'}/>
 	            	</FieldContainer>
 		        </Wrapper>
 			);
@@ -188,19 +175,25 @@ window.PrimaryComponent = React.createClass({
 ********************************************************************
 ********************************************************************
 *******************************************************************/
+window.DataStorage = React.createClass ({
+	render : function () {
+		return( <input type="hidden" name={this.props.name} value={JSON.stringify(this.props.data)}/> )
+	}
+});
 
 window.PRTable = React.createClass({
 	getDefaultProps : function () {
 		return {
 			editLineItem:false,
 			data:[],
-			pr_id:''
+			pr_id:'',
+			items:[]
 		};
 	},
 	getInitialState : function () {
 		var dataStorage = [];
 		var rows=[];
-		if(this.props.data.length!=0) {
+		if(this.props.context=='view' && this.props.data.length!=0) {
 			dataStorage = this.props.data;
 			rows=[];
 			for(var i=0, counter=dataStorage.length; i<counter; i++) {
@@ -213,25 +206,56 @@ window.PRTable = React.createClass({
 							handleCallBackParentClick={this.handleCallBackClick} />
 			}
 		}
+
 		return {
 			editLineItem:this.props.editLineItem,
 			dataStorage:dataStorage,
 			rows:rows,
 			item_id:'',
 			unit_id:'',
-			description:'',
-			item_label:'',
-			uom_label:'',
 			quantity:'',
-			pr_id:this.props.pr_id
+			pr_id:this.props.pr_id,
+			lists:[]
 		};
+	},
+	componentDidMount : function () {
+		if(this.props.context=='create' || this.props.context=='edit') {
+			this._ajaxRequest(base_url+'/api/items');
+		}
+	},
+	_ajaxRequest : function (source) {
+		return $.ajax({
+			url:source,
+			dataType: 'json',
+			type:'GET',
+			success : function (response) {
+				var dataStorage = this.state.dataStorage;
+				var rows=this.state.rows;
+				if(this.props.data.length!=0) {
+					dataStorage = this.props.data;
+					rows=[];
+					for(var i=0, counter=dataStorage.length; i<counter; i++) {
+						rows[i] = <TableRow callBackParent={this.handleCallBack}
+									defaultValues={dataStorage[i]}
+									id={i}
+									key={i}
+									lists={response}
+									pr_id={this.props.pr_id}
+									context={this.props.context}
+									handleCallBackParentClick={this.handleCallBackClick} />
+					}
+				}
+				this.setState({
+					lists : response,
+					rows : rows,
+					dataStorage : dataStorage
+				});
+			}.bind(this)
+		});
 	},
 	_initial_data : function () {
 		var state = {};
 			state.item_id = '';
-			state.item_label='';
-			state.description='';
-			state.uom_label='';
 			state.unit_id = ''
 			state.quantity='';
 		return state;
@@ -247,7 +271,7 @@ window.PRTable = React.createClass({
 							<th>Description</th>
 							<th>Units</th>
 							<th>Quantity</th>
-							<th>Canvass</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -260,6 +284,7 @@ window.PRTable = React.createClass({
 			);
 		} else {
 			var that = this;
+			var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 			return (
 				<div className="tableWrapper">
 					<DataStorage data={this.state.dataStorage} name="items" />
@@ -280,6 +305,7 @@ window.PRTable = React.createClass({
 						{!this.state.editLineItem && (
 							<TableRow callBackParent={this.handleCallBack}
 							create={true}
+							lists={lists}
 							id={this.state.rows.length}
 							defaultValues={this.state} />
 						)}
@@ -302,17 +328,14 @@ window.PRTable = React.createClass({
 			this.setState(obj);
 		} else {
 			var rows = this.state.rows;
+			var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 			var state = this.state;
-			
 			switch(obj.name) {
 				case "item_id":
 						state.item_id = obj.item_id;
-						state.description = obj.description;
-						state.item_label = obj.item_label;
 					break;
 				case "unit_id":
 						state.unit_id = obj.unit_id;
-						state.uom_label = obj.uom_label;
 					break;
 				case "quantity":
 						state.quantity=obj.quantity;
@@ -321,6 +344,7 @@ window.PRTable = React.createClass({
 			rows[obj.id] = <TableRow callBackParent={this.handleCallBack}
 							defaultValues={state}
 							edit={true}
+							lists={lists}
 							id={obj.id}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			this.setState(state);
@@ -331,15 +355,17 @@ window.PRTable = React.createClass({
 	handleAdd : function () {// ADD FUNCTION
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
-		rows.push( <TableRow callBackParent={this.handleCallBack}
-					defaultValues={this.state} id={rows.length} key={rows.length} handleCallBackParentClick={this.handleCallBackClick}/> );
+		var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
+
+		rows.push( <TableRow
+					callBackParent={this.handleCallBack}
+					lists={lists}
+					defaultValues={this.state} id={rows.length} key={rows.length}
+					handleCallBackParentClick={this.handleCallBackClick} /> );
 		var obj = {
 			id:'',
 			item_id:this.state.item_id,
-			item_label:this.state.item_label,
-			description: this.state.description,
 			unit_id:this.state.unit_id,
-			uom_label:this.state.uom_label,
 			quantity:this.state.quantity
 		};
 		dataStorage.push(obj);
@@ -349,54 +375,53 @@ window.PRTable = React.createClass({
 	},
 	handleCallBackClick : function (id) {
 		if(this.props.context!='view'){
-		var elemArr = id.split('-');
-		var rowid = parseInt(elemArr[1]-1);
-		var rows = this.state.rows;
-		var dataStorage = this.state.dataStorage;
-		rows.length=0;
+			var elemArr = id.split('-');
+			var rowid = parseInt(elemArr[1]-1);
+			var rows = this.state.rows;
+			var dataStorage = this.state.dataStorage;
+			var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 
-		for(var i=0, counter=dataStorage.length; i<counter; i++) {
-			if(i==rowid) {
-				rows[i] = <TableRow callBackParent={this.handleCallBack}
-							defaultValues={dataStorage[i]}
-							edit={true}
-							id={i}
-							key={i}
-							handleCallBackParentClick={this.handleCallBackClick} />
-			} else {
-				rows[i] = <TableRow callBackParent={this.handleCallBack}
-							defaultValues={dataStorage[i]}
-							id={i}
-							key={i}
-							handleCallBackParentClick={this.handleCallBackClick} />
+			rows.length=0;
+
+			for(var i=0, counter=dataStorage.length; i<counter; i++) {
+				if(i==rowid) {
+					rows[i] = <TableRow callBackParent={this.handleCallBack}
+								defaultValues={dataStorage[i]}
+								edit={true}
+								id={i}
+								lists={lists}
+								key={i}
+								handleCallBackParentClick={this.handleCallBackClick} />
+				} else {
+					rows[i] = <TableRow callBackParent={this.handleCallBack}
+								defaultValues={dataStorage[i]}
+								lists={lists}
+								id={i}
+								key={i}
+								handleCallBackParentClick={this.handleCallBackClick} />
+				}
 			}
-		}
-		rows.splice(elemArr[1], 0, (<UpdateButtons
-									dataIndex={rowid}
-									callbackUpdate={this.handleUpdate}
-									callbackCancel={this.handleCancel}
-									callbackRemove={this.handleRemove}/>));
-		var state = this.state;
-		state.item_id = dataStorage[rowid].item_id;
-		state.item_label = dataStorage[rowid].item_label;
-		state.unit_id = dataStorage[rowid].unit_id;
-		state.uom_label = dataStorage[rowid].uom_label;
-		state.description = dataStorage[rowid].description;
-		state.quantity = dataStorage[rowid].quantity;
-		this.setState(state);
+			rows.splice(elemArr[1], 0, (<UpdateButtons
+										dataIndex={rowid}
+										callbackUpdate={this.handleUpdate}
+										callbackCancel={this.handleCancel}
+										callbackRemove={this.handleRemove}/>));
+			var state = this.state;
+			state.item_id = dataStorage[rowid].item_id;
+			state.unit_id = dataStorage[rowid].unit_id;
+			state.quantity = dataStorage[rowid].quantity;
+			this.setState(state);
 
-		this.setState({rows:rows, editLineItem:true});
-	}
+			this.setState({rows:rows, editLineItem:true});
+		}
 	},
 	handleUpdate : function (id) {// UPDATE FUNCTION
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
+		var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.length=0;
 		dataStorage[id].item_id = this.state.item_id;
-		dataStorage[id].item_label = this.state.item_label;
-		dataStorage[id].description = this.state.description;
 		dataStorage[id].unit_id = this.state.unit_id;
-		dataStorage[id].uom_label = this.state.uom_label;
 		dataStorage[id].quantity = this.state.quantity;
 
 
@@ -404,6 +429,7 @@ window.PRTable = React.createClass({
 			rows[i] = <TableRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+							lists={lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 		}
@@ -415,10 +441,12 @@ window.PRTable = React.createClass({
 		var dataStorage = this.state.dataStorage;
 		dataStorage.splice(id,1);
 		var rows = this.state.rows;
+		var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.length=0;
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <TableRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
+							lists={lists}
 							id={i}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
@@ -431,10 +459,12 @@ window.PRTable = React.createClass({
 		if(this.state.editLineItem) {
 			var rows = this.state.rows;
 			var dataStorage = this.state.dataStorage;
+			var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 			rows.length=0;
 			for(var i=0, counter=dataStorage.length; i<counter; i++) {
 				rows[i] = <TableRow callBackParent={this.handleCallBack}
 								defaultValues={dataStorage[i]}
+								lists={lists}
 								id={i}
 								key={i}
 								handleCallBackParentClick={this.handleCallBackClick} />
@@ -475,96 +505,124 @@ window.TableRow = React.createClass({
 			edit:false,
 			id:'',
 			pr_id:'',
-			context:''
+			context:'',
+			lists:[],
+			defaultValues:{}
+		}
+	},
+	getInitialState : function () {
+		//THIS INITIAL STATE IS USE FOR VIEW ONLY TO UPDATE LINE ITEM DATA AFTER UPDATING CANVASS DATA
+		return {
+			defaultValues:this.props.defaultValues
+		}
+	},
+	_getUOM : function (arraylists, itemid) {
+		for(var i=0, linecount=arraylists.length; i<linecount; i++) {
+			if(arraylists[i].value==itemid) {
+				return arraylists[i].units;
+			}
+		}
+	},
+	_getDescription : function(arraylists, itemid) {
+		for(var i=0, linecount=arraylists.length; i<linecount; i++) {
+			if(arraylists[i].value==itemid) {
+				return arraylists[i].description;
+			}
+		}
+	},
+	_getLabel : function(arraylists, id) {
+		for(var i=0, count=arraylists.length; i<count; i++) {
+			if(arraylists[i].value==id) {
+				return arraylists[i].label;
+			}
 		}
 	},
 	render : function () {
 		if(this.props.context=='view') {
 			return (
 				<tr>
-					<td>{this.props.defaultValues.item_label}</td>
-					<td>{this.props.defaultValues.description}</td>
-					<td>{this.props.defaultValues.uom_label}</td>
-					<td>{this.props.defaultValues.quantity}</td>
-					<td><a href={"#"} data-toggle={"modal"} data-target={"#myModal"} onClick={this.displayModal.bind(this,this.props.defaultValues)}><i className="fa fa-toggle-up" style={{fontSize:"25px",marginLeft:"30%"}}></i></a></td>
+					<td>{this.state.defaultValues.item_label}</td>
+					<td>{this.state.defaultValues.description}</td>
+					<td>{this.state.defaultValues.uom_label}</td>
+					<td>{this.state.defaultValues.quantity}</td>
+					<td><a href={"#"} data-toggle={"modal"} data-target={"#myModal"} onClick={this.displayModal}>Add Canvass</a></td>
 				</tr>
 			);
 		} else {
 			if(this.props.create) {
 				return (
-					<tr id={"item-"+parseInt(this.props.id+1)}>
-						<Item callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getItems'}
-						defaultValue={this.props.defaultValues.item_id} />
+					<tr id={"item-"+parseInt(this.props.id+1)}>	
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists}
+						defaultValue={this.props.defaultValues.item_id}
+						attributes={{name:"item_id", type:"select", placeholder:"CHOOSE ITEM"}} />
 
-						<Description callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.description} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						defaultValue={this._getDescription(this.props.lists, this.props.defaultValues.item_id)}
+						attributes={{type:"display"}} />
 
-						<UOM callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getUOM/'+this.props.defaultValues.item_id}
-						defaultValue={this.props.defaultValues.unit_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this._getUOM(this.props.lists, this.props.defaultValues.item_id)}
+						defaultValue={this.props.defaultValues.unit_id}
+						attributes={{name:"unit_id", type:"select", placeholder:"CHOOSE UOM"}} />
 
-						<Quantity callBackParent={this.handleCallBack} 
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.quantity}
-						attributes={{name:"quantity"}} />
+						attributes={{name:"quantity", type:"text"}} />
 					</tr>
 				);
 			} else {
 				if(this.props.edit) {
 					return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
-						<Item callBackParent={this.handleCallBack}
-						source={base_url+'/ajax/getItems'}
-						defaultValue={this.props.defaultValues.item_id}  />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists}
+						defaultValue={this.props.defaultValues.item_id}
+						attributes={{name:"item_id", type:"select", placeholder:"CHOOSE ITEM"}} />
 
-						<Description callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.description} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						defaultValue={this._getDescription(this.props.lists, this.props.defaultValues.item_id)}
+						attributes={{type:"display"}} />
 
-						<UOM callBackParent={this.handleCallBack}
-						source={base_url+'/ajax/getUOM/'+this.props.defaultValues.item_id}
-						defaultValue={this.props.defaultValues.unit_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this._getUOM(this.props.lists, this.props.defaultValues.item_id)}
+						defaultValue={this.props.defaultValues.unit_id}
+						attributes={{name:"unit_id", type:"select", placeholder:"CHOOSE UOM"}} />
 
-						<Quantity callBackParent={this.handleCallBack}
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.quantity}
-						attributes={{name:"quantity"}} />
+						attributes={{name:"quantity", type:"text"}} />
 					</tr>
 					);
 				} else {
+					var item_label = this._getLabel(this.props.lists, this.props.defaultValues.item_id);
+					var unitlists = this._getUOM(this.props.lists, this.props.defaultValues.item_id);
+					var unit_label = this._getLabel(unitlists, this.props.defaultValues.unit_id);
+					var description = this._getDescription(this.props.lists, this.props.defaultValues.item_id);
+					
 					return (
 						<tr onClick={this.handleClick} id={"item-"+parseInt(this.props.id+1)}>
-							<td>{this.props.defaultValues.item_label}</td>
-							<td>{this.props.defaultValues.description}</td>
-							<td>{this.props.defaultValues.uom_label}</td>
-							<td>{this.props.defaultValues.quantity}</td>
+							<td>{ item_label }</td>
+							<td>{ description }</td>
+							<td>{ unit_label }</td>
+							<td>{ this.props.defaultValues.quantity }</td>
 						</tr>
 					);
+
 				}
 			}
 		}
 	},
-	displayModal : function (defaultValues, evt) {
-		$.ajax({
-		url:base_url+'/api/1.0/pritem/'+this.props.defaultValues.id+'/canvass',
-		type:'GET',
-		success : function (response) {
-			var data = JSON.parse(response.canvasses);
-			var canvasses=[];
-			for(var i in data) {
-				canvasses.push({
-					id:data[i].id,
-					vendor_id:data[i].vendor_id,
-					vendor_label:data[i].vendor_id,
-					terms_id:data[i].terms_id,
-					terms_label:data[i].terms_id,
-					cost:data[i].cost
-				});
-			}
-			
-			ReactDOM.render(<CanvassComponent defaultValues={defaultValues}
-							data={canvasses}
-				            context='create' />, document.getElementById('myModal'));
-		}.bind(this)
-		});
+	displayModal : function (evt) {
+		ReactDOM.render(<CanvassComponent defaultValues={ this.state.defaultValues }
+							data={ JSON.parse(this.state.defaultValues.canvasses) }
+				            context='create'
+				            callBackCanvassSave={this.callBackCanvassSave}/>, document.getElementById('myModal'));
+	},
+	callBackCanvassSave : function (obj) {
+		var defaultValues = this.state.defaultValues;
+		defaultValues.canvasses = obj;
+		this.setState({defaultValues:defaultValues});
 	},
 	handleClick : function (evt) {
 		this.props.handleCallBackParentClick(evt.currentTarget.id);
@@ -579,45 +637,3 @@ window.TableRow = React.createClass({
 		this.props.callBackParent(obj);
 	}
 });
-
-
-
-// var items = [
-// 	{value:"data1", label:"4000318 CDM FRUIT & NUT 6X24X65G", description:"This is Data 1"},
-// 	{value:"data2", label:"4005793 CDM ROAST ALMOND 6X24X65G (CS)", description:"This is Data 2"},
-// 	{value:"data3", label:"4000304 30G CDM FRUIT & NUT (1X12X24)", description:"This is Data 3"}
-// ];
-
-// var TABLE = {
-// 	storage:"items",
-// 	columns: [
-// 		{name: "item", displayName: "ITEM", className: "react-select-input-lineitem", fieldType: "select"},
-// 		{name: "description", displayName: "DESCRIPTION", fieldType: "disabled", className: "form-control"},
-// 		{name: "uom", displayName: "UNIT", className: "react-select-input-lineitem", fieldType: "select"},
-// 		{name: "quantity", displayName: "QUANTITY", fieldType: "text", className: "form-control"},
-// 		{name: "rate", displayName: "RATE", fieldType: "disabled", className: "form-control"},
-// 		{name: "amount", displayName: "AMOUNT", fieldType: "disabled", className: "form-control"},
-// 		{name: "vatamount", displayName: "VAT AMOUNT", fieldType: "disabled", className: "form-control"},
-// 		{name: "grossamount", displayName: "GROSS AMOUNT", fieldType: "disabled", className: "form-control"},
-// 		{name: "canvass", displayName: "CANVASS", fieldType: "link"}
-// 	]
-// };
-// var TABLE = {
-// 	storage:"item_storage",
-// 	columns: [
-// 		{name: "item", displayName: "Item", className: "react-select-input-lineitem", fieldType: "select", data:items},
-// 		{name: "description", displayName: "Description", fieldType: "text", className: "form-control"},
-// 		{name: "uom", displayName: "Unit", className: "react-select-input-lineitem", fieldType: "select", data:items},
-// 		{name: "quantity", displayName: "Quantity", fieldType: "text", className: "form-control"},
-// 		{name: "rate", displayName: "Rate", fieldType: "text", className: "form-control"},
-// 		{name: "amount", displayName: "Amount", fieldType: "text", className: "form-control"},
-// 		{name: "vatamount", displayName: "VAT Amount", fieldType: "text", className: "form-control"},
-// 		{name: "grossamount", displayName: "Gross Amount", fieldType: "text", className: "form-control"}
-// 	]
-// };
-// ReactDOM.render(<LineItems table={TABLE}/>, document.getElementById("line-items"));
-
-// ReactDOM.render(<PrimaryComponent />, document.getElementById("pr_primary_form"));
-// ReactDOM.render(<ClassificationComponent />, document.getElementById("pr_classification_form"));
-
-// ReactDOM.render(<TableComponent table={TABLE}/>, document.getElementById("sublist-items"));

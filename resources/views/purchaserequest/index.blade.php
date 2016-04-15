@@ -33,7 +33,7 @@
 </div><!-- /.row -->         
 @stop
 
-@push('scripts')
+@push('scripts_index')
 <script>
 $(function() {
     $('#joborder-table').DataTable({

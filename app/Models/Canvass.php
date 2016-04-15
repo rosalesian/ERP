@@ -17,23 +17,23 @@ class Canvass extends Model {
 	];
 
 	public function vendor(){
-		return $this->belongsTo('Nixzen\Vendor', 'vendor_id');
+		return $this->belongsTo('Nixzen\Models\Vendor', 'vendor_id');
 	}
 
 	public function term(){
-		return $this->belongsTo('Nixzen\Term', 'term_id');
+		return $this->belongsTo('Nixzen\Models\Term', 'terms_id');
 	}
 
 	public function canvassItems(){
-		return $this->hasMany('Nixzen\CanvassItems', 'canvass_id');
+		return $this->hasMany('Nixzen\Models\CanvassItems', 'canvass_id');
 	}
 
 	public function created_by(){
-		return $this->belongsTo('Nixzen\Employee', 'created_by');
+		return $this->belongsTo('Nixzen\Models\Employee', 'created_by');
 	}
 
 	public function updated_by(){
-		return $this->belongsTo('Nixzen\Employee', 'updated_by');
+		return $this->belongsTo('Nixzen\Models\Employee', 'updated_by');
 	}
 
 }

@@ -327,10 +327,11 @@ window.IRRow = React.createClass({
 					<DisplayLineComponent defaultValue={this.props.defaultValues.uom_label} />
 					<DisplayLineComponent defaultValue={this.props.defaultValues.remaining} />
 					
-					<TextLineComponent callBackParent={this.handleCallBack}
-					name="quantity_received"
-					defaultValue={this.props.defaultValues.quantity_received}
-					isReceived={this.props.defaultValues.isReceived}/>
+					{this.props.defaultValues.isReceived && (<TextLineComponent callBackParent={this.handleCallBack}
+						defaultValue={this.props.defaultValues.quantity_received} 
+						attributes={{name:'quantity_received'}}/>
+					)}
+					{!this.props.defaultValues.isReceived && (<span></span>)}
 				</tr>
 			);
 		}

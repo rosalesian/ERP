@@ -17,6 +17,7 @@ use Nixzen\Models\TaxCode;
 use Nixzen\Models\ChartOfAccount;
 use Nixzen\Models\Lists\Division;
 use Nixzen\Models\Lists\Branch;
+use Nixzen\Models\Item\JobOrderType;
 
 
 use Response;
@@ -120,7 +121,8 @@ class UserController extends Controller
 		foreach($items as $item) {
 			$result = [];
 			$result['value'] = $item->id;
-			$result['label'] = $item->description;
+			$result['label'] = $item->itemcode;
+			$result['description'] = $item->description;
 			$data_items[]= $result;
 		}
 
@@ -174,6 +176,15 @@ class UserController extends Controller
 			$data_department[] = $result;
 		}
 
+		$data_job_order_type = [];
+		$jo_types = JobOrderType::all();
+		foreach($jo_types as $jo_type) {
+			$result = [];
+			$result['value'] = $jo_type->id;
+			$result['label'] = $jo_type->name;
+			$data_job_order_type[] = $result;
+		}
+
 
 		return Response::json([
 			'typelist' => $data_items, 
@@ -181,7 +192,8 @@ class UserController extends Controller
 			'listemployee' => $data_employee,
 			'listmaintenancetype' => $data_maintenancetype,
 			'listvedorbills' => $data_vendor_bill,
-			'listdepartment' => $data_department
+			'listdepartment' => $data_department,
+			'listjotype' => $data_job_order_type
 		]);
 	}
 

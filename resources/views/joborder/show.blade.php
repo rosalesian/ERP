@@ -21,7 +21,7 @@ Job Order View
         {!! HTML::link('joborder/'.$joborder->id.'/edit','Edit',array('class'=>'btn btn-block btn-success btn-flat')) !!}
       </div>
        <div class="trans-button">
-        {!! HTML::link('joborder/'.$joborder->id.'/edit','With Material',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
+        {!! HTML::link('joborder/'.$joborder->id.'/edit','Create Purchase Requesitions',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
       </div>
       <div class="trans-button">
         {!! HTML::link('joborder','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
@@ -47,7 +47,7 @@ Job Order View
         {!! HTML::link('joborder/'.$joborder->id.'/edit','Edit',array('class'=>'btn btn-block btn-success btn-flat')) !!}
       </div>
        <div class="trans-button">
-        {!! HTML::link('joborder/'.$joborder->id.'/edit','With Material',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
+        {!! HTML::link('joborder/'.$joborder->id.'/edit','Create Purchase Requesitions',array('class'=>'btn btn-block btn-primary btn-flat')) !!}
       </div>
       <div class="trans-button">
         {!! HTML::link('joborder','Back',array('class'=>'btn btn-block btn-default btn-flat')) !!}
@@ -92,22 +92,16 @@ Job Order View
 <script src="{{ asset('js/react/plugin/input-autosize/dist/react-input-autosize.min.js') }}"></script> <!-- input-autosize -->
 <script src="{{ asset('js/react/plugin/react-select/dist/react-select.min.js') }}"></script> <!-- select -->
 
+
 <!-- MAINLINE COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/selectMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/summaryMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/inputMainComponent.js') }}"></script>
 
 <!-- LINEITEM COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/inputLineComponent.js') }}"></script>
 
 <!-- CUSTOM REACT COMPONENT -->
-<script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
 <script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
-{{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
 <script type="text/babel" src="{{ asset('js/react/forms/joborder/joborder_view.js') }}"></script>
 <script type="text/babel">
   var joborder = <?php echo $joborder?>;

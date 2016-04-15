@@ -13,15 +13,8 @@ class UnitsTypeTableSeeder extends Seeder
     public function run()
     {
         //clear table
-        // UnitType::truncate();
-        // $faker = Faker\Factory::create();
+        UnitType::truncate();
 
-        // foreach(range(1, 300) as $index) {
-        //     UnitType::create([
-        //         'name' => $faker->company()
-        //     ]);
-        // }
-        
         UnitType::create([
         	'name' => 'In Piece'
         ]);

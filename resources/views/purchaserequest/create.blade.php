@@ -34,6 +34,18 @@ Create New Purchase Requisition
     </div>
       
       @inject('items', 'Nixzen\Repositories\ItemRepository')
+      @inject('itemmodel', 'Nixzen\Models\Item')      
+      <?php
+      $lineitems = [];
+      foreach($itemmodel->all() as $item) {
+        array_push($lineitems, [
+          'value'=>$item->id,
+          'label'=>$item->description,
+          'units'=>$item->unitType->units()->get(['id as value','abbreviation as label'])->toArray()
+          ]);        
+      }
+      ?>
+
       <div id="mainPR-container"></div>
 
 
@@ -45,7 +57,6 @@ Create New Purchase Requisition
         {!! HTML::link('purchaserequest','Cancel',array('class'=>'btn btn-block btn-default btn-flat')) !!}
       </div>
     </div>
-
   {!! Form::close() !!}
 
   </div><!-- /.col -->
@@ -69,26 +80,17 @@ Create New Purchase Requisition
 <script src="{{ asset('js/react/plugin/react-select/dist/react-select.min.js') }}"></script> <!-- select -->
 
 <!-- MAINLINE COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/selectMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
-
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/summaryMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/inputMainComponent.js') }}"></script>
 <!-- LINEITEM COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
-
-<!-- CUSTOM REACT COMPONENT -->
-<script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
-{{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/inputLineComponent.js') }}"></script>
+<!-- FORM COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
 <script type="text/babel">
   var purchaserequests = <?php echo json_encode(Input::old()); ?>;
   var lists = {
-    'items' : <?php echo $items->lists('description','id'); ?>
+    'items' : <?php echo $items->lists('description','id'); ?>,
+    'lineitems': <?php echo json_encode($lineitems); ?>
   };
   var context = "create";
   ReactDOM.render(<PRMainComponent context={context}

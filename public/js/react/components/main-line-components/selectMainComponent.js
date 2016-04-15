@@ -7,15 +7,12 @@ window.SelectMainComponent = React.createClass({
 			context:''
 		};
 	},
-	getInitialState : function () {
-		return { data:[] };
-	},
 	shouldComponentUpdate : function (nextprops, nextstate) {
 		return nextprops.defaultValue!==this.props.defaultValue;
 	},
 	handleChange : function (event) {
 		var obj = {};
-		obj['name'] = this.props.attributes.name;
+		// obj['name'] = this.props.attributes.name;
 		obj[this.props.attributes.name] = event.value;
 		this.props.callBackParent(obj);
 	},

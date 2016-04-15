@@ -48,11 +48,11 @@ Create New Purchase Requisition
         array_push($lineitems, [
                 "id"=>(string) $key->id,
                 "item_id"=>$key->item_id,
-                "item_label"=>$key->item->description,
-                "description"=>$key->item->itemcode,
+                "item_id_label"=>$key->item->itemcode,
+                "description"=>$key->item->description,
                 "quantity"=>$key->quantity,
                 "unit_id"=>$key->unit_id,
-                "uom_label"=>$key->unit->abbreviation
+                "unit_id_label"=>$key->unit->abbreviation
           ]);
     }
     ?>
@@ -72,22 +72,11 @@ Create New Purchase Requisition
 <script src="{{ asset('js/react/plugin/react-select/dist/react-select.min.js') }}"></script> <!-- select -->
 
 <!-- MAINLINE COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/selectMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
-
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/summaryMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/inputMainComponent.js') }}"></script>
 <!-- LINEITEM COMPONENTS -->
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/uom.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
-
-<!-- CUSTOM REACT COMPONENT -->
-<script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
-{{-- <script type="text/babel" src="{{ asset('js/react/components/custom-input-component.js') }}"></script> --}}
-
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/inputLineComponent.js') }}"></script>
+<!-- FORM COMPONENT -->
 <script type="text/babel" src="{{ asset('js/react/forms/purchaserequisition/purchaserequisition_view.js') }}"></script>
 <script type="text/babel">
   var purchaserequests = <?php echo $purchaserequest; ?>;

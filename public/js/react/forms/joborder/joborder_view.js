@@ -116,17 +116,9 @@ window.JOrimaryComponent = React.createClass({
 			data:{}
 		};
 	},
-	componentDidMount : function () {
-		this.request = $.get(base_url+'/ajax/job/request', function (response) {
-			this.setState({data:response});
-		}.bind(this));
-	},
-	componentWillUnmount : function () {
-		this.request.abort();
-	},
 	render : function () 
 	{
-		console.log(this.props.defaultValues);
+		//console.log(this.props.defaultValues);
 		if(this.props.context=='create' || this.props.context=='edit') 
 		{
 			
@@ -134,43 +126,43 @@ window.JOrimaryComponent = React.createClass({
 				<Wrapper>
 	            	<FieldContainer>
 
-	            	<SelectMainComponent callBackParent={this.handleChangeCallBack}
-		    				context={this.props.context}
-		    				options={this.props.lists.assets}
-		    				defaultValue={this.props.defaultValues.asset_id}
-		    				attributes={{name:"asset_id", label:"ASSET"}} />
+		            	<InputMainComponent callBackParent={this.handleChangeCallBack}
+			    				context={this.props.context}
+			    				options={this.props.lists.assets}
+			    				defaultValue={this.props.defaultValues.asset_id}
+			    				attributes={{name:"asset_id", type:"select", label:"ASSET"}} />
 
-		        		<DateMainComponent callBackParent={this.handleChangeCallBack}
+		        		<InputMainComponent callBackParent={this.handleChangeCallBack}
 		        				context={this.props.context}
 		        				defaultValue={this.props.defaultValues.transdate} 
-		        				attributes={{name:"transdate", label:"DATE"}} />   	
+		        				attributes={{name:"transdate", type:"date", label:"DATE"}} />   	
 		        	</FieldContainer>
 
 		        	<FieldContainer>
-		    			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		    			<InputMainComponent callBackParent={this.handleChangeCallBack}
 		    				context={this.props.context}
 		    				options={this.props.lists.maintenancetypes}
 		    				defaultValue={this.props.defaultValues.maintenancetype_id}
-		    				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE"}} />
+		    				attributes={{name:"maintenancetype_id", type:"select", label:"TYPE OF MAINTENACE"}} />
 
-		    			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		    			<InputMainComponent callBackParent={this.handleChangeCallBack}
 		    				context={this.props.context}
 		    				options={this.props.lists.prcategories}
 		    				defaultValue={this.props.defaultValues.prcategory_id}
-		    				attributes={{name:"prcategory_id", label:"CATEGORIES"}} />
+		    				attributes={{name:"prcategory_id", type:"select", label:"CATEGORIES"}} />
 		    		</FieldContainer>
 
 		    		<FieldContainer>
-			    		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+			    		<InputMainComponent callBackParent={this.handleChangeCallBack}
 			    				context={this.props.context}
 			    				options={this.props.lists.empployees}
 			    				defaultValue={this.props.defaultValues.requested_by}
-			    				attributes={{name:"requested_by", label:"REQUESTED BY"}} />
+			    				attributes={{name:"requested_by", type:"select", label:"REQUESTED BY"}} />
 						
-		        		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+		        		<InputMainComponent callBackParent={this.handleChangeCallBack} 
 		        				context={this.props.context}
 		        				defaultValue={this.props.defaultValues.memo}
-		        				attributes={{name:"memo", label:"REMARKS"}} />
+		        				attributes={{name:"memo", type:"textarea", label:"REMARKS"}} />
 
 	        		</FieldContainer>    
 		        </Wrapper>
@@ -181,38 +173,38 @@ window.JOrimaryComponent = React.createClass({
 			return (
 				<Wrapper>
 	            	<FieldContainer>
-		            	<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		            	<InputMainComponent callBackParent={this.handleChangeCallBack}
 		    				context={this.props.context}
 		    				defaultValue={this.props.defaultValues.requested_by}
-		    				attributes={{name:"requested_by", label:"REQUESTED BY"}} />
+		    				attributes={{name:"requested_by", type:"select", label:"REQUESTED BY"}} />
 	        		
-		        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		        		<InputMainComponent callBackParent={this.handleChangeCallBack}
 		    				context={this.props.context}
 		    				defaultValue={this.props.defaultValues.asset_id}
-		    				attributes={{name:"asset_id", label:"ASSET"}} />
+		    				attributes={{name:"asset_id", type:"select", label:"ASSET"}} />
 
-			        	<DateMainComponent callBackParent={this.handleChangeCallBack}
+			        	<InputMainComponent callBackParent={this.handleChangeCallBack}
 	        				context={this.props.context}
 	        				defaultValue={this.props.defaultValues.transdate} 
-	        				attributes={{name:"transdate", label:"DATE"}} />	
+	        				attributes={{name:"transdate", type:"date", label:"DATE"}} />	
 
 	        		</FieldContainer>
 
 					<FieldContainer> 
-						<SelectMainComponent callBackParent={this.handleChangeCallBack}
+						<InputMainComponent callBackParent={this.handleChangeCallBack}
 		    				context={this.props.context}		    				
 		    				defaultValue={this.props.defaultValues.maintenancetype_id}
-		    				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE"}} />
+		    				attributes={{name:"maintenancetype_id", type:"select", label:"TYPE OF MAINTENACE"}} />
 
-						<SelectMainComponent callBackParent={this.handleChangeCallBack}
+						<InputMainComponent callBackParent={this.handleChangeCallBack}
 		    				context={this.props.context}		    				
 		    				defaultValue={this.props.defaultValues.prcategory_id}
-		    				attributes={{name:"prcategory_id", label:"CATEGORIES"}} />
+		    				attributes={{name:"prcategory_id", type:"select", label:"CATEGORIES"}} />
 
-		        		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+		        		<InputMainComponent callBackParent={this.handleChangeCallBack} 
 	        				context={this.props.context}
 	        				defaultValue={this.props.defaultValues.memo}
-	        				attributes={{name:"memo", label:"REMARKS"}} />
+	        				attributes={{name:"memo", type:"textarea", label:"REMARKS"}} />
 
 		        		</FieldContainer>
 
@@ -261,12 +253,21 @@ window.SummaryComponent = React.createClass({
 	}
 });
 
+
+window.DataStorage = React.createClass ({
+	render : function () {
+		return( <input type="hidden" name={this.props.name} value={JSON.stringify(this.props.data)}/> )
+	}
+});
+
+
 window.LaborCostTable = React.createClass({
 	getDefaultProps : function () {
 		return {
 			editLineItem:false,
 			data:[],
-			pr_id:''
+			pr_id:'',
+			items: []
 		};
 	},
 	getInitialState : function () {
@@ -295,9 +296,46 @@ window.LaborCostTable = React.createClass({
 			jobtype_label: '',
 			jobtype_id: '',
 			no_of_days: '',
-
+			lists:[],
 			pr_id:this.props.pr_id
 		};
+	},
+
+	componentDidMount : function () {
+		if(this.props.context=='create' || this.props.context=='edit') {
+			this._ajaxRequest(base_url+'/ajax/job/request');
+		}
+	},
+	_ajaxRequest : function (source) {
+		return $.ajax({
+			url:source,
+			dataType: 'json',
+			type:'GET',
+			success : function (response) {
+				//console.log(response);
+				var dataStorage = this.state.dataStorage;
+				var rows=this.state.rows;
+				if(this.props.data.length!=0) {
+					dataStorage = this.props.data;
+					rows=[];
+					for(var i=0, counter=dataStorage.length; i<counter; i++) {
+						rows[i] = <TableRowLabor callBackParent={this.handleCallBack}
+									defaultValues={dataStorage[i]}
+									id={i}
+									key={i}
+									lists={response}
+									pr_id={this.props.pr_id}
+									context={this.props.context}
+									handleCallBackParentClick={this.handleCallBackClick} />
+					}
+				}
+				this.setState({
+					lists : response,
+					rows : rows,
+					dataStorage : dataStorage
+				});
+			}.bind(this)
+		});
 	},
 	_initial_data : function () {
 		var state = {};
@@ -335,6 +373,7 @@ window.LaborCostTable = React.createClass({
 			);
 		} else {
 			var that = this;
+			var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 			return (
 				<div className="tableWrapper">
 					<DataStorage data={this.state.dataStorage} name="labor_costs" />
@@ -355,6 +394,7 @@ window.LaborCostTable = React.createClass({
 						{!this.state.editLineItem && (
 							<TableRowLabor callBackParent={this.handleCallBack}
 							create={true}
+							lists={lists}
 							id={this.state.rows.length}
 							defaultValues={this.state} />
 						)}
@@ -378,17 +418,18 @@ window.LaborCostTable = React.createClass({
 			this.setState(obj);
 		} else {
 			var rows = this.state.rows;
+			//add virables lists
+			var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 			var state = this.state;
 			
 			switch(obj.name) {
 				case "item_id":
 						state.item_id = obj.item_id;
-						state.description = obj.description;
-						state.item_label = obj.item_label;
+						
 					break;
 				case "jobtype_id":
 						state.jobtype_id = obj.jobtype_id;
-						state.jobtype_label = obj.jobtype_label;
+
 					break;
 				case "no_of_days":
 						state.no_of_days=obj.no_of_days;
@@ -397,6 +438,8 @@ window.LaborCostTable = React.createClass({
 			rows[obj.id] = <TableRowLabor callBackParent={this.handleCallBack}
 							defaultValues={state}
 							edit={true}
+							//add virables
+							lists={lists}
 							id={obj.id}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			this.setState(state);
@@ -404,10 +447,12 @@ window.LaborCostTable = React.createClass({
 		}
 
 	},
-	handleAdd : function () {
+	handleAdd : function () { //ADD function
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
+		var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.push( <TableRowLabor callBackParent={this.handleCallBack}
+					lists={lists}
 					defaultValues={this.state} id={rows.length} key={rows.length} handleCallBackParentClick={this.handleCallBackClick}/> );
 		var obj = {
 			item_id:this.state.item_id,
@@ -430,6 +475,7 @@ window.LaborCostTable = React.createClass({
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
 		rows.length=0;
+		var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			if(i==rowid) {
@@ -437,12 +483,14 @@ window.LaborCostTable = React.createClass({
 							defaultValues={dataStorage[i]}
 							edit={true}
 							id={i}
+							lists={lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			} else {
 				rows[i] = <TableRowLabor callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+							lists={lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			}
@@ -467,6 +515,7 @@ window.LaborCostTable = React.createClass({
 	handleUpdate : function (id) {
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
+		var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.length=0;
 		
 		dataStorage[id].item_id = this.state.item_id,
@@ -480,6 +529,7 @@ window.LaborCostTable = React.createClass({
 			rows[i] = <TableRowLabor callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+							lists={lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 		}
@@ -491,11 +541,13 @@ window.LaborCostTable = React.createClass({
 		var dataStorage = this.state.dataStorage;
 		dataStorage.splice(id,1);
 		var rows = this.state.rows;
+		var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.length=0;
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <TableRowLabor callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+							lists={lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 		}
@@ -507,11 +559,13 @@ window.LaborCostTable = React.createClass({
 		if(this.state.editLineItem) {
 			var rows = this.state.rows;
 			var dataStorage = this.state.dataStorage;
+			var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 			rows.length=0;
 			for(var i=0, counter=dataStorage.length; i<counter; i++) {
 				rows[i] = <TableRowLabor callBackParent={this.handleCallBack}
 								defaultValues={dataStorage[i]}
 								id={i}
+								lists={lists}
 								key={i}
 								handleCallBackParentClick={this.handleCallBackClick} />
 			}
@@ -553,7 +607,43 @@ window.TableRowLabor = React.createClass({
 			edit:false,
 			id:'',
 			pr_id:'',
-			context:''
+			context:'',
+			lists:[],
+			defaultValues:{}
+		}
+	},
+	getInitialState : function() {
+		return {
+			defaultValues:this.props.defaultValues
+		}
+	},
+	_getDescription : function(arraylists, itemid) {
+		//console.log(itemid);
+		for(var i=0, linecount=arraylists.length; i<linecount; i++) {
+			if(arraylists[i].value==itemid) {
+				return arraylists[i].description;
+			}
+		}
+	},
+	_getLabel : function(arraylists, id) {
+		for(var i=0, count=arraylists.length; i<count; i++) {
+			if(arraylists[i].value==id) {
+				return arraylists[i].label;
+			}
+		}
+	},
+	_getJobtype_id : function(arraylists, id) {
+		for(var i=0, count=arraylists.length; i<count; i++) {
+			if(arraylists[i].value==id) {
+				return arraylists[i].label;
+			}
+		}
+	},
+	_getJobtype_label : function(arraylists, id) {
+		for(var i=0, count=arraylists.length; i<count; i++) {
+			if(arraylists[i].value==id) {
+				return arraylists[i].label;
+			}
 		}
 	},
 	render : function () {
@@ -569,53 +659,67 @@ window.TableRowLabor = React.createClass({
 			);
 		} else {
 			if(this.props.create) {
+				var description = (typeof this.props.lists.typelist!='undefined') ? this._getDescription(this.props.lists.typelist, this.props.defaultValues.item_id) : '';
 				return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
-						<Item callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getItems'}
-						defaultValue={this.props.defaultValues.item_id} />
-
-						<Description callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.description} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.typelist}
+						defaultValue={this.props.defaultValues.item_id} 
+						attributes={{name:"item_id", type:"select", placeholder:"CHOOSE ITEM"}} />
 
 
-						<REPAIR_TYPE callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getJoborderType'}
-						defaultValue={this.props.defaultValues.jobtype_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						defaultValue={description}
+						attributes={{type:"display"}} />
 
-						<Quantity callBackParent={this.handleCallBack} 
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.listjotype}
+						defaultValue={this.props.defaultValues.jobtype_id} 
+						attributes={{name:"jobtype_id", type:"select", placeholder:"CHOOSE JOB TYPE"}} />
+
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.no_of_days}
-						attributes={{name:"no_of_days"}} />
+						attributes={{name:"no_of_days", type:"text"}} />
 					</tr>
 				);
 			} else {
+				var description = (typeof this.props.lists.typelist!='undefined') ? this._getDescription(this.props.lists.typelist, this.props.defaultValues.item_id) : '';
+
+				var item_label = (typeof this.props.lists.typelist!='undefined') ? this._getLabel(this.props.lists.typelist, this.props.defaultValues.jobtype_id) : '';
 				if(this.props.edit) {
 					return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
-						<Item callBackParent={this.handleCallBack}
-						source={base_url+'/ajax/getItems'}
-						defaultValue={this.props.defaultValues.item_id}  />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.typelist}
+						defaultValue={this.props.defaultValues.item_id} 
+						attributes={{name:"item_id", type:"select", placeholder:"CHOOSE ITEM"}} />
 
-						<Description callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.description} />
 
-						<REPAIR_TYPE callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getJoborderType'}
-						defaultValue={this.props.defaultValues.jobtype_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						defaultValue={description}
+						attributes={{type:"display"}} />
 
-						
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.listjotype}
+						defaultValue={this.props.defaultValues.jobtype_id} 
+						attributes={{name:"jobtype_id", type:"select", placeholder:"CHOOSE JOB TYPE"}} />
 
-						<Quantity callBackParent={this.handleCallBack}
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.no_of_days}
-						attributes={{name:"no_of_days"}} />
+						attributes={{name:"no_of_days", type:"text"}} />
 					</tr>
 					);
 				} else {
+					//console.log(this.props.lists);
+					var item_label = (typeof this.props.lists.typelist!='undefined') ? this._getLabel(this.props.lists.typelist, this.props.defaultValues.item_id) : '';
+					var description = (typeof this.props.lists.typelist!='undefined') ? this._getDescription(this.props.lists.typelist, this.props.defaultValues.item_id) : '';
+					var jobtype_lavel = (typeof this.props.lists.listjotype!='undefined') ? this._getJobtype_label(this.props.lists.listjotype, this.props.defaultValues.jobtype_id) : '';
+
 					return (
 						<tr onClick={this.handleClick} id={"item-"+parseInt(this.props.id+1)}>
-							<td>{this.props.defaultValues.item_label}</td>
-							<td>{this.props.defaultValues.description}</td>
-							<td>{this.props.defaultValues.jobtype_label}</td>
+							<td>{item_label}</td>
+							<td>{description}</td>
+							<td>{jobtype_lavel}</td>
 							<td>{this.props.defaultValues.no_of_days}</td>
 						</tr>
 					);

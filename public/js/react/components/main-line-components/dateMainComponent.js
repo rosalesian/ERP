@@ -16,13 +16,13 @@ window.DateMainComponent = React.createClass({
 			var field;
 			if(this.props.context=='create' || this.props.context=='edit') {
 				field = <div className="form-group">
-						<label for={this.props.attributes.id}>{this.props.attributes.label}</label>
-		            	<input onChange={this.handleChange} 
-		            	type="date" 
-		            	value={this.props.defaultValue} 
-		            	name={this.props.attributes.name} 
-		            	id={this.props.attributes.name} 
-		            	className="form-control" />	
+							<label for={this.props.attributes.id}>{this.props.attributes.label}</label>
+			            	<input onChange={this.handleChange} 
+			            	type="date" 
+			            	value={this.props.defaultValue} 
+			            	name={this.props.attributes.name} 
+			            	id={this.props.attributes.name} 
+			            	className="form-control" />
 			            </div> 
 			} else {
 				field =  <div className="form-group">
