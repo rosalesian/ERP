@@ -13,7 +13,11 @@ class EmployeeTableSeeder extends Seeder
     public function run()
     {
         //clear table
+<<<<<<< HEAD
         Employee::truncate();
+=======
+        //Employee::truncate();
+>>>>>>> job_order_views
 
         //1st row
         Employee::create([

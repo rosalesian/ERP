@@ -10,6 +10,10 @@ class LaborItem extends Model {
 			'item_id',
 			'jobtype_id',
 			'created_by',
+<<<<<<< HEAD
+=======
+			'no_of_days',
+>>>>>>> job_order_views
 			'updated_by',
 			'created_at',
 			'updated_at'
@@ -40,7 +44,12 @@ class LaborItem extends Model {
 				$temp = [];
 				$temp['joborder_id'] = $id;
 				$temp['item_id'] = $data_labor['item_id'];
+<<<<<<< HEAD
 				$temp['jobtype_id'] = $data_labor['unit_id'];
+=======
+				$temp['jobtype_id'] = $data_labor['jobtype_id'];
+				$temp['no_of_days'] = $data_labor['no_of_days'];
+>>>>>>> job_order_views
 				$temp['created_by'] = 1;
 				$temp['updated_by'] = 1;
 				$temp['created_at'] = date('Y-m-d h:i:s');

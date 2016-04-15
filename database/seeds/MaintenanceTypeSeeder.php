@@ -12,6 +12,7 @@ class MaintenanceTypeSeeder extends Seeder
      */
     public function run()
     {
+<<<<<<< HEAD
         MaintenanceType::truncate();
 
         $faker = Faker\Factory::create();
@@ -25,5 +26,33 @@ class MaintenanceTypeSeeder extends Seeder
         		'updated_by' => 1
         	]);
         }
+=======
+        //MaintenanceType::truncate();
+
+       //1st row
+        MaintenanceType::create([
+            'name' => 'Regular/Preventive',
+            'description' => 'Description for Regular/Preventive',
+            'created_at' => date('Y-m-d h:i:s'),
+            'updated_at' => date('Y-m-d h:i:s')
+        ]);
+
+        //2nd row
+        MaintenanceType::create([
+            'name' => 'Corrective',
+            'description' => 'Descriptin for Corrective',
+            'created_at' => date('Y-m-d h:i:s'),
+            'updated_at' => date('Y-m-d h:i:s')
+        ]);
+
+        //3rd row
+        MaintenanceType::create([
+            'name' => 'Breakdown',
+            'description' => 'Description for Breakdown',
+            'created_at' => date('Y-m-d h:i:s'),
+            'updated_at' => date('Y-m-d h:i:s')
+        ]);
+
+>>>>>>> job_order_views
     }
 }

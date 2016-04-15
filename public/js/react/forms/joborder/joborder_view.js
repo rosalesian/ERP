@@ -1,6 +1,10 @@
 window.JOMainComponent = React.createClass({
 	getDefaultProps : function () {
 		return { 
+<<<<<<< HEAD
+=======
+			lists:{},
+>>>>>>> job_order_views
 			data:[],
 			context:''
 		};
@@ -11,6 +15,10 @@ window.JOMainComponent = React.createClass({
 			type:'',
 			prcategory_id: '',
 			context:'',
+<<<<<<< HEAD
+=======
+			isCheck: '',
+>>>>>>> job_order_views
 
 			item_id: '',
 			jobtype_id: '',
@@ -20,13 +28,17 @@ window.JOMainComponent = React.createClass({
 		
 
 			//for edit
+<<<<<<< HEAD
 			id: (typeof this.props.data.id=='undefined') ? '' : this.props.data.id,
+=======
+>>>>>>> job_order_views
 			type_id: (typeof this.props.data.type_id=='undefined') ? '' : this.props.data.type_id,
 			requested_by: (typeof this.props.data.requested_by=='undefined') ? '' : this.props.data.requested_by,
 			prcategory_id: (typeof this.props.data.prcategory_id=='undefined') ? '' : this.props.data.prcategory_id,
 			maintenancetype_id: (typeof this.props.data.maintenancetype_id=='undefined') ? '' : this.props.data.maintenancetype_id,
 			transdate: (typeof this.props.data.transdate=='undefined') ? '' : this.props.data.transdate,
 			memo: (typeof this.props.data.memo=='undefined') ? '' : this.props.data.memo,
+<<<<<<< HEAD
 			asset: (typeof this.props.data.asset=='undefined') ? '' : this.props.data.asset,
 			pr_id: (typeof this.props.data.id=='undefined') ? '' : this.props.data.id,
 			type_id : (typeof this.props.data.type_id=='undefined') ? '' : this.props.data.type_id,
@@ -41,6 +53,17 @@ window.JOMainComponent = React.createClass({
 			joborder_id: (typeof this.props.data.joborder_id=='undefined') ? '' : this.props.data.joborder_id,
 			jobdescription:  (typeof this.props.data.jobdescription=='undefined') ? '' : this.props.data.jobdescription,
 			noofdays:  (typeof this.props.data.noofdays=='undefined') ? '' : this.props.data.noofdays,
+=======
+			asset_id: (typeof this.props.data.asset_id=='undefined') ? '' : this.props.data.asset_id,
+			pr_id: (typeof this.props.data.id=='undefined') ? '' : this.props.data.id,
+			type_id : (typeof this.props.data.type_id=='undefined') ? '' : this.props.data.type_id,
+			date : (typeof this.props.data.date=='undefined') ? '' : this.props.data.date,
+			remarks : (typeof this.props.data.remarks=='undefined') ? '' : this.props.data.remarks,
+			requester : (typeof this.props.data.requester=='undefined') ? '' : this.props.data.requester,
+			total: '',
+			id: ''
+			
+>>>>>>> job_order_views
 
 		};
 	},
@@ -48,7 +71,10 @@ window.JOMainComponent = React.createClass({
 		this.setState(obj);
 	},
 	render : function () {
+<<<<<<< HEAD
 		//console.log(this.state);
+=======
+>>>>>>> job_order_views
 		return (
 			<div>
 				<div className="box box-primary">
@@ -65,20 +91,32 @@ window.JOMainComponent = React.createClass({
 
 			     <div className="nav-tabs-custom">
 				    <ul className="nav nav-tabs">
+<<<<<<< HEAD
 					    <li className="active"><a href="#tab_1" data-toggle="tab">Material Cost</a></li>
 					    <li><a href="#tab_2" data-toggle="tab">Labor Cost</a></li>
 					    <li><a href="#tab_3" data-toggle="tab">Notes</a></li>
+=======
+					    <li className="active"><a href="#tab_1" data-toggle="tab">Labor Cost</a></li>
+					    <li><a href="#tab_2" data-toggle="tab">Notes</a></li>
+					    
+>>>>>>> job_order_views
 				    </ul>
 			    	<div className="tab-content">
 				        <div className="tab-pane active" id="tab_1">
 				            
+<<<<<<< HEAD
 				            <JOTable callBackParent={this.handleCallBackLine}
 					            data={this.props.items}
+=======
+				           <LaborCostTable callBackParent={this.handleCallBackLine}
+					            data={this.props.laborcosts}
+>>>>>>> job_order_views
 					            pr_id={this.state.pr_id}
 					            context={this.props.context} />
 
 				        </div>
 				        <div className="tab-pane" id="tab_2">
+<<<<<<< HEAD
 				        	<LaborCostTable callBackParent={this.handleCallBackLine}
 					            data={this.props.laborcosts}
 					            pr_id={this.state.pr_id}
@@ -86,6 +124,12 @@ window.JOMainComponent = React.createClass({
 
 				        </div>
 				        <div className="tab-pane" id="tab_3"> </div>
+=======
+				        	
+
+				        </div>
+				       
+>>>>>>> job_order_views
 				    </div>
 	      		</div>
 		       
@@ -134,11 +178,19 @@ window.JOrimaryComponent = React.createClass({
 	},
 	render : function () 
 	{
+<<<<<<< HEAD
 		if(this.props.context=='create' || this.props.context=='edit') {
+=======
+		console.log(this.props.defaultValues);
+		if(this.props.context=='create' || this.props.context=='edit') 
+		{
+			
+>>>>>>> job_order_views
 			return (
 				<Wrapper>
 	            	<FieldContainer>
 
+<<<<<<< HEAD
 	        		<DateMainComponent callBackParent={this.handleChangeCallBack}
 	        				context={this.props.context}
 	        				defaultValue={this.props.defaultValues.transdate} 
@@ -193,17 +245,76 @@ window.JOrimaryComponent = React.createClass({
 	            
 		        </Wrapper>
 			);
+=======
+	            	<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		    				context={this.props.context}
+		    				options={this.props.lists.assets}
+		    				defaultValue={this.props.defaultValues.asset_id}
+		    				attributes={{name:"asset_id", label:"ASSET"}} />
+
+		        		<DateMainComponent callBackParent={this.handleChangeCallBack}
+		        				context={this.props.context}
+		        				defaultValue={this.props.defaultValues.transdate} 
+		        				attributes={{name:"transdate", label:"DATE"}} />   	
+		        	</FieldContainer>
+
+		        	<FieldContainer>
+		    			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		    				context={this.props.context}
+		    				options={this.props.lists.maintenancetypes}
+		    				defaultValue={this.props.defaultValues.maintenancetype_id}
+		    				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE"}} />
+
+		    			<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		    				context={this.props.context}
+		    				options={this.props.lists.prcategories}
+		    				defaultValue={this.props.defaultValues.prcategory_id}
+		    				attributes={{name:"prcategory_id", label:"CATEGORIES"}} />
+		    		</FieldContainer>
+
+		    		<FieldContainer>
+			    		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+			    				context={this.props.context}
+			    				options={this.props.lists.empployees}
+			    				defaultValue={this.props.defaultValues.requested_by}
+			    				attributes={{name:"requested_by", label:"REQUESTED BY"}} />
+						
+		        		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+		        				context={this.props.context}
+		        				defaultValue={this.props.defaultValues.memo}
+		        				attributes={{name:"memo", label:"REMARKS"}} />
+
+	        		</FieldContainer>    
+		        </Wrapper>
+			);
+			
+>>>>>>> job_order_views
 		}
 		else {
 			return (
 				<Wrapper>
 	            	<FieldContainer>
+<<<<<<< HEAD
 
 	        		<DateMainComponent callBackParent={this.handleChangeCallBack}
+=======
+		            	<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		    				context={this.props.context}
+		    				defaultValue={this.props.defaultValues.requested_by}
+		    				attributes={{name:"requested_by", label:"REQUESTED BY"}} />
+	        		
+		        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		    				context={this.props.context}
+		    				defaultValue={this.props.defaultValues.asset_id}
+		    				attributes={{name:"asset_id", label:"ASSET"}} />
+
+			        	<DateMainComponent callBackParent={this.handleChangeCallBack}
+>>>>>>> job_order_views
 	        				context={this.props.context}
 	        				defaultValue={this.props.defaultValues.transdate} 
 	        				attributes={{name:"transdate", label:"DATE"}} />	
 
+<<<<<<< HEAD
 	        		<SelectMainComponent callBackParent={this.handleChangeCallBack}
 	    				context={this.props.context}
 	    				
@@ -239,10 +350,27 @@ window.JOrimaryComponent = React.createClass({
 	    				attributes={{name:"prcategory_id", label:"CATEGORIES"}} />
 
 	        		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+=======
+	        		</FieldContainer>
+
+					<FieldContainer> 
+						<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		    				context={this.props.context}		    				
+		    				defaultValue={this.props.defaultValues.maintenancetype_id}
+		    				attributes={{name:"maintenancetype_id", label:"TYPE OF MAINTENACE"}} />
+
+						<SelectMainComponent callBackParent={this.handleChangeCallBack}
+		    				context={this.props.context}		    				
+		    				defaultValue={this.props.defaultValues.prcategory_id}
+		    				attributes={{name:"prcategory_id", label:"CATEGORIES"}} />
+
+		        		<TextAreaMainComponent callBackParent={this.handleChangeCallBack} 
+>>>>>>> job_order_views
 	        				context={this.props.context}
 	        				defaultValue={this.props.defaultValues.memo}
 	        				attributes={{name:"memo", label:"REMARKS"}} />
 
+<<<<<<< HEAD
 	        		<TextMainComponent callBackParent={this.handleChangeCallBack} 
 	    				context={this.props.context}
 	    				defaultValue={this.props.defaultValues.deliver_to} 
@@ -251,6 +379,14 @@ window.JOrimaryComponent = React.createClass({
 	        		</FieldContainer>
 
 	            
+=======
+		        		</FieldContainer>
+
+		            	<FieldContainer>
+		        			<SummaryComponent defaultValue={this.props.defaultValues.total}/>
+		        	</FieldContainer>
+
+>>>>>>> job_order_views
 		        </Wrapper>
 			);
 		}
@@ -258,6 +394,7 @@ window.JOrimaryComponent = React.createClass({
 });
 
 
+<<<<<<< HEAD
 window.JOTable = React.createClass({
 	getDefaultProps : function () {
 		return {
@@ -638,6 +775,42 @@ window.TableRow = React.createClass({
 });
 
 
+=======
+window.SummaryComponent = React.createClass({
+	render : function () {
+		var subtotal=this.props.defaultValue,
+			vat=0,
+			total=0;
+
+		vat = parseFloat(subtotal * parseFloat(0.12));
+		total = subtotal + vat;
+		return (
+				<table className="table" style={{border:'1px solid #f4f4f4', marginTop:'15px'}}>
+					<thead>
+						<tr>
+							<th colSpan="2" className="summary-header">SUMMARY</th>
+						</tr>
+					</thead>
+					<tbody className="summary-container">
+						<tr>
+							<td>SUBTOTAL</td>
+							<td>{subtotal}</td>
+						</tr>
+						<tr>
+							<td style={{borderBottom:'1px solid black'}}>VAT</td>
+							<td style={{borderBottom:'1px solid black'}}>{vat}</td>
+						</tr>
+						<tr>
+							<td><b>TOTAL</b></td>
+							<td>{total}</td>
+						</tr>
+					</tbody>							
+				</table>
+		);
+	}
+});
+
+>>>>>>> job_order_views
 window.LaborCostTable = React.createClass({
 	getDefaultProps : function () {
 		return {
@@ -667,6 +840,7 @@ window.LaborCostTable = React.createClass({
 			dataStorage:dataStorage,
 			rows:rows,
 			item_id:'',
+<<<<<<< HEAD
 			unit_id:'',
 			description:'',
 			item_label:'',
@@ -675,6 +849,13 @@ window.LaborCostTable = React.createClass({
 			noofdays_label: '',
 			noofdays_id: '',
 			jobtype_label: '',
+=======
+			description:'',
+			item_label:'',
+			jobtype_label: '',
+			jobtype_id: '',
+			no_of_days: '',
+>>>>>>> job_order_views
 
 			pr_id:this.props.pr_id
 		};
@@ -683,6 +864,7 @@ window.LaborCostTable = React.createClass({
 		var state = {};
 			state.item_id = '';
 			state.jobtype_id='';
+<<<<<<< HEAD
 			state.joborder_id='';
 			state.jobdescription='';
 			state.noofdays_id = '';
@@ -692,6 +874,16 @@ window.LaborCostTable = React.createClass({
 	},
 	render : function () {
 		console.log(this.state);
+=======
+			state.jobtype_label = '';
+			state.joborder_id='';
+			state.jobdescription='';
+			state.no_of_days='';
+		return state;
+	},
+	render : function () {
+		//console.log(this.state);
+>>>>>>> job_order_views
 		if(this.props.context=='view') {
 			return (
 				<div className="tableWrapper">
@@ -702,6 +894,10 @@ window.LaborCostTable = React.createClass({
 							<th>Job description</th>
 							<th>Repair type</th>
 							<th>No of days</th>
+<<<<<<< HEAD
+=======
+							<th>Canvass</th>
+>>>>>>> job_order_views
 						
 						</tr>
 					</thead>
@@ -767,6 +963,7 @@ window.LaborCostTable = React.createClass({
 						state.item_label = obj.item_label;
 					break;
 				case "jobtype_id":
+<<<<<<< HEAD
 						state.jobtype_id = obj.unit_id;
 						state.jobtype_id = obj.jobtype_id;
 					break;
@@ -776,6 +973,14 @@ window.LaborCostTable = React.createClass({
 				case "noofdays_id":
 						state.noofdays_id = obj.noofdays_id;
 						state.noofdays_label = obj.noofdays_label;	
+=======
+						state.jobtype_id = obj.jobtype_id;
+						state.jobtype_label = obj.jobtype_label;
+					break;
+				case "no_of_days":
+						state.no_of_days=obj.no_of_days;
+					break;
+>>>>>>> job_order_views
 			}
 			rows[obj.id] = <TableRowLabor callBackParent={this.handleCallBack}
 							defaultValues={state}
@@ -796,11 +1001,18 @@ window.LaborCostTable = React.createClass({
 			item_id:this.state.item_id,
 			item_label:this.state.item_label,
 			description: this.state.description,
+<<<<<<< HEAD
 			unit_id:this.state.unit_id,
 			uom_label:this.state.uom_label,
 			noofdays_id:this.state.noofdays_id,
 			noofdays_label:this.state.noofdays_label,
 			quantity:this.state.quantity
+=======
+			jobtype_id:this.state.jobtype_id,
+			jobtype_label:this.state.jobtype_label,
+			no_of_days:this.state.no_of_days,
+			id: ''
+>>>>>>> job_order_views
 		};
 		dataStorage.push(obj);
 		this.setState(this._initial_data()); //empty state values
@@ -839,12 +1051,19 @@ window.LaborCostTable = React.createClass({
 		var state = this.state;
 		state.item_id = dataStorage[rowid].item_id;
 		state.item_label = dataStorage[rowid].item_label;
+<<<<<<< HEAD
 		state.unit_id = dataStorage[rowid].unit_id;
 		state.uom_label = dataStorage[rowid].uom_label;
 		state.description = dataStorage[rowid].description;
 		state.noofdays_id = dataStorage[rowid].noofdays_id;
 		state.noofdays_label = dataStorage[rowid].noofdays_label;
 		state.quantity = dataStorage[rowid].quantity;
+=======
+		state.description = dataStorage[rowid].description;
+		state.jobtype_id = dataStorage[rowid].jobtype_id;
+		state.jobtype_label = dataStorage[rowid].jobtype_label;
+		state.no_of_days = dataStorage[rowid].no_of_days;
+>>>>>>> job_order_views
 		this.setState(state);
 
 		this.setState({rows:rows, editLineItem:true});
@@ -854,6 +1073,7 @@ window.LaborCostTable = React.createClass({
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
 		rows.length=0;
+<<<<<<< HEAD
 		dataStorage[id] = {
 			item_id:this.state.item_id,
 			item_label:this.state.item_label,
@@ -864,6 +1084,15 @@ window.LaborCostTable = React.createClass({
 			noofdays_label:this.state.noofdays_label,
 			quantity:this.state.quantity
 		};
+=======
+		
+		dataStorage[id].item_id = this.state.item_id,
+		dataStorage[id].item_label = this.state.item_label,
+		dataStorage[id].description = this.state.description,
+		dataStorage[id].jobtype_id = this.state.jobtype_id,
+		dataStorage[id].jobtype_label = this.state.jobtype_label,
+		dataStorage[id].no_of_days = this.state.no_of_days
+>>>>>>> job_order_views
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <TableRowLabor callBackParent={this.handleCallBack}
@@ -952,7 +1181,12 @@ window.TableRowLabor = React.createClass({
 					<td>{this.props.defaultValues.item_label}</td>
 					<td>{this.props.defaultValues.description}</td>
 					<td>{this.props.defaultValues.jobtype_label}</td>
+<<<<<<< HEAD
 					<td>{this.props.defaultValues.noofdays_label}</td>
+=======
+					<td>{this.props.defaultValues.no_of_days}</td>
+					<td><a href={"#"} data-toggle={"modal"} data-target={"#myModal"} onClick={this.displayModal.bind(this,this.props.defaultValues)}><i className="fa fa-toggle-up" style={{fontSize:"25px",marginLeft:"30%"}}></i></a></td>
+>>>>>>> job_order_views
 				</tr>
 			);
 		} else {
@@ -969,11 +1203,19 @@ window.TableRowLabor = React.createClass({
 
 						<REPAIR_TYPE callBackParent={this.handleCallBack} 
 						source={base_url+'/ajax/getJoborderType'}
+<<<<<<< HEAD
 						defaultValue={this.props.defaultValues.joborder_id} />
 
 						<Quantity callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.quantity}
 						attributes={{name:"quantity"}} />
+=======
+						defaultValue={this.props.defaultValues.jobtype_id} />
+
+						<Quantity callBackParent={this.handleCallBack} 
+						defaultValue={this.props.defaultValues.no_of_days}
+						attributes={{name:"no_of_days"}} />
+>>>>>>> job_order_views
 					</tr>
 				);
 			} else {
@@ -994,8 +1236,13 @@ window.TableRowLabor = React.createClass({
 						
 
 						<Quantity callBackParent={this.handleCallBack}
+<<<<<<< HEAD
 						defaultValue={this.props.defaultValues.quantity}
 						attributes={{name:"quantity"}} />
+=======
+						defaultValue={this.props.defaultValues.no_of_days}
+						attributes={{name:"no_of_days"}} />
+>>>>>>> job_order_views
 					</tr>
 					);
 				} else {
@@ -1003,8 +1250,13 @@ window.TableRowLabor = React.createClass({
 						<tr onClick={this.handleClick} id={"item-"+parseInt(this.props.id+1)}>
 							<td>{this.props.defaultValues.item_label}</td>
 							<td>{this.props.defaultValues.description}</td>
+<<<<<<< HEAD
 							<td>{this.props.defaultValues.noofdays_id}</td>
 							<td>{this.props.defaultValues.quantity}</td>
+=======
+							<td>{this.props.defaultValues.jobtype_label}</td>
+							<td>{this.props.defaultValues.no_of_days}</td>
+>>>>>>> job_order_views
 						</tr>
 					);
 				}
@@ -1012,13 +1264,21 @@ window.TableRowLabor = React.createClass({
 		}
 	},
 	displayModal : function (defaultValues, evt) {
+<<<<<<< HEAD
 		console.log(defaultValues);
+=======
+		//console.log(defaultValues);
+>>>>>>> job_order_views
 		ReactDOM.render(<CanvassComponent callBackParent={this.handleCallBackLine}
 							defaultValues={defaultValues}
 				            context='create' />, document.getElementById('myModal'));
 	},
 	handleSaveCanvass : function (data) {
+<<<<<<< HEAD
 		console.log(data);
+=======
+		//console.log(data);
+>>>>>>> job_order_views
 	},
 	handleClick : function (evt) {
 		this.props.handleCallBackParentClick(evt.currentTarget.id);

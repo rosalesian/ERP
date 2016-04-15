@@ -12,7 +12,11 @@ class PurchaseCategoryTableSeeder extends Seeder
      */
     public function run()
     {
+<<<<<<< HEAD
         PurchaseRequestCategory::truncate();
+=======
+        //PurchaseRequestCategory::truncate();
+>>>>>>> job_order_views
 
         $faker = Faker\Factory::create();
 

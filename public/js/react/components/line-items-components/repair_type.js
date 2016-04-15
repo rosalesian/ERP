@@ -54,18 +54,29 @@ window.REPAIR_TYPE = React.createClass({
 	},
 	handleChange : function (event) {
 		var obj = {};
+<<<<<<< HEAD
 		obj.name = 'unit_id';
 		obj['unit_id'] = event.value;
 		obj['REPAIR_TYPE_label'] = event.label;
+=======
+		obj.name = 'jobtype_id';
+		obj['jobtype_id'] = event.value;
+		obj['jobtype_label'] = event.label;
+>>>>>>> job_order_views
 		this.props.callBackParent(obj);
 	},
 	render : function () {
 		return(
 			<td>
 				<Select onChange={this.handleChange} 
+<<<<<<< HEAD
                 id='unit_id'
                 className="react-select-input-mainline" 
                 name='unit_id'
+=======
+                id='jobtype_id'
+                className="react-select-input-mainline" 
+>>>>>>> job_order_views
                 value={this.state.defaultValue}
                 options={this.state.data} 
                 placeholder={this.state.placeholder} 

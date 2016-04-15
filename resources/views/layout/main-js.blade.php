@@ -70,4 +70,8 @@
     <script src="{{ asset('js/datatable.js') }}"></script>
 
           <!-- App scripts -->
+<<<<<<< HEAD
     @stack('scripts')
+=======
+    @stack('scripts_index')
+>>>>>>> job_order_views

@@ -3,17 +3,30 @@
 use Illuminate\Database\Eloquent\Model;
 use Datatables;
 use DB;
+<<<<<<< HEAD
+=======
+use Nixzen\Models\LaborItem;
+>>>>>>> job_order_views
 
 class JobOrder extends Model {
 
 	protected $fillable = [
 			'transdate',
 			'transnumber',
+<<<<<<< HEAD
 			'asset',
 			'requested_by',
 			'maintenancetype_id',
 			'prcategory_id',
 			'memo'
+=======
+			'asset_id',
+			'requested_by',
+			'maintenancetype_id',
+			'prcategory_id',
+			'memo',
+			'purchaserequest_id'
+>>>>>>> job_order_views
 		];
 	protected $table = 'job_orders';
 	
@@ -72,6 +85,7 @@ class JobOrder extends Model {
     public function laborItems() {
         return $this->hasMany('Nixzen\Models\LaborItem', 'joborder_id');
     }
+<<<<<<< HEAD
 
 	//last event
 	/*//need to modified
@@ -95,6 +109,18 @@ class JobOrder extends Model {
 
         $jobs = DB::table('job_orders')
         				->leftjoin('items', 'job_orders.asset', '=', 'items.id')
+=======
+    //add relationship joborder to purchase requests
+    public function purchseRequests() {
+    	return $this->belongsTo('Nixzen\Models\PurchaseRequest', 'purchaserequest_id');
+    }
+
+
+	public static function getIndex() {
+
+        $jobs = JobOrder::select('job_orders')
+        				->leftjoin('assets', 'job_orders.asset_id', '=', 'assets.id')
+>>>>>>> job_order_views
         				->leftjoin('departments', 'job_orders.id', '=', 'departments.id')
         				->leftjoin('employees', 'job_orders.requested_by', '=', 'employees.id')
         				->leftjoin('maintenance_types', 'job_orders.maintenancetype_id', '=', 'maintenance_types.id')
@@ -102,15 +128,26 @@ class JobOrder extends Model {
         				->select(
 	        					'job_orders.id', 
 	        					'job_orders.transdate', 
+<<<<<<< HEAD
 	        					'items.description as item_description',
 	        					'job_orders.memo',
 	        					'departments.name as dept_name', 
 	        					'employees.firstname',
+=======
+	        					'assets.name as asset_name',
+	        					'job_orders.memo',
+	        					'departments.name as dept_name', 
+	        					DB::raw('CONCAT(employees.firstname, " ", employees.middlename, " ", employees.lastname) AS full_name'),
+>>>>>>> job_order_views
 	        					'maintenance_types.description as maintenance_description',
 	        					'purchase_request_categories.description as prc_description',
 	        					'job_orders.created_at',
 	        					'job_orders.updated_at'
+<<<<<<< HEAD
         					);
+=======
+        					)->get();
+>>>>>>> job_order_views
 
         return Datatables::of($jobs)
         					 ->addColumn('action', function ($jobs) {
@@ -118,6 +155,32 @@ class JobOrder extends Model {
 					                '<a href="joborder/'.$jobs->id.'/edit">Edit |</a>
 					                <a href="joborder/'.$jobs->id.'"">View</a>';
 					            })
+<<<<<<< HEAD
         					->make(true);
 	}
+=======
+        					->editColumn('created_at', '{!! $created_at->diffForHumans() !!}')
+        					->make(true);
+	}
+
+	public static function addJObOrder($data) {
+
+		DB::beginTransaction();
+
+		$joborder = JobOrder::create($data);
+		if($joborder != null && $joborder != '' ) {
+			$data_labor_costs = $data['labor_costs'];
+			$value_labor = LaborItem::addLaborItem($data_labor_costs, $joborder->id);
+
+		}
+		else {
+			DB::rollback();
+		}
+
+		DB::commit();
+
+		return $joborder->id;
+
+	}
+>>>>>>> job_order_views
 }
