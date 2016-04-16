@@ -24,13 +24,15 @@ class CreateLaborItemsTable extends Migration {
             $table->timestamps();
             $table->foreign('item_id')
                   ->references('id')
-                  ->on('items');
+                  ->on('items')
+                  ->onDelete('cascade');
             $table->foreign('jobtype_id')
                   ->references('id')
                   ->on('job_order_types');
             $table->foreign('joborder_id')
                   ->references('id')
-                  ->on('job_orders');
+                  ->on('job_orders')
+                  ->onDelete('cascade');
         });
     }
 
