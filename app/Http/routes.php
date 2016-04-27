@@ -65,6 +65,15 @@ Route::group(['namespace' => 'Transaction'], function(){
 		'index' => 'prtable',
 	]);
 
+	/*
+	*	IAN ROSALES
+	*	Ajax Request For VendorBill Line-Item
+	*	April 16, 2016 1:51PM
+	*
+	*/
+	Route::get('ajax/transactions/getVendorBill/items', 'VendorBillController@getVendorBillItems');
+	Route::get('ajax/transactions/getVendorBill/expenses', 'VendorBillController@getVendorBillexpenses');
+
 });
 
 Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
@@ -73,6 +82,7 @@ Route::group(['namespace' => 'API', 'prefix' => 'api/1.0'], function(){
 	Route::post('pritem/{id}/canvass', 'CanvassController@save');
 	//lists
 	Route::resource('list', 'ListsController');
+
 });
 
 Route::group(['namespace' => 'Admin'], function(){
@@ -105,6 +115,7 @@ Route::group(['prefix' => 'ajax','namespace' => 'Lists'], function(){
 
 	//lists for jobordertype
 	Route::get('getJoborderType', 'JobOrderTypeController@getJoborderType');
+
 });
 
 /*ADDED BY BRIAN*/

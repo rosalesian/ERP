@@ -150,81 +150,74 @@ window.VendorBillPrimaryComponent = React.createClass({
             <Wrapper>
                 <FieldContainer>
 
-                    <TextMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     defaultValue={this.props.defaultValues.suppliers_inv_no}
-                    attributes={{name:"suppliers_inv_no", label:"SUPPLIER'S INVOICE NO"}} />
+                    attributes={{name:"suppliers_inv_no", type:"text", label:"SUPPLIER'S INVOICE NO"}} />
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     options={this.props.lists.items}
                     defaultValue={this.props.defaultValues.vendor_id}
-                    attributes={{name:"vendor_id", label:"VENDOR"}} />
+                    attributes={{name:"vendor_id", type:"select", label:"VENDOR"}} />
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                    	options={this.props.lists.billtypes}
                     defaultValue={this.props.defaultValues.billtype_id}
-                    attributes={{name:"billtype_id", label:"BILL TYPE"}} />
+                    attributes={{name:"billtype_id", type:"select", label:"BILL TYPE"}} />
 
 
-                    <DateMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     defaultValue={this.props.defaultValues.duedate}
-                    attributes={{name:"duedate", label:"DUE DATE"}} />
+                    attributes={{name:"duedate", type:"date", label:"DUE DATE"}} />
 
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     options={this.props.lists.approvalstatus}
                     defaultValue={this.props.defaultValues.approvalstatus_id}
-                    attributes={{name:"approvalstatus_id", label:"APPROVAL STATUS"}} />
+                    attributes={{name:"approvalstatus_id", type:"select", label:"APPROVAL STATUS"}} />
 
                 </FieldContainer>
 
                 <FieldContainer>
 
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     options={this.props.lists.departments}
                     defaultValue={this.props.defaultValues.department_id}
-                    attributes={{name:"department_id", label:"DEPARTMENT "}} />
+                    attributes={{name:"department_id", type:"select", label:"DEPARTMENT "}} />
 
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     options={this.props.lists.divisions}
                     defaultValue={this.props.defaultValues.division_id}
-                    attributes={{name:"division_id", label:"DIVISION"}} />
+                    attributes={{name:"division_id", type:"select" ,label:"DIVISION"}} />
 
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     options={this.props.lists.branches}
                     defaultValue={this.props.defaultValues.branch_id}
-                    attributes={{name:"branch_id", label:"BRANCH"}} />
+                    attributes={{name:"branch_id", type:"select", label:"BRANCH"}} />
 
           
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     options={this.props.lists.chartofaccounts}
                     defaultValue={this.props.defaultValues.coa_id}
-                    attributes={{name:"coa_id", label:"CHART OF ACCOUNT "}} />
+                    attributes={{name:"coa_id", type:"select", label:"CHART OF ACCOUNT "}} />
 
 
-                    <TextAreaMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     defaultValue={this.props.defaultValues.memo}
-                    attributes={{name:"memo", label:"MEMO"}} />
-
-                    <TextMainComponent callBackParent={this.handleChangeCallBack}
-                    context={this.props.context}
-                    defaultValue={this.props.defaultValues.transno}
-                    attributes={{name:"transno", label:"SUPPLIER'S INVOICE NO"}} />
-
-
+                    attributes={{name:"memo", type:"textarea", label:"MEMO"}} />
 
 
                 </FieldContainer>
@@ -232,29 +225,29 @@ window.VendorBillPrimaryComponent = React.createClass({
 
                 <FieldContainer>
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     options={this.props.lists.terms}
                     defaultValue={this.props.defaultValues.terms_id}
-                    attributes={{name:"terms_id", label:"TERMS"}} />
+                    attributes={{name:"terms_id", type:"select", label:"TERMS"}} />
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     options={this.props.lists.nontrades}
                     defaultValue={this.props.defaultValues.billtype_nontrade_subtype_id}
-                    attributes={{name:"billtype_nontrade_subtype_id", label:"NONE TRADE"}} />
+                    attributes={{name:"billtype_nontrade_subtype_id", type:"select", label:"NON-TRADE"}} />
 
-                    <DateMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     defaultValue={this.props.defaultValues.date}
-                    attributes={{name:"date", label:"DATE"}} />
+                    attributes={{name:"date", type:"date", label:"DATE"}} />
 
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     options={this.props.lists.postingperiods}
                     defaultValue={this.props.defaultValues.posting_period_id}
-                    attributes={{name:"posting_period_id", label:"POSTING PERIOD ID"}} />
+                    attributes={{name:"posting_period_id", type:"select", label:"POSTING PERIOD ID"}} />
 
 
                 </FieldContainer>
@@ -271,111 +264,93 @@ window.VendorBillPrimaryComponent = React.createClass({
             <Wrapper>
                 <FieldContainer>
 
-                    <TextMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     defaultValue={this.props.defaultValues.suppliers_inv_no}
-                    attributes={{name:"suppliers_inv_no", label:"SUPPLIER'S INVOICE NO"}} />
+                    attributes={{name:"suppliers_inv_no", type:"select", label:"SUPPLIER'S INVOICE NO"}} />
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
-                    context={this.props.context}
-                    
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
+                    context={this.props.context} 
                     defaultValue={this.props.defaultValues.vendor_id}
-                    attributes={{name:"vendor_id", label:"VENDOR"}} />
+                    attributes={{name:"vendor_id", type:"select", label:"VENDOR"}} />
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
-                  
                     defaultValue={this.props.defaultValues.billtype_id}
-                    attributes={{name:"billtype_id", label:"BILL TYPE"}} />
+                    attributes={{name:"billtype_id", type:"select", label:"BILL TYPE"}} />
 
 
-                    <DateMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     defaultValue={this.props.defaultValues.duedate}
-                    attributes={{name:"duedate", label:"DUE DATE"}} />
+                    attributes={{name:"duedate", type:"date", label:"DUE DATE"}} />
 
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
-                   
                     defaultValue={this.props.defaultValues.approvalstatus_id}
-                    attributes={{name:"approvalstatus_id", label:"APPROVAL STATUS"}} />
+                    attributes={{name:"approvalstatus_id", type:"select", label:"APPROVAL STATUS"}} />
 
                 </FieldContainer>
 
                 <FieldContainer>
 
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
-                    
                     defaultValue={this.props.defaultValues.department_id}
-                    attributes={{name:"department_id", label:"DEPARTMENT "}} />
+                    attributes={{name:"department_id", type:"select", label:"DEPARTMENT "}} />
 
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
-               
                     defaultValue={this.props.defaultValues.division_id}
-                    attributes={{name:"division_id", label:"DIVISION"}} />
+                    attributes={{name:"division_id", type:"select", label:"DIVISION"}} />
 
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
-                   
                     defaultValue={this.props.defaultValues.branch_id}
-                    attributes={{name:"branch_id", label:"BRANCH"}} />
+                    attributes={{name:"branch_id", type:"select", label:"BRANCH"}} />
 
           
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
-                   
                     defaultValue={this.props.defaultValues.coa_id}
-                    attributes={{name:"coa_id", label:"CHART OF ACCOUNT "}} />
+                    attributes={{name:"coa_id", type:"select", label:"CHART OF ACCOUNT "}} />
 
 
-                    <TextAreaMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     defaultValue={this.props.defaultValues.memo}
-                    attributes={{name:"memo", label:"MEMO"}} />
-
-                    <TextMainComponent callBackParent={this.handleChangeCallBack}
-                    context={this.props.context}
-                    defaultValue={this.props.defaultValues.transno}
-                    attributes={{name:"transno", label:"SUPPLIER'S INVOICE NO"}} />
-
-
-
+                    attributes={{name:"memo", type:"textarea", label:"MEMO"}} />
 
                 </FieldContainer>
 
 
                 <FieldContainer>
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
-                  
                     defaultValue={this.props.defaultValues.terms_id}
-                    attributes={{name:"terms_id", label:"TERMS"}} />
+                    attributes={{name:"terms_id", type:"select", label:"TERMS"}} />
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
-               
                     defaultValue={this.props.defaultValues.billtype_nontrade_subtype_id}
-                    attributes={{name:"billtype_nontrade_subtype_id", label:"NONE TRADE"}} />
+                    attributes={{name:"billtype_nontrade_subtype_id", type:"select", label:"NON-TRADE"}} />
 
-                    <DateMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
                     defaultValue={this.props.defaultValues.date}
-                    attributes={{name:"date", label:"DATE"}} />
+                    attributes={{name:"date", type:"date", label:"DATE"}} />
 
 
-                    <SelectMainComponent callBackParent={this.handleChangeCallBack}
+                    <InputMainComponent callBackParent={this.handleChangeCallBack}
                     context={this.props.context}
-                    
                     defaultValue={this.props.defaultValues.posting_period_id}
-                    attributes={{name:"posting_period_id", label:"POSTING PERIOD ID"}} />
+                    attributes={{name:"posting_period_id", type:"select", label:"POSTING PERIOD ID"}} />
 
 
                 </FieldContainer>
@@ -392,12 +367,20 @@ window.VendorBillPrimaryComponent = React.createClass({
 
 
 
+window.DataStorage = React.createClass ({
+    render : function () {
+        return( <input type="hidden" name={this.props.name} value={JSON.stringify(this.props.data)}/> )
+    }
+});
+
+
 window.VENDORTable = React.createClass({
 	getDefaultProps : function () {
 		return {
 			editLineItem:false,
 			data:[],
-			pr_id:''
+			pr_id:'',
+            items: []
 		};
 	},
 	getInitialState : function () {
@@ -432,9 +415,46 @@ window.VENDORTable = React.createClass({
 			item_label:'',
 			uom_label:'',
 			quantity:'',
+            lists: [],
 			pr_id:this.props.pr_id
 		};
 	},
+    componentDidMount : function () {
+        if(this.props.context=='create' || this.props.context=='edit') {
+            this._ajaxRequest(base_url+'/ajax/transactions/getVendorBill/items');
+        }
+    },
+    _ajaxRequest : function (source) {
+        return $.ajax({
+            url:source,
+            dataType: 'json',
+            type:'GET',
+            success : function (response) {
+                //console.log(response);
+                var dataStorage = this.state.dataStorage;
+                var rows=this.state.rows;
+                if(this.props.data.length!=0) {
+                    dataStorage = this.props.data;
+                    rows=[];
+                    for(var i=0, counter=dataStorage.length; i<counter; i++) {
+                        rows[i] = <TableRow callBackParent={this.handleCallBack}
+                                    defaultValues={dataStorage[i]}
+                                    id={i}
+                                    key={i}
+                                    lists={response}
+                                    pr_id={this.props.pr_id}
+                                    context={this.props.context}
+                                    handleCallBackParentClick={this.handleCallBackClick} />
+                    }
+                }
+                this.setState({
+                    lists : response,
+                    rows : rows,
+                    dataStorage : dataStorage
+                });
+            }.bind(this)
+        });
+    },
 	_initial_data : function () {
 		var state = {};
 			state.item_id = '';
@@ -479,6 +499,7 @@ window.VENDORTable = React.createClass({
 			);
 		} else {
 			var that = this;
+            var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 			return (
 				<div className="tableWrapper">
 					<DataStorage data={this.state.dataStorage} name="items" />
@@ -504,6 +525,7 @@ window.VENDORTable = React.createClass({
 						{!this.state.editLineItem && (
 							<TableRow callBackParent={this.handleCallBack}
 							create={true}
+                            lists = {lists}
 							id={this.state.rows.length}
 							defaultValues={this.state} />
 						)}
@@ -526,17 +548,15 @@ window.VENDORTable = React.createClass({
 			this.setState(obj);
 		} else {
 			var rows = this.state.rows;
+            var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 			var state = this.state;
 			
 			switch(obj.name) {
 				case "item_id":
 						state.item_id = obj.item_id;
-						state.description = obj.description;
-						state.item_label = obj.item_label;
 					break;
 				case "uom_id":
 						state.uom_id = obj.uom_id;
-						state.uom_label = obj.uom_label;
 					break;
 				case "quantity":
 						state.quantity=obj.quantity;
@@ -549,7 +569,6 @@ window.VENDORTable = React.createClass({
 					break;
 				case "taxcode_id":
 						state.taxcode_id=obj.taxcode_id;
-						state.taxcode_label=obj.taxcode_label;
 					break;
 				case "gross_amount":
 						state.gross_amount=obj.gross_amount;
@@ -561,6 +580,7 @@ window.VENDORTable = React.createClass({
 			rows[obj.id] = <TableRow callBackParent={this.handleCallBack}
 							defaultValues={state}
 							edit={true}
+                            lists={lists}
 							id={obj.id}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			this.setState(state);
@@ -571,7 +591,9 @@ window.VENDORTable = React.createClass({
 	handleAdd : function () {
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
+        var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.push( <TableRow callBackParent={this.handleCallBack}
+                    lists={lists}
 					defaultValues={this.state} id={rows.length} key={rows.length} handleCallBackParentClick={this.handleCallBackClick}/> );
 		var obj = {
 			item_id:this.state.item_id,
@@ -600,6 +622,7 @@ window.VENDORTable = React.createClass({
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
 		rows.length=0;
+        var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			if(i==rowid) {
@@ -607,12 +630,14 @@ window.VENDORTable = React.createClass({
 							defaultValues={dataStorage[i]}
 							edit={true}
 							id={i}
+                            lists={lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			} else {
 				rows[i] = <TableRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+                            lists={lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			}
@@ -643,6 +668,7 @@ window.VENDORTable = React.createClass({
 	handleUpdate : function (id) {
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
+        var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.length=0;
 	
 		dataStorage[id].item_id = this.state.item_id;
@@ -664,6 +690,7 @@ window.VENDORTable = React.createClass({
 			rows[i] = <TableRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+                            lists = {lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 		}
@@ -675,11 +702,13 @@ window.VENDORTable = React.createClass({
 		var dataStorage = this.state.dataStorage;
 		dataStorage.splice(id,1);
 		var rows = this.state.rows;
+        var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.length=0;
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <TableRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+                            lists = {lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 		}
@@ -691,11 +720,13 @@ window.VENDORTable = React.createClass({
 		if(this.state.editLineItem) {
 			var rows = this.state.rows;
 			var dataStorage = this.state.dataStorage;
+             var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 			rows.length=0;
 			for(var i=0, counter=dataStorage.length; i<counter; i++) {
 				rows[i] = <TableRow callBackParent={this.handleCallBack}
 								defaultValues={dataStorage[i]}
 								id={i}
+                                lists = {lists}
 								key={i}
 								handleCallBackParentClick={this.handleCallBackClick} />
 			}
@@ -735,9 +766,67 @@ window.TableRow = React.createClass({
 			edit:false,
 			id:'',
 			pr_id:'',
-			context:''
+			context:'',
+            lists: [],
+            defaultValues:{}
 		}
 	},
+    getInitialState : function() {
+        return {
+            defaultValues:this.props.defaultValues
+        }
+    },
+    _getUOM : function (arraylists, itemid) {
+        for(var i=0, linecount=arraylists.length; i<linecount; i++) {
+            if(arraylists[i].value==itemid) {
+                return arraylists[i].units;
+            }
+        }
+    },
+
+    _getUOMLabel : function (arraylists, itemid) {
+        for(var i=0, linecount=arraylists.length; i<linecount; i++) {
+            if(arraylists[i].value==itemid) {
+                return arraylists[i].label;
+            }
+        }
+    },
+    _getDescription : function(arraylists, itemid) {
+        for(var i=0, linecount=arraylists.length; i<linecount; i++) {
+            if(arraylists[i].value==itemid) {
+                return arraylists[i].description;
+            }
+        }
+    },
+    _getLabel : function(arraylists, id) {
+        for(var i=0, count=arraylists.length; i<count; i++) {
+            if(arraylists[i].value==id) {
+                return arraylists[i].label;
+            }
+        }
+    },
+   
+    _getJobtype_id : function(arraylists, id) {
+        for(var i=0, count=arraylists.length; i<count; i++) {
+            if(arraylists[i].value==id) {
+                return arraylists[i].label;
+            }
+        }
+    },
+    _getJobtype_label : function(arraylists, id) {
+        for(var i=0, count=arraylists.length; i<count; i++) {
+            if(arraylists[i].value==id) {
+                return arraylists[i].label;
+            }
+        }
+    },
+    _getTaxLabel : function(arraylists, id) {
+        for(var i=0, count=arraylists.length; i<count; i++) {
+            if(arraylists[i].value==id) {
+                return arraylists[i].label;
+            }
+        }
+    },
 	render : function () {
 		if(this.props.context=='view') {
 			return (
@@ -758,108 +847,158 @@ window.TableRow = React.createClass({
 			);
 		} else {
 			if(this.props.create) {
+                                    console.log(this.props.lists);
+                var description = (typeof this.props.lists.items!='undefined') ? this._getDescription(this.props.lists.items, this.props.defaultValues.item_id) : '';
+                var uom = (typeof this.props.lists.items!='undefined') ? this._getUOM(this.props.lists.items, this.props.defaultValues.item_id) : '';
 				return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
-						<Item callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getItems'}
-						defaultValue={this.props.defaultValues.item_id} />
+						
 
-						<Description callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.description} />
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        options={this.props.lists.items}
+                        defaultValue={this.props.defaultValues.item_id}
+                        attributes={{name:"item_id", type:"select", placeholder:"CHOOSE ITEM"}} />
 
-						<VENDORBILLUOM callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getUOM/'+this.props.defaultValues.item_id}
-						defaultValue={this.props.defaultValues.uom_id} />
 
-						<Quantity callBackParent={this.handleCallBack} 
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        defaultValue={description}
+                        attributes={{type:"display"}} />
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        options={uom}
+                        defaultValue={this.props.defaultValues.uom_id}
+                        attributes={{name:"uom_id", type:"select", placeholder:"CHOOSE UOM"}} />
+
+
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.quantity}
-						attributes={{name:"quantity"}} />
+						attributes={{name:"quantity", type:"text"}} />
 
-						<Amount callBackParent={this.handleCallBack} 
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.amount}
-						attributes={{name:"amount"}} />
+						attributes={{name:"amount", type:"text"}} />
 
 
-						<TAXCode callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getTaxCode'}
-						defaultValue={this.props.defaultValues.taxcode_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.taxcodes}
+						defaultValue={this.props.defaultValues.taxcode_id}
+                        attributes={{name:"taxcode_id", type:"select", placeholder:"CHOOSE TAXCODE"}}  />
 
 
-						<TAXAmount callBackParent={this.handleCallBack} 
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.tax_amount}
-						attributes={{name:"tax_amount"}} />
+						attributes={{name:"tax_amount", type:"text"}} />
 
-						<GROSSAmount callBackParent={this.handleCallBack} 
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.gross_amount}
-						attributes={{name:"gross_amount"}} />
+						attributes={{name:"gross_amount", type:"text"}} />
 
-						<UNITCost callBackParent={this.handleCallBack} 
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.unit_cost}
-						attributes={{name:"unit_cost"}} />
+						attributes={{name:"unit_cost", type:"text" }} />
 						
 
 
 					</tr>
 				);
 			} else {
+
+                var description = (typeof this.props.lists.items!='undefined') ? this._getDescription(this.props.lists.items, this.props.defaultValues.item_id) : '';
+                var uom = (typeof this.props.lists.items!='undefined') ? this._getUOM(this.props.lists.items, this.props.defaultValues.item_id) : '';
 				if(this.props.edit) {
 					return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
-						<Item callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getItems'}
-						defaultValue={this.props.defaultValues.item_id} />
-
-						<Description callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.description} />
-
-						<VENDORBILLUOM callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getUOM/'+this.props.defaultValues.item_id}
-						defaultValue={this.props.defaultValues.uom_id} />
-
-						<Quantity callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.quantity}
-						attributes={{name:"quantity"}} />
-
-						<Amount callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.amount}
-						attributes={{name:"amount"}} />
+						     <InputLineComponent callBackParent={this.handleCallBack} 
+                        options={this.props.lists.items}
+                        defaultValue={this.props.defaultValues.item_id}
+                        attributes={{name:"item_id", type:"select", placeholder:"CHOOSE ITEM"}} />
 
 
-						<TAXCode callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getTaxCode'}
-						defaultValue={this.props.defaultValues.taxcode_id} />
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        defaultValue={description}
+                        attributes={{type:"display"}} />
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        options={uom}
+                        defaultValue={this.props.defaultValues.uom_id}
+                        attributes={{name:"uom_id", type:"select", placeholder:"CHOOSE UOM"}} />
 
 
-						<TAXAmount callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.tax_amount}
-						attributes={{name:"tax_amount"}} />
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        defaultValue={this.props.defaultValues.quantity}
+                        attributes={{name:"quantity", type:"text"}} />
 
-						<GROSSAmount callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.gross_amount}
-						attributes={{name:"gross_amount"}} />
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        defaultValue={this.props.defaultValues.amount}
+                        attributes={{name:"amount", type:"text"}} />
 
-						<UNITCost callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.unit_cost}
-						attributes={{name:"unit_cost"}} />
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        options={this.props.lists.taxcodes}
+                        defaultValue={this.props.defaultValues.taxcode_id}
+                        attributes={{name:"taxcode_id", type:"select", placeholder:"CHOOSE TAXCODE"}}  />
+
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        defaultValue={this.props.defaultValues.tax_amount}
+                        attributes={{name:"tax_amount", type:"text"}} />
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        defaultValue={this.props.defaultValues.gross_amount}
+                        attributes={{name:"gross_amount", type:"text"}} />
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        defaultValue={this.props.defaultValues.unit_cost}
+                        attributes={{name:"unit_cost", type:"text" }} />
 						
 
 
 					</tr>
 					);
 				} else {
-					return (
-						<tr onClick={this.handleClick} id={"item-"+parseInt(this.props.id+1)}>
-							<td>{this.props.defaultValues.item_label}</td>
-							<td>{this.props.defaultValues.description}</td>
-							<td>{this.props.defaultValues.uom_label}</td>
-							<td>{this.props.defaultValues.quantity}</td>
-							<td>{this.props.defaultValues.amount}</td>
-							<td>{this.props.defaultValues.taxcode_id}</td>
-							<td>{this.props.defaultValues.tax_amount}</td>
-							<td>{this.props.defaultValues.gross_amount}</td>
-							<td>{this.props.defaultValues.unit_cost}</td>
-						</tr>
-					);
+                    console.log(this.props.lists.items);
+                     var item_label = (typeof this.props.lists.items!='undefined') ? this._getLabel(this.props.lists.items, this.props.defaultValues.item_id) : '';
+                 
+                    var unitlists = (typeof this.props.lists.items!='undefined') ? this._getUOM(this.props.lists.items, this.props.defaultValues.item_id) : '';
+
+                  
+                    var description = (typeof this.props.lists.items!='undefined') ? this._getDescription(this.props.lists.items, this.props.defaultValues.item_id) : '';
+                    var taxlable = (typeof this.props.lists.taxcodes!='undefined') ? this._getTaxLabel(this.props.lists.taxcodes, this.props.defaultValues.taxcode_id) : '';
+                    console.log(this.props.edit);
+                    if(unitlists == '') {
+                            return (
+                            <tr onClick={this.handleClick} id={"item-"+parseInt(this.props.id+1)}>
+                                <td>{item_label}</td>
+                                <td>{description}</td>
+                                <td>{unitlists}</td>
+                                <td>{this.props.defaultValues.quantity}</td>
+                                <td>{this.props.defaultValues.amount}</td>
+                                <td>{taxlable}</td>
+                                <td>{this.props.defaultValues.tax_amount}</td>
+                                <td>{this.props.defaultValues.gross_amount}</td>
+                                <td>{this.props.defaultValues.unit_cost}</td>
+                            </tr>
+                        );
+                    }
+                    else
+                    {
+                        return (
+                        <tr onClick={this.handleClick} id={"item-"+parseInt(this.props.id+1)}>
+                            <td>{item_label}</td>
+                            <td>{description}</td>
+                            <td>{unitlists[0].label}</td>
+                            <td>{this.props.defaultValues.quantity}</td>
+                            <td>{this.props.defaultValues.amount}</td>
+                            <td>{taxlable}</td>
+                            <td>{this.props.defaultValues.tax_amount}</td>
+                            <td>{this.props.defaultValues.gross_amount}</td>
+                            <td>{this.props.defaultValues.unit_cost}</td>
+                        </tr>
+                    );
+                    }
+					
 				}
 			}
 		}
@@ -894,7 +1033,8 @@ window.EXPENSESTable = React.createClass({
 		return {
 			editLineItem:false,
 			data:[],
-			pr_id:''
+			pr_id:'',
+            items: []
 		};
 	},
 	getInitialState : function () {
@@ -928,16 +1068,56 @@ window.EXPENSESTable = React.createClass({
 			department_label: '',
 			division_id: '',
 			division_label: '',
-
 			branch_id: '',
 			branch_label: '',
-
 			vendor_id: '',
 			vendor_label: '',
-
+            lists:[],
 			pr_id:this.props.pr_id
 		};
 	},
+        componentDidMount : function () {
+        if(this.props.context=='create' || this.props.context=='edit') {
+            this._ajaxRequest(base_url+'/ajax/transactions/getVendorBill/expenses');
+        }
+    },
+    _ajaxRequest : function (source) {
+        return $.ajax({
+            url:source,
+            dataType: 'json',
+            type:'GET',
+            success : function (response) {
+                var dataStorage = this.state.dataStorage;
+                var rows=this.state.rows;
+                if(this.props.data.length!=0) {
+                    dataStorage = this.props.data;
+                    rows=[];
+                    for(var i=0, counter=dataStorage.length; i<counter; i++) {
+                        rows[i] = <EXPENSESRow callBackParent={this.handleCallBack}
+                                    defaultValues={dataStorage[i]}
+                                    id={i}
+                                    key={i}
+                                    lists={response}
+                                    pr_id={this.props.pr_id}
+                                    context={this.props.context}
+                                    handleCallBackParentClick={this.handleCallBackClick} />
+                    }
+                }
+                this.setState({
+                    lists : response,
+                    rows : rows,
+                    dataStorage : dataStorage
+                });
+            }.bind(this)
+        });
+    },
+    _initial_data : function () {
+        var state = {};
+            state.item_id = '';
+            state.unit_id = ''
+            state.quantity='';
+        return state;
+    },
 	_initial_data : function () {
 		var state = {};
 			state.amount = '';
@@ -987,6 +1167,7 @@ window.EXPENSESTable = React.createClass({
 			);
 		} else {
 			var that = this;
+            var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 			return (
 				<div className="tableWrapper">
 					<DataStorage data={this.state.dataStorage} name="expenses" />
@@ -1012,6 +1193,7 @@ window.EXPENSESTable = React.createClass({
 						{!this.state.editLineItem && (
 							<EXPENSESRow callBackParent={this.handleCallBack}
 							create={true}
+                            lists = {lists}
 							id={this.state.rows.length}
 							defaultValues={this.state} />
 						)}
@@ -1045,30 +1227,24 @@ window.EXPENSESTable = React.createClass({
 					break;
 				case "taxcode_id":
 						state.taxcode_id=obj.taxcode_id;
-						state.taxcode_label=obj.taxcode_label;
 					break;
 				case "gross_amount":
 						state.gross_amount=obj.gross_amount;
 					break;
 				case "coa_id":
 						state.coa_id=obj.coa_id;
-						state.coa_label=obj.coa_label;
 					break;
 				case "department_id":
 						state.department_id=obj.department_id;
-						state.department_label=obj.department_label;
 					break;
 				case "division_id":
 						state.division_id=obj.division_id;
-						state.division_label=obj.division_label;
 					break;
 				case "branch_id":
 						state.branch_id=obj.branch_id;
-						state.branch_label=obj.branch_label;
 					break;
 				case "vendor_id":
 						state.vendor_id=obj.vendor_id;
-						state.vendor_label=obj.vendor_label;
 					break;
 
 				
@@ -1076,6 +1252,7 @@ window.EXPENSESTable = React.createClass({
 			rows[obj.id] = <EXPENSESRow callBackParent={this.handleCallBack}
 							defaultValues={state}
 							edit={true}
+                            lists = {lists}
 							id={obj.id}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			this.setState(state);
@@ -1086,7 +1263,10 @@ window.EXPENSESTable = React.createClass({
 	handleAdd : function () {
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
+        var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
+
 		rows.push( <EXPENSESRow callBackParent={this.handleCallBack}
+                    lists = {lists}
 					defaultValues={this.state} id={rows.length} key={rows.length} handleCallBackParentClick={this.handleCallBackClick}/> );
 		var obj = {
 			amount:this.state.amount,
@@ -1120,6 +1300,7 @@ window.EXPENSESTable = React.createClass({
 		var rowid = parseInt(elemArr[1]-1);
 		var rows = this.state.rows;
 		var dataStorage = this.state.dataStorage;
+        var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.length=0;
 
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
@@ -1128,12 +1309,14 @@ window.EXPENSESTable = React.createClass({
 							defaultValues={dataStorage[i]}
 							edit={true}
 							id={i}
+                            lists={lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			} else {
 				rows[i] = <EXPENSESRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+                            lists={lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 			}
@@ -1170,6 +1353,7 @@ window.EXPENSESTable = React.createClass({
 	handleUpdate : function (id) {
 		var dataStorage = this.state.dataStorage;
 		var rows = this.state.rows;
+        var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.length=0;
 	
 		dataStorage[id].amount = this.state.amount;
@@ -1192,6 +1376,7 @@ window.EXPENSESTable = React.createClass({
 			rows[i] = <EXPENSESRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+                            lists = {lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 		}
@@ -1203,11 +1388,13 @@ window.EXPENSESTable = React.createClass({
 		var dataStorage = this.state.dataStorage;
 		dataStorage.splice(id,1);
 		var rows = this.state.rows;
+        var lists = (typeof this.state.lists!='undefined') ? this.state.lists : [];
 		rows.length=0;
 		for(var i=0, counter=dataStorage.length; i<counter; i++) {
 			rows[i] = <EXPENSESRow callBackParent={this.handleCallBack}
 							defaultValues={dataStorage[i]}
 							id={i}
+                            lists = {lists}
 							key={i}
 							handleCallBackParentClick={this.handleCallBackClick} />
 		}
@@ -1263,18 +1450,63 @@ window.EXPENSESRow = React.createClass({
 			edit:false,
 			id:'',
 			pr_id:'',
-			context:''
+			context:'',
+            lists:[],
+            defaultValues:{}
 		}
 	},
+     _getChartOfAccount : function(arraylists, id) {
+        for(var i=0, count=arraylists.length; i<count; i++) {
+            if(arraylists[i].value==id) {
+                return arraylists[i].label;
+            }
+        }
+    },
+     _getDepartment : function(arraylists, id) {
+        for(var i=0, count=arraylists.length; i<count; i++) {
+            if(arraylists[i].value==id) {
+                return arraylists[i].label;
+            }
+        }
+    },
+    _getDivision : function(arraylists, id) {
+        for(var i=0, count=arraylists.length; i<count; i++) {
+            if(arraylists[i].value==id) {
+                return arraylists[i].label;
+            }
+        }
+    },
+     _getBranch : function(arraylists, id) {
+        for(var i=0, count=arraylists.length; i<count; i++) {
+            if(arraylists[i].value==id) {
+                return arraylists[i].label;
+            }
+        }
+    },
+     _getVendor : function(arraylists, id) {
+        for(var i=0, count=arraylists.length; i<count; i++) {
+            if(arraylists[i].value==id) {
+                return arraylists[i].label;
+            }
+        }
+    },
+     _getTaxCode : function(arraylists, id) {
+        for(var i=0, count=arraylists.length; i<count; i++) {
+            if(arraylists[i].value==id) {
+                return arraylists[i].label;
+            }
+        }
+    },
 	render : function () {
+        console.log(this.props.defaultValues.coa_label);
 		if(this.props.context=='view') {
 			return (
 				<tr>
-					<th>{this.props.defaultValues.coa_label}</th>
-					<th>{this.props.defaultValues.department_label}</th>
-					<th>{this.props.defaultValues.division_label}</th>
-					<th>{this.props.defaultValues.branch_label}</th>
-					<th>{this.props.defaultValues.vendor_label}</th>
+					<td>{this.props.defaultValues.coa_label}</td>
+					<td>{this.props.defaultValues.department_label}</td>
+					<td>{this.props.defaultValues.division_label}</td>
+					<td>{this.props.defaultValues.branch_label}</td>
+					<td>{this.props.defaultValues.vendor_label}</td>
 					<td>{this.props.defaultValues.amount}</td>
 					<td>{this.props.defaultValues.taxcode_label}</td>
 					<td>{this.props.defaultValues.tax_amount}</td>
@@ -1287,44 +1519,50 @@ window.EXPENSESRow = React.createClass({
 				return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
 						
-						<CASHONHand callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getCoa'}
-						defaultValue={this.props.defaultValues.coa_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.chartOfAccounts}
+						defaultValue={this.props.defaultValues.coa_id} 
+                        attributes={{name:"coa_id", type:"select", placeholder:"CHART OF ACCOUNT"}} />
 
-						<DEPARTEMENT callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getDepartment'}
-						defaultValue={this.props.defaultValues.department_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.departments}
+						defaultValue={this.props.defaultValues.department_id}
+                        attributes={{name:"department_id", type:"select", placeholder:"DEPARTMENT"}} />
 
-						<DIVISION callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getDivision'}
-						defaultValue={this.props.defaultValues.division_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.divisions}
+						defaultValue={this.props.defaultValues.division_id} 
+                        attributes={{name:"division_id", type:"select", placeholder:"DIVISION"}} />
 
-						<BRANHCES callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getBranch'}
-						defaultValue={this.props.defaultValues.branch_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.branches}
+						defaultValue={this.props.defaultValues.branch_id} 
+                        attributes={{name:"branch_id", type:"select", placeholder:"BRANCH"}} />
 
-						<VENDOR callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getVendor'}
-						defaultValue={this.props.defaultValues.vendor_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.vendors}
+						defaultValue={this.props.defaultValues.vendor_id} 
+                        attributes={{name:"vendor_id", type:"select", placeholder:"VENDOR"}} />
 
 
-						<Amount callBackParent={this.handleCallBack} 
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.amount}
-						attributes={{name:"amount"}} />
+						attributes={{name:"amount", type:"text"}} />
 
 
-						<TAXCode callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getTaxCode'}
-						defaultValue={this.props.defaultValues.taxcode_id} />
+						<InputLineComponent callBackParent={this.handleCallBack} 
+						options={this.props.lists.taxcodes}
+						defaultValue={this.props.defaultValues.taxcode_id} 
+                        attributes={{name:"taxcode_id", type:"select", placeholder:"TAX CODE"}} />
 
 
-						<TAXAmount callBackParent={this.handleCallBack} 
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.tax_amount}
-						attributes={{name:"tax_amount"}} />
+						attributes={{name:"tax_amount", type:"text"}} />
 
-						<GROSSAmount callBackParent={this.handleCallBack} 
+						<InputLineComponent callBackParent={this.handleCallBack} 
 						defaultValue={this.props.defaultValues.gross_amount}
-						attributes={{name:"gross_amount"}} />
+						attributes={{name:"gross_amount", type:"text"}} />
 
 
 					</tr>
@@ -1334,59 +1572,74 @@ window.EXPENSESRow = React.createClass({
 					return (
 					<tr id={"item-"+parseInt(this.props.id+1)}>
 
-						<CASHONHand callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getCoa'}
-						defaultValue={this.props.defaultValues.coa_id} />
+					<InputLineComponent callBackParent={this.handleCallBack} 
+                        options={this.props.lists.chartOfAccounts}
+                        defaultValue={this.props.defaultValues.coa_id} 
+                        attributes={{name:"coa_id", type:"select", placeholder:"CHART OF ACCOUNT"}} />
 
-						<DEPARTEMENT callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getDepartment'}
-						defaultValue={this.props.defaultValues.department_id} />
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        options={this.props.lists.departments}
+                        defaultValue={this.props.defaultValues.department_id}
+                        attributes={{name:"department_id", type:"select", placeholder:"DEPARTMENT"}} />
 
-						<DIVISION callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getDivision'}
-						defaultValue={this.props.defaultValues.division_id} />
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        options={this.props.lists.divisions}
+                        defaultValue={this.props.defaultValues.division_id} 
+                        attributes={{name:"division_id", type:"select", placeholder:"DIVISION"}} />
 
-						<BRANHCES callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getBranch'}
-						defaultValue={this.props.defaultValues.branch_id} />
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        options={this.props.lists.branches}
+                        defaultValue={this.props.defaultValues.branch_id} 
+                        attributes={{name:"branch_id", type:"select", placeholder:"BRANCH"}} />
 
-						<VENDOR callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getVendor'}
-						defaultValue={this.props.defaultValues.vendor_id} />
-
-
-						<Amount callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.amount}
-						attributes={{name:"amount"}} />
-
-
-						<TAXCode callBackParent={this.handleCallBack} 
-						source={base_url+'/ajax/getTaxCode'}
-						defaultValue={this.props.defaultValues.taxcode_id} />
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        options={this.props.lists.vendors}
+                        defaultValue={this.props.defaultValues.vendor_id} 
+                        attributes={{name:"vendor_id", type:"select", placeholder:"VENDOR"}} />
 
 
-						<TAXAmount callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.tax_amount}
-						attributes={{name:"tax_amount"}} />
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        defaultValue={this.props.defaultValues.amount}
+                        attributes={{name:"amount", type:"text"}} />
 
-						<GROSSAmount callBackParent={this.handleCallBack} 
-						defaultValue={this.props.defaultValues.gross_amount}
-						attributes={{name:"gross_amount"}} />
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        options={this.props.lists.taxcodes}
+                        defaultValue={this.props.defaultValues.taxcode_id} 
+                        attributes={{name:"taxcode_id", type:"select", placeholder:"TAX CODE"}} />
+
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        defaultValue={this.props.defaultValues.tax_amount}
+                        attributes={{name:"tax_amount", type:"text"}} />
+
+                        <InputLineComponent callBackParent={this.handleCallBack} 
+                        defaultValue={this.props.defaultValues.gross_amount}
+                        attributes={{name:"gross_amount", type:"text"}} />
 						
 
 
 					</tr>
 					);
 				} else {
+                   
+                      var chartofaccount = (typeof this.props.lists.chartOfAccounts!='undefined') ? this._getChartOfAccount(this.props.lists.chartOfAccounts, this.props.defaultValues.coa_id) : '';
+                      console.log(chartofaccount);
+                        var department = (typeof this.props.lists.departments!='undefined') ? this._getDepartment(this.props.lists.departments, this.props.defaultValues.department_id) : '';
+                        var divition = (typeof this.props.lists.divisions!='undefined') ? this._getDivision(this.props.lists.divisions, this.props.defaultValues.division_id) : '';
+                        var branch = (typeof this.props.lists.branches!='undefined') ? this._getBranch(this.props.lists.branches, this.props.defaultValues.branch_id) : '';
+                        var vendor = (typeof this.props.lists.vendors!='undefined') ? this._getVendor(this.props.lists.vendors, this.props.defaultValues.vendor_id) : '';
+                        var taxcode = (typeof this.props.lists.taxcodes!='undefined') ? this._getTaxCode(this.props.lists.taxcodes, this.props.defaultValues.taxcode_id) : '';
+                      
 					return (
 						<tr onClick={this.handleClick} id={"item-"+parseInt(this.props.id+1)}>
-							<td>{this.props.defaultValues.coa_label}</td>
-							<td>{this.props.defaultValues.department_label}</td>
-							<td>{this.props.defaultValues.division_label}</td>
-							<td>{this.props.defaultValues.branch_label}</td>
-							<td>{this.props.defaultValues.vendor_label}</td>
+							<td>{chartofaccount}</td>
+							<td>{department}</td>
+							<td>{divition}</td>
+							<td>{branch}</td>
+							<td>{vendor}</td>
 							<td>{this.props.defaultValues.amount}</td>
-							<td>{this.props.defaultValues.taxcode_label}</td>
+							<td>{taxcode}</td>
 							<td>{this.props.defaultValues.tax_amount}</td>
 							<td>{this.props.defaultValues.gross_amount}</td>
 						</tr>

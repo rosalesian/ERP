@@ -16,14 +16,14 @@
           <thead>
              <tr>
                 <th>OPTION</th>
+                 <th>ID</th>
                 <th>VENDOR</th>
+                <th>DEPARTMENT</th>
                 <th>TRANSACTION #</th>
                 <th>SUPPLIER NO</th>
-                <th>INVOICE #</th>
                 <th>DUE DATE</th>
                 <th>BILL TYPE</th>
                 <th>NONE TRADE</th>
-                <th>DEPARTMENT</th>
                 <th>CREATED AT</th>
             </tr>
           </thead>
@@ -34,7 +34,7 @@
 </div><!-- /.row -->         
 @stop
 
-@push('scripts')
+@push('scripts_index')
 <script>
 $(function() {
     $('#joborder-table').DataTable({
@@ -43,14 +43,14 @@ $(function() {
         ajax: '{!! route('vendortable.data') !!}',
         columns: [
             {data: 'action', name: 'action', orderable: false, searchable: false},
-            { data: 'vendor_name', name: 'vendor_name'},
             { data: 'id', name: 'id'},
+            { data: 'vendor_name', name: 'vendor_name'},
+            { data: 'department_name', name: 'department_name'},
             { data: 'transno', name: 'transno' },
             { data: 'suppliers_inv_no', name: 'suppliers_inv_no' },
             { data: 'duedate', name: 'duedate' },
-            { data: 'duedate', name: 'duedate' },
-            { data: 'billtype_id', name: 'billtype_id' },
-            { data: 'department_name', name: 'department_name' },
+            { data: 'name', name: 'name' },
+            { data: 'non_trade_name', name: 'non_trade_name' },
             { data: 'created_at', name: 'created_at' }
         ]
     });

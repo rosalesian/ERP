@@ -7,6 +7,8 @@ use Nixzen\Http\Requests\CreateVendorBillRequest;
 use Nixzen\Commands\CreateVendorBillCommand;
 use Nixzen\Commands\UpdateVendorBillCommand;
 
+use Nixzen\Models\VendorBill as VendorBillModel;
+
 use Datatables;
 use DB;
 
@@ -35,20 +37,22 @@ class VendorBillController extends Controller {
 
 	public function anyData()
 	{
-		$vendorbills = DB::table('vendor_bills')
+		$vendorbills = VendorBillModel::select('vendor_bills')
 						->leftjoin('vendors', 'vendor_bills.vendor_id', '=', 'vendors.id')
 						->leftjoin('departments', 'vendor_bills.department_id', '=', 'departments.id')
+						->leftjoin('bill_types', 'vendor_bills.billtype_id', '=', 'bill_types.id')
+						->leftjoin('bill_type_non_trade_sub_types', 'vendor_bills.billtype_nontrade_subtype_id', '=', 'bill_type_non_trade_sub_types.id')
 						->select(
 								'vendor_bills.id',
 								'vendors.name as vendor_name',
 								'departments.name as department_name',
-								'vendor_bills.created_at',
 								'vendor_bills.transno',
 								'vendor_bills.suppliers_inv_no',
 								'vendor_bills.duedate',
-								'vendor_bills.billtype_id',
-								'vendor_bills.billtype_nontrade_subtype_id'
-							);
+								'bill_types.name',
+								'bill_type_non_trade_sub_types.name as non_trade_name',
+								'vendor_bills.created_at'
+							)->get();
 
 		return Datatables::of($vendorbills)
 							 ->addColumn('action', function ($vendorbills) {
@@ -56,6 +60,7 @@ class VendorBillController extends Controller {
                                 '<a href="vendorbill/'.$vendorbills->id.'/edit">Edit |</a>
                                 <a href="vendorbill/'.$vendorbills->id.'"">View</a>';
                             })
+							->editColumn('created_at', '{!! $created_at->diffForHumans() !!}')
 							->make(true);
 	}
 
@@ -135,6 +140,16 @@ class VendorBillController extends Controller {
 	{
 		$this->vendorbill->delete($id);
 		return redirect()->route('vendorbill.index');
+	}
+
+	public function getVendorBillItems() {
+		$vendor = new VendorBillModel(); 
+		return $vendor->getRequest('item');
+	}
+
+	public function getVendorBillexpenses() {
+		$vendor = new VendorBillModel(); 
+		return $vendor->getRequest('expenses');
 	}
 
 }

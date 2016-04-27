@@ -128,33 +128,16 @@ Edit New Vendor Bill
 <script src="{{ asset('js/react/plugin/input-autosize/dist/react-input-autosize.min.js') }}"></script> <!-- input-autosize -->
 <script src="{{ asset('js/react/plugin/react-select/dist/react-select.min.js') }}"></script> <!-- select -->
 
+<!-- REACT PLUGINS -->
+<script src="{{ asset('js/react/plugin/classnames/index.js') }}"></script> <!-- classnames -->
+<script src="{{ asset('js/react/plugin/input-autosize/dist/react-input-autosize.min.js') }}"></script> <!-- input-autosize -->
+<script src="{{ asset('js/react/plugin/react-select/dist/react-select.min.js') }}"></script> <!-- select -->
+
 <!-- MAINLINE COMPONENTS -->
-
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/selectMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/dateMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textAreaMainComponent.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/main-line-components/textMainComponent.js') }}"></script>
-
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/item.js') }}"></script>
-
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/uom.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/coa.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/department.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/division.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/branch.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/vendor_bills/vendor.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/description.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/quantity.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/repair_type.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/amount.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/tax_amount.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/gross_amount.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/tax_code.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/line-items-components/unit_cost.js') }}"></script>
-
-<!-- CUSTOM REACT COMPONENT -->
-<script type="text/babel" src="{{ asset('js/react/components/line-items.js') }}"></script>
-<script type="text/babel" src="{{ asset('js/react/components/pr_canvass_component.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/summaryMainComponent.js') }}"></script>
+<script type="text/babel" src="{{ asset('js/react/components/main-line-components/inputMainComponent.js') }}"></script>
+<!-- LINEITEM COMPONENTS -->
+<script type="text/babel" src="{{ asset('js/react/components/line-items-components/inputLineComponent.js') }}"></script>
 
 <script type="text/babel" src="{{ asset('js/react/forms/vendorbills/vendorbills_view.js') }}"></script>
 
@@ -176,7 +159,7 @@ Edit New Vendor Bill
     'approvalstatus' : <?php echo $approvalstatus->lists('name', 'id');?>,
     'postingperiods' : <?php echo $postingperiods->lists('name', 'id');?>
   };
-
+  console.log(items);
   var context="edit";
   ReactDOM.render(<VendorBillMainComponent 
     context={context} 

@@ -1,8 +1,9 @@
 <?php
-
 namespace Nixzen\Models;
 
+use Nixzen\Http\Controllers\API\ApiController as Api;
 use Illuminate\Database\Eloquent\Model;
+
 
 class VendorBill extends Model
 {
@@ -112,6 +113,15 @@ class VendorBill extends Model
 		}
 
 		return $this->amount;
+	}
+
+	public function getRequest($lineitem)
+	{
+		$api = new Api();
+		$api->lineitem = $lineitem;
+		$classNameWithNamespace=get_class($this);
+		$clasName = substr($classNameWithNamespace, strrpos($classNameWithNamespace, '\\')+1);
+		return $api->get($clasName);	
 	}
 
 }
